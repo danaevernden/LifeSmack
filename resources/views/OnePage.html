@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LifeSmack</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/babel" src="js/main.js"></script>
+	<meta charset='utf-8' />
+  <!--CSS-->
+	<link href='/css/style.css' type='text/css' property='stylesheet' rel='stylesheet'>
+	<link href='/css/PrinsesstartaBoldDEMO.ttf' type='text/css' property='stylesheet' rel='stylesheet'>
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!--JS-->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type='text/javascript' src='/js/functions.js'> </script>
+</head>
+<body>
+	<header>
+		<div class="titlemain">
+		</div>
+		<div class="nav">
+				<a href='/join' class="nav2" class="hvr-underline-from-left">
+					Stats Here
+				</a>
+					-
+					<a href='/'>
+					<img src="/images/LogoSmallCondensed.jpg" class="logo">
+				</a>
+				-
+				 <a href="/account" class ="nav2" class="hvr-underline-from-left">My Account</a>
+			<!--
+					<a href="/about">How it works</a>
+					 -
+					 <a href="/">LifeSmack</a>
+					 -
+					<a href="/join">Join Now</a>
+ -->
+</div>
+</header>
+
+<div id="content"></div>
+<script type="text/babel">
+	var Goal = React.createClass({
+		getInitialState: function() {
+			return {
+				allgoals: []
+			};
+		},
+		componentDidMount: function() {
+
+		},
+		_getGoals: function() {
+			$.get('/goals/all',function(data) {
+				this.setState({ allgoals: data });
+			}.bind(this));
+		},
+	render: function() {
+		var handleGoals = this.state.allgoals.map(function(twt) {
+			return <GoalBanner key={twt.id} id={twt.id} goal={twt.goal_name} />
+		});
+		return (
+			<div>
+				<GoalHeader />
+				<GoalPoster />
+				{this._getGoals()}
+				{handleGoals}
+			</div>
+		);
+		}
+	});
+		var GoalHeader = React.createClass({
+			render: function() {
+				return (
+					<h2> Post your swag ! </h2>
+				);
+			}
+		});
+		var GoalPoster = React.createClass({
+			_handleClick: function() {
+				var goalValue = this.refs.goalvalue.value;
+				console.log(goalValue);
+				$.post('/goals/create', { goal: goalValue }, function(data) {
+					console.log(data);
+				});
+			},
+			render: function() {
+				return (
+					<div>
+						<input type="text" placeholder="your goal ..." ref="goalvalue" />
+						<input type="button" value="Goal" onClick={this._handleClick} />
+				</div>
+				);
+			}
+		});
+		var GoalBanner = React.createClass({
+			getInitialState: function() {
+				return {
+					editinput: false
+				};
+			},
+			_removeItem: function() {
+				console.log(this.props.id);
+				$.post('/goals/delete',{ id: this.props.id }, function(data) {
+					console.log(data);
+				});
+			},
+			_editItem: function() {
+				this.state.editinput ? this.setState({ editinput: false }) : this.setState({ editinput: true });
+			},
+			_handleSubmit: function() {
+				var editedValue = this.refs.editGoalValue.value;
+				$.post('/goals/edit', { id: this.props.id, goal: editedValue },function() {
+					this.setState({ editinput: false });
+				}.bind(this));
+			},
+			render: function() {
+				return(
+					<div>
+						Goal by Swagger :
+						{this.props.goal}
+						{this.state.editinput ? <div> <input type="text"  placeholder="edit ..." ref="editGoalValue" /> <button onClick={this._handleSubmit} > Done </button> </div>: '' }
+						<button onClick={this._editItem} > Edit </button>
+						<button onClick={this._removeItem} > Remove </button>
+					</div>
+				);
+			}
+		});
+		ReactDOM.render(
+			<Goal />,
+			document.getElementById('content')
+		);
+</script>
+
+
+</body>
+</html>
