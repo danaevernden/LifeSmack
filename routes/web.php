@@ -28,6 +28,8 @@ Route::post('/goals/create', 'GoalController@create'); /*create goal*/
 Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
 Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
 
+Route::get('/newsfeed', 'NewsfeedController@getIndex')->name('newsfeed.show');
+
 /*OOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDD*/
 
 Route::get('/goal/create', 'GoalsController@PostCreate')->name('goals.create');
@@ -40,7 +42,6 @@ Route::get('/about', 'AboutController@getIndex')->name('about.show');
 Route::get('/join', 'JoinController@getIndex')->name('join.create');
 
 /*to add later*/
-Route::get('/newsfeed', 'NewsfeedController@getIndex')->name('newsfeed.show');
 Route::get('/SmackIt','SmackitController@getIndex')->name('smackit.show');
 Route::get('/account','AccountController@getIndex')->name('account.show');
 

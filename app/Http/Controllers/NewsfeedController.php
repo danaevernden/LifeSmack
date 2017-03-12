@@ -13,6 +13,6 @@ class NewsfeedController extends Controller
   * Responds to requests to homepage
   */
   public function getIndex() {
-      return view('newsfeed.show');
+    return array();
   }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardActions, CardTitle } from 'material-ui/Card';
 
 type Props = {
   id: String,
@@ -13,11 +15,9 @@ class GoalNames extends React.Component {
       name,
     } = this.props;
     return (
-      <h2 key={id}>
+      <h2>
      <p>{'Test Test Goal Names.'}
       </p>
-
-        <h1 title={name} subtitle='Upcoming' />
       </h2>
     );
   }

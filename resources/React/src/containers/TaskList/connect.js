@@ -1,4 +1,4 @@
-import {addGoalsTask} from '../../actions/goals';
+import {addTaskToGoal} from '../../actions/tasks';
 
 export const mapStateToProps = (state) => ({
   goals: state.goals.goals
@@ -10,5 +10,5 @@ export const mapDispatchToProps = (dispatch) => ({
   //of functions that will dispatch actions globally
   //action is an object with a type key
   //addnewsitem is the action creator, which is a function
-  addGoalsTask: (goal_name, task) => dispatch(addGoalsTask(goal_name, task))
+  addTaskToGoal: (task) => dispatch(addTaskToGoal(task))
 });

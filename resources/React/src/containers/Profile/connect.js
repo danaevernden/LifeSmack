@@ -1,7 +1,7 @@
-import {addGoalsTask} from '../../actions/goals';
+import {updateProfileInfo} from '../../actions/profile';
 
 export const mapStateToProps = (state) => ({
-  goals: state.goals.goals
+  profile: state.profile.profile
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -10,5 +10,5 @@ export const mapDispatchToProps = (dispatch) => ({
   //of functions that will dispatch actions globally
   //action is an object with a type key
   //addnewsitem is the action creator, which is a function
-  addGoalsTask: (goal_name, task) => dispatch(addGoalsTask(goal_name, task))
+  updateProfileInfo: (first_name, last_name, city, state) => dispatch(updateProfileInfo(first_name, last_name, city, state))
 });

@@ -1,17 +1,13 @@
-import { CALL_API } from 'redux-api-middleware';
+export const ADD_GOALS_TASK = 'ADD_GOALS_TASK';
 
-export const FETCH_GOALS_REQUEST = 'FETCH_GOALS_REQUEST';
-export const FETCH_GOALS_SUCCESS = 'FETCH_GOALS_SUCCESS';
-export const FETCH_GOALS_FAILURE = 'FETCH_GOALS_FAILURE';
-
-export default function fetchProductions() {
+export const addGoalsTask = (goal_name) => {
+  //returns type and item, action creator always dispatches an object
+  //an action is an object with a type key
   return {
-    [CALL_API]: {
-      endpoint: '/api/v1/goals',
-      method: 'GET',
-      // Don't have to manually add the Authorization header to every request.
-      headers: { 'Content-Type': 'application/json' },
-      types: [FETCH_GOALS_REQUEST, FETCH_GOALS_SUCCESS, FETCH_GOALS_FAILURE],
-    },
+    type: ADD_GOALS_TASK,
+    goalTask: {
+      goal_name
+    }
   };
 }
+addGoalsTask
