@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import Homepage from '../../components/Homepage';
+import Homepage from '../../../components/Homepage';
 import { mapStateToProps } from './connect';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
@@ -23,7 +23,7 @@ class Marketplace extends React.Component{
       filter: "",
       plans:true,
       packages:true,
-      supplemental:true
+      supplemental:false
     }
         this.togglePlans = this.togglePlans.bind(this);
         this.togglePackages = this.togglePackages.bind(this);
@@ -55,25 +55,21 @@ render () {
     if (this.state.filter) {
       return item.marketplace.startsWith(this.state.filter);
     }
-    else if ((this.state.plans) && (this.state.packages) && (this.state.supplemental)){
+    else if (this.state.plans){ //if plans is true
         return true;
-      }
-    else if ((!this.state.plans) && (this.state.packages) && (this.state.supplemental)){
-      return item.category !== "plans";
-    }
-    return true;
+      } //return all
+    else if(this.state.supplemental){
+        return true;}
+        else{return item.category !== "supplemental";} //return all except supp
     })
     .map((marketplace) =>
     <div>
-        <a href={'/marketplace/' + marketplace.goal_id}>
-          <CardTitle style={style} title={marketplace.goal_name} subtitle={'by' + marketplace.name} />
-        </a>
+      <CardTitle href={'/marketplace/' + marketplace.goal_id} style={style} title={marketplace.goal_name} subtitle={'by' + marketplace.name} />
       <CardText>Description: {marketplace.plan_description}
-      <br/><br/>
-      Rating: {marketplace.rating}
+      <br/>{marketplace.category}<br/>
       </CardText>
       <CardActions>
-        <FlatButton href={'/marketplace/reviews/' + marketplace.goal_id} label="Reviews" />
+        <FlatButton href={'/marketplace/' + marketplace.goal_id} label="See more" />
       </CardActions>
       <Divider />
     </div>
@@ -88,7 +84,7 @@ render () {
                 <div>
                   <Toggle label = {"Plans"} defaultToggled={true} onToggle={this.togglePlans} />
                   <Toggle label = {"Packages"} defaultToggled={true} onToggle={this.togglePackages} />
-                  <Toggle label = {"Supplemental"} defaultToggled={true} onToggle={this.toggleSupplemental} />
+                  <Toggle label = {"Supplemental"} defaultToggled={false} onToggle={this.toggleSupplemental} />
                   <Card>
                       {listItems}
                   </Card>

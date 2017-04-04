@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, { Component } from 'react';
 import logo from './LogoSmallCondensed.jpg';
 import AppBar from 'material-ui/AppBar';
@@ -17,6 +16,9 @@ import { isEmpty } from 'lodash';
 import Counter from '../Counter';
 import './style.css';
 
+//to do
+//--add link to lifesmack logo
+
 const muiTheme = getMuiTheme({
   appBar: {
     color: red700,
@@ -27,12 +29,13 @@ const muiTheme = getMuiTheme({
   },
 });
 
+type Props = {
+  main:any,
+};
 
 /* Component */
 class Homepage extends Component {
-
   render() {
-
 
     const rightButton = (
       <FlatButton onClick={this.handleAuthClicked}>
@@ -40,33 +43,31 @@ class Homepage extends Component {
       </FlatButton>
     );
     const leftButton = (
-      <IconMenu
+
+       <IconMenu
         iconButtonElement={
           <IconButton><Menu /></IconButton>
         }
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       >
+      <a href='/'>
+        <MenuItem primaryText="Goals" />
+      </a>
       <a href='/profile'>
         <MenuItem primaryText="Profile" />
       </a>
       <a href='/marketplace'>
         <MenuItem primaryText="Marketplace" />
       </a>
-      <a href='/newsfeed'>
-        <MenuItem primaryText="Newsfeed"/>
-      </a>
       </IconMenu>
     );
-
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <AppBar
-      //  showMenuIconButton={false}
         iconElementLeft={leftButton}
         title= 'LifeSmack'
       />
-      {this.props.children}
       </MuiThemeProvider>
     );
   }

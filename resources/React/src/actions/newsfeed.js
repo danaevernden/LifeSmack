@@ -11,4 +11,5 @@ export const addNewsItem = (name, task) => {
     }
   };
 }
+
 addNewsItem

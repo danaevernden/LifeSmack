@@ -1,12 +1,12 @@
 import {ADD_GOALS_TASK} from '../actions/goals';
-import {ADD_TASK_TO_GOAL} from '../actions/tasks';
 
 
 const DEFAULT_STATE = {
   goals:
-  [{goal_id: 1, goal_name: "Run 2017 NYC Marathon", task: "completed framework for site"
-  },
+  [
+  {goal_id: 1, goal_name: "Run 2017 NYC Marathon", task: "completed framework for site"},
   {goal_id: 2, goal_name: "Build Lifesmack", task:["build out UI, ", "add clear button to newsfeed"]}
+  
   ]
 }
 
@@ -18,13 +18,7 @@ const goals = (state = DEFAULT_STATE, action) => {
         goals: state.goals.concat([action.goalTask])
       };
     }
-    case ADD_TASK_TO_GOAL: {
-    return {
-      ...state, //copies everything from the existing state into the new state
-      goals: state.goals.concat([action.TaskToGoal])
-    };
-  }
-    default:
+      default:
       return state;
   }
 }

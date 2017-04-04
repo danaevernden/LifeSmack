@@ -1,4 +1,4 @@
-import {addNewsItem} from '../../actions/newsfeed';
+import {addNewsItem} from '../../../actions/newsfeed';
 
 export const mapStateToProps = (state) => ({
   newsfeed: state.newsfeed.newsfeed

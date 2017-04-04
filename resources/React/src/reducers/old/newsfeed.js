@@ -1,10 +1,10 @@
-import {ADD_NEWS_ITEM} from '../actions/newsfeed';
+import {ADD_NEWS_ITEM} from '../../actions/newsfeed';
 
 const DEFAULT_STATE = {
   newsfeed:
-  [{name: "Jane Doe", task: "completed framework for site"
-  },
-  {name: "Jon Smith", task:"ran 10 miles"}
+  [{task_num: "1", name: "Jane Doe", task: "completed framework for site",  likes:3}
+  ,
+  {task_num: "2", name: "Jon Smith", task:"ran 10 miles", likes:23}
   ]
 }
 

@@ -29,6 +29,7 @@ Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
 Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
 
 Route::get('/newsfeed', 'NewsfeedController@getIndex')->name('newsfeed.show');
+Route::get('/newsfeed2', 'NewsfeedController@getArray')->name('newsfeed.create');
 
 /*OOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDD*/
 

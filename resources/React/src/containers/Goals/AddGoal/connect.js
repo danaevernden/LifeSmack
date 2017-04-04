@@ -1,7 +1,7 @@
-import {addGoalsTask} from '../../actions/goals';
+import {addGoalsTask} from '../../../actions/goals';
 
 export const mapStateToProps = (state) => ({
-  goals: state.goals.goals
+  marketplace: state.marketplace.marketplace
 });
 
 export const mapDispatchToProps = (dispatch) => ({
