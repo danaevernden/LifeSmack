@@ -8,7 +8,7 @@ class CheckboxButton extends React.Component {
 constructor(props){
   super(props)
   this.state= {
-    checked: false
+    checked: true
   }
   this.updateCheckbox = this.updateCheckbox.bind(this);
 }

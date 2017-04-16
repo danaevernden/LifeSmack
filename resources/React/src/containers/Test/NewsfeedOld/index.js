@@ -2,7 +2,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
 
 
 class Newsfeed extends React.Component{
@@ -65,7 +64,6 @@ class Newsfeed extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-              <Homepage/>
               <h2>Newsfeed</h2>
                 <input onChange={this.updateFilter} value={this.state.filter}/>
                 <ul>{listItems}</ul>

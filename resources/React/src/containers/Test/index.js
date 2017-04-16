@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import Homepage from '../../components/Homepage';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

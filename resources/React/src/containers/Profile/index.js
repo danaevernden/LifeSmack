@@ -2,7 +2,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import Homepage from '../../components/Homepage';
 
 
 //to do
@@ -69,7 +68,6 @@ class Profile extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
               <h2>Profile</h2>
                 <div>
                   <div>

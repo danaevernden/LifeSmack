@@ -1,7 +1,6 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import Homepage from '../../../components/Homepage';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -46,7 +45,6 @@ render () {
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
             <h2>Write your own goal</h2>
           </div>
       </div>

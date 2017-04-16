@@ -17,6 +17,13 @@ type Props = {
   catValue: String
 }
 
+const styles = {
+  addTask : {
+    display: 'inline-block',
+    marginBottom: '10px'
+  }
+};
+
 class AddTask extends React.Component {
   props : Props
   state = {
@@ -25,6 +32,7 @@ class AddTask extends React.Component {
     name: "",
     scheduled: null
   };
+
 
 //figure out how to pass task, schedule, category back to main index page
   taskChange = (event, name) => this.setState({name});
@@ -69,13 +77,13 @@ class AddTask extends React.Component {
     return(
       <MuiThemeProvider>
       <div>
-        <RaisedButton label={"Add Task"} onTouchTap={this.addTaskOpen} />
+        <RaisedButton label={"Add Task"} style={styles.addTask} onTouchTap={this.addTaskOpen} />
         <Dialog
-        title="Add a task"
-        actions={addTaskActions}
-        modal={false}
-        open={this.state.addTaskOpen}
-        onRequestClose={this.addTaskClose}>
+            title="Add a task"
+            actions={addTaskActions}
+            modal={false}
+            open={this.state.addTaskOpen}
+            onRequestClose={this.addTaskClose}>
         </Dialog>
       </div>
       </MuiThemeProvider>

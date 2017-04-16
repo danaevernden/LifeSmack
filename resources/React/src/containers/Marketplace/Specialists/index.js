@@ -2,17 +2,27 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Chip from 'material-ui/Chip';
+import { green500, grey500 } from 'material-ui/styles/colors';
 
 
 //to do
 //--what filter options would be wanted on this page, if any?
 //--helpful button increments 'likes' on a review
-//--change rating to filling in 5 stars or with emojis
+
+const styles = {
+  chipStyle: {
+  margin: 4},
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginLeft: '45%'
+  }
+}
 
 class Specialist extends React.Component{
 
@@ -30,11 +40,12 @@ class Specialist extends React.Component{
     })
     .map((marketplace) =>
     <div>
-      <CardTitle href={'/marketplace/' + marketplace.goal_id} title={marketplace.goal_name} subtitle={'by' + marketplace.name} />
-      <CardText>Description: {marketplace.plan_description}
-      <br/><br/>
-      Rating: {marketplace.rating}
-      </CardText>
+      <a href={'/marketplace/' + marketplace.goal_id}><h2>{marketplace.goal_name}</h2></a>
+      <div style={styles.wrapper}>
+          <Chip style={styles.chipStyle} backgroundColor={green500}>{marketplace.category}</Chip>
+      </div>
+      <div>Description: {marketplace.plan_description}</div>
+      <br/>
       <Divider />
     </div>
     );
@@ -43,7 +54,7 @@ class Specialist extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
+            <FlatButton linkButton={true} href={'/marketplace/'}>Back</FlatButton>
             <h2>{this.props.route.name}</h2>
             <MuiThemeProvider>
               <div>

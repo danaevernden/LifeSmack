@@ -10,7 +10,7 @@ class TaskMenu extends React.Component {
   render() {
     return (
       <IconMenu
-           iconButtonElement={<IconButton><MoreMenu /></IconButton>}
+           iconButtonElement={<FlatButton label="options" icon={<MoreMenu />}/>}
            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
            targetOrigin={{horizontal: 'left', vertical: 'top'}}
          >

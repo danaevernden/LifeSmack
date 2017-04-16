@@ -2,54 +2,80 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import StarRatingComponent from 'react-star-rating-component';
 
-
-//to do
+    //to do
 //--subtitle href to click on specialist name, already have page for them
-//--what filter options would be wanted on this page, if any?
-//--helpful button increments 'likes' on a review
-//--change rating to filling in 5 stars or with emojis
-
+//--helpful button increments 'likes' on a review - started working on but haven't figured it out
+//--if reviewcount = 0, message 'no reviews'
 class MarketItem extends React.Component{
 
   constructor(props){
     super(props)
     this.state= {
+      likeButton: 0
+        }
+        this.increment = this.increment.bind(this);
     }
 
-    }
+    increment(id) {
+      this.setState({likeButton: this.id})
+      var likeButton = this.state.likeButton + 1;
+      this.setState({likeButton: likeButton})
+    };
 
   render() {
 
+    const noReviews =
+    <div></div>;
+      var reviewsToCount = this.props.reviews.filter((item) => {
+      return item.goal_id == this.props.route.marketItem;
+    });
+    var reviewsCount = reviewsToCount.length;
+   //commented out for testing
+//   let goalsCount = 3;
+    let noReviewsMessage = null;
+    if(reviewsCount <=0) {
+      noReviewsMessage =
+      <div>
+        <Divider />
+        <br/>
+        <div>No reviews yet :( </div>
+        <br/>
+      </div>;
+    }
+
     const marketplaceItems = this.props.marketplace.filter((item) => {
-    return item.goal_id == 1;
+    return item.goal_id == this.props.route.marketItem;
     })
     .map((marketplace) =>
     <div>
-      <CardTitle href={'/marketplace/' + marketplace.goal_id} title={marketplace.goal_name} subtitle={'by' + marketplace.name} />
+      <FlatButton linkButton={true} href={'marketplace'}>Back</FlatButton>
+      <h2>{marketplace.goal_name}</h2>
+      <h4>{'by ' + marketplace.name}</h4>
       <CardText>
       Description: {marketplace.plan_description}
       <br/><br/>
-      Rating: {marketplace.rating}
+      Rating:  <StarRatingComponent starCount={5} value={marketplace.rating}/>
       </CardText>
       <Divider />
     </div>
     );
 
     const listItems = this.props.reviews
+    .filter((item) => {
+    return item.goal_id == this.props.route.marketItem;})
     .map((reviews) =>
     <div>
-    <CardText>Rating: {reviews.rating} | {reviews.name}: {reviews.review}
-    </CardText>
+    <CardText>Rating: <StarRatingComponent starCount={5} value={reviews.rating}/> <br/> {reviews.name}: {reviews.review}
     <br/>
-    <CardActions>
-    <FlatButton label="helpful?" />
-    </CardActions>
+    <FlatButton label="helpful?" id={reviews.helpful} onClick={this.increment}/>
+    {this.state.likeButton}
+    </CardText>
     <Divider />
     </div>
     );
@@ -57,7 +83,6 @@ class MarketItem extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
             <MuiThemeProvider>
               <div>
                 <Card>
@@ -69,6 +94,7 @@ class MarketItem extends React.Component{
               <div>
                 <Card>
                     {listItems}
+                    {noReviewsMessage}
                 </Card>
               </div>
             </MuiThemeProvider>

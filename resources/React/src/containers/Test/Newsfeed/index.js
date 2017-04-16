@@ -2,8 +2,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
-import FlatButotn from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton';
 
 //to do:
 //--want to add like button:
@@ -67,7 +66,6 @@ class Newsfeed extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
               <h2>Newsfeed</h2>
                 Search: <input onChange={this.updateFilter} value={this.state.filter}/>
                 <div>

@@ -37,13 +37,14 @@ type Props = {
 class Homepage extends Component {
   render() {
 
-    const rightButton = (
-      <FlatButton onClick={this.handleAuthClicked}>
-        Profile
-      </FlatButton>
-    );
-    const leftButton = (
+    const goalMenuitems = this.props.goals
+      .map((goals) =>
+      <MenuItem primaryText={goals.goal_name} />,
+    )
+    ;
 
+    const leftButton = () => (
+      <div>
        <IconMenu
         iconButtonElement={
           <IconButton><Menu /></IconButton>
@@ -51,21 +52,20 @@ class Homepage extends Component {
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       >
-      <a href='/'>
-        <MenuItem primaryText="Goals" />
-      </a>
+
       <a href='/profile'>
-        <MenuItem primaryText="Profile" />
+        <MenuItem primaryText="Profile" rightIcon={<ArrowDropRight />}/>
       </a>
       <a href='/marketplace'>
         <MenuItem primaryText="Marketplace" />
       </a>
       </IconMenu>
+    </div>
     );
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <AppBar
-        iconElementLeft={leftButton}
+        iconElementRight={leftButton}
         title= 'LifeSmack'
       />
       </MuiThemeProvider>

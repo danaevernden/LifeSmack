@@ -1,7 +1,6 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import Homepage from '../../../components/Homepage';
 import { mapStateToProps } from './connect';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
@@ -9,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import AddCustomGoal from '../../../components/AddCustomGoal';
+import StarRatingComponent from 'react-star-rating-component';
 
 //to do
 //--populate stars with ratings or use emojis or something
@@ -72,7 +72,6 @@ render () {
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
             <h2>Choose a goal from the marketplace</h2>
             Search:
             <input />

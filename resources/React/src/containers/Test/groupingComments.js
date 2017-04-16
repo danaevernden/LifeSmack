@@ -4,7 +4,7 @@ import React from 'react';
 import { mapStateToProps } from './connect';
 
 
-
+//0 and 00 should be worked on
 class GroupingComments extends React.Component{
   constructor() {
     super()

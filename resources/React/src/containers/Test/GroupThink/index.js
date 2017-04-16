@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MyGroups from '../../../components/MyGroups';
 import JoinGroups from '../../../components/JoinGroups';
@@ -27,7 +26,6 @@ class GroupThink extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-          <Homepage />
               <h2>GroupThink</h2>
               <h3>My Groups</h3>
               <MuiThemeProvider>

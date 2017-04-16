@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { sortBy } from 'lodash';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import Homepage from '../../components/Homepage';
 import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {List, ListItem} from 'material-ui/List';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionComment from 'material-ui/svg-icons/communication/chat-bubble';
 import ActionCommentOutline from 'material-ui/svg-icons/communication/chat-bubble-outline';
+import Assignment from 'material-ui/svg-icons/action/assignment';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green500, grey500 } from 'material-ui/styles/colors';
 import { Field, reduxForm } from 'redux-form';
@@ -20,13 +21,21 @@ import CheckboxButton from '../../components/CheckboxButton';
 import AddTask from '../../components/AddTask';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
+import FlatButton from 'material-ui/FlatButton';
+import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
+import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import ManageCategories from '../../components/ManageCategories';
+import Checkbox from 'material-ui/Checkbox';
+
 //to do
 //search is working but buggy
+//fix taskMenu position - position:fixed isn't working
 //added snackbar but it's not working
 //add if statement to change sortOption based on what button is clicked
 //find out if there is a hierarchy material-ui or equivalent
 //add sort functionality in task list
+//align checkbox with task
+//get up/down arrow on parent task to collapse/expand tasks underneath
 //add switch for showing scheduled dates
 //--move checkbox to middle or different place
 //--add a completeTask function to connect to change the value in the table from true to false for an item when it is checked complete
@@ -43,14 +52,48 @@ const styles = {
   chipStyle: {
   margin: 4},
   wrapper: {
-    display: 'flex',
     flexWrap: 'wrap',
-    marginLeft: '30%'
+    marginBottom: '20px',
+    marginLeft: '20%',
+    marginRight: '20%',
+    maxWidth: '600px'
   },
   parentStyle: {
-    textAlign: 'left',
-    marginLeft: '20%'
+    display: 'inline-block',
+    textAlign: 'left'
   },
+  checkboxCompleted: {
+    display: 'inline-block',
+    width: '10%'
+  },
+  CompTasksGrouper: {
+    textAlign: 'center',
+    display: 'flex'
+  },
+  background: {
+    backgroundColor: 'rgb(233,235,238)'
+  },
+  parentTaskItems: {
+    flexWrap: 'wrap',
+    marginBottom: '20px',
+    marginLeft: '10%',
+    marginRight: '30%'
+  },
+  topMenu: {
+    width: '100%',
+    flexWrap: 'wrap',
+    display: 'inline-block'
+  },
+  inlineBlock: {
+    display: 'inline-block',
+    marginBottom: '10px'
+  },
+  goalItem: {
+    marginBottom: '5px'
+  },
+  TaskListSortOptions: {
+    marginTop: '-20px'
+  }
 };
 
 class TaskList extends React.Component{
@@ -58,19 +101,33 @@ class TaskList extends React.Component{
   constructor(props){
     super(props)
     this.state= {
-      filter_complete: "true",
       filter: "",
-      task_expanded: false,
-      sortOption: "",
-      checked: false,
-      taskComplete: false
+      commentsExpanded: false,
+      sortOption: "Category",
+      taskComplete: false,
+      expandParentTask: true,
+      showCompletedTasks: false
     }
-    this.expandTask = this.expandTask.bind(this);
+    this.expandComments = this.expandComments.bind(this);
+    this.expandParentTask = this.expandParentTask.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
     this.completeTask = this.completeTask.bind(this);
+    this.showCompletedTasks = this.showCompletedTasks.bind(this);
     this.sortOptionSelection = this.sortOptionSelection.bind(this);
   }
+//get this to work, test it first?
+  sortBy(field) {
+      this.setState({
+        tasks: sortBy(this.state.tasks, field)
+      })
+  }
 
+  showCompletedTasks() {
+    this.setState({showCompletedTasks: !this.state.showCompletedTasks})
+  }
+  expandParentTask() {
+    this.setState({expandParentTask: !this.state.expandParentTask})
+  }
   completeTask() {
     this.setState({taskComplete: true})
   }
@@ -93,8 +150,8 @@ class TaskList extends React.Component{
     })
   }
 
-  expandTask() {
-      this.setState({task_expanded: !this.state.task_expanded});
+  expandComments() {
+      this.setState({commentsExpanded: !this.state.commentsExpanded});
   }
 
   render() {
@@ -105,28 +162,33 @@ class TaskList extends React.Component{
       return item.parent_task == null && item.goal_id == this.props.route.goalID;
       })
     .map((tasks) =>
+    <div style={styles.parentTaskItems}>
+    <Card>
       <div style={styles.parentStyle}>
+        <div style={styles.checkboxCompleted}>
+            {tasks.complete == true ? <ActionDone /> : <CheckboxButton />}
+        </div>
         <TextField defaultValue={tasks.task_name}/>
-        {tasks.complete =="true" ? <ActionDone /> : <CheckboxButton />}
-
+      </div>
+      {this.state.expandParentTask ? <ExpandLess onTouchTap={this.expandParentTask} /> : <ExpandMore onTouchTap={this.expandParentTask}/>}
+      </Card>
       </div>
     );
 
     const commentItems =this.props.tasks.filter((item) => {
-      if (this.state.task_expanded) {
+      if (this.state.commentsExpanded) {
         return true;
       }
         return false;
     })
     .map((tasks) =>
     <div>
-        <ListItem  primaryText="hey" />
+        <ListItem primaryText="hey" />
     </div>
   );
 
-
     const listItems = this.props.tasks.filter((item) => {
-        if (this.state.checked) {
+        if (this.state.showCompletedTasks) {
                 if (this.state.filter) {
                   return item.parent_task!== null && item.goal_id ==this.props.route.goalID && item.task_name.startsWith(this.state.filter);
                 }
@@ -140,29 +202,46 @@ class TaskList extends React.Component{
     .map((tasks) =>
     <div>
     <div style={styles.wrapper}>
-        {tasks.complete =="true" ? <ActionDone /> : <CheckboxButton onTouchTap={this.completeTask}/>}
-        <TextField defaultValue={tasks.task_name} />
-            {this.state.task_expanded ? <ActionCommentOutline onClick={this.expandTask}/> : <ActionComment onClick={this.expandTask}/>}
-            {today > tasks.scheduled ? <ActionWarning /> : null}
-                {tasks.task_type =="task" ?
-                <Chip style={styles.chipStyle} backgroundColor={green500}>Task</Chip>
-                :    <Chip backgroundColor={grey500}>Supplemental</Chip>
-                }
-                <TaskMenu />
-                <ScheduleButton />
-           </div>
+      <Card>
+          <div style={styles.parentStyle}>
+          <div style={styles.checkboxCompleted}>
+            {tasks.complete =="true" ? <ActionDone /> : <CheckboxButton onTouchTap={this.completeTask}/>}
+          </div>
+          <div  style={styles.completeTask}>
+            <TextField defaultValue={tasks.task_name} />
+          </div>
+          </div>
+          <CardActions>
+            {this.state.commentsExpanded ?
+              <FlatButton icon={<ActionCommentOutline/>}
+                  label="comment"
+                  onClick={this.expandComments}/>
+              :
+              <FlatButton icon={<ActionComment/>}
+                  label="comment"
+                  onClick={this.expandComments}/>
+            }
+          <TaskMenu />
+          <FlatButton icon={<Assignment />} label="categories"/>
+          {today > tasks.scheduled ? <ActionWarning /> : <ScheduleButton />}
+
+          </CardActions>
+          {tasks.task_type =="task" ?
+            <Chip style={styles.chipStyle} backgroundColor={green500}>Task</Chip>
+            :    <Chip backgroundColor={grey500}>Supplemental</Chip>
+          }
         {commentItems}
+        </Card>
+
         <Snackbar
           open={this.state.taskComplete}
           message="Nice work!"
           autoHideDuration={4000}
           onRequestClose={this.completeTaskClose}
         />
-
+    </div>
     </div>
     );
-
-
 
     const goalItems = this.props.goals.filter((item) => {
     return item.goal_id == this.props.route.goalID;
@@ -171,39 +250,63 @@ class TaskList extends React.Component{
     <div>{goals.goal_name}</div>
     );
 
+    let expandParentTaskVar = null;
+    if(this.state.expandParentTask) {
+      expandParentTaskVar =
+      <div>
+      <MuiThemeProvider>
+        <Card style={styles.background}>
+          <Divider />
+          {listItems}
+        </Card>
+      </MuiThemeProvider>
+      </div>;
+    }
+
 //checkbox:
 //https://facebook.github.io/jest/docs/tutorial-react.html
     return (
-      <div className = 'App-page'>
-          <div className = 'App-content'>
-          <Homepage/>
-              <h2>Goal: {goalItems} </h2>
-              Organize by:
+      <div className = 'App-page' >
+        <div className = 'App-content'>
+          <div className='Top-menu' style={styles.topMenu} >
+              <h2 style={styles.goalItem}>Goal: {goalItems} </h2>
+              <div style={styles.inlineBlock}>
                 <MuiThemeProvider>
-                <div>
+                  <div style={styles.TaskListSortOptions}>
                     <TaskListSortOptions/>
                     </div>
                 </MuiThemeProvider>
+              </div>
+              <div style={styles.inlineBlock}>
                 Search: <input onChange={this.updateFilter} value={this.state.filter}/>
-                <br/>
-                <br/>
-                Show Completed Tasks?
-                <CheckboxButton />
-                <div>
-                <MuiThemeProvider>
-                  <Card>
-                    <Divider />
-                    {parentTaskItems}
-                    {listItems}
-                  </Card>
-                </MuiThemeProvider>
+              </div>
+              <div style={styles.inlineBlock}>
+                <div style={styles.CompTasksGrouper}>
+                  <div><Checkbox checked={this.state.showCompletedTasks} onCheck={this.showCompletedTasks} /></div>
+                    Show Completed Tasks?
+                  </div>
+                  <div>
+                  <FlatButton onClick={this.sortBy.bind(this, 'task_id')}>
+                      sort by id
+                  </FlatButton>
                 </div>
-                <br/>
-                <div>
-                    <AddTask/>
-                    <ManageCategories/>
                 </div>
+                <div>
+                <div style={styles.inlineBlock}>
+                  <AddTask/>
+                  <ManageCategories/>
+                </div>
+              </div>
             </div>
+              <MuiThemeProvider>
+                <Card style={styles.background}>
+                  <Divider />
+                  {parentTaskItems}
+                </Card>
+              </MuiThemeProvider>
+              </div>
+              {expandParentTaskVar}
+          <br/>
       </div>
     );
   }

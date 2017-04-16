@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps } from './connect';
-import Homepage from '../../../components/Homepage';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -12,6 +11,12 @@ import Divider from 'material-ui/Divider';
 
 //features
 //logic is there for >3 goals to not have 'add goal' button appear
+const styles = {
+    background: {
+        backgroundColor: 'rgb(233,235,238)'
+    }
+};
+
 class GoalList extends React.Component{
 
   constructor(props){
@@ -35,8 +40,7 @@ class GoalList extends React.Component{
 
     const length = <div>{this.props.goals.length}</div>;
 
-    const addGoal =
-    <FlatButton label={"Add Goal"} linkButton={true} href={'/goals/add'} primary={true} />;
+    const addGoal =  <FlatButton label={"Add Goal"} linkButton={true} href={'/goals/add'} primary={true} />;
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
    //commented out for testing
@@ -56,7 +60,6 @@ class GoalList extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <Homepage/>
             <h2>Goals</h2>
               <MuiThemeProvider>
                 <div>
@@ -66,7 +69,7 @@ class GoalList extends React.Component{
                   </Card>
                 </div>
               </MuiThemeProvider>
-          </div>
+            </div>
       </div>
     );
   }
