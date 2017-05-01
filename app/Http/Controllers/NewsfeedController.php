@@ -12,13 +12,6 @@ class NewsfeedController extends Controller
   /**
   * Responds to requests to homepage
   */
-  public function getIndex() {
-    return array(array("task_num"=>"1", "name"=>"Jane Doe",
-    "task"=> "completed framework for site", "likes"=>2),
-    array("task_num"=>"2", "name"=>"John Smith",
-    "task"=> "ran 10 miles", "likes"=>23)
-  );
-  }
 
   public function getArray() {
     return $tasks = \App\Task::with('goal')->get();

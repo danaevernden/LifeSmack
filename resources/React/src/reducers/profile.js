@@ -1,14 +1,8 @@
 import {UPDATE_PROFILE_INFO} from '../actions/profile';
+import {FETCH_PROFILE_SUCCESS} from '../actions/profile';
 
-const DEFAULT_STATE = {
-  profile:
-  [{first_name: "Jane", last_name: "Doe",
-  city: "New York", state: "New York"
-  }
-  ]
-}
 
-const profile = (state = DEFAULT_STATE, action) => {
+const profile = (state = {}, action) => {
   switch(action.type) {
     // type tells the reducer what to do
     // all reducers are listening for an action
@@ -21,6 +15,14 @@ const profile = (state = DEFAULT_STATE, action) => {
         profile: state.profile.concat([action.profile])
       };
     }
+    case FETCH_PROFILE_SUCCESS: {
+      console.log('CHECK IT OUT, PROFILE!', action);
+      return {
+        ...state,
+        profile: action.payload
+      };
+    }
+
     default:
       return state;
   }

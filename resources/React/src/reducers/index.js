@@ -2,13 +2,14 @@ import { combineReducers } from 'redux';
 import newsfeed from './old/newsfeed';
 import goals from './goals';
 import profile from './profile';
-import marketplace from './marketplace';
 import tasks from './tasks';
-import comments from './comments';
-import groupthink from './groupthink';
-import mygroups from './mygroups';
+import groupthink from './old/groupthink';
+import mygroups from './old/mygroups';
 import reviews from './reviews';
 import categories from './categories';
+import markettasks from './markettasks';
+import marketplace from './marketplace';
+import comments from './comments';
 
 const app = combineReducers({
   newsfeed,
@@ -16,10 +17,9 @@ const app = combineReducers({
   goals,
   profile,
   marketplace,
+  markettasks,
   tasks,
   comments,
-  groupthink,
-  mygroups,
   reviews
 });
 

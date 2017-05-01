@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MyGroups from '../../../components/MyGroups';
-import JoinGroups from '../../../components/JoinGroups';
+import MyGroups from '../../../components/old/MyGroups';
+import JoinGroups from '../../../components/old/JoinGroups';
 
 //to do
 //--1. move JoinGroups to GroupsList in components

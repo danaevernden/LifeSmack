@@ -10,6 +10,17 @@ class GoalsController extends Controller
       # Put anything here that should happen before any of the other actions
   }
 
+
+
+    public function getIndex() {
+      return array(
+        array("goal_id"=> 1,
+              "goal_name"=> "build Lifesmack"),
+        array("goal_id"=> 2,
+              "goal_name" => "run 2017 NYC marathon")
+      );}
+
+
   /**
   * Responds to requests to homepage
   */

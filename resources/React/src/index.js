@@ -1,4 +1,4 @@
-import Counter from './components/Counter';
+import Counter from './components/old/Counter';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,6 +15,7 @@ import GoalList from './containers/Goals/GoalList';
 import GroupThink from './containers/Test/GroupThink';
 import MarketItem from './containers/Marketplace/MarketItem';
 import Profile from './containers/Profile';
+import Markettasks from './containers/Marketplace/Markettasks';
 import Marketplace from './containers/Marketplace/Marketplace';
 import Specialist from './containers/Marketplace/Specialists';
 import Newsfeed from './containers/Test/Newsfeed';
@@ -24,6 +25,7 @@ import AddGoal from './containers/Goals/AddGoal';
 import CustomGoal from './containers/Goals/CustomGoal';
 import sortByExample from './containers/Test/sortByExample';
 import Test from './containers/Test';
+import TestApi from './containers/Test/TestAPI';
 import App from './components/app';
 import reducers from './reducers';
 import './index.css';
@@ -34,7 +36,7 @@ import { readAppState, storeAppState } from './lib/localStorage';
 injectTapEventPlugin();
 
 const store = createStore(
-  reducers
+  reducers, {}, compose(applyMiddleware(apiSettingsInjector, apiMiddleware))
 )
 
 ReactDOM.render((
@@ -49,10 +51,12 @@ ReactDOM.render((
           <Route path='/goals/add' component={{main : AddGoal}} />
           <Route path='/goals/custom' component={{main : CustomGoal}} />
           <Route path='/sortby' component={{main : sortByExample}} />
-          <Route path='/test' component={{main : GroupingComments}} />
+          <Route path='/test000' component={{main : GroupingComments}} />
           <Route path='/test0' component={{main : GroupingComments0}} />
           <Route path='/test00' component={{main : GroupingComments00}} />
+          <Route path='/testAPI' component={{main : TestApi}} />
           <Route path='/groupthink' component={{main : GroupThink}} />
+          <Route path='/marketplace/1/tasks' goalID='1' component={{main : Markettasks}} />
           <Route path='/marketplace/1' marketItem='1' component={{main : MarketItem}} />
           <Route path='/marketplace/2' marketItem='2' component={{main : MarketItem}} />
           <Route path='/marketplace/3' marketItem='3' component={{main : MarketItem}} />

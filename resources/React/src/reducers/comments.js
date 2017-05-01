@@ -1,16 +1,16 @@
-//comments for tasks
-const DEFAULT_STATE = {
-  comments:
-  [
-  {comment_id: 1, task_id: 1, text:"need to ask ryan", },
-  {comment_id: 2, task_id: 3, text: "check out this link:"},
-  {comment_id: 3, task_id: 4, text: "watch on train"}
-  ]
-}
+import {FETCH_COMMENTS_SUCCESS} from '../actions/comments';
 
-const comments = (state = DEFAULT_STATE, action) => {
+const comments = (state = {}, action) => {
   switch(action.type) {
-      default:
+    case FETCH_COMMENTS_SUCCESS: {
+      console.log('CHECK IT OUT, COMMENTS!', action);
+      return {
+        ...state,
+        comments: action.payload
+      };
+    }
+
+    default:
       return state;
   }
 }

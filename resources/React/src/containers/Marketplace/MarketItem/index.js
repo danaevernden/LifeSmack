@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import { mapStateToProps } from './connect';
+import { mapStateToProps, mapDispatchToProps } from './connect';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
@@ -12,27 +12,49 @@ import StarRatingComponent from 'react-star-rating-component';
 //--subtitle href to click on specialist name, already have page for them
 //--helpful button increments 'likes' on a review - started working on but haven't figured it out
 //--if reviewcount = 0, message 'no reviews'
+
+type Props = {
+  fetchMarketplaceFromActions: () => void,
+  fetchReviewsFromActions: () => void,
+  marketplace: Marketplace[],
+  reviews: Review[]
+}
 class MarketItem extends React.Component{
+
+  static defaultProps: {
+    marketplace: Marketplace[],
+    reviews: Review[]
+  };
+
+  componentDidMount() {
+    this.props.fetchMarketplaceFromActions();
+    this.props.fetchReviewsFromActions();
+  }
+  props:Props
 
   constructor(props){
     super(props)
     this.state= {
-      likeButton: 0
+      likeButton: this.props.reviews.helpful
         }
         this.increment = this.increment.bind(this);
     }
 
     increment(id) {
-      this.setState({likeButton: this.id})
+      this.setState({likeButton: id})
       var likeButton = this.state.likeButton + 1;
       this.setState({likeButton: likeButton})
     };
 
   render() {
+    const {
+      marketplace,
+      reviews
+    } = this.props;
 
     const noReviews =
     <div></div>;
-      var reviewsToCount = this.props.reviews.filter((item) => {
+      var reviewsToCount = reviews.filter((item) => {
       return item.goal_id == this.props.route.marketItem;
     });
     var reviewsCount = reviewsToCount.length;
@@ -49,7 +71,7 @@ class MarketItem extends React.Component{
       </div>;
     }
 
-    const marketplaceItems = this.props.marketplace.filter((item) => {
+    const marketplaceItems = marketplace.filter((item) => {
     return item.goal_id == this.props.route.marketItem;
     })
     .map((marketplace) =>
@@ -66,14 +88,13 @@ class MarketItem extends React.Component{
     </div>
     );
 
-    const listItems = this.props.reviews
-    .filter((item) => {
+    const listItems = reviews.filter((item) => {
     return item.goal_id == this.props.route.marketItem;})
-    .map((reviews) =>
+    .map((review) =>
     <div>
-    <CardText>Rating: <StarRatingComponent starCount={5} value={reviews.rating}/> <br/> {reviews.name}: {reviews.review}
+    <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
     <br/>
-    <FlatButton label="helpful?" id={reviews.helpful} onClick={this.increment}/>
+    <FlatButton label="helpful?" id={review.helpful} onClick={() => this.increment(review.helpful)}/>
     {this.state.likeButton}
     </CardText>
     <Divider />
@@ -94,7 +115,7 @@ class MarketItem extends React.Component{
               <div>
                 <Card>
                     {listItems}
-                    {noReviewsMessage}
+                    {noReviews}
                 </Card>
               </div>
             </MuiThemeProvider>
@@ -103,9 +124,13 @@ class MarketItem extends React.Component{
     );
   }
 }
+MarketItem.defaultProps ={
+  marketplace: [],
+  reviews: []
+ };
 
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(MarketItem);
 //connect merges objects into one and passes it into newsfeed as props

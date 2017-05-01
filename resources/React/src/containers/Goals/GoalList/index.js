@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { mapStateToProps } from './connect';
+import { mapStateToProps, mapDispatchToProps } from './connect';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,7 +17,21 @@ const styles = {
     }
 };
 
+type Props = {
+  fetchGoalsFromActions: () => void,
+  goals: Goal[],
+}
+
 class GoalList extends React.Component{
+
+  static defaultProps: {
+    goals: Goal[]
+  };
+
+  componentDidMount() {
+    this.props.fetchGoalsFromActions();
+  }
+  props:Props
 
   constructor(props){
     super(props)
@@ -26,6 +40,10 @@ class GoalList extends React.Component{
 
     }
   render() {
+
+    const {
+      goals
+    } = this.props;
 
     //errors if filtering on tasks
     const listItems = this.props.goals
@@ -40,7 +58,7 @@ class GoalList extends React.Component{
 
     const length = <div>{this.props.goals.length}</div>;
 
-    const addGoal =  <FlatButton label={"Add Goal"} linkButton={true} href={'/goals/add'} primary={true} />;
+    const addGoal =  <FlatButton label={"Add Goal"} href={'/goals/add'} primary={true} />;
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
    //commented out for testing
@@ -74,8 +92,10 @@ class GoalList extends React.Component{
     );
   }
 }
-
+GoalList.defaultProps ={
+  goals: []
+ };
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(GoalList);

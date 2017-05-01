@@ -1,18 +1,22 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import { mapStateToProps } from './connect';
-import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import { mapStateToProps, mapDispatchToProps } from './connect';
+import {Card} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import Chip from 'material-ui/Chip';
 import { green500, grey500 } from 'material-ui/styles/colors';
-
-
+import MarketplaceComponent from '../../../components/Marketplace';
+import NoResultsMessage from '../../../components/NoResults';
 //to do
-//--separate out marketplace into a component, want to update a constant that filters the list differently for the marketplace page vs the add goals page
+//--figure out how to put this back in:
+//<NoResultsMessage
+//itemsCount={listItems.length}
+//message={"No results match your search :("}
+///>
 
 const styles = {
   chipStyle: {
@@ -24,7 +28,21 @@ const styles = {
   }
 }
 
+type Props = {
+  fetchMarketplaceFromActions: () => void,
+  marketplace: Marketplace[],
+}
+
 class Marketplace extends React.Component{
+
+  static defaultProps: {
+    marketplace: Marketplace[]
+  };
+
+  componentDidMount() {
+    this.props.fetchMarketplaceFromActions();
+  }
+  props:Props
 
   constructor(props){
     super(props)
@@ -56,50 +74,49 @@ class Marketplace extends React.Component{
   }
 
 render () {
-  const style = {
 
-  };
+  const {
+    marketplace
+  } = this.props;
 
-
-  const listItems = this.props.marketplace.filter((item) => {
-    if (this.state.plans) {
-      if (this.state.packages) {
-        if (this.state.supplemental) {
-          return true;
+    const listItems = marketplace.filter((item) => {
+      if (this.state.plans) {
+        if (this.state.packages) {
+          if (this.state.supplemental) {
+            return true;
+          }
+            return item.category !== "supplemental";
+          }
+          if (this.state.supplemental) {
+            return item.category !== "package";
+          }
+            return item.category !== "package" && item.category !== "supplemental";
         }
-          return item.category !== "supplemental";
+        if (this.state.packages) {
+          if (this.state.supplemental) {
+              return item.category !== "plan";
+          }
+              return item.category !== "supplemental" && item.category !== "plan";
         }
-        if (this.state.supplemental) {
-          return item.category !== "package";
+          if (this.state.supplemental) {
+              return item.category !== "plan" && item.category !== "package";
+          }
+              return false;
         }
-          return item.category !== "package" && item.category !== "supplemental";
-      }
-      if (this.state.packages) {
-        if (this.state.supplemental) {
-            return item.category !== "plan";
-        }
-            return item.category !== "supplemental" && item.category !== "plan";
-      }
-        if (this.state.supplemental) {
-            return item.category !== "plan" && item.category !== "package";
-        }
-            return false;
-      }
-    )
-    .map((marketplace) =>
-    <div>
-      <a href={'/marketplace/' + marketplace.goal_id}><h2>{marketplace.goal_name}</h2></a>
-      <a href={'/marketplace/specialist/' + marketplace.specialist_id}><h4>by {marketplace.name}</h4></a>
-      <div style={styles.wrapper}>
-          <Chip style={styles.chipStyle} backgroundColor={green500}>{marketplace.category}</Chip>
+      )
+      .map((marketplace) =>
+      <div>
+        <MarketplaceComponent
+        goalID={marketplace.goal_id}
+        goalName={marketplace.goal_name}
+        specialistID={marketplace.specialist_id}
+        marketItemName={marketplace.name}
+        category={marketplace.category}
+        planDescription={marketplace.plan_description}
+        rating={marketplace.rating}
+        />
       </div>
-      <div>Description: {marketplace.plan_description}</div>
-      <br/>
-        <FlatButton href={'/marketplace/' + marketplace.goal_id} label="See more" />
-      <Divider />
-    </div>
-    );
-
+      );
 
     const noResults =  <div></div>;
     var resultsCount = listItems.length;
@@ -127,6 +144,7 @@ render () {
                   <Card>
                       {listItems}
                       {noResultsMessage}
+
                   </Card>
                 </div>
               </MuiThemeProvider>
@@ -135,7 +153,12 @@ render () {
     );
   }
 }
+Marketplace.defaultProps ={
+  marketplace: []
+ };
 
 
-export default connect(mapStateToProps)(Marketplace);
+export default
+connect(mapStateToProps, mapDispatchToProps)
+(Marketplace);
 //connect merges objects into one and passes it into newsfeed as props

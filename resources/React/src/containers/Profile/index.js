@@ -8,8 +8,13 @@ import { mapDispatchToProps, mapStateToProps } from './connect';
 //--edit button shows form, but should this be a separate page? can this same container house both pages?
 //--use redux-form (download it first) to make it look nice
 
+type Props = {
+  fetchProfileFromActions: () => void,
+  profile: Profile[]
+}
+
 class EditForm extends React.Component {
-  constructor() {
+    constructor() {
     super()
   }
   render(){
@@ -22,6 +27,14 @@ want to put text boxes around existing information for editing.
 }
 
 class Profile extends React.Component{
+  static defaultProps: {
+    profile: Profile[]
+  };
+
+  componentDidMount() {
+    this.props.fetchProfileFromActions();
+  }
+  props:Props
 
   constructor(props){
     super(props)
@@ -57,12 +70,16 @@ class Profile extends React.Component{
   }
   render() {
 
-    const listItems =
+    const {
+      profile
+    } = this.props;
 
-    this.props.profile.map((profile) =>
+    const listItems =
+    profile.map((profile) =>
     <div><b>Name: </b>{profile.first_name} {profile.last_name}
     <br/><b>City: </b>{profile.city}
     <br/><b>State: </b>{profile.state}
+    <br/><b>Country: </b>{profile.country}
     </div>
     );
     return (
@@ -85,6 +102,9 @@ class Profile extends React.Component{
     );
   }
 }
+Profile.defaultProps ={
+  profile: []
+ };
 
 
 export default connect(

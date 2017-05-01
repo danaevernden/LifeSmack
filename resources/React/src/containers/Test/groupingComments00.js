@@ -1,29 +1,55 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import { mapStateToProps } from './connect';
+import { mapStateToProps, mapDispatchToProps } from './connect';
+import {
+  groupBy,
+  values
+} from 'lodash';
 
 
 class GroupingComments00 extends React.Component{
-
   constructor(props){
     super(props)
-  }
+    }
+
+componentDidMount() {
+  this.props.fetchNewsfeedFromActions();
+}
 
 render() {
-  const tasks = [{
-    id: 1
-  }, {
-    id: 2
-  }]
-//this works
-  const commentsList = this.props.tasks.filter((item) => {return true}).map((comments) => <li>({comments.task_id})</li>);
-//this doesnt, trying to replace comments array below
-const commentsList2 = this.props.tasks.filter((item) => {return true}).map((comments) =>
-{taskId: {comments.task_id}
-text: {comments.text}},
-);
 
+
+/*const commentsByTask = this.props.comments.reduce((grouped, comment) => {
+  const {task_id:taskId} = comment; //renames task_id to taskId, pulls task_id from comment
+  grouped[taskId] = grouped[taskId] || []; // We are guaranteed to have an array
+  grouped[taskId].push(comment);
+  return grouped;
+}, {});*/
+//this does the same as above
+const commentsByTask = groupBy(values(this.props.comments), (comment) => comment.task_id);
+
+console.log('CommentsBYTask', this.props.comments, commentsByTask);
+
+//this works
+const commentsList = this.props.tasks.map((task) => {
+  return (
+    <div>
+      <h2>{task.task_name}</h2>
+      <ul>
+        {(commentsByTask[task.task_id] || []).map((comment) => {
+          return (<li>{comment.text}</li>);
+        })}
+      </ul>
+    </div>
+   );
+});
+
+const tasks = [{
+  id: 1
+}, {
+  id: 2
+}];
 
 const comments = [{
   taskId: 1,
@@ -38,7 +64,7 @@ const comments = [{
 
 
   // Reduce has two arguments
-  // The first is another function (confusing I know) that also has two arguments:
+  // The first is  another function (confusing I know) that also has two arguments:
   //   the first argument, 'groupedComments', is eventually going to be your returned value from reduce,
   //   the second, 'comment', is the current element since reduce also iterates over each element in an array.
   // The second argument to reduce, is your starting value for 'groupedComments' which is going to be an object
@@ -93,5 +119,5 @@ const toHTMLElements = tasksWithComments.map((tasksWithComments) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(GroupingComments00);

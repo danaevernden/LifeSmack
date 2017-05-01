@@ -28,7 +28,19 @@ Route::post('/goals/create', 'GoalController@create'); /*create goal*/
 Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
 Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
 
-Route::get('/newsfeed', 'NewsfeedController@getIndex')->name('newsfeed.show');
+
+Route::group(['prefix' => 'api'], function() {
+	Route::get('/tasks', 'TasksController@getIndex')->name('tasks.show');
+	Route::get('/comments', 'CommentsController@getIndex')->name('comments.show');
+	Route::get('/categories', 'CategoriesController@getIndex')->name('categories.show');
+	Route::get('/goals', 'GoalsController@getIndex')->name('goals.show');
+	Route::get('/marketplace', 'MarketplaceController@getIndex')->name('marketplace.show');
+	Route::get('/reviews', 'ReviewsController@getIndex')->name('reviews.show');
+	Route::get('/profile', 'ProfileController@getIndex')->name('profile.show');
+	Route::get('/markettasks', 'MarkettasksController@getIndex')->name('markettasks.show');
+
+});
+
 Route::get('/newsfeed2', 'NewsfeedController@getArray')->name('newsfeed.create');
 
 /*OOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDD*/

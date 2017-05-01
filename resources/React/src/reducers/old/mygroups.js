@@ -1,4 +1,4 @@
-import {ADD_GOALS_TASK} from '../actions/goals';
+import {ADD_GOALS_TASK} from '../../actions/goals';
 
 
 const DEFAULT_STATE = {

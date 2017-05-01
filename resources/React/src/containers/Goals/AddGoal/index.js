@@ -1,14 +1,13 @@
 /* eslint-disable */
 import { connect } from 'react-redux';
 import React from 'react';
-import { mapStateToProps } from './connect';
-import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import { mapStateToProps, mapDispatchToProps } from './connect';
+import {Card} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import AddCustomGoal from '../../../components/AddCustomGoal';
 import StarRatingComponent from 'react-star-rating-component';
+import MarketplaceComponent from '../../../components/Marketplace';
 
 //to do
 //--populate stars with ratings or use emojis or something
@@ -16,7 +15,21 @@ import StarRatingComponent from 'react-star-rating-component';
 //--make reviews page?
 //--toggle logic isn't working, debug it with ryan
 //--separate out marketplace into a component, want to update a constant that filters the list differently for the marketplace page vs the add goals page
+type Props = {
+  fetchMarketplaceFromActions: () => void,
+  marketplace: Marketplace[],
+}
+
 class AddGoal extends React.Component{
+
+  static defaultProps: {
+    marketplace: Marketplace[]
+  };
+
+  componentDidMount() {
+    this.props.fetchMarketplaceFromActions();
+  }
+  props:Props
 
   constructor(props){
     super(props)
@@ -44,30 +57,31 @@ class AddGoal extends React.Component{
 
 render () {
 
-  const style ={
+  const {
+    marketplace
+  } = this.props;
 
-  };
-  const listItems = this.props.marketplace.filter((item) => {
-    if (this.state.filter) {
-      return item.marketplace.startsWith(this.state.filter);
-    }
-      return item.category == "package" || item.category =="plan";
-    })
-    .map((marketplace) =>
-    <div>
-        <a href={'/marketplace/' + marketplace.goal_id}>
-          <CardTitle style={style} title={marketplace.goal_name} subtitle={marketplace.name} />
-        </a>
-      <CardText>Description: {marketplace.plan_description}
-      <br/><br/>
-      Rating: {marketplace.rating}
-      </CardText>
-      <CardActions>
-      <FlatButton href={'/marketplace/' + marketplace.goal_id} label="See more" />
-      </CardActions>
-      <Divider />
-    </div>
-    );
+
+    const listItems = marketplace.filter((item) => {
+      if (this.state.filter) {
+        return item.marketplace.startsWith(this.state.filter);
+      }
+        return item.category == "package" || item.category =="plan";
+      })
+      .map((marketplace) =>
+      <div>
+      <MarketplaceComponent
+      goalID={marketplace.goal_id}
+      goalName={marketplace.goal_name}
+      specialistID={marketplace.specialist_id}
+      marketItemName={marketplace.name}
+      category={marketplace.category}
+      planDescription={marketplace.plan_description}
+      rating={marketplace.rating}
+      marketplaceFlag={false}
+      />
+      </div>
+      );
 
     return (
       <div className = 'App-page'>
@@ -91,7 +105,11 @@ render () {
     );
   }
 }
+AddGoal.defaultProps ={
+  marketplace: []
+ };
+
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(AddGoal);

@@ -30,6 +30,7 @@ const muiTheme = getMuiTheme({
 
 type Props = {
   main: any,
+  title: string
 };
 
 const style = {
@@ -65,18 +66,28 @@ const leftButton = (
 );
 
 
-const App = (props: Props) => (
+class App extends React.Component {
+  props: Props
 
+  render() {
+    const {
+      title,
+      main
+    } = this.props;
 
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <div className='App'>
-    <AppBar
-      iconElementLeft={leftButton}
-      title= 'LifeSmack'
-    />
-      {props.main}
-    </div>
-  </MuiThemeProvider>
-);
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div className='App'>
+        <AppBar
+          iconElementLeft={leftButton}
+          title= {'LifeSmack'}
+        />
+          {main}
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+}
+
 
 export default App;

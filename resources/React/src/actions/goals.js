@@ -1,13 +1,17 @@
-export const ADD_GOALS_TASK = 'ADD_GOALS_TASK';
+import { CALL_API } from 'redux-api-middleware';
+export const FETCH_GOALS_REQUEST = 'FETCH_GOALS_REQUEST';
+export const FETCH_GOALS_SUCCESS = 'FETCH_GOALS_SUCCESS';
+export const FETCH_GOALS_FAILURE = 'FETCH_GOALS_FAILURE';
 
-export const addGoalsTask = (goal_name) => {
-  //returns type and item, action creator always dispatches an object
-  //an action is an object with a type key
-  return {
-    type: ADD_GOALS_TASK,
-    goalTask: {
-      goal_name
-    }
-  };
+//variable in an object in square braces, it executes and then puts the value inside
+//const foo = "FOO"
+// { [foo]: 1} is the same as 'FOO':1
+export default function fetchGoals() {
+    return {
+      [CALL_API]: {
+          endpoint: '/api/goals',
+          method: 'GET',
+          types: [FETCH_GOALS_REQUEST, FETCH_GOALS_SUCCESS, FETCH_GOALS_FAILURE]
+      },
+    };
 }
-addGoalsTask

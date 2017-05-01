@@ -1,10 +1,13 @@
 import {updateProfileInfo} from '../../actions/profile';
+import fetchProfile from '../../actions/profile';
 
 export const mapStateToProps = (state) => ({
   profile: state.profile.profile
 });
 
 export const mapDispatchToProps = (dispatch) => ({
+  fetchProfileFromActions: () => dispatch(fetchProfile()),
+
   //this was blank before
   // similar to method above, returning an object, but in this case the object consists
   //of functions that will dispatch actions globally

@@ -1,18 +1,15 @@
-const DEFAULT_STATE = {
-  reviews:
-  [{goal_id: 1, review_id: 1, name: "Jane Doe", review: "hilarious and fun to work on, I was able to book my own gig at the Comedy Cellar after!", helpful: 2, rating: 3
-  },
-  {goal_id: 1, review_id: 2, name: "Stacey Gray", review:"could use a section on cross training, I had to define that myself", helpful: 4, rating: 4}
-  ]
-}
+import {FETCH_REVIEWS_SUCCESS} from '../actions/reviews';
 
-const reviews = (state = DEFAULT_STATE, action) => {
+const reviews = (state = {}, action) => {
   switch(action.type) {
+    case FETCH_REVIEWS_SUCCESS: {
+      console.log('CHECK IT OUT, REVIEWS!', action);
+      return {
+        ...state,
+        reviews: action.payload
+      };
+    }
 
-    // type tells the reducer what to do
-    // all reducers are listening for an action
-    // anytime state changes, the app will rerender per react
-    // what happens after dispatch is fires off
     default:
       return state;
   }
