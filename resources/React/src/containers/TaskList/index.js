@@ -13,6 +13,7 @@ import TaskListSortOptions from '../../components/TaskListSortOptions';
 import ListCard from '../../components/ListCard';
 import CheckboxButton from '../../components/CheckboxButton';
 import AddTask from '../../components/AddTask';
+import ManageCategoriesMenu from '../../components/ManageCategoriesMenu';
 import ManageCategories from '../../components/ManageCategories';
 import GoalName from '../../components/GoalName';
 import {groupBy,values,sortBy} from 'lodash';
@@ -55,7 +56,8 @@ type Props = {
   fetchCategoriesFromActions: () => void,
   tasks: Task[],
   comments: Comment[],
-  categories: Category[]
+  categories: Category[],
+  categories2: Category2[]
 }
 
 
@@ -66,6 +68,7 @@ class TaskList extends React.Component{
     tasks: Task[],
     comments: Comment[],
     categories: Category[],
+    categories2: Category2[],
     goals: Goal[]
   };
 
@@ -115,6 +118,7 @@ class TaskList extends React.Component{
       tasks,
       comments,
       categories,
+      categories2,
       goals
     } = this.props;
 
@@ -136,7 +140,6 @@ class TaskList extends React.Component{
   })
     .map((task) =>
     <div>
-
     {(commentsByTask[task.task_id] || [])
       .map((comment) =>
       <div>
@@ -154,6 +157,27 @@ class TaskList extends React.Component{
     )}
     </div>
     );
+
+    const categoriesByCategory = groupBy(values(categories2), (category2) => category2.parent_cat);
+
+    const manageCategories = categories.filter((item)=>
+    {return item.parent_cat == null})
+    .map((category) =>
+    <div>
+    {(categoriesByCategory[category.category_id] || [])
+    .map((category2) =>
+    <div>
+          <ManageCategories
+          category_id={category.category_id}
+          text={category.text}
+          parent_cat={category.parent_cat}
+          child_cat_id={category2.category_id}
+          child_cat_text={category2.text}
+          />
+      </div>
+    )}
+    </div>
+  );
 
     const listItemsFromComponent2 = tasks.filter((item) => {
         if (this.state.showCompletedTasks) {
@@ -211,7 +235,9 @@ class TaskList extends React.Component{
                 <div>
                 <div style={styles.inlineBlock}>
                   <AddTask/>
-                  <ManageCategories/>
+                  <ManageCategoriesMenu
+                    cats={manageCategories}
+                  />
                 </div>
               </div>
             </div>

@@ -17,6 +17,9 @@ class CommentsController extends Controller
       array("comment_id"=> 2,
             "task_id"=> 3,
             "text" => "check out this link"),
+      array("comment_id"=> 4,
+            "task_id"=> 1,
+            "text" => "second line of comment"),
       array("comment_id"=> 3,
             "task_id"=> 4,
             "text" => "watch on train")

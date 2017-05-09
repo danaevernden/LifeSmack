@@ -26,11 +26,12 @@ import CustomGoal from './containers/Goals/CustomGoal';
 import sortByExample from './containers/Test/sortByExample';
 import Test from './containers/Test';
 import TestApi from './containers/Test/TestAPI';
-import App from './components/app';
+import Appcomponent from './components/app';
 import reducers from './reducers';
 import './index.css';
 import apiSettingsInjector from './lib/apiSettingsInjector';
 import { readAppState, storeAppState } from './lib/localStorage';
+import AppContainer from './containers/app';
 
 /* eslint-disable no-underscore-dangle */
 injectTapEventPlugin();
@@ -42,7 +43,8 @@ const store = createStore(
 ReactDOM.render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route component={App}>
+      <Route components={AppContainer}>
+          <Route path='/app' components={{main : AppContainer}} />
           <Route path='/' components={{main : GoalList}} />
           <Route path='/profile' component={{main : Profile}} />
           <Route path='/marketplace' component={{main : Marketplace}} />

@@ -8,6 +8,7 @@ export const mapStateToProps = (state) => ({
   tasks: state.tasks.tasks,
   comments: state.comments.comments,
   categories: state.categories.categories,
+  categories2: state.categories.categories,
   goals: state.goals.goals
 });
 

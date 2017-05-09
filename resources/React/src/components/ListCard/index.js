@@ -16,7 +16,13 @@ import CategoryItems from '../../components/CategoryItems';
 import CommentItems from '../../components/CommentItems';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
+import MoreMenu from 'material-ui/svg-icons/navigation/more-horiz';
 
+
+//test
 //todo:
 //textfield isn't updating when filter is changed, but H2 is
 //same with comments etc
@@ -74,7 +80,7 @@ class ListCard extends React.Component {
         commentOpen: null,
         categoryOpen: null,
         taskName: this.props.taskName,
-        taskStatus: this.props.taskStatus
+        taskStatusState: this.props.taskStatus
       }
       this.completeTask = this.completeTask.bind(this);
       this.openComment = this.openComment.bind(this);
@@ -97,11 +103,11 @@ class ListCard extends React.Component {
     }
     completeTask(taskStatusPass) {
       if(taskStatusPass == true) {
-        this.setState({taskStatus: false})
+        this.setState({taskStatusState: false})
         this.setState({snackbarOpen: false})
       }
       this.setState({snackbarOpen: true})
-      this.setState({taskStatus: !this.state.taskStatus})
+      this.setState({taskStatusState: !this.state.taskStatusState})
     }
     snackbarClose() {
       this.setState({snackbarOpen: false})
@@ -125,40 +131,51 @@ class ListCard extends React.Component {
 
       const taskCard =
       <div style={styles.wrapper}>
+
         <Card>
+        <div>
+        </div>
             <div style={styles.parentStyle}>
                 <div style={styles.checkboxCompleted}>
-                  <Checkbox checked={this.state.taskStatus} onCheck={() =>this.completeTask(taskStatus)}/>
+
+                  <Checkbox checked={this.state.taskStatusState} onCheck={() =>this.completeTask(taskStatus)}/>
                 </div>
                 <div style={styles.inlineBlock2}>
                 <h2>{taskName}</h2>
-
                   <TextField style={styles.inlineBlock2} defaultValue={taskName} />
+                  {today > taskScheduled ?
+                    <IconButton tooltip={taskScheduled}>
+                        <ActionWarning/>
+                    </IconButton>
+                    :
+                    <IconButton tooltip={taskScheduled}>
+                        <ScheduleButton
+                        scheduledDate= {taskScheduled}/>
+                    </IconButton>
+                  }
                 </div>
             </div>
             <CardActions>
-            {this.state.commentOpen == taskID ?
-                <FlatButton icon={<ActionCommentOutline />} onClick={() => this.openComment()}
-                    label="comment"
-                />
-            :
-                <FlatButton icon={<ActionComment />} onClick={() =>this.openComment(taskID)}
-                    label="comment"
-                />
-            }
-                <TaskMenu />
-            {this.state.categoryOpen == taskID ?
-                <FlatButton icon={<Assignment />} label="categories" onClick={() => this.openCategory()}/>
-            :
-                <FlatButton icon={<Assignment />} label="categories" onClick={() => this.openCategory(taskID)}/>
-            }
-            {today > taskScheduled ?
-              <IconButton tooltip={taskScheduled}>
-                <ActionWarning/>
-              </IconButton>
-              : <ScheduleButton
-              scheduledDate= {taskScheduled}/>
-            }
+            <BottomNavigation>
+                {this.state.commentOpen == taskID ?
+                    <BottomNavigationItem label="comments" icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
+                :
+                <BottomNavigationItem label="comments" icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
+                }
+                {this.state.categoryOpen == taskID ?
+                    <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory()}/>
+                :
+                    <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory(taskID)}/>
+                }
+                <IconMenu
+                     iconButtonElement={<BottomNavigationItem label="options" icon={<MoreMenu />}></BottomNavigationItem>}
+                     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                   >
+                     <MenuItem primaryText="Delete Task" />
+                     <MenuItem primaryText="Schedule" />
+                </IconMenu>
+            </BottomNavigation>
             </CardActions>
             {
                "task" == taskType ?

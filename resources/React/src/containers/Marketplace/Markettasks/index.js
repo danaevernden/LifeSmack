@@ -79,10 +79,25 @@ render () {
   } = this.props;
 
 
+  const testAPIcategories = markettasks.map((markettask) => {
+    return (
+      <div>
+        <li>{markettasks.task_name}</li>
+      </div>
+    )});
+
+    const comment2s = comments.map((comment) => {
+      return (
+        <div>
+          <li>{comments.task_name}</li>
+        </div>
+      )});
+
       const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
       const listItemsFromComponent = markettasks.filter((item) => {
-return item.parent_task!== null && item.goal_id ==this.props.route.goalID;        })
+        return true;
+        })
       .map((markettask) =>
       <div>
 
@@ -119,6 +134,10 @@ return item.parent_task!== null && item.goal_id ==this.props.route.goalID;      
                   </Card>
                 </div>
               </MuiThemeProvider>
+              <div>
+              {testAPIcategories}
+              {comment2s}
+              </div>
           </div>
       </div>
     );

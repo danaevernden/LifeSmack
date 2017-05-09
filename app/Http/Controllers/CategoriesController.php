@@ -40,10 +40,14 @@ class CategoriesController extends Controller
             "goal_id"=>1,
             "parent_cat"=>5,
             "text"=>"medium"),
-      array("category_id"=>6,
-            "goal_id"=>1,
+      array("category_id"=>8,
             "parent_cat"=>5,
-            "text"=>"high")
+            "goal_id"=>1,
+            "text"=>"high"),
+      array("category_id"=> 9,
+            "goal_id"=> 1,
+            "parent_cat"=>null,
+            "text" => "test cat"),
     );}
 
 }

@@ -15,9 +15,11 @@ class GoalsController extends Controller
     public function getIndex() {
       return array(
         array("goal_id"=> 1,
-              "goal_name"=> "build Lifesmack"),
+              "goal_name"=> "build Lifesmack",
+              "image"=> "images/LogoSmallCondensed.jpg"),
         array("goal_id"=> 2,
-              "goal_name" => "run 2017 NYC marathon")
+              "goal_name" => "run 2017 NYC marathon",
+              "image" => "images/LogoSmallCondensed.jpg")
       );}
 
 

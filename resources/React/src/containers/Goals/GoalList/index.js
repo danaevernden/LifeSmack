@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardHeader, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 
@@ -14,6 +14,9 @@ import Divider from 'material-ui/Divider';
 const styles = {
     background: {
         backgroundColor: 'rgb(233,235,238)'
+    },
+    goalList: {
+        height:'8em'
     }
 };
 
@@ -46,19 +49,21 @@ class GoalList extends React.Component{
     } = this.props;
 
     //errors if filtering on tasks
-    const listItems = this.props.goals
-    .map((goals) =>
+    const listItems = goals.map((goals) =>
     <div>
     <Divider />
     <a href={'/goal/' + goals.goal_id}>
-      <CardTitle title={goals.goal_name} subtitle="X/Z tasks completed, Y scheduled"/>
+      <CardTitle style={styles.goalList} title={goals.goal_name} subtitle="X/Z tasks completed, Y scheduled"/>
+      <CardMedia overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}>
+          <img src='{"../images/LogoSmallCondensed.jpg"}' />
+      </CardMedia>
     </a>
     </div>
     );
 
     const length = <div>{this.props.goals.length}</div>;
 
-    const addGoal =  <FlatButton label={"Add Goal"} href={'/goals/add'} primary={true} />;
+    const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
    //commented out for testing

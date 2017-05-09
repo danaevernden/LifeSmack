@@ -39,7 +39,7 @@ class TasksController extends Controller
                   "complete"=> true,
                   "scheduled"=>  "2017-05-02T18:25:43.511Z"),
             array("goal_id"=> 1,
-                  "task_id"=> 1,
+                  "task_id"=> 2,
                   "parent_task"=> 5,
                   "category_id_1"=> 4,
                   "category_id_2"=> 7,
