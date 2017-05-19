@@ -32,6 +32,10 @@ import './index.css';
 import apiSettingsInjector from './lib/apiSettingsInjector';
 import { readAppState, storeAppState } from './lib/localStorage';
 import AppContainer from './containers/app';
+import Landing from './containers/Landing';
+import AppDrawer from './components/appDrawer';
+
+/*    <Route components={AppContainer}> */
 
 /* eslint-disable no-underscore-dangle */
 injectTapEventPlugin();
@@ -43,7 +47,8 @@ const store = createStore(
 ReactDOM.render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route components={AppContainer}>
+      <Route path='/landing' component={Landing} />
+        <Route components={AppDrawer}>
           <Route path='/app' components={{main : AppContainer}} />
           <Route path='/' components={{main : GoalList}} />
           <Route path='/profile' component={{main : Profile}} />

@@ -15,12 +15,10 @@ class GoalsTableSeeder extends Seeder
       DB::table('goals')->insert([
      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-     'goal_name' => 'Build LifeSmack',
-     'order_id' => 1,
-     'status_id' => 1,
-     'parent_goal_id' => 0,
-      'goal_due_date' => Carbon\Carbon::createFromDate(2017,12,31)->toDateTimeString(),
-     'life_area' => 'personal_growth'
+     'goal_id'=> 1,
+     'goal_name'=> 'build Lifesmack',
+     'image'=> '/public/images/running.jpg',
+     'goal_due_date' => Carbon\Carbon::createFromDate(2017,12,31)->toDateTimeString()
   /*   'user_id' => $user_id */
          ]);
 
@@ -28,12 +26,10 @@ class GoalsTableSeeder extends Seeder
        DB::table('goals')->insert([
       'created_at' => Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-      'goal_name' => 'Qualify for NYC marathon',
-      'order_id' => 2,
-      'status_id' => 1,
-      'parent_goal_id' => 0,
+      'goal_id'=> 2,
+      'goal_name'=> 'run 2017 NYC marathon',
+      'image'=> '/public/images/running.jpg',
       'goal_due_date' => Carbon\Carbon::createFromDate(2017,10,31)->toDateTimeString(),
-      'life_area' => 'fitness'
     /*  'user_id' => $user_id*/
       ]);
 

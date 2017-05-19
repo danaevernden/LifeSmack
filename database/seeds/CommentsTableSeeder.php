@@ -11,21 +11,45 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-      $task_id = \App\Task::where('task_name','=','enable hover on buttons js')->pluck('id');
+      $task_id = \App\Task::where('task_id','=',1)->pluck('id');
       DB::table('comments')->insert([
      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-     'comment_text' => 'tried adding animation via hover.css, see files in js folder and new classes in css.',
-     'task_id' => 1
+     'comment_text' => 'need to ask ryan.',
+     'task_id' => 1,
+     'comment_id' => 1
    ]);
 
-   $task_id = \App\Task::where('task_name','=','volunteer for a race')->pluck('id');
-   DB::table('comments')->insert([
-  'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-  'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-  'comment_text' => 'signed up to volunteer for brooklyn half in march, can opt out later',
-  'task_id' => 3
-]);
+
+      $task_id = \App\Task::where('task_id','=',3)->pluck('id');
+       DB::table('comments')->insert([
+      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+      'comment_text' => 'check out this link',
+      'task_id' => 3,
+      'comment_id' => 2
+    ]);
+
+
+   $task_id = \App\Task::where('task_name','=',1)->pluck('id');
+    DB::table('comments')->insert([
+    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+    'comment_text' => 'second line of comment',
+    'task_id' => 1,
+    'comment_id' => 4
+    ]);
+
+   $task_id = \App\Task::where('task_name','=',4)->pluck('id');
+    DB::table('comments')->insert([
+    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+    'comment_text' => 'watch on train',
+    'task_id' => 4,
+    'comment_id' => 3
+    ]);
+
+
 
     }
 }

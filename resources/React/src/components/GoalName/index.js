@@ -1,7 +1,8 @@
 import React from 'react';
 
 type Props = {
-  name: String
+  name: String,
+  image: String
 }
 
 const styles={
@@ -16,13 +17,17 @@ class GoalName extends React.Component{
     render () {
         const {
           name,
+          image
         } = this.props;
 
         const goalItems =
-        <div>{name}</div>
+        <div>
+            <div>{name}</div>
+            <div><img src={image} /></div>
+        </div>
         ;
     return (
-      <h2 style={styles.goalItem}>Goal: {goalItems} </h2>
+      <h2 style={styles.goalItem}>{goalItems} </h2>
     )
   }
 }

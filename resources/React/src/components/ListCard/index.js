@@ -31,10 +31,10 @@ type Props = {
   taskID: Number,
   taskStatus: Boolean,
   taskScheduled: Date,
-  taskType: String,
   commentText: String,
   categoryID1: Number,
-  categoryID2: Number
+  categoryID2: Number,
+  categoryID3: Number,
 }
 
 const styles={
@@ -119,10 +119,10 @@ class ListCard extends React.Component {
         taskID,
         taskStatus,
         taskScheduled,
-        taskType,
         commentText,
         categoryID1,
-        categoryID2
+        categoryID2,
+        categoryID3
 
       } = this.props;
 
@@ -177,11 +177,6 @@ class ListCard extends React.Component {
                 </IconMenu>
             </BottomNavigation>
             </CardActions>
-            {
-               "task" == taskType ?
-              <Chip style={styles.chipStyle} backgroundColor={green500}>Task</Chip>
-              :    <Chip backgroundColor={grey500}>Supplemental</Chip>
-            }
             {this.state.commentOpen == taskID ?
             <CommentItems
             commentText = {commentText}
@@ -190,6 +185,7 @@ class ListCard extends React.Component {
             <CategoryItems
             category_id_1= {categoryID1}
             category_id_2= {categoryID2}
+            category_id_3= {categoryID3}
             /> : null }
           </Card>
           <Snackbar

@@ -7,7 +7,8 @@ import SelectField from 'material-ui/SelectField';
 
 type Props = {
   category_id_1: Number,
-  category_id_2: Number
+  category_id_2: Number,
+  category_id_3: Number
 }
 
 
@@ -34,7 +35,8 @@ class CategoryItems extends React.Component {
     this.state= {
       value: this.props.category_id_2,
       category2_value: this.props.category_id_2,
-      category1_value: this.props.category_id_1
+      category1_value: this.props.category_id_1,
+      category3_value: this.props.category_id_3
 
     }
   }
@@ -54,6 +56,7 @@ class CategoryItems extends React.Component {
     const {
       category_id_1,
       category_id_2,
+      category_id_3
     } = this.props;
 
 
@@ -75,7 +78,7 @@ class CategoryItems extends React.Component {
           </div>
           <div>
             <div style={styles.inlineBlock2}>
-              <Chip style={styles.chipStyle} backgroundColor={green500}>Task Type</Chip>
+              <Chip style={styles.chipStyle} backgroundColor={green500}>Project Task Type</Chip>
             </div>
             <div style={styles.inlineBlock2}>
               <SelectField value={this.state.category1_value}  onChange={this.handleChange}
@@ -83,6 +86,18 @@ class CategoryItems extends React.Component {
                     <MenuItem value={2} primaryText="UI" />
                     <MenuItem value={3} primaryText="Back End" />
                     <MenuItem value={4} primaryText="User Testing" />
+              </SelectField>
+            </div>
+          </div>
+          <div>
+            <div style={styles.inlineBlock2}>
+              <Chip style={styles.chipStyle} backgroundColor={green500}>Task Type</Chip>
+            </div>
+            <div style={styles.inlineBlock2}>
+              <SelectField value={this.state.category3_value}  onChange={this.handleChange}
+              >
+                    <MenuItem value={12} primaryText="task" />
+                    <MenuItem value={13} primaryText="supplemental" />
               </SelectField>
             </div>
           </div>

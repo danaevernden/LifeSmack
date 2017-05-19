@@ -17,7 +17,7 @@ import ManageCategoriesMenu from '../../components/ManageCategoriesMenu';
 import ManageCategories from '../../components/ManageCategories';
 import GoalName from '../../components/GoalName';
 import {groupBy,values,sortBy} from 'lodash';
-
+import DialogComponent from '../../components/Dialog';
 
 //to do
 //figure out what to do about parent task
@@ -48,6 +48,7 @@ const styles = {
     flexWrap: 'wrap',
     display: 'inline-block'
   },
+
 };
 
 type Props = {
@@ -148,10 +149,10 @@ class TaskList extends React.Component{
           taskName={task.task_name}
           taskStatus={task.complete}
           taskScheduled={task.scheduled}
-          taskType={task.task_type}
           commentText={comment.text}
           categoryID1={task.category_id_1}
           categoryID2={task.category_id_2}
+          categoryID3={task.category_id_3}
           />
       </div>
     )}
@@ -205,7 +206,7 @@ class TaskList extends React.Component{
     const goalNameFromComponent = goals.filter((item) => {
       return item.goal_id == this.props.route.goalID;
     })
-    .map((goals) => <GoalName name={goals.goal_name} />
+    .map((goals) => <GoalName name={goals.goal_name} image={goals.image} />
     );
 
 //checkbox:
@@ -213,6 +214,12 @@ class TaskList extends React.Component{
     return (
       <div className = 'App-page' >
         <div className = 'App-content'>
+        <DialogComponent
+          dialogText={'hello'}
+          actionMore={'learn more'}
+          actionClose={'Cancel'}
+        />
+
           <div className='Top-menu' style={styles.topMenu} >
               {goalNameFromComponent}
               <TaskListSortOptions
@@ -234,7 +241,6 @@ class TaskList extends React.Component{
                 </div>
                 <div>
                 <div style={styles.inlineBlock}>
-                  <AddTask/>
                   <ManageCategoriesMenu
                     cats={manageCategories}
                   />
@@ -250,6 +256,8 @@ class TaskList extends React.Component{
               </MuiThemeProvider>
               </div>
               <div>
+              <AddTask/>
+      
               {listItemsFromComponent2}
               </div>
           <br/>

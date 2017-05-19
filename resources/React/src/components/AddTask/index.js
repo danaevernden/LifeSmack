@@ -6,6 +6,8 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
 //add logic if there are no categories
@@ -22,7 +24,13 @@ const styles = {
   addTask : {
     display: 'inline-block',
     marginBottom: '10px'
-  }
+  },
+  floatingActionButton: {
+      marginRight: 20,
+      position: 'fixed',
+      bottom: '5%',
+      right: '5%'
+    }
 };
 
 class AddTask extends React.Component {
@@ -91,10 +99,20 @@ class AddTask extends React.Component {
       ,
     ];
 
+    const AddTaskButton =
+    <div>
+      <FloatingActionButton
+      style={styles.floatingActionButton}
+      onTouchTap={this.addTaskOpen}
+      >
+          <ContentAdd />
+      </FloatingActionButton>
+    </div>
+    ;
     return(
       <MuiThemeProvider>
       <div>
-        <RaisedButton label={"Add Task"} style={styles.addTask} onTouchTap={this.addTaskOpen} />
+        {AddTaskButton}
         <Dialog
             title="Add a task"
             actions={addTaskActions}

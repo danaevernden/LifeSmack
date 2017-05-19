@@ -16,12 +16,15 @@ class GoalsController extends Controller
       return array(
         array("goal_id"=> 1,
               "goal_name"=> "build Lifesmack",
-              "image"=> "images/LogoSmallCondensed.jpg"),
+              "image"=> "/public/images/running.jpg"
+            ),
         array("goal_id"=> 2,
               "goal_name" => "run 2017 NYC marathon",
-              "image" => "images/LogoSmallCondensed.jpg")
+              "image" => "../../../../../../public/images/build-mobile-app.jpg"
+            )
       );}
-
+//maybe this to render images:
+//http://stackoverflow.com/questions/37841236/render-images-sources-from-parsed-array-of-objects-in-react-native
 
   /**
   * Responds to requests to homepage

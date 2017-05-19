@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-
+import logo from '../../../../../../public/images/running.jpg';
 //to do
 //make it look pretty
 
@@ -16,7 +16,7 @@ const styles = {
         backgroundColor: 'rgb(233,235,238)'
     },
     goalList: {
-        height:'8em'
+      textAlign:'left'
     }
 };
 
@@ -47,17 +47,21 @@ class GoalList extends React.Component{
     const {
       goals
     } = this.props;
-
+//http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
     const listItems = goals.map((goals) =>
+
     <div>
     <Divider />
     <a href={'/goal/' + goals.goal_id}>
-      <CardTitle style={styles.goalList} title={goals.goal_name} subtitle="X/Z tasks completed, Y scheduled"/>
-      <CardMedia overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}>
-          <img src='{"../images/LogoSmallCondensed.jpg"}' />
+      <CardMedia>
+          <img src={logo} />
+          <CardTitle
+              style={styles.goalList}
+              title={goals.goal_name}
+        />
       </CardMedia>
-    </a>
+        </a>
     </div>
     );
 
