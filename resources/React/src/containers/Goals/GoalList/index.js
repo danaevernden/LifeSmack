@@ -65,6 +65,15 @@ class GoalList extends React.Component{
     </div>
     );
 
+
+    const rightMenuItems = this.props.rightMenu.filter((item) => {
+      return item.page_name == "goals";
+    }).map((rightMenu) =>
+    <div>
+    {rightMenu.item_name}
+    </div>
+  );
+
     const length = <div>{this.props.goals.length}</div>;
 
     const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;

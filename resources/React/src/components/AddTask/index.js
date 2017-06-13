@@ -10,6 +10,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
+
 //add logic if there are no categories
 //pull in category table
 
@@ -22,21 +23,24 @@ type Props = {
 
 const styles = {
   addTask : {
-    display: 'inline-block',
-    marginBottom: '10px'
+    marginBottom: '10px',
+    width: '50%',
   },
   floatingActionButton: {
       marginRight: 20,
       position: 'fixed',
       bottom: '5%',
       right: '5%'
+    },
+    floatingLabel: {
+      color: 'black'
     }
 };
 
 class AddTask extends React.Component {
   props : Props
   state = {
-    addTaskOpen: false,
+    addTaskOpen: true,
     category1_value: 1,
     category2_value: 6,
     name: "",
@@ -67,17 +71,37 @@ class AddTask extends React.Component {
   }
 
   render() {
+
+    const items = [
+      <MenuItem key={1} value={11} primaryText="Never" />
+    ];
+
     const addTaskActions =[
       <div>
       <TextField hintText="Task*" onChange={this.taskChange}/> <br/>
       <DatePicker hintText="Due Date" onChange={this.scheduleChange}/>
-      <SelectField value={this.state.category2_value} floatingLabelText="Effort level" onChange={this.handleChange2}
+      <SelectField value={this.state.category2_value}
+      onChange={this.handleChange}
+      floatingLabelText="test">
+      {items}
+      </SelectField>
+      <SelectField
+      value={this.state.category2_value}
+      floatingLabelText="Effort level"
+      onChange={this.handleChange2}
+      floatingLabelStyle={styles.floatingLabel}
       >
         <MenuItem value={6} primaryText="low" />
         <MenuItem value={7} primaryText="medium" />
         <MenuItem value={8} primaryText="high" />
-      </SelectField> <br/>
-      <SelectField value={this.state.category1_value} floatingLabelText="Task Type" onChange={this.handleChange}
+      </SelectField> <br />
+
+      <SelectField
+      value={this.state.category1_value}
+      floatingLabelText="Task Type"
+      onChange={this.handleChange}
+      floatingLabelFixed={true}
+      floatingLabelStyle={styles.floatingLabel}
       >
         <MenuItem value={1} primaryText="UI" />
         <MenuItem value={2} primaryText="Back End" />
@@ -117,6 +141,7 @@ class AddTask extends React.Component {
             title="Add a task"
             actions={addTaskActions}
             modal={false}
+            contentStyle={styles.addTask}
             open={this.state.addTaskOpen}
             onRequestClose={this.addTaskClose}>
         </Dialog>

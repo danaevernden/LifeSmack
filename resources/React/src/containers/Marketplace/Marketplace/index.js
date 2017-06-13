@@ -79,6 +79,14 @@ render () {
     marketplace
   } = this.props;
 
+  const rightMenuItems = this.props.rightMenu.filter((item) => {
+    return item.page_name == "marketplace";
+  }).map((rightMenu) =>
+  <div>
+  {rightMenu.item_name}
+  </div>
+);
+
     const listItems = marketplace.filter((item) => {
       if (this.state.plans) {
         if (this.state.packages) {

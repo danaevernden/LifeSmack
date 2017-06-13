@@ -51,7 +51,7 @@ ReactDOM.render((
         <Route components={AppDrawer}>
           <Route path='/app' components={{main : AppContainer}} />
           <Route path='/' components={{main : GoalList}} />
-          <Route path='/profile' component={{main : Profile}} />
+          <Route path='/account' component={{main : Profile}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
           <Route path='/goal/1' goalID='1' component={{main : TaskList}} />
           <Route path='/goal/2' goalID='2' component={{main : TaskList}} />

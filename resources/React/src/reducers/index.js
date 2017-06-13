@@ -10,6 +10,7 @@ import categories from './categories';
 import markettasks from './markettasks';
 import marketplace from './marketplace';
 import comments from './comments';
+import rightMenu from './rightMenu';
 
 const app = combineReducers({
   newsfeed,
@@ -18,6 +19,7 @@ const app = combineReducers({
   profile,
   marketplace,
   markettasks,
+  rightMenu,
   tasks,
   comments,
   reviews

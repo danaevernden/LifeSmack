@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import { Link } from 'react-router';
-import AppComponent from '../../components/app';
+import AppComponent from '../../components/appDrawer';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import AppGoalsforBar from '../../components/app0';
 //to do
@@ -37,9 +37,14 @@ class App extends React.Component {
   componentDidMount() {
     this.props.fetchGoalsFromActions();
   }
+  props:Props
 
-  props: Props
+  constructor(props){
+    super(props)
+    this.state= {
+    }
 
+    }
   render() {
 
     const {
@@ -57,12 +62,20 @@ class App extends React.Component {
     </div>
     );
 
+    const tester =
+    <div>
+        hi
+    </div>
+    ;
+
+    const AppComponent2 = (
+        <AppComponent goalsForBar={goals2} test='hi'/>
+    );
 
     return (
       <MuiThemeProvider>
         <div className='App'>
-          <AppComponent goalsForBar={goals2}/>
-          {main}
+          {AppComponent2}
         </div>
       </MuiThemeProvider>
     )

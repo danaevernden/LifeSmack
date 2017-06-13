@@ -86,17 +86,23 @@ class TaskList extends React.Component{
     this.state= {
       filter: "",
       sortOption: "Category",
-      showCompletedTasks: true
+      showCompletedTasks: true,
+      duplicateDialog: false
     }
     this.updateFilter = this.updateFilter.bind(this);
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
     this.sortOptionSelection = this.sortOptionSelection.bind(this);
+    this.openDuplicate = this.openDuplicate.bind(this);
   }
 //get this to work, test it first?
   sortBy(field) {
       this.setState({
         tasks: sortBy(this.state.tasks, field)
       })
+  }
+
+  openDuplicate() {
+    this.setState({duplicateDialog: true})
   }
 
   showCompletedTasks() {
@@ -127,6 +133,14 @@ class TaskList extends React.Component{
     const sortByDate = sortBy(values(tasks), (task) => task.scheduled);
     const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
+    const rightMenuItems = this.props.rightMenu.filter((item) => {
+      return item.page_name == "tasks";
+    }).map((rightMenu) =>
+    <div>
+    {rightMenu.item_name}
+    </div>
+  );
+
     const listItemsFromComponent = tasks.filter((item) => {
       if (this.state.showCompletedTasks) {
         if (this.state.filter) {
@@ -153,6 +167,8 @@ class TaskList extends React.Component{
           categoryID1={task.category_id_1}
           categoryID2={task.category_id_2}
           categoryID3={task.category_id_3}
+          duplicateDialog={this.state.duplicateDialog}
+          openDuplicate={this.openDuplicate}
           />
       </div>
     )}
@@ -218,6 +234,7 @@ class TaskList extends React.Component{
           dialogText={'hello'}
           actionMore={'learn more'}
           actionClose={'Cancel'}
+          dialogTitle={'Welcome'}
         />
 
           <div className='Top-menu' style={styles.topMenu} >
@@ -257,7 +274,7 @@ class TaskList extends React.Component{
               </div>
               <div>
               <AddTask/>
-      
+
               {listItemsFromComponent2}
               </div>
           <br/>

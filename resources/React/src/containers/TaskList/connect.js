@@ -9,7 +9,8 @@ export const mapStateToProps = (state) => ({
   comments: state.comments.comments,
   categories: state.categories.categories,
   categories2: state.categories.categories,
-  goals: state.goals.goals
+  goals: state.goals.goals,
+  rightMenu: state.rightMenu.rightMenu
 });
 
 export const mapDispatchToProps = (dispatch) => ({

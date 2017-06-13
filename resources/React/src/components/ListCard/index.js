@@ -1,5 +1,4 @@
 import React from 'react';
-import ActionWarning from 'material-ui/svg-icons/alert/warning';
 import ScheduleButton from '../../components/ScheduleButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
@@ -7,6 +6,9 @@ import Checkbox from 'material-ui/Checkbox';
 import ActionCommentOutline from 'material-ui/svg-icons/communication/chat-bubble-outline';
 import ActionComment from 'material-ui/svg-icons/communication/chat-bubble';
 import Assignment from 'material-ui/svg-icons/action/assignment';
+import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import ActionWarning from 'material-ui/svg-icons/alert/warning';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 import FlatButton from 'material-ui/FlatButton';
@@ -20,7 +22,8 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import MoreMenu from 'material-ui/svg-icons/navigation/more-horiz';
-
+import DialogComponent from '../Dialog';
+import Dialog from 'material-ui/Dialog';
 
 //test
 //todo:
@@ -35,6 +38,8 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  duplicateDialog: Boolean,
+  openDuplicate: String
 }
 
 const styles={
@@ -61,11 +66,7 @@ const styles={
   chipStyle: {
   margin: 4},
   wrapper: {
-    flexWrap: 'wrap',
-    marginBottom: '20px',
-    marginLeft: '20%',
-    marginRight: '20%',
-    maxWidth: '600px'
+    maxWidth: '350px'
   },
 }
 
@@ -80,15 +81,19 @@ class ListCard extends React.Component {
         commentOpen: null,
         categoryOpen: null,
         taskName: this.props.taskName,
-        taskStatusState: this.props.taskStatus
+        taskStatusState: this.props.taskStatus,
+        deleteDialog: false
       }
       this.completeTask = this.completeTask.bind(this);
       this.openComment = this.openComment.bind(this);
       this.openCategory = this.openCategory.bind(this);
       this.snackbarClose = this.snackbarClose.bind(this);
+      this.openDelete = this.openDelete.bind(this);
     }
 
-
+    openDelete() {
+      this.setState({deleteDialog: true})
+    }
     openComment(task_id) {
       if(null == task_id) {
       this.setState({commentOpen: null})
@@ -122,12 +127,15 @@ class ListCard extends React.Component {
         commentText,
         categoryID1,
         categoryID2,
-        categoryID3
+        categoryID3,
+        duplicateDialog,
+        openDuplicate
 
       } = this.props;
 
 
       const today = new Date().toJSON();
+
 
       const taskCard =
       <div style={styles.wrapper}>
@@ -137,44 +145,41 @@ class ListCard extends React.Component {
         </div>
             <div style={styles.parentStyle}>
                 <div style={styles.checkboxCompleted}>
-
                   <Checkbox checked={this.state.taskStatusState} onCheck={() =>this.completeTask(taskStatus)}/>
                 </div>
                 <div style={styles.inlineBlock2}>
                 <h2>{taskName}</h2>
                   <TextField style={styles.inlineBlock2} defaultValue={taskName} />
-                  {today > taskScheduled ?
-                    <IconButton tooltip={taskScheduled}>
-                        <ActionWarning/>
-                    </IconButton>
-                    :
-                    <IconButton tooltip={taskScheduled}>
-                        <ScheduleButton
-                        scheduledDate= {taskScheduled}/>
-                    </IconButton>
-                  }
+
                 </div>
             </div>
             <CardActions>
             <BottomNavigation>
                 {this.state.commentOpen == taskID ?
-                    <BottomNavigationItem label="comments" icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
+                    <BottomNavigationItem icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
                 :
-                <BottomNavigationItem label="comments" icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
+                <BottomNavigationItem icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
                 }
                 {this.state.categoryOpen == taskID ?
-                    <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory()}/>
+                    <BottomNavigationItem icon={<Assignment />} onClick={() => this.openCategory()}/>
                 :
-                    <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory(taskID)}/>
+                    <BottomNavigationItem icon={<Assignment />} onlick={() => this.openCategory(taskID)}/>
                 }
-                <IconMenu
-                     iconButtonElement={<BottomNavigationItem label="options" icon={<MoreMenu />}></BottomNavigationItem>}
-                     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                   >
-                     <MenuItem primaryText="Delete Task" />
-                     <MenuItem primaryText="Schedule" />
-                </IconMenu>
+                {today > taskScheduled ?
+                  <IconButton tooltip={taskScheduled}>
+                      <BottomNavigationItem icon={<ActionWarning/>} />
+                  </IconButton>
+                  :
+                  <IconButton tooltip={taskScheduled}>
+                      <ScheduleButton
+                      scheduledDate= {taskScheduled}/>
+                  </IconButton>
+                }
+                <BottomNavigationItem
+                icon={<DuplicateIcon />}
+                onTouchTap={this.props.openDuplicate}
+                />
+                <BottomNavigationItem icon={<DeleteIcon />} onClick={this.openDelete}/>
             </BottomNavigation>
             </CardActions>
             {this.state.commentOpen == taskID ?
@@ -196,7 +201,15 @@ class ListCard extends React.Component {
             onActionTouchTap={this.completeTask}
             onRequestClose={this.snackbarClose}
           />
+          <DialogComponent
+            dialogText={'Would you like to duplicate this task?'}
+            actionMore={'Duplicate'}
+            actionClose={'Cancel'}
+            dialogTitle={'Duplicate Task'}
+            dialogOpen={this.props.duplicateDialog}
+          />
           </div>
+
           ;
 
         return (

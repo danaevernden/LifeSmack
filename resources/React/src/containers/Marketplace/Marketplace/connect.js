@@ -2,7 +2,8 @@ import fetchMarketplace from '../../../actions/marketplace';
 
 
 export const mapStateToProps = (state) => ({
-  marketplace: state.marketplace.marketplace
+  marketplace: state.marketplace.marketplace,
+  rightMenu: state.rightMenu.rightMenu
 });
 
 

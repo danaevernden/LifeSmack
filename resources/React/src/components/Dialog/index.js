@@ -5,14 +5,24 @@ import Dialog from 'material-ui/Dialog';
 const styles= {
   dialogContentStyle: {
     width: '400px'
+  },
+  buttons: {
+    fontWeight: 'bold'
   }
 };
 
 type Props = {
+
   dialogText:String,
   actionMore:String,
-  actionClose:String
+  actionClose:String,
+  dialogTitle:String,
+  dialogOpen:Boolean
 }
+
+//to do
+//overlay style - make it not grey out the background, google an example of using this in material-ui
+//only to be shown at certain times, ie when a user is logged in
 
 class DialogComponent extends React.Component {
     props: Props
@@ -20,7 +30,7 @@ class DialogComponent extends React.Component {
     constructor(props){
       super(props)
       this.state= {
-        dialogOpen: false,
+        dialogOpen: this.props.dialogOpen,
       }
       this.dialogClose = this.dialogClose.bind(this);
     }
@@ -33,17 +43,21 @@ class DialogComponent extends React.Component {
       const {
         dialogText,
         actionMore,
-        actionClose
+        actionClose,
+        dialogTitle,
+        dialogOpen
       } = this.props;
 
       const actions = [
         <FlatButton
           label={actionClose}
+          labelStyle={styles.buttons}
           primary={true}
           onTouchTap={this.dialogClose}
         />,
         <FlatButton
           label={actionMore}
+          labelStyle={styles.buttons}
           primary={true}
           onTouchTap={this.dialogClose}
         />,
@@ -55,6 +69,7 @@ class DialogComponent extends React.Component {
           <Dialog
             open={this.state.dialogOpen}
             actions={actions}
+            title={dialogTitle}
             contentStyle={styles.dialogContentStyle}
             modal={false}
             onRequestClose={this.dialogClose}

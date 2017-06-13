@@ -20,8 +20,6 @@ import { Link } from 'react-router';
 
 
 type Props = {
-  main: any,
-  title: String,
   goal_name: String,
   goal_id: Number
 };
@@ -32,15 +30,15 @@ class App2 extends React.Component {
 
   render() {
     const {
-      title,
-      main,
       goal_name,
       goal_id
     } = this.props;
 
     const menuItems =
           <div>
-            <MenuItem containerElement={<Link to={"/goals/1"} />} primaryText={goal_name} />
+          {goal_name}
+          {goal_id}
+          hey
           </div>
           ;
 

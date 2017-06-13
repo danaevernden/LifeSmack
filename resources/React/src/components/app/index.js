@@ -12,8 +12,8 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import { Link } from 'react-router';
-
 import './style.css';
+import TextField from 'material-ui/TextField';
 //to do
 // get goalsForBar to work
 
