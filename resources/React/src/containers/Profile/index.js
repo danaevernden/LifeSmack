@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-
+import Layout from '../Layout';
 
 //to do
 //--edit button shows form, but should this be a separate page? can this same container house both pages?
@@ -76,11 +76,11 @@ class Profile extends React.Component{
 
     const listItems =
     profile.map((profile) =>
-    <div><b>Name: </b>{profile.first_name} {profile.last_name}
-    <br/><b>City: </b>{profile.city}
-    <br/><b>State: </b>{profile.state}
-    <br/><b>Country: </b>{profile.country}
-    </div>
+    <Layout
+    title={profile.first_name}
+    subtitle={profile.city}
+    buttonTitle={"edit"}
+    />
     );
     return (
       <div className = 'App-page'>

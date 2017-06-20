@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import { Link } from 'react-router';
-import AppComponent from '../../components/appDrawer';
+import AppDrawer from '../../components/appDrawer';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import AppGoalsforBar from '../../components/app0';
 //to do
@@ -53,6 +53,7 @@ class App extends React.Component {
       goals
     } = this.props;
 
+
     const goals2 = goals.map((goals) =>
     <div>
       <AppGoalsforBar
@@ -69,7 +70,11 @@ class App extends React.Component {
     ;
 
     const AppComponent2 = (
-        <AppComponent goalsForBar={goals2} test='hi'/>
+      <div>
+        <AppDrawer
+        goalsForBar={goals2}
+        test={'hi'}/>
+      </div>
     );
 
     return (

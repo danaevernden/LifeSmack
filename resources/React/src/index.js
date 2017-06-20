@@ -17,12 +17,11 @@ import MarketItem from './containers/Marketplace/MarketItem';
 import Profile from './containers/Profile';
 import Markettasks from './containers/Marketplace/Markettasks';
 import Marketplace from './containers/Marketplace/Marketplace';
-import Specialist from './containers/Marketplace/Specialists';
 import Newsfeed from './containers/Test/Newsfeed';
+import Specialist from './containers/Marketplace/Specialists';
 import NewsfeedOld from './containers/Test/NewsfeedOld';
 import TaskList from './containers/TaskList';
 import AddGoal from './containers/Goals/AddGoal';
-import CustomGoal from './containers/Goals/CustomGoal';
 import sortByExample from './containers/Test/sortByExample';
 import Test from './containers/Test';
 import TestApi from './containers/Test/TestAPI';
@@ -34,6 +33,7 @@ import { readAppState, storeAppState } from './lib/localStorage';
 import AppContainer from './containers/app';
 import Landing from './containers/Landing';
 import AppDrawer from './components/appDrawer';
+import Layout from './containers/Layout';
 
 /*    <Route components={AppContainer}> */
 
@@ -56,7 +56,6 @@ ReactDOM.render((
           <Route path='/goal/1' goalID='1' component={{main : TaskList}} />
           <Route path='/goal/2' goalID='2' component={{main : TaskList}} />
           <Route path='/goals/add' component={{main : AddGoal}} />
-          <Route path='/goals/custom' component={{main : CustomGoal}} />
           <Route path='/sortby' component={{main : sortByExample}} />
           <Route path='/test000' component={{main : GroupingComments}} />
           <Route path='/test0' component={{main : GroupingComments0}} />
@@ -69,6 +68,7 @@ ReactDOM.render((
           <Route path='/marketplace/3' marketItem='3' component={{main : MarketItem}} />
           <Route path='/testOld' component={{main : NewsfeedOld}} />
           <Route path='/marketplace/specialist/1' name='Joan Rivers' component={{main : Specialist}}/>
+          <Route path='/layout' component={{main: Layout}}/>          
         </Route>
     </Router>
   </Provider>

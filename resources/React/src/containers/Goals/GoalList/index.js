@@ -6,6 +6,8 @@ import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'mat
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import logo from '../../../../../../public/images/running.jpg';
+import AddGoal from '../../../components/AddGoal';
+
 //to do
 //make it look pretty
 
@@ -103,6 +105,7 @@ class GoalList extends React.Component{
                       {listItems}
                       {button}
                   </Card>
+                  <AddGoal/>
                 </div>
               </MuiThemeProvider>
             </div>

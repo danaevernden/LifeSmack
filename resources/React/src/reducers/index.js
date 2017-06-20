@@ -10,7 +10,7 @@ import categories from './categories';
 import markettasks from './markettasks';
 import marketplace from './marketplace';
 import comments from './comments';
-import rightMenu from './rightMenu';
+import rightMenu from './old/rightMenu';
 
 const app = combineReducers({
   newsfeed,

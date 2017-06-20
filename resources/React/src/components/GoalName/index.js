@@ -20,6 +20,7 @@ class GoalName extends React.Component{
           image
         } = this.props;
 
+
         const goalItems =
         <div>
             <div>{name}</div>

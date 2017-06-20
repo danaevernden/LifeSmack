@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StarRatingComponent from 'react-star-rating-component';
-
+import Layout from '../../Layout';
     //to do
 //--subtitle href to click on specialist name, already have page for them
 //--helpful button increments 'likes' on a review - started working on but haven't figured it out
@@ -47,6 +47,7 @@ class MarketItem extends React.Component{
     };
 
   render() {
+
     const {
       marketplace,
       reviews
@@ -76,9 +77,11 @@ class MarketItem extends React.Component{
     })
     .map((marketplace) =>
     <div>
-      <FlatButton linkButton={true} href={'marketplace'}>Back</FlatButton>
-      <h2>{marketplace.goal_name}</h2>
-      <h4>{'by ' + marketplace.name}</h4>
+      <Layout
+        title={marketplace.goal_name}
+        subtitle={marketplace.name}
+        buttonTitle={"test"}
+      />
       <CardText>
       Description: {marketplace.plan_description}
       <br/><br/>

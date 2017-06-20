@@ -24,7 +24,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreMenu from 'material-ui/svg-icons/navigation/more-horiz';
 import DialogComponent from '../Dialog';
 import Dialog from 'material-ui/Dialog';
-
 //test
 //todo:
 //textfield isn't updating when filter is changed, but H2 is
@@ -45,10 +44,11 @@ type Props = {
 const styles={
   wrapper: {
     flexWrap: 'wrap',
-    marginBottom: '20px',
     marginLeft: '20%',
     marginRight: '20%',
-    maxWidth: '600px'
+    maxWidth: '350px',
+    display: 'inline-block',
+    textAlign: 'left'
   },
   parentStyle: {
     display: 'inline-block',
@@ -56,18 +56,30 @@ const styles={
   },
   checkboxCompleted: {
     display: 'inline-block',
-    width: '10%',
     height: '10px',
-    marginBottom: '10px'
+    position: 'absolute',
+    paddingTop: '15px',
+    marginLeft: '-20px'
   },
   inlineBlock2: {
     display:'inline-block'
   },
+  textboxStyle: {
+    display: 'inline-block',
+    marginLeft: '20px'
+  },
+  textboxFontStyle: {
+    fontSize: '14px'
+  },
   chipStyle: {
   margin: 4},
-  wrapper: {
-    maxWidth: '350px'
+  iconStyle: {
+    minWidth: '40px',
+    width: '40px'
   },
+  divider: {
+    color: 'rgb(0,0,0)'
+  }
 }
 
 
@@ -140,46 +152,42 @@ class ListCard extends React.Component {
       const taskCard =
       <div style={styles.wrapper}>
 
-        <Card>
-        <div>
-        </div>
             <div style={styles.parentStyle}>
                 <div style={styles.checkboxCompleted}>
                   <Checkbox checked={this.state.taskStatusState} onCheck={() =>this.completeTask(taskStatus)}/>
                 </div>
                 <div style={styles.inlineBlock2}>
-                <h2>{taskName}</h2>
-                  <TextField style={styles.inlineBlock2} defaultValue={taskName} />
+                  <TextField
+                  style={styles.textboxStyle}
+                  inputStyle={styles.textboxFontStyle}
+                  defaultValue={taskName}
+                  multiLine={true}
+                  rowsMax={4}
+                  />
 
                 </div>
             </div>
             <CardActions>
             <BottomNavigation>
                 {this.state.commentOpen == taskID ?
-                    <BottomNavigationItem icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
+                    <BottomNavigationItem style={styles.iconStyle} icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
                 :
-                <BottomNavigationItem icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
+                <BottomNavigationItem style={styles.iconStyle} icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
                 }
                 {this.state.categoryOpen == taskID ?
-                    <BottomNavigationItem icon={<Assignment />} onClick={() => this.openCategory()}/>
+                    <BottomNavigationItem style={styles.iconStyle} icon={<Assignment />} onClick={() => this.openCategory()}/>
                 :
-                    <BottomNavigationItem icon={<Assignment />} onlick={() => this.openCategory(taskID)}/>
+                    <BottomNavigationItem style={styles.iconStyle} icon={<Assignment  />} onlick={() => this.openCategory(taskID)}/>
                 }
                 {today > taskScheduled ?
-                  <IconButton tooltip={taskScheduled}>
-                      <BottomNavigationItem icon={<ActionWarning/>} />
-                  </IconButton>
+                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionWarning />} />
                   :
-                  <IconButton tooltip={taskScheduled}>
                       <ScheduleButton
                       scheduledDate= {taskScheduled}/>
-                  </IconButton>
                 }
-                <BottomNavigationItem
-                icon={<DuplicateIcon />}
-                onTouchTap={this.props.openDuplicate}
+                <BottomNavigationItem style={styles.iconStyle} icon={<DuplicateIcon />} onTouchTap={this.props.openDuplicate}
                 />
-                <BottomNavigationItem icon={<DeleteIcon />} onClick={this.openDelete}/>
+                <BottomNavigationItem style={styles.iconStyle} icon={<DeleteIcon/>} onClick={this.openDelete}/>
             </BottomNavigation>
             </CardActions>
             {this.state.commentOpen == taskID ?
@@ -192,7 +200,7 @@ class ListCard extends React.Component {
             category_id_2= {categoryID2}
             category_id_3= {categoryID3}
             /> : null }
-          </Card>
+
           <Snackbar
             open={this.state.snackbarOpen}
             message="Nice work!"
@@ -214,7 +222,7 @@ class ListCard extends React.Component {
 
         return (
           <div>
-              <Divider />
+              <Divider style={styles.divider}/>
               {taskCard}
           </div>
         )

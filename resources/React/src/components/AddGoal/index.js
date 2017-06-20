@@ -8,9 +8,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import DropDownMenu from 'material-ui/DropDownMenu';
-
-
+import FlatButton from 'material-ui/FlatButton';
+import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 
 //add logic if there are no categories
 //pull in category table
@@ -43,10 +42,13 @@ const styles = {
     },
     labelStyle: {
     marginRight: '10%'
-    }
+  },
+  scheduleStyle: {
+    float:'left'
+  }
 };
 
-class AddTask extends React.Component {
+class AddGoal extends React.Component {
   props : Props
   state = {
     addTaskOpen: false,
@@ -65,6 +67,10 @@ class AddTask extends React.Component {
 
   addTaskOpen = () => {
     this.setState({addTaskOpen: true});
+  }
+
+  dialogOpen = () => {
+      this.refs.dp.openDialog();
   }
 
   addTaskClose = () => {
@@ -89,46 +95,18 @@ class AddTask extends React.Component {
       <div>
       <TextField
       style={styles.textStyle}
-      hintText="Task*"
+      hintText="Goal Name*"
       onChange={this.taskChange}
       multiLine={true}
       rowsMax={4}
       /> <br/>
-
+      <br/>
       <DatePicker
-      hintText="Due Date"
-      onChange={this.scheduleChange}
+      hintText="add due date"
       textFieldStyle={styles.textStyle}/>
 
-      <div style={styles.labelStyle}>
-          Effort Level
-      </div>
-
-      <SelectField
-      style={styles.textStyle}
-      value={this.state.category2_value}
-      onChange={this.handleChange2}
-      >
-        <MenuItem value={6} primaryText="low" />
-        <MenuItem value={7} primaryText="medium" />
-        <MenuItem value={8} primaryText="high" />
-      </SelectField> <br /><br/>
-
-      <div style={styles.labelStyle}>
-          Task Type
-      </div>
-
-      <SelectField
-      style={styles.textStyle}
-      value={this.state.category1_value}
-        onChange={this.handleChange}
-    >
-        <MenuItem value={1} primaryText="UI" />
-        <MenuItem value={2} primaryText="Back End" />
-        <MenuItem value={3} primaryText="User Testing" />
-      </SelectField> <br/>
         <RaisedButton
-        label="Add task"
+        label="Add goal"
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.addTaskClose}
@@ -139,6 +117,7 @@ class AddTask extends React.Component {
         keyboardFocused={true}
         onTouchTap={this.addTaskClose}
       />
+
       </div>
     ];
 
@@ -157,7 +136,7 @@ class AddTask extends React.Component {
       <div>
         {AddTaskButton}
         <Dialog
-            title="Add a task"
+            title="Add a Goal"
             actions={addTaskActions}
             modal={false}
             contentStyle={styles.addTask}
@@ -170,4 +149,4 @@ class AddTask extends React.Component {
   }
 }
 
-export default AddTask;
+export default AddGoal;

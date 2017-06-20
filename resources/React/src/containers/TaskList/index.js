@@ -18,7 +18,7 @@ import ManageCategories from '../../components/ManageCategories';
 import GoalName from '../../components/GoalName';
 import {groupBy,values,sortBy} from 'lodash';
 import DialogComponent from '../../components/Dialog';
-
+import Layout from '../Layout';
 //to do
 //figure out what to do about parent task
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -48,7 +48,10 @@ const styles = {
     flexWrap: 'wrap',
     display: 'inline-block'
   },
-
+  cardStyle: {
+    width: '400px',
+    display: 'inline-block'
+  }
 };
 
 type Props = {
@@ -60,7 +63,6 @@ type Props = {
   categories: Category[],
   categories2: Category2[]
 }
-
 
 
 class TaskList extends React.Component{
@@ -196,23 +198,6 @@ class TaskList extends React.Component{
     </div>
   );
 
-    const listItemsFromComponent2 = tasks.filter((item) => {
-        if (this.state.showCompletedTasks) {
-          if (this.state.filter) {
-            return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-          }
-            return item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-      }
-        if(this.state.filter) {
-            return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-        }
-            return item.parent_task!== null && item.complete == false && item.goal_id ==this.props.route.goalID;
-    })
-    .map((task) => {
-  return(  <div>
-    <li>{task.task_name}</li>
-    </div>
-)}  );
 
     const categoriesForDropdown = categories
     .filter((item) =>{
@@ -222,8 +207,24 @@ class TaskList extends React.Component{
     const goalNameFromComponent = goals.filter((item) => {
       return item.goal_id == this.props.route.goalID;
     })
-    .map((goals) => <GoalName name={goals.goal_name} image={goals.image} />
+    .map((goals) =>
+    <div>
+    //not rendering
+    <Layout
+    title='build LIFEsmack'
+    subtitle='2 scheduled tasks'
+    />
+
+     <GoalName name={goals.goal_name} image={goals.image} />
+    </div>
     );
+    const layout =
+    <Layout
+    title={'build LIfesmack'}
+    subtitle={"2 scheduled tasks"}
+    buttonTitle={"goals test"}
+    />
+    ;
 
 //checkbox:
 //https://facebook.github.io/jest/docs/tutorial-react.html
@@ -238,13 +239,11 @@ class TaskList extends React.Component{
         />
 
           <div className='Top-menu' style={styles.topMenu} >
+            {layout}
               {goalNameFromComponent}
               <TaskListSortOptions
               sortOption={1}
               />
-              <div style={styles.inlineBlock}>
-                Search: <input onChange={this.updateFilter} value={this.state.filter}/>
-              </div>
               <div style={styles.inlineBlock}>
                 <div style={styles.CompTasksGrouper}>
                   <div><Checkbox checked={this.state.showCompletedTasks} onCheck={this.showCompletedTasks} /></div>
@@ -267,7 +266,7 @@ class TaskList extends React.Component{
               </div>
               <div>
               <MuiThemeProvider>
-                <Card style={styles.background}>
+                <Card style={styles.cardStyle}>
                   {listItemsFromComponent}
                 </Card>
               </MuiThemeProvider>
@@ -275,7 +274,6 @@ class TaskList extends React.Component{
               <div>
               <AddTask/>
 
-              {listItemsFromComponent2}
               </div>
           <br/>
       </div>
