@@ -11,6 +11,7 @@ import Chip from 'material-ui/Chip';
 import { green500, grey500 } from 'material-ui/styles/colors';
 import ListCard from '../../../components/ListCard';
 import {groupBy,values,sortBy} from 'lodash';
+import Layout from '../../Layout';
 
 const styles = {
   chipStyle: {
@@ -19,7 +20,13 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     marginLeft: '45%'
-  }
+  },
+  topMenu: {
+    width: '100%',
+    flexWrap: 'wrap',
+    display: 'inline-block',
+    marginTop: '200px'
+  },
 }
 
 type Props = {
@@ -96,8 +103,7 @@ render () {
       const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
       const listItemsFromComponent = markettasks.filter((item) => {
-        return true;
-        })
+        return item.goal_id == this.props.route.marketItem;})
       .map((markettask) =>
       <div>
 
@@ -119,27 +125,18 @@ render () {
       </div>
       );
 
-
-    return (
-      <div className = 'App-page'>
-          <div className = 'App-content'>
-            <h2>Get your first gig as a comedian</h2>
-              <MuiThemeProvider>
-                <div>
-                  <Toggle label = {"Plans"} defaultToggled={true} onToggle={this.togglePlans} />
-                  <Toggle label = {"Packages"} defaultToggled={true} onToggle={this.togglePackages} />
-                  <Toggle label = {"Supplemental"} defaultToggled={true} onToggle={this.toggleSupplemental} />
-                  <Card>
-                      {listItemsFromComponent}
-                  </Card>
-                </div>
-              </MuiThemeProvider>
-              <div>
-              {testAPIcategories}
-              {comment2s}
-              </div>
-          </div>
+    const old = (
+      <div>
+      <Toggle label = {"Plans"} defaultToggled={true} onToggle={this.togglePlans} />
+      <Toggle label = {"Packages"} defaultToggled={true} onToggle={this.togglePackages} />
+      <Toggle label = {"Supplemental"} defaultToggled={true} onToggle={this.toggleSupplemental} />
       </div>
+    );
+    return (
+                <div>
+                      {listItemsFromComponent}
+                </div>
+      
     );
   }
 }

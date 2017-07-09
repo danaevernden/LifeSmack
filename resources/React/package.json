@@ -17,6 +17,7 @@
     "jwt-decode": "^2.1.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.17.0",
+    "material-ui-scrollable-tabs": "^1.0.0",
     "moment": "^2.18.1",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",

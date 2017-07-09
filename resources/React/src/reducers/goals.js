@@ -3,12 +3,13 @@ import {FETCH_GOALS_SUCCESS} from '../actions/goals';
 const goals = (state = {}, action) => {
   switch(action.type) {
     case FETCH_GOALS_SUCCESS: {
-      console.log('CHECK IT OUT!', action);
+      console.log('CHECK IT OUT, GOALS!', action);
       return {
         ...state,
         goals: action.payload
       };
     }
+    
       default:
         return state;
     }

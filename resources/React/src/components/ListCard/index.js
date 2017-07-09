@@ -24,6 +24,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreMenu from 'material-ui/svg-icons/navigation/more-horiz';
 import DialogComponent from '../Dialog';
 import Dialog from 'material-ui/Dialog';
+import DatePicker from 'material-ui/DatePicker';
+import ActionSchedule from 'material-ui/svg-icons/action/schedule';
+import RaisedButton from 'material-ui/RaisedButton';
 //test
 //todo:
 //textfield isn't updating when filter is changed, but H2 is
@@ -37,8 +40,6 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
-  duplicateDialog: Boolean,
-  openDuplicate: String
 }
 
 const styles={
@@ -75,7 +76,8 @@ const styles={
   margin: 4},
   iconStyle: {
     minWidth: '40px',
-    width: '40px'
+    width: '40px',
+    zIndex: 'unset'
   },
   divider: {
     color: 'rgb(0,0,0)'
@@ -86,6 +88,7 @@ const styles={
 class ListCard extends React.Component {
     props: Props
 
+
     constructor(props){
       super(props)
       this.state= {
@@ -94,17 +97,40 @@ class ListCard extends React.Component {
         categoryOpen: null,
         taskName: this.props.taskName,
         taskStatusState: this.props.taskStatus,
-        deleteDialog: false
+        deleteDialog: null,
+        duplicateDialog: null,
+        schedulerDialog: null
       }
       this.completeTask = this.completeTask.bind(this);
       this.openComment = this.openComment.bind(this);
       this.openCategory = this.openCategory.bind(this);
       this.snackbarClose = this.snackbarClose.bind(this);
       this.openDelete = this.openDelete.bind(this);
+      this.openDuplicate = this.openDuplicate.bind(this);
+      this.openScheduler = this.openScheduler.bind(this);
+      this.closeScheduler = this.closeScheduler.bind(this);
     }
 
-    openDelete() {
-      this.setState({deleteDialog: true})
+    closeScheduler() {
+      this.setState({schedulerDialog: null});
+    }
+    openScheduler(task_id) {
+        if(null == task_id) {
+            this.setState({schedulerDialog: null})
+        }
+            this.setState({schedulerDialog: task_id})
+    }
+    openDuplicate(task_id) {
+        if(null == task_id) {
+            this.setState({duplicateDialog: null})
+        }
+            this.setState({duplicateDialog: task_id})
+    }
+    openDelete(task_id) {
+        if(null == task_id) {
+            this.setState({deleteDialog: null})
+        }
+            this.setState({deleteDialog: task_id})
     }
     openComment(task_id) {
       if(null == task_id) {
@@ -140,13 +166,21 @@ class ListCard extends React.Component {
         categoryID1,
         categoryID2,
         categoryID3,
-        duplicateDialog,
-        openDuplicate
+        handleDeleteTask,
 
       } = this.props;
 
 
       const today = new Date().toJSON();
+
+      const scheduleActions =[
+        <RaisedButton
+          label="Ok"
+          primary={true}
+          keyboardFocused={true}
+          onTouchTap={this.dialogClose}
+        />,
+      ];
 
 
       const taskCard =
@@ -164,7 +198,7 @@ class ListCard extends React.Component {
                   multiLine={true}
                   rowsMax={4}
                   />
-
+                  {taskScheduled}
                 </div>
             </div>
             <CardActions>
@@ -179,15 +213,30 @@ class ListCard extends React.Component {
                 :
                     <BottomNavigationItem style={styles.iconStyle} icon={<Assignment  />} onlick={() => this.openCategory(taskID)}/>
                 }
-                {today > taskScheduled ?
-                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionWarning />} />
-                  :
-                      <ScheduleButton
-                      scheduledDate= {taskScheduled}/>
+
+                {this.state.schedulerDialog == taskID ?
+                    [(today > taskScheduled ?
+                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionWarning />} onClick={() => this.openScheduler()} />
+                      :
+                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionSchedule />} onClick={() => this.openScheduler()} />
+                    )]
+                :
+                    [(today > taskScheduled ?
+                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionWarning />} onClick={() => this.openScheduler(taskID)} />
+                      :
+                      <BottomNavigationItem style={styles.iconStyle} icon={<ActionSchedule />} onClick={() => this.openScheduler(taskID)} />
+                    )]
                 }
-                <BottomNavigationItem style={styles.iconStyle} icon={<DuplicateIcon />} onTouchTap={this.props.openDuplicate}
-                />
-                <BottomNavigationItem style={styles.iconStyle} icon={<DeleteIcon/>} onClick={this.openDelete}/>
+                {this.state.duplicateDialog == taskID ?
+                    <BottomNavigationItem style={styles.iconStyle} icon={<DuplicateIcon />} onClick={() => this.openDuplicate()} />
+                :
+                    <BottomNavigationItem style={styles.iconStyle} icon={<DuplicateIcon />} onClick={() => this.openDuplicate(taskID)} />
+                }
+                {this.state.deleteDialog == taskID ?
+                    <BottomNavigationItem style={styles.iconStyle} icon={<DeleteIcon />} onClick={() => this.openDelete()} />
+                :
+                    <BottomNavigationItem style={styles.iconStyle} icon={<DeleteIcon />} onClick={() => this.openDelete(taskID)} />
+                }
             </BottomNavigation>
             </CardActions>
             {this.state.commentOpen == taskID ?
@@ -209,13 +258,36 @@ class ListCard extends React.Component {
             onActionTouchTap={this.completeTask}
             onRequestClose={this.snackbarClose}
           />
+
+          {this.state.duplicateDialog == taskID ?
           <DialogComponent
             dialogText={'Would you like to duplicate this task?'}
             actionMore={'Duplicate'}
             actionClose={'Cancel'}
             dialogTitle={'Duplicate Task'}
-            dialogOpen={this.props.duplicateDialog}
+            taskId={this.state.duplicateDialog}
           />
+          : null }
+
+          {this.state.deleteDialog == taskID ?
+          <DialogComponent
+            dialogText={'Would you like to delete this task?'}
+            actionMore={'Delete'}
+            actionClose={'Cancel'}
+            dialogTitle={'Delete Task'}
+            taskId={this.state.deleteDialog}
+            handleSubmit={handleDeleteTask}
+          />
+          : null }
+
+          <Dialog title="Schedule this task"
+          actions={scheduleActions}
+          modal={false}
+          open={this.state.schedulerDialog}
+          onRequestClose={this.closeScheduler}>
+          <DatePicker/>
+          </Dialog>
+
           </div>
 
           ;

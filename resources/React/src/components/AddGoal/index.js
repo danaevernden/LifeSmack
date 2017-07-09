@@ -52,6 +52,8 @@ class AddGoal extends React.Component {
   props : Props
   state = {
     addTaskOpen: false,
+    addCatOpen: false,
+    addSubCat: false,
     category1_value: 1,
     category2_value: 6,
     name: "",
@@ -60,13 +62,22 @@ class AddGoal extends React.Component {
 
 
 //figure out how to pass task, schedule, category back to main index page
-  taskChange = (event, name) => this.setState({name});
+  taskChange = (event, name) =>
+  {this.setState({name})};
   scheduleChange = (event, scheduled) => this.setState({scheduled});
   handleChange = (event, index, category1_value) => this.setState({category1_value})
   handleChange2 = (event, index, category2_value) => this.setState({category2_value})
 
+  addSubCat = () => {
+    this.setState({addSubCat: true});
+  }
+
   addTaskOpen = () => {
     this.setState({addTaskOpen: true});
+  }
+
+  addCatOpen = () => {
+    this.setState({addCatOpen: true});
   }
 
   dialogOpen = () => {
@@ -75,6 +86,10 @@ class AddGoal extends React.Component {
 
   addTaskClose = () => {
     this.setState({addTaskOpen: false});
+  }
+
+  addCatClose = () => {
+    this.setState({addCatOpen: false});
   }
 
   addTaskSubmit = () => {
@@ -91,8 +106,50 @@ class AddGoal extends React.Component {
       <MenuItem key={1} value={11} primaryText="Never" />
     ];
 
+    const addCategoryActions = [
+      <div>
+        <TextField
+        style={styles.textStyle}
+        hintText="Recommended Category: Location"
+        />
+        {this.state.addSubCat == true ?
+          <TextField
+          style={styles.textStyle}
+          hintText="add subcategory"
+          onChange={this.taskChange}
+          />
+          :<div></div>
+        }
+        <RaisedButton
+        label="Add subcategory"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.addSubCat}
+      />
+        <RaisedButton
+        label="Add categories"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.addTaskClose}
+      />
+      <RaisedButton
+        label="Cancel"
+        primary={false}
+        keyboardFocused={true}
+        onTouchTap={this.addTaskClose}
+      />
+      </div>
+    ];
+
     const addTaskActions =[
       <div>
+      <RaisedButton
+      label="Add photo"
+      primary={true}
+      keyboardFocused={true}
+      onTouchTap={this.addTaskClose}
+    />
+
       <TextField
       style={styles.textStyle}
       hintText="Goal Name*"
@@ -105,6 +162,13 @@ class AddGoal extends React.Component {
       hintText="add due date"
       textFieldStyle={styles.textStyle}/>
 
+      <RaisedButton
+        label="Add categories"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.addCatOpen}
+      />
+      <br/><br/>
         <RaisedButton
         label="Add goal"
         primary={true}
@@ -142,6 +206,14 @@ class AddGoal extends React.Component {
             contentStyle={styles.addTask}
             open={this.state.addTaskOpen}
             onRequestClose={this.addTaskClose}>
+        </Dialog>
+        <Dialog
+          title="Add Categories"
+          actions={addCategoryActions}
+          modal={false}
+          contentStyle={styles.addTask}
+          open={this.state.addCatOpen}
+          onRequestClose={this.addCatClose}>
         </Dialog>
       </div>
       </MuiThemeProvider>

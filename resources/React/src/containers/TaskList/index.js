@@ -9,16 +9,15 @@ import {Card} from 'material-ui/Card';
 import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import TaskMenu from '../../components/TaskMenu';
-import TaskListSortOptions from '../../components/TaskListSortOptions';
 import ListCard from '../../components/ListCard';
 import CheckboxButton from '../../components/CheckboxButton';
 import AddTask from '../../components/AddTask';
-import ManageCategoriesMenu from '../../components/ManageCategoriesMenu';
-import ManageCategories from '../../components/ManageCategories';
 import GoalName from '../../components/GoalName';
 import {groupBy,values,sortBy} from 'lodash';
-import DialogComponent from '../../components/Dialog';
 import Layout from '../Layout';
+import { includes } from 'lodash';
+import Calendar from '../Calendar';
+
 //to do
 //figure out what to do about parent task
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -46,7 +45,8 @@ const styles = {
   topMenu: {
     width: '100%',
     flexWrap: 'wrap',
-    display: 'inline-block'
+    display: 'inline-block',
+    marginTop: '300px'
   },
   cardStyle: {
     width: '400px',
@@ -58,6 +58,7 @@ type Props = {
   fetchTasksFromActions: () => void,
   fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
+  handleDeleteTask: () => void,
   tasks: Task[],
   comments: Comment[],
   categories: Category[],
@@ -89,7 +90,8 @@ class TaskList extends React.Component{
       filter: "",
       sortOption: "Category",
       showCompletedTasks: true,
-      duplicateDialog: false
+      duplicateDialog: false,
+      include: window.location.href
     }
     this.updateFilter = this.updateFilter.bind(this);
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
@@ -124,6 +126,7 @@ class TaskList extends React.Component{
   render() {
 
     const {
+      handleDeleteTask,
       tasks,
       comments,
       categories,
@@ -170,6 +173,7 @@ class TaskList extends React.Component{
           categoryID2={task.category_id_2}
           categoryID3={task.category_id_3}
           duplicateDialog={this.state.duplicateDialog}
+          handleDeleteTask={handleDeleteTask}
           openDuplicate={this.openDuplicate}
           />
       </div>
@@ -177,26 +181,33 @@ class TaskList extends React.Component{
     </div>
     );
 
-    const categoriesByCategory = groupBy(values(categories2), (category2) => category2.parent_cat);
-
-    const manageCategories = categories.filter((item)=>
-    {return item.parent_cat == null})
-    .map((category) =>
+    const listItemsFromComponent2 = tasks.filter((item) => {
+          return item.goal_id ==this.props.route.goalID;
+    })
+    .map((task) =>
     <div>
-    {(categoriesByCategory[category.category_id] || [])
-    .map((category2) =>
-    <div>
-          <ManageCategories
-          category_id={category.category_id}
-          text={category.text}
-          parent_cat={category.parent_cat}
-          child_cat_id={category2.category_id}
-          child_cat_text={category2.text}
-          />
-      </div>
-    )}
+      {task.task_name}
     </div>
-  );
+    );
+
+
+    const include =(<div>
+      {includes(this.state.include, '/goal/1/calendar') == true
+      ?
+      <div>
+          <Calendar/>
+      </div>
+       :
+      <div>
+          <div style={styles.CompTasksGrouper}>
+            <div><Checkbox checked={this.state.showCompletedTasks} onCheck={this.showCompletedTasks} />
+            </div>
+              Show Completed Tasks?
+          </div>
+          {listItemsFromComponent2}
+      </div>
+      }
+      </div>);
 
 
     const categoriesForDropdown = categories
@@ -205,25 +216,35 @@ class TaskList extends React.Component{
     });
 
     const goalNameFromComponent = goals.filter((item) => {
-      return item.goal_id == this.props.route.goalID;
+      return item.goal_id == 2;
     })
     .map((goals) =>
     <div>
-    //not rendering
-    <Layout
-    title='build LIFEsmack'
-    subtitle='2 scheduled tasks'
-    />
-
-     <GoalName name={goals.goal_name} image={goals.image} />
+    {goals.goal_name}
+    hey
     </div>
     );
-    const layout =
-    <Layout
-    title={'build LIfesmack'}
-    subtitle={"2 scheduled tasks"}
-    buttonTitle={"goals test"}
-    />
+
+    const layout =(<div>
+    {includes(this.state.include, '/goal/1/calendar') == true
+    ?
+        <Layout
+        title={'build LIfesmack'}
+        subtitle={"2 scheduled tasks"}
+        buttonTitle={"view tasks"}
+        leftContent={"taskListDropdown"}
+        buttonAction={"/goal/" + goals.goal_id + "/calendar"}
+        />
+    :
+        <Layout
+        title={'build LIfesmack'}
+        subtitle={"2 scheduled tasks"}
+        buttonTitle={"view calendar"}
+        leftContent={"taskListDropdown"}
+        buttonAction={"/goal/" + goals.goal_id + "/calendar"}
+        />
+    }
+    </div>)
     ;
 
 //checkbox:
@@ -231,51 +252,23 @@ class TaskList extends React.Component{
     return (
       <div className = 'App-page' >
         <div className = 'App-content'>
-        <DialogComponent
-          dialogText={'hello'}
-          actionMore={'learn more'}
-          actionClose={'Cancel'}
-          dialogTitle={'Welcome'}
-        />
+        {layout}
 
           <div className='Top-menu' style={styles.topMenu} >
-            {layout}
-              {goalNameFromComponent}
-              <TaskListSortOptions
-              sortOption={1}
-              />
-              <div style={styles.inlineBlock}>
-                <div style={styles.CompTasksGrouper}>
-                  <div><Checkbox checked={this.state.showCompletedTasks} onCheck={this.showCompletedTasks} /></div>
-                    Show Completed Tasks?
-                  </div>
-                  <div>
-                  <FlatButton onClick={this.sortBy.bind(this, 'task_id')}>
-                      sort by id
-                  </FlatButton>
-                </div>
-                </div>
-                <div>
-                <div style={styles.inlineBlock}>
-                  <ManageCategoriesMenu
-                    cats={manageCategories}
-                  />
-                </div>
-              </div>
-            </div>
+              <div>
+                <MuiThemeProvider>
+                  <Card style={styles.cardStyle}>
+                    {include}
+                  </Card>
+                </MuiThemeProvider>
               </div>
               <div>
-              <MuiThemeProvider>
-                <Card style={styles.cardStyle}>
-                  {listItemsFromComponent}
-                </Card>
-              </MuiThemeProvider>
+                  <AddTask/>
+                  {goalNameFromComponent}
               </div>
-              <div>
-              <AddTask/>
-
-              </div>
-          <br/>
+              <br/>
+          </div>
+        </div>
       </div>
     );
   }

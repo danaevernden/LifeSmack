@@ -6,8 +6,8 @@ import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'mat
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import logo from '../../../../../../public/images/running.jpg';
-import AddGoal from '../../../components/AddGoal';
-
+import Calendar from '../../Calendar';
+import Layout from '../../Layout';
 //to do
 //make it look pretty
 
@@ -51,6 +51,7 @@ class GoalList extends React.Component{
     } = this.props;
 //http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
+
     const listItems = goals.map((goals) =>
 
     <div>
@@ -66,15 +67,6 @@ class GoalList extends React.Component{
         </a>
     </div>
     );
-
-
-    const rightMenuItems = this.props.rightMenu.filter((item) => {
-      return item.page_name == "goals";
-    }).map((rightMenu) =>
-    <div>
-    {rightMenu.item_name}
-    </div>
-  );
 
     const length = <div>{this.props.goals.length}</div>;
 
@@ -95,6 +87,21 @@ class GoalList extends React.Component{
       </div>;
     }
 
+    const layout = (
+      <Layout
+      title={'Anna'}
+      subtitle={"New York, NY"}
+      buttonTitle={"view tasks"}
+      leftContent={"dashboard"}
+      buttonAction={"/goal/" + goals.goal_id + "/calendar"}
+      tabOne={"Goals"}
+      tabTwo={"Calendar"}
+      tabThree={"All Tasks"}
+      tabOneContent={listItems}
+      tabTwoContent={Calendar}
+      tabThreeContent={"all tasks here"}
+      />
+    );
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
@@ -105,7 +112,6 @@ class GoalList extends React.Component{
                       {listItems}
                       {button}
                   </Card>
-                  <AddGoal/>
                 </div>
               </MuiThemeProvider>
             </div>

@@ -23,14 +23,12 @@ Route::get('/test', function() {
 	return view('ReactExample');
 });
 
-Route::get('/goals/all', 'Goalscontroller@getAll'); /*get all goals*/
-Route::post('/goals/create', 'GoalController@create'); /*create goal*/
-Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
-Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
-
 
 Route::group(['prefix' => 'api'], function() {
 	Route::get('/tasks', 'TasksController@getIndex')->name('tasks.show');
+	Route::delete('/task/{task_id}', 'TasksController@deleteTask');
+	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTaskPHP');
+	Route::post('/tasks', 'TasksController@postTask');
 	Route::get('/comments', 'CommentsController@getIndex')->name('comments.show');
 	Route::get('/categories', 'CategoriesController@getIndex')->name('categories.show');
 	Route::get('/goals', 'GoalsController@getIndex')->name('goals.show');
@@ -41,9 +39,17 @@ Route::group(['prefix' => 'api'], function() {
 
 });
 
-Route::get('/newsfeed2', 'NewsfeedController@getArray')->name('newsfeed.create');
 
 /*OOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDD*/
+
+Route::get('/goals/all', 'Goalscontroller@getAll'); /*get all goals*/
+Route::post('/goals/create', 'GoalController@create'); /*create goal*/
+Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
+Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
+
+
+
+Route::get('/newsfeed2', 'NewsfeedController@getArray')->name('newsfeed.create');
 
 Route::get('/goal/create', 'GoalsController@PostCreate')->name('goals.create');
 Route::get('/goal/{id?}', 'GoalsController@getshow');

@@ -1,10 +1,9 @@
 import fetchGoals from '../../../actions/goals';
 
 export const mapStateToProps = (state) => ({
-  goals: state.goals.goals,
-  rightMenu: state.rightMenu.rightMenu
+  goals: state.goals.goals
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  fetchGoalsFromActions: () => dispatch(fetchGoals())
+  fetchGoalsFromActions: () => dispatch(fetchGoals()),
 });

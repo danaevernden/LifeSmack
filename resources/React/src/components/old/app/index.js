@@ -21,6 +21,8 @@ const muiTheme = getMuiTheme({
   appBar: {
     color: red700,
     height: 50,
+    position: 'fixed',
+    marginTop: '100px'
   },
 });
 
@@ -30,9 +32,6 @@ type Props = {
   goalsForBar: String
 };
 
-const style = {
-  backgroundColor: 'blue'
-};
 
 
 class App extends React.Component {

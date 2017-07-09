@@ -80,12 +80,14 @@ class Profile extends React.Component{
     title={profile.first_name}
     subtitle={profile.city}
     buttonTitle={"edit"}
+    leftContent={"account"}
+    buttonAction={"/account/edit"}
     />
     );
+
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-              <h2>Profile</h2>
                 <div>
                   <div>
                     {this.state.editMode ?
@@ -93,8 +95,7 @@ class Profile extends React.Component{
                     <br/>Last Name <input value={this.state.last_name}/>
                     <br/>City <input value={this.state.city}/>
                     <br/>State <input value={this.state.state}/>
-                    </div>: <div>{listItems}</div>}
-                    <button onClick={this.editButton}>Edit</button>
+                    </div>: <div>{listItems}hey</div>}
                   </div>
                 </div>
           </div>

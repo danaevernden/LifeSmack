@@ -1,11 +1,12 @@
 import {ADD_TASK_TO_GOAL} from '../actions/tasks';
 
-import {FETCH_TASKS_SUCCESS} from '../actions/tasks';
+import {FETCH_TASKS_SUCCESS, DELETE_TASK_SUCCESS} from '../actions/tasks';
 
 
 
 const tasks = (state = {}, action) => {
   switch(action.type) {
+    case DELETE_TASK_SUCCESS:
     case FETCH_TASKS_SUCCESS: {
       console.log('CHECK IT OUT, TASKS!', action);
       return {

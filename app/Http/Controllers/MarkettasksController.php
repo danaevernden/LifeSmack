@@ -70,6 +70,13 @@ class MarkettasksController extends Controller
                   "task_name"=> "video: Joan River's first gigs",
                   "complete"=> false,
                   "scheduled"=> null),
+            array("goal_id"=> 2,
+                  "task_id"=> 8,
+                  "parent_task"=> null,
+                  "task_type"=> "task",
+                  "task_name"=> "batting practice",
+                  "complete"=> false,
+                  "scheduled"=> null),
               );}
 
 

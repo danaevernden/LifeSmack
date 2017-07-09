@@ -5,10 +5,9 @@ import { mapStateToProps, mapDispatchToProps } from './connect';
 import {Card} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/Toggle';
-import AddCustomGoal from '../../../components/AddCustomGoal';
 import StarRatingComponent from 'react-star-rating-component';
 import MarketplaceComponent from '../../../components/Marketplace';
-
+import AddGoalPopUp from '../../../components/AddGoal';
 //to do
 //--populate stars with ratings or use emojis or something
 //--search section seaches hashtags (not startWith, but something else in a string of hashtags)
@@ -97,7 +96,7 @@ render () {
                       {listItems}
                   </Card>
                   <br/>
-                  <AddCustomGoal/>
+                  ///add AddGoal container here
                 </div>
               </MuiThemeProvider>
           </div>

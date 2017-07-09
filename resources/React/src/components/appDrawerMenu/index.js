@@ -24,14 +24,13 @@ import ProfilePic from '../../../../../public/images/comedy.jpg';
 import '../old/app/style.css';
 import TextField from 'material-ui/TextField';
 import SearchIcon from 'material-ui/svg-icons/action/search';
-import AppDrawerMenu from '../appDrawerMenu';
+
 //to do
 // get goalsForBar to work
 //add notifications back in if part of MVP
 //    <MenuItem leftIcon={<Flag />} onTouchTap={this.drawerOpen} containerElement={<Link to="/notifications" />} primaryText="Notifications" />
 
 type Props = {
-  main: any,
   goalsForBar: String,
   test: String
 };
@@ -44,9 +43,6 @@ const muiTheme = getMuiTheme({
 });
 
 const styles = {
-  goals: {
-    marginLeft: '65px',
-  },
   drawer: {
     textAlign: 'left',
     fontSize: '200%',
@@ -84,62 +80,52 @@ const styles = {
 };
 
 
-class AppDrawer extends React.Component {
+class AppDrawerMenu extends React.Component {
   props: Props
 
   constructor(props){
     super(props)
     this.state= {
-      searchBarVisible: false,
       test: this.props.test
     }
 
-  this.openSearchBar = this.openSearchBar.bind(this);
 }
-    openSearchBar() {
-      this.setState({searchBarVisible: !this.state.searchBarVisible})
-    }
 
   render() {
     const {
-      main,
-      goalsForBar,
-      test
+      goalsForBar
     } = this.props;
 
 
-    const searchBar = (
-      <TextField hintText="Search" />
-    );
-
-    const rightButton = (
+    const leftButton = (
       <div>
-      <SearchIcon style={styles.searchIconStyle}
-      onTouchTap={this.openSearchBar}/>
-      {this.state.searchBarVisible == true ?
-      <TextField hintText="Search"
-      hintStyle={styles.whiteText}
-      inputStyle={styles.whiteText}
-      underlineFocusStyle={styles.whiteText} //not working
-       /> : null }
-      </div>
-    );
 
+    <Drawer
+        open='true'
+        width={'300px'}
+        containerStyle={styles.drawer}
+    >
+      <Card style={styles.card}>
+      <CardHeader
+        title='username here'
+        avatar={ProfilePic}
+        titleStyle={styles.card} />
+      </Card>
+      <MenuItem leftIcon={<CheckBox />} onTouchTap={this.drawerOpen} containerElement={<Link to="/" />} primaryText="Goals" />
+      {goalsForBar}
+      <MenuItem leftIcon={<ShoppingCart />} onTouchTap={this.drawerOpen} containerElement={<Link to="/marketplace" />} primaryText="Marketplace" />
+        <Divider style={styles.divider}/>
+      <MenuItem leftIcon={<AccountIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/account" />} primaryText="Account" />
+      <MenuItem  leftIcon={<SettingsIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/settings" />} primaryText="Settings" />
+      <MenuItem  leftIcon={<InfoIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/about" />} primaryText="About" />
+    </Drawer>
+    </div>
+    );
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div className='App'>
-        <AppBar
-          iconElementLeft={<AppDrawerMenu test={this.props.test} goalsForBar={goalsForBar}/>}
-          title= {'LifeSmack'}
-          titleStyle={styles.appBarTitle}
-          style={styles.appBarStyle}
-          iconElementRight={rightButton}
-        />
-
-          <div style={styles.main}>
-              {main}
-          </div>
+        <div>
+              {leftButton}
         </div>
       </MuiThemeProvider>
     )
@@ -147,4 +133,4 @@ class AppDrawer extends React.Component {
 }
 
 
-export default AppDrawer;
+export default AppDrawerMenu;

@@ -3,6 +3,14 @@ export const FETCH_TASKS_REQUEST = 'FETCH_TASKS_REQUEST';
 export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
 export const FETCH_TASKS_FAILURE = 'FETCH_TASKS_FAILURE';
 
+export const DELETE_TASK_REQUEST = 'DELETE_TASK_REQUEST';
+export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
+export const DELETE_TASK_FAILURE = 'DELETE_TASK_FAILURE';
+
+export const POST_TASK_REQUEST = 'POST_TASK_REQUEST';
+export const POST_TASK_SUCCESS = 'POST_TASK_SUCCESS';
+export const POST_TASK_FAILURE = 'POST_TASK_FAILURE';
+
 //variable in an object in square braces, it executes and then puts the value inside
 //const foo = "FOO"
 // { [foo]: 1} is the same as 'FOO':1
@@ -14,4 +22,28 @@ export default function fetchTasks() {
           types: [FETCH_TASKS_REQUEST, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE]
       },
     };
+}
+
+export function deleteTask(taskId) {
+  return {
+    [CALL_API]: {
+      endpoint: `/api/task/${taskId}`,
+      method: 'DELETE',
+      types: [DELETE_TASK_REQUEST, DELETE_TASK_SUCCESS, DELETE_TASK_FAILURE]
+    },
+  };
+}
+//taskName, dueDate
+export function postTask(taskName) {
+  return {
+    [CALL_API]: {
+      endpoint: `/api/task`,
+      method: 'POST',
+      types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
+      body: JSON.stringify({
+        name: taskName
+        // dueDate: dueDate
+      })
+    },
+  };
 }

@@ -17,7 +17,8 @@ type Props = {
   actionMore:String,
   actionClose:String,
   dialogTitle:String,
-  dialogOpen:Boolean
+  dialogOpen:String,
+  taskId:Number
 }
 
 //to do
@@ -30,13 +31,20 @@ class DialogComponent extends React.Component {
     constructor(props){
       super(props)
       this.state= {
-        dialogOpen: this.props.dialogOpen,
+        dialogOpen: true
       }
       this.dialogClose = this.dialogClose.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
       dialogClose() {
-      this.setState({dialogOpen: false})
+      this.setState({dialogOpen: null})
+    }
+
+    handleSubmit() {
+      this.props.handleSubmit(this.props.taskId);
+      // Assumes this will succeed which is a bad idea...
+      this.dialogClose();
     }
 
     render() {
@@ -45,7 +53,9 @@ class DialogComponent extends React.Component {
         actionMore,
         actionClose,
         dialogTitle,
-        dialogOpen
+        dialogOpen,
+        handleSubmit,
+        taskId
       } = this.props;
 
       const actions = [
@@ -59,7 +69,7 @@ class DialogComponent extends React.Component {
           label={actionMore}
           labelStyle={styles.buttons}
           primary={true}
-          onTouchTap={this.dialogClose}
+          onTouchTap={this.handleSubmit}
         />,
       ];
 

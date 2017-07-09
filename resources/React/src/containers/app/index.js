@@ -15,19 +15,24 @@ import { Link } from 'react-router';
 import AppDrawer from '../../components/appDrawer';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import AppGoalsforBar from '../../components/app0';
+import AppDrawerMenu from '../../components/appDrawerMenu';
 //to do
 //--get props to work and populate goals
 //--get hyperlinks to work
-//--get title from route via props and populate appBar title
+
 
 
 type Props = {
   main: any,
-  title: string,
   fetchGoalsFromActions: () => void,
   goals: Goal[],
 };
 
+const styles = {
+  goals: {
+    marginLeft: '65px',
+  }
+}
 
 class App extends React.Component {
   static defaultProps: {
@@ -48,39 +53,32 @@ class App extends React.Component {
   render() {
 
     const {
-      title,
       main,
       goals
     } = this.props;
 
 
-    const goals2 = goals.map((goals) =>
+    const goals2 = goals.map((goal) =>
     <div>
-      <AppGoalsforBar
-        goal_name={goals.goal_name}
-        goal_id={goals.goal_id}
-      />
+        <MenuItem
+        style={styles.goals}
+        containerElement={<Link to='/goal/1'/>} //need to update
+        primaryText={goal.goal_name} />
     </div>
     );
 
-    const tester =
-    <div>
-        hi
-    </div>
-    ;
-
     const AppComponent2 = (
-      <div>
+
         <AppDrawer
         goalsForBar={goals2}
-        test={'hi'}/>
-      </div>
+        />
     );
 
     return (
       <MuiThemeProvider>
         <div className='App'>
           {AppComponent2}
+          {main}
         </div>
       </MuiThemeProvider>
     )

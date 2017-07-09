@@ -5,7 +5,7 @@ import DatePicker from 'material-ui/DatePicker';
 import IconButton from 'material-ui/IconButton';
 import Moment from 'moment';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
-
+import BottomNavigationItem from 'material-ui/BottomNavigation';
 type Props = {
   scheduledDate: Date
 }
@@ -52,6 +52,7 @@ class ScheduleButton extends React.Component {
     return (
       <div>
       <h2>{scheduledDate}</h2>
+
       <IconButton tooltip="schedule" onTouchTap={this.dialogOpen}>
         <ActionSchedule/>
       </IconButton>
