@@ -10,7 +10,7 @@ class CategoriesController extends Controller
   }
 
 
-  public function getIndex() {
+  public function getIndexOld() {
     return array(
       array("category_id"=> 4,
             "goal_id"=> 1,
@@ -61,5 +61,12 @@ class CategoriesController extends Controller
             "parent_cat"=>11,
             "text"=>"task"),
     );}
+
+    public function getIndex() {
+  /*   return $this->tasks; */
+    $categories = \App\Category::all();
+      return $categories;
+    }
+
 
 }

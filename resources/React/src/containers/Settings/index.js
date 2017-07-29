@@ -2,7 +2,7 @@ import ManageCategoriesMenu from '../../components/ManageCategoriesMenu';
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ManageCategories from '../../components/ManageCategories';
-import {groupBy,values,sortBy} from 'lodash';
+import {groupBy,values} from 'lodash';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import { connect } from 'react-redux';
 
@@ -64,8 +64,8 @@ class Settings extends React.Component {
         );
 
     return(
-      <div className = 'App-page'>
-          <div className = 'App-content'>
+      <div className='App-page'>
+          <div className='App-content'>
               <MuiThemeProvider>
                 <div style={styles.topMenu}>
                     test Settings

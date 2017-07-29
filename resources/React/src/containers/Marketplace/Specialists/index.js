@@ -54,7 +54,7 @@ class Specialist extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-            <FlatButton linkButton={true} href={'/marketplace/'}>Back</FlatButton>
+            <FlatButton href={'/marketplace/'}>Back</FlatButton>
             <h2>{this.props.route.name}</h2>
             <MuiThemeProvider>
               <div>

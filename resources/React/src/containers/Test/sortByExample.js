@@ -4,7 +4,7 @@ import { mapStateToProps } from './connect';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { sortBy } from 'lodash';
-import {List, ListItem} from 'material-ui/List';
+import {ListItem} from 'material-ui/List';
 
 
 //use this example:

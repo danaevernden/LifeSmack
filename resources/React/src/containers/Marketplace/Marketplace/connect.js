@@ -1,8 +1,8 @@
-import fetchMarketplace from '../../../actions/marketplace';
+import fetchMarketplacegoals from '../../../actions/marketplacegoals';
 
 
 export const mapStateToProps = (state) => ({
-  marketplace: state.marketplace.marketplace,
+  marketplacegoals: state.marketplacegoals.marketplacegoals,
   rightMenu: state.rightMenu.rightMenu
 });
 
@@ -13,5 +13,5 @@ export const mapDispatchToProps = (dispatch) => ({
   //of functions that will dispatch actions globally
   //action is an object with a type key
   //addnewsitem is the action creator, which is a function
-  fetchMarketplaceFromActions: () => dispatch(fetchMarketplace()),
+  fetchMarketplacegoalsFromActions: () => dispatch(fetchMarketplacegoals()),
 });

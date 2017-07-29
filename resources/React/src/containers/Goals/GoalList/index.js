@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import logo from '../../../../../../public/images/running.jpg';
@@ -52,18 +52,19 @@ class GoalList extends React.Component{
 //http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
 
-    const listItems = goals.map((goals) =>
+    const listItems = goals.map((goal) =>
 
     <div>
     <Divider />
-    <a href={'/goal/' + goals.goal_id}>
+    <a href={'/goal/' + goal.id}>
       <CardMedia>
-          <img src={logo} />
+          <img src={logo} role='presentation'/>
           <CardTitle
               style={styles.goalList}
-              title={goals.goal_name}
+              title={goal.goal_name}
         />
       </CardMedia>
+      {goal.goal_name}
         </a>
     </div>
     );
@@ -81,7 +82,7 @@ class GoalList extends React.Component{
       <div>
         <Divider />
         <br/>
-        <FlatButton label={"Add Goal"} linkButton={true} href={'/goals/add'} primary={true} />
+        <FlatButton label={"Add Goal"} href={'/goals/add'} primary={true} />
         <br/>
         <br/>
       </div>;
@@ -103,8 +104,8 @@ class GoalList extends React.Component{
       />
     );
     return (
-      <div className = 'App-page'>
-          <div className = 'App-content'>
+      <div className='App-page'>
+          <div className='App-content'>
             <h2>Goals</h2>
               <MuiThemeProvider>
                 <div>

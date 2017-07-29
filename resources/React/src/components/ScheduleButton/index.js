@@ -5,7 +5,6 @@ import DatePicker from 'material-ui/DatePicker';
 import IconButton from 'material-ui/IconButton';
 import Moment from 'moment';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
-import BottomNavigationItem from 'material-ui/BottomNavigation';
 type Props = {
   scheduledDate: Date
 }

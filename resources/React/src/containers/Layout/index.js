@@ -1,23 +1,19 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ProfilePic from '../../../../../public/images/comedy.jpg';
-import {Card, CardMedia, CardActions, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardMedia, CardActions, CardTitle} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
-import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import { Link } from 'react-router';
 
 
 type Props = {
-  main: any,
   title: String,
   subtitle: String,
   buttonTitle: String,
-  leftContent: String,
   buttonAction: String,
   tabOne: String,
   tabTwo: String,
@@ -90,11 +86,9 @@ class Layout extends React.Component{
   render() {
 
     const {
-      main,
       title,
       subtitle,
       buttonTitle,
-      leftContent,
       buttonAction,
       tabOne,
       tabTwo,
@@ -167,14 +161,14 @@ class Layout extends React.Component{
         <img src={ProfilePic}/>
         </CardMedia>
         <CardActions>
-        {this.state.leftContent == "taskListDropdown" ?
+        {this.state.leftContent === "taskListDropdown" ?
         <div>{taskListDropdown}</div>
         :
         <div>
-          {this.state.leftContent == "marketitem" ?
+          {this.state.leftContent === "marketitem" ?
             <div>{marketitem}</div>
         : null }
-        {this.state.leftContent == "account" ?
+        {this.state.leftContent === "account" ?
           <div>{account}</div>
       : null }
         </div>
@@ -185,15 +179,14 @@ class Layout extends React.Component{
           style={styles.buttonStyle}
           backgroundColor={styles.buttonBackgroundTyle}
           />
-          {this.state.leftContent == "marketitem" ?
-          {tabsExample} : null }
+          {tabsExample}
         </CardActions>
       </Card>
     </div>);
 
     return (
-      <div className = 'App-page'>
-          <div className = 'App-content'>
+      <div className='App-page'>
+          <div className='App-content'>
               <MuiThemeProvider>
                 <div>
                   {layoutTop}

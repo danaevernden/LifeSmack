@@ -21,7 +21,7 @@ class CreateCommentsTable extends Migration
         # This generates two columns: `created_at` and `updated_at` to
         # keep track of changes to a row
         $table->timestamps();
-           $table->string('comment_text');
+           $table->string('text');
            $table->integer('task_id')->unsigned();
       });
 

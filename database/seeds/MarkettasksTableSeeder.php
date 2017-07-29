@@ -11,103 +11,68 @@ class MarkettasksTableSeeder extends Seeder
      */
     public function run()
     {
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-          DB::table('tasks')->insert([
+          DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 1,
+         'marketplace_id'=> 1,
          'parent_task'=>null,
-         'task_type'=>'task',
-         'task_name'=>'bit writing',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'bit writing'
          /*to add next - task notes - may need to make another table*/
              ]);
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-          DB::table('tasks')->insert([
+          DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 2,
+         'marketplace_id'=> 1,
          'parent_task'=>null,
-         'task_type'=>'task',
-         'task_name'=>'performing',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'performing'
          /*to add next - task notes - may need to make another table*/
              ]);
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-          DB::table('tasks')->insert([
+          DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 3,
+         'marketplace_id'=> 1,
          'parent_task'=>null,
-         'task_type'=>'task',
-         'task_name'=>'getting gigs',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'getting gigs'
          /*to add next - task notes - may need to make another table*/
              ]);
 
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-         DB::table('tasks')->insert([
+         DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 4,
+         'marketplace_id'=> 1,
          'parent_task'=>null,
-         'task_type'=>'task',
-         'task_name'=>'write a bit about a topic that makes you laugh uncontrollably whenever you think about it',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'write a bit about a topic that makes you laugh uncontrollably whenever you think about it'
          /*to add next - task notes - may need to make another table*/
              ]);
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-         DB::table('tasks')->insert([
+           DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 5,
+         'marketplace_id'=> 1,
          'parent_task'=>2,
-         'task_type'=>'supplemental',
-         'task_name'=>'video: setting up your first performance',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'video: setting up your first performance'
          /*to add next - task notes - may need to make another table*/
              ]);
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-         DB::table('tasks')->insert([
+         DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 6,
+         'marketplace_id'=> 1,
          'parent_task'=>3,
-         'task_type'=>'task',
-         'task_name'=>'cold call your favorite bar and ask them about open mic nights',
-         'complete'=>false,
-         'scheduled' => null
+         'task_name'=>'cold call your favorite bar and ask them about open mic nights'
          /*to add next - task notes - may need to make another table*/
              ]);
 
-         $goal_id = \App\Marketplace::where('goal_id','=',1)->pluck('id');
-         DB::table('tasks')->insert([
+         DB::table('markettasks')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'goal_id'=> 1,
-         'task_id'=> 7,
+         'marketplace_id'=> 1,
          'parent_task'=>3,
-         'task_type'=>'supplemental',
-         'task_name'=>'video: joan rivers first gigs',
-         'complete'=>false,
-         'scheduled' => null
-         /*to add next - task notes - may need to make another table*/
+         'task_name'=>'video: joan rivers first gigs'
+           /*to add next - task notes - may need to make another table*/
              ]);
 
     }

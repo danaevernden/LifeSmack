@@ -15,65 +15,50 @@ class CategoriesTableSeeder extends Seeder
       DB::table('categories')->insert([
      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-     'catogory_id'=> 4,
-     'goal_id'=> 1,
      'parent_cat'=>null,
-     'text' => 'task type'
+     'text' => 'location'
      ]);
 
      DB::table('categories')->insert([
     'created_at' => Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-    'catogory_id'=> 1,
-    'goal_id'=> 1,
     'parent_cat'=>4,
-    'text' => 'UI'
+    'text' => 'at home'
     ]);
     DB::table('categories')->insert([
    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-   'catogory_id'=> 2,
-   'goal_id'=> 1,
+   'goal_id'=> 3,
    'parent_cat'=>4,
-   'text' => 'back end'
+   'text' => 'while commuting'
    ]);
    DB::table('categories')->insert([
   'created_at' => Carbon\Carbon::now()->toDateTimeString(),
   'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-  'catogory_id'=> 3,
-  'goal_id'=> 1,
   'parent_cat'=>4,
-  'text' => 'user testing'
+  'text' => 'with professor'
   ]);
   DB::table('categories')->insert([
  'created_at' => Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
- 'catogory_id'=> 5,
- 'goal_id'=> 1,
  'parent_cat'=>null,
  'text' => 'effort estimation'
  ]);
  DB::table('categories')->insert([
 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-'catogory_id'=> 6,
-'goal_id'=> 1,
 'parent_cat'=>5,
 'text' => 'low'
 ]);
 DB::table('categories')->insert([
 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-'catogory_id'=> 7,
-'goal_id'=> 1,
 'parent_cat'=>5,
 'text' => 'medium'
 ]);
 DB::table('categories')->insert([
 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-'catogory_id'=> 8,
-'goal_id'=> 1,
 'parent_cat'=>5,
 'text' => 'high'
 ]);

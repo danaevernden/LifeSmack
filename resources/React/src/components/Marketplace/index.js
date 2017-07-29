@@ -1,24 +1,17 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
-import { green500, grey500 } from 'material-ui/styles/colors';
+import { green500 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
-import FlatButton from 'material-ui/FlatButton';
-import {Card, CardHeader, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
-import ComedyPic from '../../../../../public/images/comedy.jpg';
-import BattingPic from '../../../../../public/images/batting.jpg';
-import RunningPic from '../../../../../public/images/meb.jpg';
-
+import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 type Props = {
   goalID: Number,
   goalName: String,
-  specialistID: String,
   marketItemName: String,
   category: String,
   planDescription: String,
   rating: String,
-  marketplaceFlag: Boolean,
-  image: String
+  marketplaceFlag: Boolean
 }
 
 
@@ -37,13 +30,11 @@ class MarketplaceComponent extends React.Component {
       const {
         goalID,
         goalName,
-        specialistID,
         marketItemName,
         category,
         planDescription,
         rating,
-        marketplaceFlag,
-        image
+        marketplaceFlag
       } = this.props;
 
       const styles = {
@@ -64,7 +55,6 @@ class MarketplaceComponent extends React.Component {
         <a href={'/marketplace/' + goalID}>
           <CardMedia
           mediaStyle={styles.mediaStyle}>
-              <img src={image}/>
           </CardMedia>
           </a>
           <a href={'/marketplace/' + goalID}>

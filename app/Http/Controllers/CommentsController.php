@@ -9,7 +9,7 @@ class CommentsController extends Controller
       # Put anything here that should happen before any of the other actions
   }
 
-  public function getIndex() {
+  public function getIndexOld() {
     return array(
       array("comment_id"=> 1,
             "task_id"=> 1,
@@ -24,5 +24,12 @@ class CommentsController extends Controller
             "task_id"=> 4,
             "text" => "watch on train")
     );}
+
+    public function getIndex() {
+  /*   return $this->tasks; */
+    $comment = \App\Comment::all();
+      return $comment;
+    }
+
 
 }

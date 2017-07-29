@@ -3,21 +3,9 @@ import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
-import Chip from 'material-ui/Chip';
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-import MenuItem from 'material-ui/MenuItem';
-import Menu from 'material-ui/Menu';
-import ManageCategories from '../ManageCategories';
 
 //map in component or container to list categories? could ask ryan
-const styles = {
-  chipStyle: {
-  margin: 4},
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-};
+
 
 type Props = {
   cats: String

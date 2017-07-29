@@ -69,19 +69,20 @@ const styles = {
   }
 };
 
+
 type Props = {
-  fetchMarketplaceFromActions: () => void,
-  marketplace: Marketplace[],
+  fetchMarketplacegoalsFromActions: () => void,
+  marketplacegoals: Marketplacegoal[],
 }
 
 class Marketplace extends React.Component{
 
   static defaultProps: {
-    marketplace: Marketplace[]
+    marketplacegoals: Marketplacegoal[]
   };
 
   componentDidMount() {
-    this.props.fetchMarketplaceFromActions();
+    this.props.fetchMarketplacegoalsFromActions();
   }
   props:Props
 
@@ -107,7 +108,7 @@ class Marketplace extends React.Component{
 render () {
 
   const {
-    marketplace
+    marketplacegoals
   } = this.props;
 
   const rightMenuItems = this.props.rightMenu.filter((item) => {
@@ -118,21 +119,22 @@ render () {
   </div>
 );
 
-    const listItems = marketplace.map((marketplace) =>
+    const listItems = marketplacegoals.map((marketplacegoal) =>
       <div style={styles.topMenu}>
         <MarketplaceComponent
-        goalID={marketplace.goal_id}
-        goalName={marketplace.goal_name}
-        specialistID={marketplace.specialist_id}
-        marketItemName={marketplace.name}
-        category={marketplace.category}
-        planDescription={marketplace.plan_description}
-        rating={marketplace.rating}
-        image={marketplace.image}
+        goalID={marketplacegoal.id}
+        goalName={marketplacegoal.goal_name}
+        specialistID={marketplacegoal.specialist_id}
+        marketItemName={marketplacegoal.name}
+        planDescription={marketplacegoal.plan_description}
+        rating={marketplacegoal.rating}
         />
       </div>
       );
-
+      
+    const favorites =
+    (<div> favorites go here
+    </div>);
 
       const topMenu = (
         <div >
@@ -155,9 +157,7 @@ render () {
           </Card>
         </div>);
 
-        const favorites =
-        (<div> favorites go here
-        </div>);
+
 
 
     const noResults =  <div></div>;
@@ -191,7 +191,7 @@ render () {
   }
 }
 Marketplace.defaultProps ={
-  marketplace: []
+  marketplacegoals: []
  };
 
 

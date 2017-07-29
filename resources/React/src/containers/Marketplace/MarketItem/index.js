@@ -30,11 +30,11 @@ const styles = {
 };
 
 type Props = {
-  fetchMarketplaceFromActions: () => void,
+  fetchMarketplacegoalsFromActions: () => void,
   fetchReviewsFromActions: () => void,
   fetchMarkettasksFromActions: () => void,
   fetchCommentsFromActions: () => void,
-  marketplace: Marketplace[],
+  marketplacegoals: Marketplacegoal[],
   reviews: Review[],
   comments: Comment[],
   markettasks: Markettask[],
@@ -42,14 +42,14 @@ type Props = {
 class MarketItem extends React.Component{
 
   static defaultProps: {
-    marketplace: Marketplace[],
+    marketplacegoals: Marketplacegoal[],
     reviews: Review[],
     markettasks: Markettask[],
     comments: Comment[]
   };
 
   componentDidMount() {
-    this.props.fetchMarketplaceFromActions();
+    this.props.fetchMarketplacegoalsFromActions();
     this.props.fetchReviewsFromActions();
     this.props.fetchMarkettasksFromActions();
     this.props.fetchCommentsFromActions();
@@ -75,7 +75,7 @@ class MarketItem extends React.Component{
   render() {
 
     const {
-      marketplace,
+      marketplacegoals,
       reviews,
       markettasks,
       comments
@@ -83,8 +83,8 @@ class MarketItem extends React.Component{
 
     const noReviews =
     <div></div>;
-      var reviewsToCount = reviews.filter((item) => {
-      return item.goal_id == this.props.route.marketItem;
+      var reviewsToCount = reviews.filter((review) => {
+      return review.goal_id == this.props.route.marketItem;
     });
     var reviewsCount = reviewsToCount.length;
    //commented out for testing
@@ -103,9 +103,7 @@ class MarketItem extends React.Component{
 //includes(this.state.include, '/marketplace/1/reviews') == true
 
 
-          const listItems = reviews.filter((item) => {
-          return item.goal_id == this.props.route.marketItem;})
-          .map((review) =>
+          const listItems = reviews.map((review) =>
           <div>
           <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
           <br/>
@@ -116,19 +114,19 @@ class MarketItem extends React.Component{
           </div>
           );
 
-          const marketplaceDesc = marketplace.filter((item) => {
-          return item.goal_id == this.props.route.marketItem;
+          const marketplaceDesc = marketplacegoals.filter((marketplacegoal) => {
+          return true;
           })
-          .map((marketplace) =>
+          .map((marketplacegoal) =>
           <div>
-          {marketplace.plan_description}
-          {marketplace.rating}
+          {marketplacegoal.plan_description}
+          {marketplacegoal.rating}
           </div>
           );
           const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
-          const goalPlan = markettasks.filter((item) => {
-            return item.goal_id == this.props.route.marketItem;})
+          const goalPlan = markettasks.filter((markettask) => {
+            return markettask.goal_id == this.props.route.marketItem;})
             .map((markettask) =>
             <div>
               {(commentsByTask[markettask.task_id] || [])
@@ -149,16 +147,40 @@ class MarketItem extends React.Component{
           </div>
           );
 
-    const marketplaceItems = marketplace.filter((item) => {
-    return item.goal_id == this.props.route.marketItem;
+          const goalPlan2 = markettasks.map((markettask) =>
+            <div>
+                    <ListCard
+                    taskID={markettask.task_id}
+                    taskName={markettask.task_name}
+                    taskStatus={markettask.complete}
+                    taskScheduled={markettask.scheduled}
+                    taskType={markettask.task_type}
+                      categoryID1={markettask.category_id_1}
+                    categoryID2={markettask.category_id_2}
+                    />
+                </div>
+          );
+
+          const listItem = markettasks.filter((markettask) => {
+            return markettask.marketplace_id == this.props.route.marketItem;
+          })
+          .map((markettask) =>
+          <div>
+            {markettask.task_name}
+          </div>)
+          ;
+
+
+    const marketplaceItems = marketplacegoals.filter((marketplacegoal) => {
+    return marketplacegoal.goal_id == this.props.route.marketItem;
     })
-    .map((marketplace) =>
+    .map((marketplacegoal) =>
       <div>
           <Layout
-            title={marketplace.goal_name}
-            subtitle={marketplace.name}
+            title={marketplacegoal.goal_name}
+            subtitle={marketplacegoal.name}
             buttonTitle={"add goal"}
-            buttonAction={"/marketplace/" + marketplace.goal_id + "/reviews"}
+            buttonAction={"/marketplace/" + marketplacegoal.goal_id + "/reviews"}
             leftContent={"marketitem"}
             tabOne={"Tasks"}
             tabTwo={"Categories"}
@@ -170,14 +192,29 @@ class MarketItem extends React.Component{
       </div>
     );
 
+    const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
+    <div>
+          <Layout
+            title={marketplacegoal.goal_name}
+            subtitle={marketplacegoal.name}
+            buttonTitle={"add goal"}
+            buttonAction={"/marketplace/" + marketplacegoal.goal_id + "/reviews"}
+            tabOne={"Tasks"}
+            tabTwo={"Categories"}
+            tabThree={"Reviews"}
+            tabOneContent={goalPlan2}
+            tabTwoContent={"howdy"}
+            tabThreeContent={listItems}
+            />
+      </div>
+    );
+
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
             <MuiThemeProvider>
               <div>
-                <Card>
-                    {marketplaceItems}
-                </Card>
+              {marketplaceItems2}
               </div>
             </MuiThemeProvider>
           </div>
@@ -186,7 +223,7 @@ class MarketItem extends React.Component{
   }
 }
 MarketItem.defaultProps ={
-  marketplace: [],
+  marketplacegoals: [],
   reviews: [],
   markettasks: [],
   comments: []

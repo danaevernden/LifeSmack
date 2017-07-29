@@ -15,8 +15,8 @@ class Landing extends React.Component{
 
     return (
       <body style={styles}>
-      <div className = 'App-page'>
-          <div className = 'App-content'>
+      <div className='App-page'>
+          <div className='App-content'>
               <MuiThemeProvider>
               <div style={styles}>
                 <img src={logo} style={styles.logo} />

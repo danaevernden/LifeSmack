@@ -31,7 +31,8 @@ class DialogComponent extends React.Component {
     constructor(props){
       super(props)
       this.state= {
-        dialogOpen: true
+        dialogOpen: true,
+        completedDialogOpen: false
       }
       this.dialogClose = this.dialogClose.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +46,12 @@ class DialogComponent extends React.Component {
       this.props.handleSubmit(this.props.taskId);
       // Assumes this will succeed which is a bad idea...
       this.dialogClose();
+      this.setState({completedDialogOpen: true})
     }
+
+    completedDialogClose() {
+    this.setState({completedDialogOpen: false})
+  }
 
     render() {
       const {
@@ -72,6 +78,16 @@ class DialogComponent extends React.Component {
           onTouchTap={this.handleSubmit}
         />,
       ];
+
+      const completedDialog =
+      <div>
+        <Dialog
+          open={this.state.completedDialogOpen}
+          onRequestClose={this.completedDialogClose}
+        />
+      </div>;
+
+
 
       const dialogConst =
       <div>

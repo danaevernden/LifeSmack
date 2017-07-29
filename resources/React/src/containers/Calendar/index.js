@@ -26,8 +26,8 @@ class Calendar extends React.Component{
 
 
     return (
-      <div className = 'App-page'>
-          <div className = 'App-content'>
+      <div className='App-page'>
+          <div className='App-content'>
               <MuiThemeProvider>
                 <div>
                 <CalendarMUI

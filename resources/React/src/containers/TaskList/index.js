@@ -2,17 +2,10 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
 import {Card} from 'material-ui/Card';
-import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
-import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
-import TaskMenu from '../../components/TaskMenu';
 import ListCard from '../../components/ListCard';
-import CheckboxButton from '../../components/CheckboxButton';
 import AddTask from '../../components/AddTask';
-import GoalName from '../../components/GoalName';
 import {groupBy,values,sortBy} from 'lodash';
 import Layout from '../Layout';
 import { includes } from 'lodash';
@@ -139,60 +132,57 @@ class TaskList extends React.Component{
     const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
     const rightMenuItems = this.props.rightMenu.filter((item) => {
-      return item.page_name == "tasks";
+      return item.page_name === "tasks";
     }).map((rightMenu) =>
     <div>
     {rightMenu.item_name}
     </div>
   );
 
-    const listItemsFromComponent = tasks.filter((item) => {
-      if (this.state.showCompletedTasks) {
-        if (this.state.filter) {
-          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-        }
-          return item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-    }
-      if(this.state.filter) {
-          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id ==this.props.route.goalID;
-      }
-          return item.parent_task!== null && item.complete == false && item.goal_id ==this.props.route.goalID;
-  })
-    .map((task) =>
+    const listItemsFromComponentOld = tasks.map((task) =>
     <div>
     {(commentsByTask[task.task_id] || [])
       .map((comment) =>
       <div>
-          <ListCard
-          taskID={task.task_id}
-          taskName={task.task_name}
-          taskStatus={task.complete}
-          taskScheduled={task.scheduled}
-          commentText={comment.text}
-          categoryID1={task.category_id_1}
-          categoryID2={task.category_id_2}
-          categoryID3={task.category_id_3}
-          duplicateDialog={this.state.duplicateDialog}
-          handleDeleteTask={handleDeleteTask}
-          openDuplicate={this.openDuplicate}
-          />
+        {task.task_name}
+        {comment.text}
       </div>
     )}
     </div>
     );
 
     const listItemsFromComponent2 = tasks.filter((item) => {
-          return item.goal_id ==this.props.route.goalID;
-    })
+      if (this.state.showCompletedTasks) {
+        if (this.state.filter) {
+          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id === this.props.route.goalID;
+        }
+          return item.parent_task!== null && item.goal_id === this.props.route.goalID;
+    }
+      if(this.state.filter) {
+          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id === this.props.route.goalID;
+      }
+          return item.parent_task!== null && item.complete === false && item.goal_id === this.props.route.goalID;
+  })
     .map((task) =>
     <div>
-      {task.task_name}
+      <ListCard
+        taskID={task.id}
+        taskName={task.task_name}
+        taskStatus={task.complete}
+        taskScheduled={task.scheduled}
+        categoryID1={task.category_id_1}
+        categoryID2={task.category_id_2}
+        categoryID3={task.category_id_3}
+        duplicateDialog={this.state.duplicateDialog}
+        handleDeleteTask={handleDeleteTask}
+        openDuplicate={this.openDuplicate}
+      />
     </div>
     );
 
 
     const include =(<div>
-      {includes(this.state.include, '/goal/1/calendar') == true
+      {includes(this.state.include, '/goal/1/calendar') === true
       ?
       <div>
           <Calendar/>
@@ -212,11 +202,11 @@ class TaskList extends React.Component{
 
     const categoriesForDropdown = categories
     .filter((item) =>{
-        return item.goal_id == this.props.route.goalID;
+        return item.goal_id === this.props.route.goalID;
     });
 
     const goalNameFromComponent = goals.filter((item) => {
-      return item.goal_id == 2;
+      return item.goal_id === 2;
     })
     .map((goals) =>
     <div>
@@ -226,7 +216,7 @@ class TaskList extends React.Component{
     );
 
     const layout =(<div>
-    {includes(this.state.include, '/goal/1/calendar') == true
+    {includes(this.state.include, '/goal/1/calendar') === true
     ?
         <Layout
         title={'build LIfesmack'}
@@ -250,8 +240,8 @@ class TaskList extends React.Component{
 //checkbox:
 //https://facebook.github.io/jest/docs/tutorial-react.html
     return (
-      <div className = 'App-page' >
-        <div className = 'App-content'>
+      <div className='App-page' >
+        <div className='App-content'>
         {layout}
 
           <div className='Top-menu' style={styles.topMenu} >

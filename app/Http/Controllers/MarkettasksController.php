@@ -19,7 +19,7 @@ class MarkettasksController extends Controller
          ['tasks'=>$tasks]);
        }
 */
-        public function getIndex() {
+        public function getIndexOld() {
           return array(
             array("goal_id"=> 1,
                   "task_id"=> 1,
@@ -80,6 +80,11 @@ class MarkettasksController extends Controller
               );}
 
 
+              public function getIndex() {
+            /*   return $this->tasks; */
+              $markettasks = \App\Markettask::all();
+                return $markettasks;
+              }
     /**
      * Responds to requests to GET /goals/{id}/create
      */

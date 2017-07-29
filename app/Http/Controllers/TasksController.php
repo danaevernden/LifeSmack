@@ -86,6 +86,14 @@ class TasksController extends Controller
           return $tasks;
         }
 
+        public function getIndexWithComments() {
+      /*   return $this->tasks; */
+        $tasks = \App\Task::with('comment')->get();
+          return $tasks;
+        }
+
+        
+
         public function deleteTask($taskId) {
             $filterFunction =  function($task) use ($taskId) {
               return $task['task_id'] != $taskId;

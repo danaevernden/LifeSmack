@@ -4,12 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import FlatButton from 'material-ui/FlatButton';
-import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 
 //add logic if there are no categories
 //pull in category table
@@ -102,17 +98,13 @@ class AddGoal extends React.Component {
 
   render() {
 
-    const items = [
-      <MenuItem key={1} value={11} primaryText="Never" />
-    ];
-
     const addCategoryActions = [
       <div>
         <TextField
         style={styles.textStyle}
         hintText="Recommended Category: Location"
         />
-        {this.state.addSubCat == true ?
+        {this.state.addSubCat === true ?
           <TextField
           style={styles.textStyle}
           hintText="add subcategory"

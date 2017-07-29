@@ -1,29 +1,19 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
+import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import FlatButton from 'material-ui/FlatButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { red700 } from 'material-ui/styles/colors';
-import { connect } from 'react-redux';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
-import Flag from 'material-ui/svg-icons/content/flag';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import InfoIcon from 'material-ui/svg-icons/action/info-outline';
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import Divider from 'material-ui/Divider';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardHeader} from 'material-ui/Card';
 import ProfilePic from '../../../../../public/images/comedy.jpg';
 import '../old/app/style.css';
-import TextField from 'material-ui/TextField';
-import SearchIcon from 'material-ui/svg-icons/action/search';
 
 //to do
 // get goalsForBar to work
@@ -101,8 +91,8 @@ class AppDrawerMenu extends React.Component {
       <div>
 
     <Drawer
-        open='true'
-        width={'300px'}
+        open={true}
+        width={300}
         containerStyle={styles.drawer}
     >
       <Card style={styles.card}>

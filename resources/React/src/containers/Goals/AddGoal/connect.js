@@ -1,9 +1,9 @@
-import fetchMarketplace from '../../../actions/marketplace';
+import fetchMarketplacegoals from '../../../actions/marketplacegoals';
 
 export const mapStateToProps = (state) => ({
-  marketplace: state.marketplace.marketplace
+  marketplacegoals: state.marketplacegoals.marketplacegoals
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  fetchMarketplaceFromActions: () => dispatch(fetchMarketplace()),
+  fetchMarketplacegoalsFromActions: () => dispatch(fetchMarketplacegoals()),
 });

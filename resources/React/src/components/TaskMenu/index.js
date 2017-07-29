@@ -1,7 +1,5 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import MoreMenu from 'material-ui/svg-icons/navigation/more-horiz';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
@@ -33,12 +31,12 @@ class TaskMenu extends React.Component {
 
     return (
       <BottomNavigation>
-          {this.state.commentOpen == taskID ?
+          {this.state.commentOpen === taskID ?
               <BottomNavigationItem label="comments" icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
           :
           <BottomNavigationItem label="comments" icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
           }
-          {this.state.categoryOpen == taskID ?
+          {this.state.categoryOpen === taskID ?
               <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory()}/>
           :
               <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory(taskID)}/>

@@ -9,7 +9,7 @@ class ReviewsController extends Controller
       # Put anything here that should happen before any of the other actions
   }
 
-  public function getIndex() {
+  public function getIndexOld() {
     return array(
       array("goal_id"=> 1,
             "review_id"=> 1,
@@ -26,5 +26,12 @@ class ReviewsController extends Controller
             "rating"=>3
             )
     );}
+
+    public function getIndex() {
+  /*   return $this->tasks; */
+    $review = \App\Review::all();
+      return $review;
+    }
+
 
 }

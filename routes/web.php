@@ -26,13 +26,15 @@ Route::get('/test', function() {
 
 Route::group(['prefix' => 'api'], function() {
 	Route::get('/tasks', 'TasksController@getIndex')->name('tasks.show');
+	Route::get('/goals', 'GoalsController@getIndex')->name('goals.show');
+	Route::get('/marketplacegoals', 'MarketplacegoalsController@getIndex')->name('marketplacegoals.show');
+	Route::get('/markettasks', 'MarkettasksController@getIndex')->name('markettasks.show');
+	Route::get('/taskswithcomments', 'TasksController@getIndexWithComments')->name('tasks.show');
 	Route::delete('/task/{task_id}', 'TasksController@deleteTask');
 	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTaskPHP');
 	Route::post('/tasks', 'TasksController@postTask');
 	Route::get('/comments', 'CommentsController@getIndex')->name('comments.show');
 	Route::get('/categories', 'CategoriesController@getIndex')->name('categories.show');
-	Route::get('/goals', 'GoalsController@getIndex')->name('goals.show');
-	Route::get('/marketplace', 'MarketplaceController@getIndex')->name('marketplace.show');
 	Route::get('/reviews', 'ReviewsController@getIndex')->name('reviews.show');
 	Route::get('/profile', 'ProfileController@getIndex')->name('profile.show');
 	Route::get('/markettasks', 'MarkettasksController@getIndex')->name('markettasks.show');

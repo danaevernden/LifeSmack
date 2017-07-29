@@ -199,10 +199,10 @@ class TaskList extends React.Component{
     const listItems = this.props.tasks.filter((item) => {
         if (this.state.showCompletedTasks) {
 //this isn't working
-                  return item.parent_task!== null && item.goal_id ==this.props.route.goalID;
+        return item.parent_task!== null && item.goal_id ==this.props.route.goalID;
 
     }
-                  return item.parent_task!== null && item.complete == false && item.goal_id ==this.props.route.goalID;
+       return item.parent_task!== null && item.complete == false && item.goal_id ==this.props.route.goalID;
           })
     .map((tasks) =>
     <div>

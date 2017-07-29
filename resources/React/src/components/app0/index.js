@@ -1,17 +1,5 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import FlatButton from 'material-ui/FlatButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { red700 } from 'material-ui/styles/colors';
-import { connect } from 'react-redux';
-import { isEmpty } from 'lodash';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-import { Link } from 'react-router';
 
 //to do
 //--get props to work and populate goals
