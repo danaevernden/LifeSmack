@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import { Link } from 'react-router';
-
+import Paper from 'material-ui/Paper';
 
 type Props = {
   title: String,
@@ -67,6 +67,9 @@ const styles = {
   },
   buttonBackgroundTyle: {
     color: 'rgb(127,242,185)'
+  },
+  tabStyle: {
+    width: '350px'
   }
 };
 
@@ -98,6 +101,7 @@ class Layout extends React.Component{
       tabThreeContent
     } = this.props;
 
+
     const marketitem = (
       <div style={styles.leftContentStyle}>
       <FlatButton style={styles.buttonBackgroundTyle}>Add Goal</FlatButton>
@@ -125,20 +129,26 @@ class Layout extends React.Component{
 
     const tabsExample = (
 
-      <Tabs>
+      <Tabs contentContainerStyle={styles.tabStyle}>
           <Tab label={tabOne}>
             <div>
+            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
               {tabOneContent}
+            </Paper>
             </div>
           </Tab>
           <Tab label={tabTwo} >
             <div>
+            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
               {tabTwoContent}
+            </Paper>
             </div>
           </Tab>
           <Tab label={tabThree} >
             <div>
+            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
               {tabThreeContent}
+            </Paper>
             </div>
           </Tab>
       </Tabs>

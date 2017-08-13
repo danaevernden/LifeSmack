@@ -14,7 +14,7 @@ class ProfileController extends Controller
       array("first_name"=> "Jane",
             "last_name"=> "Doe",
             "city"=>"New York",
-            "state"=> "New York",
+            "region"=> "New York",
             "country"=> "USA")
           );}
 }

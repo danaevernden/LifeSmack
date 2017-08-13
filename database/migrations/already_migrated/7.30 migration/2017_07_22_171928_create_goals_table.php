@@ -20,10 +20,10 @@ class CreateGoalsTable extends Migration
 
      # The rest of the fields...
      $table->string('goal_name');
-     $table->date('goal_due_date');
-     $table->integer('category_id_1');
-     $table->integer('category_id_2');
-     $table->integer('category_id_3');
+     $table->date('goal_due_date')->nullable();
+     $table->integer('category_id_1')->nullable();
+     $table->integer('category_id_2')->nullable();
+     $table->integer('category_id_3')->nullable();
    });
     }
 

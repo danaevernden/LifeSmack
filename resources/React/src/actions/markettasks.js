@@ -9,7 +9,7 @@ export const FETCH_MARKETTASKS_FAILURE = 'FETCH_MARKETTASKS_FAILURE';
 export default function fetchMarkettasks() {
     return {
       [CALL_API]: {
-          endpoint: '/api/markettasks',
+          endpoint: `/api/markettasks`,
           method: 'GET',
           types: [FETCH_MARKETTASKS_REQUEST, FETCH_MARKETTASKS_SUCCESS, FETCH_MARKETTASKS_FAILURE]
       },

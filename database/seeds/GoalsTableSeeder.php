@@ -30,7 +30,7 @@ class GoalsTableSeeder extends Seeder
       'id' => 2,
       'goal_name'=> 'run 2017 NYC marathon',
       'category_id_1'=>6,
-      'category_id_2'=>null,
+      'category_id_2'=>2,
       'goal_due_date' => Carbon\Carbon::createFromDate(2017,10,31)->toDateTimeString(),
     /*  'user_id' => $user_id*/
       ]);

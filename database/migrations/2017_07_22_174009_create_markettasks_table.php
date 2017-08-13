@@ -20,15 +20,15 @@ class CreateMarkettasksTable extends Migration
 
      # The rest of the fields...
      $table->string('task_name');
-     $table->integer('parent_task');
-     $table->integer('marketplace_id')->unsigned();
+     $table->integer('category_id_1')->nullable();
+     $table->integer('marketplacegoal_id')->unsigned();
 
 #connect this to marketplace table and remove it
 
     });
 
    Schema::table('markettasks', function($table) {
-    $table->foreign('marketplace_id')->references('id')->on('marketplace');
+    $table->foreign('marketplacegoal_id')->references('id')->on('marketplace');
     });
   }
     /**
@@ -41,8 +41,8 @@ class CreateMarkettasksTable extends Migration
       Schema::table('marketTasksByTask', function (Blueprint $table) {
           # ref: http://laravel.com/docs/5.1/migrations#dropping-indexes
           # combine tablename + fk field name + the word "foreign"
-          $table->dropForeign('markettasks_marketplace_id_foreign');
-          $table->dropColumn('marketplace_id');
+          $table->dropForeign('markettasks_marketplacegoal_id_foreign');
+          $table->dropColumn('marketplacegoal_id');
           });
         Schema::drop('markettasks');
     }

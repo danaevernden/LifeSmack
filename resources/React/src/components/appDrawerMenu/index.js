@@ -22,6 +22,7 @@ import '../old/app/style.css';
 
 type Props = {
   goalsForBar: String,
+  username: String,
   test: String
 };
 
@@ -83,7 +84,8 @@ class AppDrawerMenu extends React.Component {
 
   render() {
     const {
-      goalsForBar
+      goalsForBar,
+      username
     } = this.props;
 
 
@@ -97,7 +99,7 @@ class AppDrawerMenu extends React.Component {
     >
       <Card style={styles.card}>
       <CardHeader
-        title='username here'
+        title={username}
         avatar={ProfilePic}
         titleStyle={styles.card} />
       </Card>

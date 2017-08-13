@@ -76,7 +76,7 @@ type Props = {
   marketplacegoals: Marketplacegoal[],
 }
 
-class Marketplace extends React.Component{
+class MarketCat extends React.Component{
 
   static defaultProps: {
     marketplacegoals: Marketplacegoal[]
@@ -142,13 +142,14 @@ render () {
           <Card style={styles.cardStyle}>
             <CardTitle
             title="Welcome to the Marketplace"
+            subtitle="Social"
             style={styles.titleStyle}
             titleStyle={styles.titleStyleText}
             />
             <CardActions>
             <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={{background: 'blue'}} style={styles.tabsStyle}>
               <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
-                <MarketTypes/>
+                {listItems}
               </Tab>
               <Tab label="Favorites" buttonStyle={styles.buttonStyle}>
                 {favorites}
@@ -189,12 +190,12 @@ render () {
     );
   }
 }
-Marketplace.defaultProps ={
+MarketCat.defaultProps ={
   marketplacegoals: []
  };
 
 
 export default
 connect(mapStateToProps, mapDispatchToProps)
-(Marketplace);
+(MarketCat);
 //connect merges objects into one and passes it into newsfeed as props

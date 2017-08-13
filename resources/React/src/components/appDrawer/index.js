@@ -8,13 +8,14 @@ import TextField from 'material-ui/TextField';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import AppDrawerMenu from '../appDrawerMenu';
 //to do
-// get goalsForBar to work
+
 //add notifications back in if part of MVP
 //    <MenuItem leftIcon={<Flag />} onTouchTap={this.drawerOpen} containerElement={<Link to="/notifications" />} primaryText="Notifications" />
 
 type Props = {
   main: any,
-  goalsForBar: String
+  goalsForBar: String,
+  username: String
 };
 
 const muiTheme = getMuiTheme({
@@ -83,7 +84,8 @@ class AppDrawer extends React.Component {
   render() {
     const {
       main,
-      goalsForBar
+      goalsForBar,
+      username
     } = this.props;
 
 
@@ -109,7 +111,11 @@ class AppDrawer extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>
         <AppBar
-          iconElementLeft={<AppDrawerMenu goalsForBar={goalsForBar}/>}
+          iconElementLeft={
+            <AppDrawerMenu
+              username={username}
+              goalsForBar={goalsForBar}
+              />}
           title={'LifeSmack'}
           titleStyle={styles.appBarTitle}
           style={styles.appBarStyle}

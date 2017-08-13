@@ -22,20 +22,19 @@ class CategoriesTableSeeder extends Seeder
      DB::table('categories')->insert([
     'created_at' => Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-    'parent_cat'=>4,
+    'parent_cat'=>1,
     'text' => 'at home'
     ]);
     DB::table('categories')->insert([
    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-   'goal_id'=> 3,
-   'parent_cat'=>4,
+   'parent_cat'=>1,
    'text' => 'while commuting'
    ]);
    DB::table('categories')->insert([
   'created_at' => Carbon\Carbon::now()->toDateTimeString(),
   'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-  'parent_cat'=>4,
+  'parent_cat'=>1,
   'text' => 'with professor'
   ]);
   DB::table('categories')->insert([
@@ -62,6 +61,36 @@ DB::table('categories')->insert([
 'parent_cat'=>5,
 'text' => 'high'
 ]);
+
+DB::table('categories')->insert([
+'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+'parent_cat'=> null,
+'text'=>'type of activity'
+   ]);
+
+   DB::table('categories')->insert([
+   'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+   'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+   'parent_cat'=> 9,
+   'text'=>'bit writing'
+      ]);
+
+      DB::table('categories')->insert([
+      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+      'parent_cat'=> 9,
+      'text'=>'performing'
+         ]);
+
+         DB::table('categories')->insert([
+         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
+         'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+         'parent_cat'=> 9,
+         'text'=>'getting gigs'
+            ]);
+
+
 
 
     }

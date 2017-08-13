@@ -4,13 +4,15 @@ import { mapDispatchToProps, mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Checkbox from 'material-ui/Checkbox';
 import {Card} from 'material-ui/Card';
-import ListCard from '../../components/ListCard';
+import ListCardNew from '../../components/ListCardNew';
 import AddTask from '../../components/AddTask';
 import {groupBy,values,sortBy} from 'lodash';
 import Layout from '../Layout';
 import { includes } from 'lodash';
 import Calendar from '../Calendar';
-
+import TaskCard from '../../components/TaskCard';
+import ListCardParent from '../../components/ListCardParent';
+import Paper from 'material-ui/Paper';
 //to do
 //figure out what to do about parent task
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -49,10 +51,12 @@ const styles = {
 
 type Props = {
   fetchTasksFromActions: () => void,
+  fetchGoalsFromActions: () => void,
   fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
   handleDeleteTask: () => void,
   tasks: Task[],
+  goals: Goal[],
   comments: Comment[],
   categories: Category[],
   categories2: Category2[]
@@ -90,7 +94,7 @@ class TaskList extends React.Component{
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
     this.sortOptionSelection = this.sortOptionSelection.bind(this);
     this.openDuplicate = this.openDuplicate.bind(this);
-  }
+    }
 //get this to work, test it first?
   sortBy(field) {
       this.setState({
@@ -116,6 +120,7 @@ class TaskList extends React.Component{
     })
   }
 
+
   render() {
 
     const {
@@ -131,14 +136,6 @@ class TaskList extends React.Component{
     const sortByDate = sortBy(values(tasks), (task) => task.scheduled);
     const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
 
-    const rightMenuItems = this.props.rightMenu.filter((item) => {
-      return item.page_name === "tasks";
-    }).map((rightMenu) =>
-    <div>
-    {rightMenu.item_name}
-    </div>
-  );
-
     const listItemsFromComponentOld = tasks.map((task) =>
     <div>
     {(commentsByTask[task.task_id] || [])
@@ -151,21 +148,24 @@ class TaskList extends React.Component{
     </div>
     );
 
+
     const listItemsFromComponent2 = tasks.filter((item) => {
-      if (this.state.showCompletedTasks) {
-        if (this.state.filter) {
-          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id === this.props.route.goalID;
-        }
-          return item.parent_task!== null && item.goal_id === this.props.route.goalID;
-    }
-      if(this.state.filter) {
-          return item.task_name.startsWith(this.state.filter) && item.parent_task!== null && item.goal_id === this.props.route.goalID;
-      }
-          return item.parent_task!== null && item.complete === false && item.goal_id === this.props.route.goalID;
-  })
-    .map((task) =>
+          return item.parent_id === null;
+  }).map((task) =>
     <div>
-      <ListCard
+      <ListCardParent
+        taskID={task.id}
+        goalID={task.goal_id}
+        taskName={task.task_name}
+      />
+    </div>
+    );
+
+    const listItemsNoParents = tasks.filter((item) => {
+          return item.parent_id !== null && item.is_child === 0;
+  }).map((task) =>
+    <div>
+      <ListCardNew
         taskID={task.id}
         taskName={task.task_name}
         taskStatus={task.complete}
@@ -174,64 +174,35 @@ class TaskList extends React.Component{
         categoryID2={task.category_id_2}
         categoryID3={task.category_id_3}
         duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={handleDeleteTask}
+        handleDeleteTask={this.handleDelete}
         openDuplicate={this.openDuplicate}
       />
     </div>
     );
 
-
-    const include =(<div>
-      {includes(this.state.include, '/goal/1/calendar') === true
-      ?
-      <div>
-          <Calendar/>
-      </div>
-       :
-      <div>
-          <div style={styles.CompTasksGrouper}>
-            <div><Checkbox checked={this.state.showCompletedTasks} onCheck={this.showCompletedTasks} />
-            </div>
-              Show Completed Tasks?
-          </div>
-          {listItemsFromComponent2}
-      </div>
-      }
-      </div>);
-
-
-    const categoriesForDropdown = categories
-    .filter((item) =>{
-        return item.goal_id === this.props.route.goalID;
-    });
-
-    const goalNameFromComponent = goals.filter((item) => {
-      return item.goal_id === 2;
+    const taskTabContent =
+    //if on main level, parents and no child list
+    //if on child level, show children of task that was clicked
+    ;
+    const goalNameFromComponent = goals
+    .filter((item) => {
+      return item.id === this.props.route.goalID;
     })
-    .map((goals) =>
+    .map((goal) =>
     <div>
-    {goals.goal_name}
-    hey
+    {goal.goal_name}
     </div>
     );
 
     const layout =(<div>
-    {includes(this.state.include, '/goal/1/calendar') === true
-    ?
         <Layout
-        title={'build LIfesmack'}
+        title={goalNameFromComponent}
         subtitle={"2 scheduled tasks"}
-        buttonTitle={"view tasks"}
         leftContent={"taskListDropdown"}
-        buttonAction={"/goal/" + goals.goal_id + "/calendar"}
-        />
-    :
-        <Layout
-        title={'build LIfesmack'}
-        subtitle={"2 scheduled tasks"}
-        buttonTitle={"view calendar"}
-        leftContent={"taskListDropdown"}
-        buttonAction={"/goal/" + goals.goal_id + "/calendar"}
+        tabOne={"Tasks"}
+        tabTwo={"Calendar"}
+        tabOneContent={listItemsFromComponent2}
+        tabTwoContent={"calendar here"}
         />
     }
     </div>)
@@ -242,22 +213,8 @@ class TaskList extends React.Component{
     return (
       <div className='App-page' >
         <div className='App-content'>
-        {layout}
-
-          <div className='Top-menu' style={styles.topMenu} >
-              <div>
-                <MuiThemeProvider>
-                  <Card style={styles.cardStyle}>
-                    {include}
-                  </Card>
-                </MuiThemeProvider>
-              </div>
-              <div>
-                  <AddTask/>
-                  {goalNameFromComponent}
-              </div>
-              <br/>
-          </div>
+            {layout}
+            <AddTask/>
         </div>
       </div>
     );

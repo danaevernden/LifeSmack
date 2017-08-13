@@ -25,7 +25,7 @@ class CreateCommentsTable extends Migration
            $table->integer('task_id')->unsigned();
       });
 
-      Schema::table('tasks', function($table) {
+      Schema::table('comments', function($table) {
        $table->foreign('task_id')->references('id')->on('tasks');
      });
 

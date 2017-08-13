@@ -18,7 +18,18 @@ const styles = {
         backgroundColor: 'rgb(233,235,238)'
     },
     goalList: {
-      textAlign:'left'
+      textAlign:'left',
+      height:'14px',
+      fontSize: '14px',
+      padding: '0px'
+    },
+    cardStyle: {
+        flexWrap: 'wrap',
+        marginLeft: '20%',
+        marginRight: '20%',
+        maxWidth: '350px',
+        display: 'inline-block',
+        textAlign: 'left'
     }
 };
 
@@ -56,19 +67,28 @@ class GoalList extends React.Component{
 
     <div>
     <Divider />
+    <Card style={styles.cardStyle}>
     <a href={'/goal/' + goal.id}>
-      <CardMedia>
+      <CardMedia style={styles.logo}>
           <img src={logo} role='presentation'/>
           <CardTitle
-              style={styles.goalList}
+              titleStyle={styles.goalList}
               title={goal.goal_name}
         />
       </CardMedia>
-      {goal.goal_name}
         </a>
+    </Card>
     </div>
     );
 
+    const goalList =
+    <div>
+        {listItems}
+        <Card>
+            {button}
+        </Card>
+    </div>
+    ;
     const length = <div>{this.props.goals.length}</div>;
 
     const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;
@@ -92,14 +112,12 @@ class GoalList extends React.Component{
       <Layout
       title={'Anna'}
       subtitle={"New York, NY"}
-      buttonTitle={"view tasks"}
       leftContent={"dashboard"}
-      buttonAction={"/goal/" + goals.goal_id + "/calendar"}
       tabOne={"Goals"}
       tabTwo={"Calendar"}
       tabThree={"All Tasks"}
       tabOneContent={listItems}
-      tabTwoContent={Calendar}
+      tabTwoContent={"coming soon!"}
       tabThreeContent={"all tasks here"}
       />
     );
@@ -109,10 +127,7 @@ class GoalList extends React.Component{
             <h2>Goals</h2>
               <MuiThemeProvider>
                 <div>
-                  <Card>
-                      {listItems}
-                      {button}
-                  </Card>
+                {layout}
                 </div>
               </MuiThemeProvider>
             </div>

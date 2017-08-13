@@ -16,7 +16,7 @@ export default function fetchProfile() {
 }
 
 
-export const updateProfileInfo = (first_name, last_name, city, state) => {
+export const updateProfileInfo = (first_name, last_name, city, region) => {
   //returns type and item, action creator always dispatches an object
   //an action is an object with a type key
   return {
@@ -25,7 +25,7 @@ export const updateProfileInfo = (first_name, last_name, city, state) => {
       first_name,
       last_name,
       city,
-      state
+      region
     }
   };
 }

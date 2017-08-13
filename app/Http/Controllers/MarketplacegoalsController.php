@@ -9,6 +9,19 @@ class MarketplacegoalsController extends Controller
       # Put anything here that should happen before any of the other actions
   }
 
+  public function getMarketgoalsWithTasks() {
+  $goals = \App\Marketplacegoal::with('markettask')->get();
+  return $goals;
+  }
+
+  public function getAllMarketgoals() {
+  $goals = \App\Marketplacegoal::all();
+  return $goals;
+  }
+
+}
+
+/*
 
   public function getIndexOld() {
     return array(
@@ -37,17 +50,4 @@ class MarketplacegoalsController extends Controller
             "image"=>"http://mediad.publicbroadcasting.net/p/shared/npr/201312/241567553.jpg"
           )
           );}
-
-          public function getIndexWithTasks() {
-        /*   return $this->tasks; */
-          $goals = \App\Marketplacegoal::with('markettask')->get();
-            return $goals;
-          }
-
-          public function getIndex() {
-        /*   return $this->tasks; */
-          $goals = \App\Marketplacegoal::all();
-            return $goals;
-          }
-
-}
+*/

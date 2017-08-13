@@ -25,11 +25,13 @@ class CreateTasksTable1142017 extends Migration
 
      # The rest of the fields...
      $table->string('task_name');
-     $table->integer('status_id');
-     $table->integer('order_id');
-     $table->integer('priority_id');
-     $table->integer('archived_flag');
-     $table->date('task_due_date');
+     $table->integer('parent_id')->nullable();
+     $table->boolean('is_child');
+     $table->integer('category_id_1')->nullable();
+     $table->integer('category_id_2')->nullable();
+     $table->integer('category_id_3')->nullable();
+     $table->integer('complete');
+     $table->date('scheduled')->nullable();
      $table->integer('goal_id')->unsigned();
    });
      Schema::table('tasks', function($table) {

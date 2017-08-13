@@ -10,15 +10,19 @@ class MarkettasksController extends Controller
         # Put anything here that should happen before any of the other actions
     }
 
-    /**
-     * Responds to requests to GET /goals/{id}/tasks
-     */
-    /* public function getIndex() {
-         $tasks = \App\Task::with('goal')->get();
-         return view('goaltemplates.show')->with(
-         ['tasks'=>$tasks]);
-       }
-*/
+    public function getAllMarkettasks() {
+    $markettasks = \App\Markettask::all();
+    return $markettasks;
+    }
+
+    public function getMarkettasksperMarketgoal($marketplacegoal_id) {
+    $markettasks = \App\Markettask::where('marketplacegoal_id','=',$marketplacegoal_id)->get();
+    return $markettasks;
+    }
+}
+
+/*
+
         public function getIndexOld() {
           return array(
             array("goal_id"=> 1,
@@ -79,23 +83,4 @@ class MarkettasksController extends Controller
                   "scheduled"=> null),
               );}
 
-
-              public function getIndex() {
-            /*   return $this->tasks; */
-              $markettasks = \App\Markettask::all();
-                return $markettasks;
-              }
-    /**
-     * Responds to requests to GET /goals/{id}/create
-     */
-    public function getCreate() {
-        return 'Form to create a new task';
-    }
-
-    /**
-     * Responds to requests to POST /goals/{id}/create
-     */
-    public function postCreate() {
-        return 'Process adding new task';
-    }
-}
+*/

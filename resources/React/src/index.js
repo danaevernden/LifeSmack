@@ -29,7 +29,8 @@ import Settings from './containers/Settings';
 import About from './containers/About';
 import Calendar from './containers/Calendar';
 import Login from './containers/Login';
-
+import MarketTypes from './containers/Marketplace/MarketTypes';
+import MarketCat from './containers/Marketplace/MarketCat';
 /*    <Route components={AppContainer}> */
 
 /* eslint-disable no-underscore-dangle */
@@ -49,9 +50,9 @@ ReactDOM.render((
           <Route path='/' components={{main : GoalList}} />
           <Route path='/account' component={{main : Profile}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
-          <Route path='/goal/3' goalID='3' component={{main : TaskList}} />
-          <Route path='/goal/3/calendar' goalID='3' component={{main : TaskList}} />
-          <Route path='/goal/4' goalID='4' component={{main : TaskList}} />
+          <Route path='/goal/1' goalID={1} component={{main : TaskList}} />
+          <Route path='/goal/1/1' goalID={1} taskID={1} component={{main : layout : TaskList}} />
+          <Route path='/goal/2' goalID={2} component={{main : TaskList}} />
           <Route path='/goals/add' component={{main : AddGoal}} />
           <Route path='/sortby' component={{main : sortByExample}} />
           <Route path='/calendar' component={{main : Calendar}} />
@@ -61,7 +62,8 @@ ReactDOM.render((
           <Route path='/test00' component={{main : GroupingComments00}} />
           <Route path='/testAPI' component={{main : TestApi}} />
           <Route path='/settings' component={{main: Settings}}/>
-          <Route path='/marketplace/1' marketItem='1' component={{main : MarketItem}} />
+          <Route path='/marketplace/social' marketCat='social' component={{main : MarketCat}} />
+          <Route path='/marketplace/1' marketItem='1' marketplacegoal_id='1' component={{main : MarketItem}} />
           <Route path='/marketplace/1/reviews' marketItem='1' component={{main : MarketItem}} />
           <Route path='/marketplace/2' marketItem='2' component={{main : MarketItem}} />
           <Route path='/marketplace/3' marketItem='3' component={{main : MarketItem}} />

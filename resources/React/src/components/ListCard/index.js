@@ -30,6 +30,7 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  handleDeleteTask: () => Promise<any>,
 }
 
 const styles={
@@ -89,7 +90,8 @@ class ListCard extends React.Component {
         taskStatusState: this.props.taskStatus,
         deleteDialog: null,
         duplicateDialog: null,
-        schedulerDialog: null
+        schedulerDialog: null,
+        dialogName: null
       }
       this.completeTask = this.completeTask.bind(this);
       this.openComment = this.openComment.bind(this);
@@ -98,29 +100,42 @@ class ListCard extends React.Component {
       this.openDelete = this.openDelete.bind(this);
       this.openDuplicate = this.openDuplicate.bind(this);
       this.openScheduler = this.openScheduler.bind(this);
-      this.closeScheduler = this.closeScheduler.bind(this);
+      this.closeDialog = this.closeDialog.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
     }
 
-    closeScheduler() {
-      this.setState({schedulerDialog: null});
+    closeDialog(actionName) {
+      if(actionName == "delete") {
+        this.setState({deleteDialog: false});
+      }
+      if(actionName == "scheduler") {
+        this.setState({schedulerDialog: false});
+      }
+      if(actionName == "duplicate") {
+        this.setState({duplicateDialog: false});
+      }
     }
+
     openScheduler(task_id) {
         if(null == task_id) {
             this.setState({schedulerDialog: null})
         }
             this.setState({schedulerDialog: task_id})
+            this.setState({dialogName: "scheduler"})
     }
     openDuplicate(task_id) {
         if(null == task_id) {
             this.setState({duplicateDialog: null})
         }
             this.setState({duplicateDialog: task_id})
+            this.setState({dialogName: "duplicate"})
     }
     openDelete(task_id) {
         if(null == task_id) {
             this.setState({deleteDialog: null})
         }
             this.setState({deleteDialog: task_id})
+            this.setState({dialogName: "delete"})
     }
     openComment(task_id) {
       if(null == task_id) {
@@ -145,6 +160,14 @@ class ListCard extends React.Component {
     snackbarClose() {
       this.setState({snackbarOpen: false})
     }
+    handleDelete() {
+      this.props.handleDeleteTask
+      .then(() => {
+        this.setState({
+          deleteDialog: false,
+        });
+    });
+    }
 
     render() {
       const {
@@ -162,15 +185,21 @@ class ListCard extends React.Component {
 
       const today = new Date().toJSON();
 
-      const scheduleActions =[
+      const dialogActions =[
         <RaisedButton
-          label="Ok"
+          label="OK"
           primary={true}
           keyboardFocused={true}
-          onTouchTap={this.dialogClose}
+          onTouchTap={() => this.handleDelete}
+        />,
+        /*this isn't working*/
+        <RaisedButton
+          label="Cancel"
+          primary={true}
+          keyboardFocused={true}
+          onTouchTap={() => this.closeDialog(this.state.dialogName)}
         />,
       ];
-
 
       const taskCard =
       <div style={styles.wrapper}>
@@ -248,16 +277,26 @@ class ListCard extends React.Component {
             onRequestClose={this.snackbarClose}
           />
 
-
-
-
-
           <Dialog title="Schedule this task"
-          actions={scheduleActions}
+          actions={dialogActions}
           modal={false}
           open={this.state.schedulerDialog}
-          onRequestClose={this.closeScheduler}>
+          onRequestClose={() => this.closeDialog("scheduler")}>
           <DatePicker/>
+          </Dialog>
+
+          <Dialog title="Are you sure you want to delete this task?"
+          actions={dialogActions}
+          modal={false}
+          open={this.state.deleteDialog}
+          onRequestClose={() => this.closeDialog("delete")}>
+          </Dialog>
+
+          <Dialog title="Are you sure you want to duplicate this task?"
+          actions={dialogActions}
+          modal={false}
+          open={this.state.duplicateDialog}
+          onRequestClose={() => this.closeDialog("duplicate")}>
           </Dialog>
 
           </div>

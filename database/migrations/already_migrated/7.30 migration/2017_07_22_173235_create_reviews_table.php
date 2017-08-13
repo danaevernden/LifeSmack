@@ -28,7 +28,7 @@ class CreateReviewsTable extends Migration
      $table->string('review');
      $table->integer('helpful');
      $table->integer('rating');
-     $table->integer('marketplace_id')->unsigned();
+     $table->integer('marketplacegoal_id')->unsigned();
 
 
    });

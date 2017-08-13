@@ -26,7 +26,7 @@ class CreateCategoriesTable extends Migration
 
      # The rest of the fields...
 
-     $table->integer('parent_cat');
+     $table->integer('parent_cat')->nullable();
      $table->string('text');
       });
 
@@ -39,7 +39,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-    
+
         Schema::drop('categories');
     }
 }

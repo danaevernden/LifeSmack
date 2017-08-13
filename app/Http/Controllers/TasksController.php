@@ -10,7 +10,58 @@ use Carbon\Carbon;
 
 class TasksController extends Controller
 {
-   var $tasks = array(
+    public function __construct() {
+        # Put anything here that should happen before any of the other actions
+    }
+
+    public function getTasksPerGoal($goal_id) {
+    $tasks = \App\Task::where('goal_id','=',$goal_id)->get();
+    return $tasks;
+    }
+
+    public function getAllTasks() {
+    $tasks = \App\Task::all();
+    return $tasks;
+    }
+
+
+    /*this one can be used for TaskList, until it is broken out*/
+    public function getTasksPerGoalWithComments($goal_id) {
+    $tasks = \App\Task::where('goal_id','=',$goal_id)->with('comment')->get();
+    return (['tasks'=>$tasks]);;
+    }
+
+    public function deleteTask($taskId) {
+    $task = \App\Task::find($taskId);
+    $task->delete();
+    return response('deleted task', 204);
+    }
+
+    public function postTask(Request $request) {
+    $data = $request->json()->all();
+    $task = new \App\Task();
+    $task->task_name = $data['name'];
+    $task->category_id_1 = '1';
+    $task->category_id_2 = '1';
+    $task->category_id_3 = '1';
+    $task->scheduled = Carbon::now()->toDateTimeString();
+    $task->complete='0';
+    $task->goal_id='1';
+    $task->save();
+    return Response::json($task);
+    }
+}
+
+/*        public function deleteTask($taskId) {
+            $filterFunction =  function($task) use ($taskId) {
+              return $task['task_id'] != $taskId;
+            };
+            return array_filter($this->tasks, $filterFunction);
+          }
+
+*/
+
+/*   var $tasks = array(
    array("goal_id"=> 1,
          "task_id"=> 5,
          "parent_task"=>null,
@@ -65,77 +116,4 @@ class TasksController extends Controller
          "scheduled"=> null),
      );
 
-    public function __construct() {
-        # Put anything here that should happen before any of the other actions
-    }
-
-
-    /**
-     * Responds to requests to GET /goals/{id}/tasks
-     */
-    /* public function getIndex() {
-         $tasks = \App\Task::with('goal')->get();
-         return view('goaltemplates.show')->with(
-         ['tasks'=>$tasks]);
-       }
 */
-
-        public function getIndex() {
-      /*   return $this->tasks; */
-        $tasks = \App\Task::all();
-          return $tasks;
-        }
-
-        public function getIndexWithComments() {
-      /*   return $this->tasks; */
-        $tasks = \App\Task::with('comment')->get();
-          return $tasks;
-        }
-
-        
-
-        public function deleteTask($taskId) {
-            $filterFunction =  function($task) use ($taskId) {
-              return $task['task_id'] != $taskId;
-            };
-            return array_filter($this->tasks, $filterFunction);
-          }
-
-          public function deleteTaskPHP($taskId) {
-              $task = \App\Task::find($taskId);
-              $task->delete();
-              return response('deleted task', 204);
-            }
-
-        public function postTask(Request $request) {
-            $data = $request->json()->all();
-            $task = new \App\Task();
-            $task->task_name = $data['name'];
-            $task->status_id = '1';
-            $task->order_id = '1';
-            $task->priority_id = '1';
-            $task->archived_flag = '1';
-            $task->task_due_date = Carbon::now()->toDateTimeString();
-            $task->goal_id='1';
-            $task->save();
-            return Response::json($task);
-        }
-
-        public function getTasksTable(Request $request) {
-            $tasks = \App\Task::all();
-        }
-
-    /**
-     * Responds to requests to GET /goals/{id}/create
-     */
-    public function getCreate() {
-        return 'Form to create a new task';
-    }
-
-    /**
-     * Responds to requests to POST /goals/{id}/create
-     */
-    public function postCreate() {
-        return 'Process adding new task';
-    }
-}

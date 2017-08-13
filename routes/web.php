@@ -25,46 +25,42 @@ Route::get('/test', function() {
 
 
 Route::group(['prefix' => 'api'], function() {
-	Route::get('/tasks', 'TasksController@getIndex')->name('tasks.show');
-	Route::get('/goals', 'GoalsController@getIndex')->name('goals.show');
-	Route::get('/marketplacegoals', 'MarketplacegoalsController@getIndex')->name('marketplacegoals.show');
-	Route::get('/markettasks', 'MarkettasksController@getIndex')->name('markettasks.show');
-	Route::get('/taskswithcomments', 'TasksController@getIndexWithComments')->name('tasks.show');
-	Route::delete('/task/{task_id}', 'TasksController@deleteTask');
-	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTaskPHP');
+	/*Route::get('/tasks/{goal_id}', 'TasksController@getTasksPerGoalWithComments');*/
+/*	Route::get('/tasks/{goal_id}', 'TasksController@getTasksPerGoal');*/
+
+	Route::get('/tasks', 'TasksController@getAllTasks');
 	Route::post('/tasks', 'TasksController@postTask');
-	Route::get('/comments', 'CommentsController@getIndex')->name('comments.show');
-	Route::get('/categories', 'CategoriesController@getIndex')->name('categories.show');
-	Route::get('/reviews', 'ReviewsController@getIndex')->name('reviews.show');
-	Route::get('/profile', 'ProfileController@getIndex')->name('profile.show');
-	Route::get('/markettasks', 'MarkettasksController@getIndex')->name('markettasks.show');
+	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTask');
+
+	Route::get('/goals', 'GoalsController@getAllGoals');
+/*	Route::get('/goals/{goal_id}', 'GoalsController@getOneGoal');
+	Route::get('/taskswithcomments/{goal_id}', 'TasksController@getTasksPerGoalWithComments'); */
+	Route::post('/goals', 'GoalsController@postGoal');
+	Route::delete('/task/delete/{goal_id}', 'GoalsController@deleteGoal');
+
+	Route::get('/marketplacegoals', 'MarketplacegoalsController@getAllMarketgoals');
+
+	/*Route::get('/markettasks/{marketplacegoal_id}', 'MarkettasksController@getMarkettasksperMarketgoal'); */
+  Route::get('/markettasks', 'MarkettasksController@getAllMarkettasks');
+
+	Route::get('/comments', 'CommentsController@getAllComments');
+	Route::post('/comments', 'CommentsController@postComment');
+	Route::delete('/comments/{comment_id}', 'CommentsController@deleteComment');
+
+	/*Route::get('/categories/{goal_id}', 'CategoriesController@getCategoriesPerGoal');*/
+	Route::get('/categories', 'CategoriesController@getAllCategories');
+	Route::post('/categories', 'CategoriesController@postCategory');
+	Route::delete('/categories/{category_id}', 'CategoriesController@deleteCategory');
+
+	Route::get('/reviews', 'ReviewsController@getAllReviews');
+/*	Route::get('/reviews/{marketplacegoal_id}', 'ReviewsController@getReviewsPerMarketgoal');*/
+
+	Route::post('/reviews', 'ReviewsController@postReview');
+	Route::delete('/reviews/{review_id}', 'ReviewsController@deleteReview');
+
+	Route::get('/profile', 'ProfileController@getIndex');
 
 });
-
-
-/*OOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDD*/
-
-Route::get('/goals/all', 'Goalscontroller@getAll'); /*get all goals*/
-Route::post('/goals/create', 'GoalController@create'); /*create goal*/
-Route::post('/goals/delete', 'GoalController@delete'); /*delete goal*/
-Route::post('/goals/edit', 'GoalController@edit'); /*edit goal*/
-
-
-
-Route::get('/newsfeed2', 'NewsfeedController@getArray')->name('newsfeed.create');
-
-Route::get('/goal/create', 'GoalsController@PostCreate')->name('goals.create');
-Route::get('/goal/{id?}', 'GoalsController@getshow');
-
-Route::get('/goaltemplates','GoaltemplatesController@getIndex')->name('goaltemplates.show');
-
-/*if not logged in*/
-Route::get('/about', 'AboutController@getIndex')->name('about.show');
-Route::get('/join', 'JoinController@getIndex')->name('join.create');
-
-/*to add later*/
-Route::get('/SmackIt','SmackitController@getIndex')->name('smackit.show');
-Route::get('/account','AccountController@getIndex')->name('account.show');
 
 /*for refreshing the database*/
 if(App::environment('local')) {

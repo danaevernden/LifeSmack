@@ -14,7 +14,9 @@ import { mapStateToProps, mapDispatchToProps } from './connect';
 type Props = {
   main: any,
   fetchGoalsFromActions: () => void,
+  fetchProfileFromActions: () => void,
   goals: Goal[],
+  profile: Profile[]
 };
 
 const styles = {
@@ -43,7 +45,8 @@ class App extends React.Component {
 
     const {
       main,
-      goals
+      goals,
+      profile
     } = this.props;
 
 
@@ -51,8 +54,15 @@ class App extends React.Component {
     <div>
         <MenuItem
         style={styles.goals}
-        containerElement={<Link to='/goal/1'/>} //need to update
+        href={'/goal/' + goal.id}
         primaryText={goal.goal_name} />
+    </div>
+    );
+
+    const profGrab =
+    profile.map((profile) =>
+    <div>
+    {profile.first_name} {profile.last_name}
     </div>
     );
 
@@ -60,6 +70,7 @@ class App extends React.Component {
 
         <AppDrawer
         goalsForBar={goals2}
+        username={profGrab}
         />
     );
 
@@ -74,7 +85,8 @@ class App extends React.Component {
   }
 }
 App.defaultProps ={
-  goals: []
+  goals: [],
+  profile: []
  };
 
 

@@ -10,7 +10,9 @@ import StarRatingComponent from 'react-star-rating-component';
 import Layout from '../../Layout';
 import { includes } from 'lodash';
 import {groupBy,values,sortBy} from 'lodash';
-import ListCard from '../../../components/ListCard';
+import MarketplaceListCard from '../../../components/MarketplaceListCard';
+import TextField from 'material-ui/TextField';
+import ListCardNew from '../../../components/ListCardNew';
     //to do
 //--subtitle href to click on specialist name, already have page for them
 //--helpful button increments 'likes' on a review - started working on but haven't figured it out
@@ -53,7 +55,6 @@ class MarketItem extends React.Component{
     this.props.fetchReviewsFromActions();
     this.props.fetchMarkettasksFromActions();
     this.props.fetchCommentsFromActions();
-
   }
   props:Props
 
@@ -64,6 +65,7 @@ class MarketItem extends React.Component{
       include: window.location.href
         }
         this.increment = this.increment.bind(this);
+        this.handlemarkettasks = this.handlemarkettasks.bind(this);
     }
 
     increment(id) {
@@ -71,6 +73,13 @@ class MarketItem extends React.Component{
       var likeButton = this.state.likeButton + 1;
       this.setState({likeButton: likeButton})
     };
+
+    handlemarkettasks(marketplacegoal_id) {
+      this.props.fetchMarkettasks(marketplacegoal_id).map((markettask) =>
+      <div>
+        {markettask.task_name}
+      </div>)
+    }
 
   render() {
 
@@ -105,11 +114,13 @@ class MarketItem extends React.Component{
 
           const listItems = reviews.map((review) =>
           <div>
-          <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
-          <br/>
-          <FlatButton label="helpful?" id={review.helpful} onClick={() => this.increment(review.helpful)}/>
-          {this.state.likeButton}
-          </CardText>
+          <Card>
+              <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
+              <br/>
+              <FlatButton label="helpful?" id={review.helpful} onClick={() => this.increment(review.helpful)}/>
+              {this.state.likeButton}
+              </CardText>
+          </Card>
           <Divider />
           </div>
           );
@@ -123,42 +134,17 @@ class MarketItem extends React.Component{
           {marketplacegoal.rating}
           </div>
           );
-          const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
-
-          const goalPlan = markettasks.filter((markettask) => {
-            return markettask.goal_id == this.props.route.marketItem;})
-            .map((markettask) =>
-            <div>
-              {(commentsByTask[markettask.task_id] || [])
-                .map((comment) =>
-                <div>
-                    <ListCard
-                    taskID={markettask.task_id}
-                    taskName={markettask.task_name}
-                    taskStatus={markettask.complete}
-                    taskScheduled={markettask.scheduled}
-                    taskType={markettask.task_type}
-                    commentText={comment.text}
-                    categoryID1={markettask.category_id_1}
-                    categoryID2={markettask.category_id_2}
-                    />
-                </div>
-              )}
-          </div>
-          );
 
           const goalPlan2 = markettasks.map((markettask) =>
             <div>
-                    <ListCard
-                    taskID={markettask.task_id}
-                    taskName={markettask.task_name}
-                    taskStatus={markettask.complete}
-                    taskScheduled={markettask.scheduled}
-                    taskType={markettask.task_type}
-                      categoryID1={markettask.category_id_1}
-                    categoryID2={markettask.category_id_2}
-                    />
-                </div>
+            .
+              <ListCardNew
+                taskID={markettask.task_id}
+                taskStatus={true}
+                taskName={markettask.task_name}
+                categoryID1={markettask.category_id_1}
+                />
+            </div>
           );
 
           const listItem = markettasks.filter((markettask) => {
@@ -179,8 +165,6 @@ class MarketItem extends React.Component{
           <Layout
             title={marketplacegoal.goal_name}
             subtitle={marketplacegoal.name}
-            buttonTitle={"add goal"}
-            buttonAction={"/marketplace/" + marketplacegoal.goal_id + "/reviews"}
             leftContent={"marketitem"}
             tabOne={"Tasks"}
             tabTwo={"Categories"}
@@ -192,13 +176,12 @@ class MarketItem extends React.Component{
       </div>
     );
 
+
     const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
     <div>
           <Layout
             title={marketplacegoal.goal_name}
             subtitle={marketplacegoal.name}
-            buttonTitle={"add goal"}
-            buttonAction={"/marketplace/" + marketplacegoal.goal_id + "/reviews"}
             tabOne={"Tasks"}
             tabTwo={"Categories"}
             tabThree={"Reviews"}
@@ -208,6 +191,14 @@ class MarketItem extends React.Component{
             />
       </div>
     );
+
+
+    const goalPlan3 = markettasks.map((markettask) =>
+      <div style={styles.topMenu}>
+        {markettask.task_name}
+          </div>
+    );
+
 
     return (
       <div className = 'App-page'>

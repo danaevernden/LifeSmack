@@ -22,8 +22,10 @@ class CreateMarketplacegoalsTable extends Migration
      $table->string('name');
      $table->integer('specialist_id');
      $table->string('goal_name');
-     $table->integer('rating');
+     $table->integer('rating')->nullable();
+     $table->integer('category_id_1')->nullable();
      $table->string('plan_description');
+     $table->boolean('favorite');
    });
   }
 

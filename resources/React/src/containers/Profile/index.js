@@ -2,8 +2,8 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import Layout from '../Layout';
-
+import profilePic from '../../../../../public/images/comedy.jpg';
+import Avatar from 'material-ui/Avatar';
 //to do
 //--edit button shows form, but should this be a separate page? can this same container house both pages?
 //--use redux-form (download it first) to make it look nice
@@ -26,6 +26,12 @@ want to put text boxes around existing information for editing.
   }
 }
 
+const styles = {
+  listItems: {
+    marginTop: '40px'
+  }
+}
+
 class Profile extends React.Component{
   static defaultProps: {
     profile: Profile[]
@@ -42,7 +48,7 @@ class Profile extends React.Component{
       first_name: this.props.profile.first_name,
       last_name: this.props.profile.last_name,
       city: this.props.profile.city,
-      state: this.props.profile.state
+      region: this.props.profile.region
     }
 
       this.updateProfileInfo = this.updateProfileInfo.bind(this);
@@ -61,7 +67,7 @@ class Profile extends React.Component{
       first_name: "",
       last_name: "",
       city: "",
-      state: ""
+      region: ""
     })
   }
 
@@ -76,28 +82,26 @@ class Profile extends React.Component{
 
     const listItems =
     profile.map((profile) =>
-    <Layout
-    title={profile.first_name}
-    subtitle={profile.city}
-    buttonTitle={"edit"}
-    leftContent={"account"}
-    buttonAction={"/account/edit"}
-    />
+    <div>
+    <Avatar src={profilePic} size={150} />
+    <br/>
+    {profile.first_name}
+    <br/>
+    {profile.city}, {profile.region}
+    </div>
     );
 
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-                <div>
-                  <div>
-                    {this.state.editMode ?
-                    <div>First Name: <input value={this.state.first_name}/>
-                    <br/>Last Name <input value={this.state.last_name}/>
-                    <br/>City <input value={this.state.city}/>
-                    <br/>State <input value={this.state.state}/>
-                    </div>: <div>{listItems}hey</div>}
-                  </div>
+              <div>
+                  hey
+              </div>
+              <div>
+                <div style={styles.listItems}>
+                  {listItems}
                 </div>
+              </div>
           </div>
       </div>
     );
@@ -113,3 +117,12 @@ export default connect(
   mapDispatchToProps
 )(Profile);
 //connect merges objects into one and passes it into newsfeed as props
+
+
+//old code
+//                    {this.state.editMode ?
+//                    <div>First Name: <input value={this.state.first_name}/>
+//                    <br/>Last Name <input value={this.state.last_name}/>
+//                    <br/>City <input value={this.state.city}/>
+//                    <br/>State <input value={this.state.state}/>
+//                    </div>: }
