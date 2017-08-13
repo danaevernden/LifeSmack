@@ -13,7 +13,9 @@ import {groupBy,values,sortBy} from 'lodash';
 import MarketplaceListCard from '../../../components/MarketplaceListCard';
 import TextField from 'material-ui/TextField';
 import ListCardNew from '../../../components/ListCardNew';
-    //to do
+import redComTask from '../../../../../../public/images/marketplace task icon.png';
+
+//to do
 //--subtitle href to click on specialist name, already have page for them
 //--helpful button increments 'likes' on a review - started working on but haven't figured it out
 //--if reviewcount = 0, message 'no reviews'
@@ -143,6 +145,7 @@ class MarketItem extends React.Component{
                 taskStatus={true}
                 taskName={markettask.task_name}
                 categoryID1={markettask.category_id_1}
+                imageSrc={<img src={redComTask}/>}
                 />
             </div>
           );

@@ -14,6 +14,7 @@ import ComedyPic from '../../../../../../public/images/comedy.jpg';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {blue50} from 'material-ui/styles/colors';
 import MarketTypes from '../MarketTypes';
+import Paper from 'material-ui/Paper';
 //to do
 //--figure out how to put this back in:
 //<NoResultsMessage
@@ -39,18 +40,18 @@ const styles = {
     width: '400px',
     display: 'inline-block',
     height: '120px',
-    position: 'fixed',
+    position: 'relative',
     backgroundColor: 'rgb(255,255,255)',
-    marginLeft: '-200px',
+    marginLeft: '300px',
     marginTop: '40px'
   },
   titleStyle: {
-    position: 'fixed'
+    position: 'fixed',
+    width: '400px'
   },
   titleStyleText: {
     fontSize: '24px',
-    textAlign: 'center',
-    marginLeft: '30px'
+    textAlign: 'center'
   },
   tabsStyle : {
     width: '400px',
@@ -67,9 +68,13 @@ const styles = {
   },
   contentContainerStyle: {
     height: '1000px'
+  },
+  paperStyle: {
+    maxHeight: '300px',
+    minHeight: '300px',
+    overflow: 'auto'
   }
 };
-
 
 type Props = {
   fetchMarketplacegoalsFromActions: () => void,
@@ -142,16 +147,25 @@ render () {
           <Card style={styles.cardStyle}>
             <CardTitle
             title="Welcome to the Marketplace"
+            subtitle="Plans and tips at your fingertips. Find your next goal here or save a goal for later."
             style={styles.titleStyle}
             titleStyle={styles.titleStyleText}
             />
             <CardActions>
             <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={{background: 'blue'}} style={styles.tabsStyle}>
               <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
-                <MarketTypes/>
+                <div>
+                  <Paper style={styles.paperStyle}>
+                    <MarketTypes/>
+                  </Paper>
+                </div>
               </Tab>
               <Tab label="Favorites" buttonStyle={styles.buttonStyle}>
-                {favorites}
+                <div>
+                  <Paper style={styles.paperStyle}>
+                    {favorites}
+                  </Paper>
+                </div>
               </Tab>
             </Tabs>
             </CardActions>

@@ -37,20 +37,19 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  imageSrc: String,
   handleDeleteTask: () => Promise<any>,
 }
 
 const styles={
   wrapper: {
     flexWrap: 'wrap',
-    marginLeft: '20%',
-    marginRight: '20%',
     maxWidth: '350px',
     display: 'inline-block',
     textAlign: 'left'
   },
   taskCardStyle: {
-    width: '400px'
+    width: '375px'
   },
   parentStyle: {
     display: 'inline-block',
@@ -118,7 +117,7 @@ class ListCardNew extends React.Component {
         categoryID1,
         categoryID2,
         categoryID3,
-
+        imageSrc
       } = this.props;
 
       const bottomNav =
@@ -141,12 +140,10 @@ class ListCardNew extends React.Component {
 
       const taskCard =
       <div style={styles.wrapper}>
-
-            <div style={styles.parentStyle}>
               <Card style={styles.taskCardStyle}>
                   <CardText
                   onClick={() => this.openTaskCard(taskID)}>
-                      <img src={incomTask} checked={this.state.taskStatusState} onClick={() =>this.completeTask(taskStatus)}/>
+                      {imageSrc}
                       <div style={styles.inlineBlock2}>
                           {taskName}
                       </div>
@@ -167,7 +164,6 @@ class ListCardNew extends React.Component {
                     :
                 null
                 }
-            </div>
           </div>
           ;
 

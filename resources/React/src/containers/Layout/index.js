@@ -28,23 +28,22 @@ const styles = {
     width: '400px',
     display: 'inline-block',
     height: '250px',
-    position: 'fixed',
+    position: 'relative',
     backgroundColor: 'rgb(255,255,255)',
-    marginLeft: '-200px',
+    marginLeft: '300px',
     marginTop: '40px'
   },
   titleStyle: {
-    marginLeft: '20px',
-   marginRight: '40%',
-    position: 'fixed'
+    marginLeft: '0px',
+    marginRight: '40%',
+    position: 'fixed',
   },
   titleStyleText: {
-    fontSize: '24px',
+    fontSize: '1.5vw',
     marginLeft: '20px',
-    marginRight: '140px',
+    marginRight: '100px',
   },
   subtitleStyle: {
-  marginRight: '40%'
   },
   mediaStyle: {
     float:'right',
@@ -69,7 +68,21 @@ const styles = {
     color: 'rgb(127,242,185)'
   },
   tabStyle: {
-    width: '350px'
+    width: '400px',
+    display: 'inline-block',
+    position: 'fixed',
+    marginLeft: '-195px',
+  },
+  tabItemContainerStyle : {
+    backgroundColor: 'white'
+  },
+  buttonStyle : {
+    color: 'black'
+  },
+  paperStyle: {
+    maxHeight: '300px',
+    minHeight: '300px',
+    overflow: 'auto'
   }
 };
 
@@ -129,25 +142,36 @@ class Layout extends React.Component{
 
     const tabsExample = (
 
-      <Tabs contentContainerStyle={styles.tabStyle}>
-          <Tab label={tabOne}>
+      <Tabs
+      tabItemContainerStyle={styles.tabItemContainerStyle}
+      contentContainerStyle={styles.tabStyle}>
+          <Tab
+          label={tabOne}
+          buttonStyle={styles.buttonStyle}
+          >
             <div>
-            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
+            <Paper style={styles.paperStyle}>
               {tabOneContent}
             </Paper>
             </div>
           </Tab>
-          <Tab label={tabTwo} >
+          <Tab
+          label={tabTwo}
+          buttonStyle={styles.buttonStyle}
+          >
             <div>
-            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
+            <Paper style={styles.paperStyle}>
               {tabTwoContent}
             </Paper>
             </div>
           </Tab>
-          <Tab label={tabThree} >
+          <Tab
+          label={tabThree}
+          buttonStyle={styles.buttonStyle}
+          >
             <div>
-            <Paper style={{maxHeight: 700, overflow: 'auto'}}>
-              {tabThreeContent}
+            <Paper style={styles.paperStyle}>
+                {tabThreeContent}
             </Paper>
             </div>
           </Tab>

@@ -39,9 +39,9 @@ const styles = {
     width: '400px',
     display: 'inline-block',
     height: '120px',
-    position: 'fixed',
+    position: 'relative',
     backgroundColor: 'rgb(255,255,255)',
-    marginLeft: '-200px',
+    marginLeft: '300px',
     marginTop: '40px'
   },
   titleStyle: {

@@ -2,7 +2,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import { createStore, applyMiddleware, compose} from 'redux';
@@ -31,6 +31,8 @@ import Calendar from './containers/Calendar';
 import Login from './containers/Login';
 import MarketTypes from './containers/Marketplace/MarketTypes';
 import MarketCat from './containers/Marketplace/MarketCat';
+import Test2 from './containers/Test2';
+
 /*    <Route components={AppContainer}> */
 
 /* eslint-disable no-underscore-dangle */
@@ -50,8 +52,9 @@ ReactDOM.render((
           <Route path='/' components={{main : GoalList}} />
           <Route path='/account' component={{main : Profile}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
-          <Route path='/goal/1' goalID={1} component={{main : TaskList}} />
-          <Route path='/goal/1/1' goalID={1} taskID={1} component={{main : layout : TaskList}} />
+          <Route path='/goal/1' goalID={1} component={{main : TaskList}} >
+            <Route path='/goal/1/1' goalID={1} component={{main : Test2}} />
+          </Route>
           <Route path='/goal/2' goalID={2} component={{main : TaskList}} />
           <Route path='/goals/add' component={{main : AddGoal}} />
           <Route path='/sortby' component={{main : sortByExample}} />

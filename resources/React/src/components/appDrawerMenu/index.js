@@ -51,10 +51,6 @@ const styles = {
   secondMenu: {
     marginLeft: '15px'
   },
-  main: {
-    paddingLeft: '350px',
-    paddingRight: '5%'
-  },
   appBarTitle: {
     paddingLeft: '350px'
   },

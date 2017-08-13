@@ -7,6 +7,7 @@ import comedy from '../../../../../../public/images/comedy.jpg';
 import running from '../../../../../../public/images/running.jpg';
 import batting from '../../../../../../public/images/batting.jpg';
 import { Link } from 'react-router';
+import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 
 const styles = {
   root: {
@@ -19,9 +20,11 @@ const styles = {
     height: 450,
     overflowY: 'auto',
   },
-  label: {
-    height: '200px'
-  }
+  cardStyle: {
+    boxSizing: 'border-box',
+    padding: '2px',
+    height: '184px'
+  },
 };
 
 const battingImg = <img src={batting}/>;
@@ -75,6 +78,28 @@ const tilesData = [
 /**
  * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
  */
+const MarketTypes2 = () => (
+  <div style={styles.root}>
+    <GridList
+      cellHeight={180}
+      style={styles.gridList}
+    >
+      {tilesData.map((tile) => (
+        <Card style={styles.cardStyle}>
+        <a href={tile.link}>
+          <CardMedia>
+            {tile.img}
+          <CardTitle
+              title={tile.title}
+            />
+          </CardMedia>
+            </a>
+        </Card>
+      ))}
+    </GridList>
+  </div>
+);
+
 const MarketTypes = () => (
   <div style={styles.root}>
     <GridList
@@ -86,8 +111,6 @@ const MarketTypes = () => (
           key={tile.key}
           containerElement={tile.link}
           title={tile.title}
-          actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-          style={styles.label}
         >
           {tile.img}
         </GridTile>

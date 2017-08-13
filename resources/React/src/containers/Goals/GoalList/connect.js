@@ -1,9 +1,14 @@
 import fetchGoals from '../../../actions/goals';
-
+import fetchTasks from '../../../actions/tasks';
+import fetchProfile from '../../../actions/profile';
 export const mapStateToProps = (state) => ({
-  goals: state.goals.goals
+  goals: state.goals.goals,
+  tasks: state.tasks.tasks,
+  profile: state.profile.profile
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   fetchGoalsFromActions: () => dispatch(fetchGoals()),
+  fetchTasksFromActions: () => dispatch(fetchTasks()),
+  fetchProfileFromActions: () => dispatch(fetchProfile())
 });

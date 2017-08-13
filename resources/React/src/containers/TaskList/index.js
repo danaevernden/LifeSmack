@@ -3,7 +3,7 @@ import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Checkbox from 'material-ui/Checkbox';
-import {Card} from 'material-ui/Card';
+import {Card, CardText} from 'material-ui/Card';
 import ListCardNew from '../../components/ListCardNew';
 import AddTask from '../../components/AddTask';
 import {groupBy,values,sortBy} from 'lodash';
@@ -13,6 +13,9 @@ import Calendar from '../Calendar';
 import TaskCard from '../../components/TaskCard';
 import ListCardParent from '../../components/ListCardParent';
 import Paper from 'material-ui/Paper';
+import incomTask from '../../../../../public/images/incomplete task icon.png';
+import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
+
 //to do
 //figure out what to do about parent task
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -88,12 +91,16 @@ class TaskList extends React.Component{
       sortOption: "Category",
       showCompletedTasks: true,
       duplicateDialog: false,
-      include: window.location.href
+      include: window.location.href,
+      taskCard: null,
+      parentTask: null
     }
     this.updateFilter = this.updateFilter.bind(this);
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
     this.sortOptionSelection = this.sortOptionSelection.bind(this);
     this.openDuplicate = this.openDuplicate.bind(this);
+    this.openTaskCard = this.openTaskCard.bind(this);
+    this.openTaskChildren = this.openTaskChildren.bind(this);
     }
 //get this to work, test it first?
   sortBy(field) {
@@ -110,6 +117,20 @@ class TaskList extends React.Component{
     this.setState({showCompletedTasks: !this.state.showCompletedTasks})
   }
 
+  openTaskCard(task_id) {
+      if(null == task_id) {
+          this.setState({taskCard: null})
+      }
+          this.setState({taskCard: task_id})
+      }
+
+  openTaskChildren(task_id) {
+      if(null == task_id) {
+          this.setState({parentTask: null})
+      }
+          this.setState({parentTask: task_id})
+      }
+
   sortOptionSelection(pick) {
     this.setState({sortOption: pick})
   }
@@ -119,7 +140,6 @@ class TaskList extends React.Component{
       filter: e.target.value
     })
   }
-
 
   render() {
 
@@ -132,37 +152,26 @@ class TaskList extends React.Component{
       goals
     } = this.props;
 
-    const categoriesByTask = groupBy(values(categories), (category) => category.category_id);
-    const sortByDate = sortBy(values(tasks), (task) => task.scheduled);
-    const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
-
-    const listItemsFromComponentOld = tasks.map((task) =>
-    <div>
-    {(commentsByTask[task.task_id] || [])
-      .map((comment) =>
-      <div>
-        {task.task_name}
-        {comment.text}
-      </div>
-    )}
-    </div>
-    );
-
 
     const listItemsFromComponent2 = tasks.filter((item) => {
-          return item.parent_id === null;
+          return item.parent_id === null && item.is_child === 0;
   }).map((task) =>
     <div>
-      <ListCardParent
-        taskID={task.id}
-        goalID={task.goal_id}
-        taskName={task.task_name}
-      />
+        <Card
+        onClick={() => this.openTaskChildren(task.id)}
+        style={styles.taskCardStyle}>
+            <CardText>
+                <img src={incomTask} />
+                <div style={styles.inlineBlock2}>
+                    {task.task_name}
+                </div>
+            </CardText>
+        </Card>
     </div>
     );
 
-    const listItemsNoParents = tasks.filter((item) => {
-          return item.parent_id !== null && item.is_child === 0;
+    const taskList = tasks.filter((item) => {
+          return item.parent_id === this.state.parentTask && item.is_child === 1;
   }).map((task) =>
     <div>
       <ListCardNew
@@ -173,6 +182,7 @@ class TaskList extends React.Component{
         categoryID1={task.category_id_1}
         categoryID2={task.category_id_2}
         categoryID3={task.category_id_3}
+        imageSrc={<img src={redIncomTask}/>}
         duplicateDialog={this.state.duplicateDialog}
         handleDeleteTask={this.handleDelete}
         openDuplicate={this.openDuplicate}
@@ -180,10 +190,42 @@ class TaskList extends React.Component{
     </div>
     );
 
-    const taskTabContent =
-    //if on main level, parents and no child list
-    //if on child level, show children of task that was clicked
+    const listItemsNoParents = tasks.filter((item) => {
+          return item.parent_id === null && item.is_child === 1;
+  }).map((task) =>
+    <div>
+      <ListCardNew
+        taskID={task.id}
+        taskName={task.task_name}
+        taskStatus={task.complete}
+        taskScheduled={task.scheduled}
+        categoryID1={task.category_id_1}
+        categoryID2={task.category_id_2}
+        categoryID3={task.category_id_3}
+        imageSrc={<img src={redIncomTask}/>}
+        duplicateDialog={this.state.duplicateDialog}
+        handleDeleteTask={this.handleDelete}
+        openDuplicate={this.openDuplicate}
+      />
+    </div>
+    );
+
+    const tasksFlip =
+    <div>
+      {this.state.parentTask === null ?
+        <div>
+          {listItemsFromComponent2}
+          {listItemsNoParents}
+          </div>
+      :
+        <div>
+          {taskList}
+        </div>
+      }
+    </div>
     ;
+
+
     const goalNameFromComponent = goals
     .filter((item) => {
       return item.id === this.props.route.goalID;
@@ -201,8 +243,8 @@ class TaskList extends React.Component{
         leftContent={"taskListDropdown"}
         tabOne={"Tasks"}
         tabTwo={"Calendar"}
-        tabOneContent={listItemsFromComponent2}
-        tabTwoContent={"calendar here"}
+        tabOneContent={tasksFlip}
+        tabTwoContent={"coming soon!"}
         />
     }
     </div>)
@@ -232,3 +274,24 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TaskList);
+
+
+//old code
+/*
+
+    const categoriesByTask = groupBy(values(categories), (category) => category.category_id);
+    const sortByDate = sortBy(values(tasks), (task) => task.scheduled);
+    const commentsByTask = groupBy(values(comments), (comment) => comment.task_id);
+
+    const listItemsFromComponentOld = tasks.map((task) =>
+    <div>
+    {(commentsByTask[task.task_id] || [])
+      .map((comment) =>
+      <div>
+        {task.task_name}
+        {comment.text}
+      </div>
+    )}
+    </div>
+    );
+*/

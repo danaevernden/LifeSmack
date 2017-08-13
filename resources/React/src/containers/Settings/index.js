@@ -31,6 +31,10 @@ class Settings extends React.Component {
     goals: Goal[]
   };
 
+  componentDidMount() {
+    this.props.fetchGoalsFromActions();
+    this.props.fetchCategoriesFromActions();
+  }
   props:Props
 
 
@@ -58,10 +62,22 @@ class Settings extends React.Component {
                 child_cat_id={category2.category_id}
                 child_cat_text={category2.text}
                 />
+                {category.text}
+                {category2.text}
             </div>
           )}
           </div>
         );
+
+      const manageCategories2 = categories.map((category) =>
+          {
+            (category.parent_cat !== null) ?
+          <div>{category.text}</div>
+          :
+          <div>{category.text} no</div>
+
+          }
+      );
 
     return(
       <div className='App-page'>
@@ -69,6 +85,7 @@ class Settings extends React.Component {
               <MuiThemeProvider>
                 <div style={styles.topMenu}>
                     test Settings
+                    {manageCategories2}
                     {manageCategories}
                 </div>
               </MuiThemeProvider>

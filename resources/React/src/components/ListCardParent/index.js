@@ -17,7 +17,6 @@ import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card,CardText,CardActions} from 'material-ui/Card';
-import incomTask from '../../../../../public/images/incomplete task icon.png';
 import ComTask from '../../../../../public/images/completed task icon.png';
 import TaskCard from '../TaskCard';
 import difficultyIcon from '../../../../../public/images/difficulty icon.png';
@@ -30,14 +29,13 @@ import dueDateIcon from '../../../../../public/images/due date icon.png';
 type Props = {
   taskName: String,
   taskID: Number,
-  goalID: Number
+  goalID: Number,
+  imageSrc: String
 }
 
 const styles={
   wrapper: {
     flexWrap: 'wrap',
-    marginLeft: '20%',
-    marginRight: '20%',
     maxWidth: '350px',
     display: 'inline-block',
     textAlign: 'left'
@@ -87,23 +85,16 @@ class ListCardParent extends React.Component {
       this.state= {
         taskName: this.props.taskName,
         taskStatusState: this.props.taskStatus,
-        taskCard: null
-      }
-      this.openTaskCard = this.openTaskCard.bind(this);
+        }
       }
 
-    openTaskCard(task_id) {
-        if(null == task_id) {
-            this.setState({taskCard: null})
-        }
-            this.setState({taskCard: task_id})
-        }
 
     render() {
       const {
         taskName,
         taskID,
-        goalID
+        goalID,
+        imageSrc
       } = this.props;
 
       const taskCard =
@@ -114,7 +105,7 @@ class ListCardParent extends React.Component {
                 style={styles.taskCardStyle}
               >
                   <CardText>
-                      <img src={incomTask} />
+                      <img src={imageSrc} />
                       <div style={styles.inlineBlock2}>
                           {taskName}
                       </div>

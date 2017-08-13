@@ -8,6 +8,10 @@ import Divider from 'material-ui/Divider';
 import logo from '../../../../../../public/images/running.jpg';
 import Calendar from '../../Calendar';
 import Layout from '../../Layout';
+import ListCardNew from '../../../components/ListCardNew';
+import Avatar from 'material-ui/Avatar';
+import {GridList, GridTile} from 'material-ui/GridList';
+
 //to do
 //make it look pretty
 
@@ -30,22 +34,45 @@ const styles = {
         maxWidth: '350px',
         display: 'inline-block',
         textAlign: 'left'
-    }
+    },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+    gridList: {
+      width: 500,
+      height: 450,
+      overflowY: 'auto',
+    },
+    cardStyle: {
+      boxSizing: 'border-box',
+      padding: '2px',
+      height: '184px'
+    },
 };
 
 type Props = {
   fetchGoalsFromActions: () => void,
   goals: Goal[],
+  fetchTasksFromActions: () => void,
+  tasks: Task[],
+  fetchProfileFromActions: () => void,
+  profile: Profile[]
 }
 
 class GoalList extends React.Component{
 
   static defaultProps: {
-    goals: Goal[]
+    goals: Goal[],
+    tasks: Task[],
+    profile: Profile[]
   };
 
   componentDidMount() {
     this.props.fetchGoalsFromActions();
+    this.props.fetchTasksFromActions();
+    this.props.fetchProfileFromActions();
   }
   props:Props
 
@@ -58,10 +85,33 @@ class GoalList extends React.Component{
   render() {
 
     const {
-      goals
+      goals,
+      tasks,
+      profile
     } = this.props;
+
+    const avatarLogo =
+      <Avatar src={logo}/>
+    ;
 //http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
+    const allTasks = tasks.filter((item) => {
+      return item.parent_id !== null;
+    })
+    .map((task) =>
+    <div>
+    <ListCardNew
+    taskID={task.id}
+    taskName={task.task_name}
+    taskStatus={task.complete}
+    taskScheduled={task.scheduled}
+    imageSrc={avatarLogo}
+    categoryID1={task.category_id_1}
+    categoryID2={task.category_id_2}
+    categoryID3={task.category_id_3}
+    />
+    </div>
+  );
 
     const listItems = goals.map((goal) =>
 
@@ -81,14 +131,27 @@ class GoalList extends React.Component{
     </div>
     );
 
-    const goalList =
-    <div>
-        {listItems}
-        <Card>
-            {button}
-        </Card>
-    </div>
-    ;
+
+    const listItems2 = (
+      <div style={styles.root}>
+        <GridList
+          cols={1}
+          cellHeight={180}
+          style={styles.gridList}
+        >
+        {goals.map((goal) => (
+          <a href={'/goal/' + goal.id}>
+            <GridTile
+              key={goal.id}
+              title={goal.goal_name}
+            >
+            <img src={logo} />
+          </GridTile>
+        </a>
+        ))}
+        </GridList>
+      </div>
+    );
     const length = <div>{this.props.goals.length}</div>;
 
     const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;
@@ -109,18 +172,22 @@ class GoalList extends React.Component{
     }
 
     const layout = (
+      profile.map((profile) =>
+      <div>
       <Layout
-      title={'Anna'}
-      subtitle={"New York, NY"}
+      title={profile.first_name}
+      subtitle={profile.city+','+profile.region}
       leftContent={"dashboard"}
       tabOne={"Goals"}
       tabTwo={"Calendar"}
       tabThree={"All Tasks"}
-      tabOneContent={listItems}
+      tabOneContent={listItems2}
       tabTwoContent={"coming soon!"}
-      tabThreeContent={"all tasks here"}
+      tabThreeContent={allTasks}
       />
-    );
+      </div>
+    ));
+
     return (
       <div className='App-page'>
           <div className='App-content'>
@@ -136,7 +203,9 @@ class GoalList extends React.Component{
   }
 }
 GoalList.defaultProps ={
-  goals: []
+  goals: [],
+  tasks: [],
+  profile: []
  };
 
 export default connect(
