@@ -15,6 +15,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import {blue50} from 'material-ui/styles/colors';
 import MarketTypes from '../MarketTypes';
 import Paper from 'material-ui/Paper';
+
 //to do
 //--figure out how to put this back in:
 //<NoResultsMessage
@@ -73,7 +74,7 @@ const styles = {
     maxHeight: '300px',
     minHeight: '300px',
     overflow: 'auto'
-  }
+  },
 };
 
 type Props = {

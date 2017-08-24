@@ -112,8 +112,6 @@ class MarketItem extends React.Component{
     }
 
 //includes(this.state.include, '/marketplace/1/reviews') == true
-
-
           const listItems = reviews.map((review) =>
           <div>
           <Card>
@@ -139,14 +137,13 @@ class MarketItem extends React.Component{
 
           const goalPlan2 = markettasks.map((markettask) =>
             <div>
-            .
               <ListCardNew
                 taskID={markettask.task_id}
                 taskStatus={true}
                 taskName={markettask.task_name}
                 categoryID1={markettask.category_id_1}
                 imageSrc={<img src={redComTask}/>}
-                />
+              />
             </div>
           );
 
@@ -159,9 +156,8 @@ class MarketItem extends React.Component{
           </div>)
           ;
 
-
     const marketplaceItems = marketplacegoals.filter((marketplacegoal) => {
-    return marketplacegoal.goal_id == this.props.route.marketItem;
+    return marketplacegoal.id == this.props.route.marketItem;
     })
     .map((marketplacegoal) =>
       <div>
@@ -172,13 +168,12 @@ class MarketItem extends React.Component{
             tabOne={"Tasks"}
             tabTwo={"Categories"}
             tabThree={"Reviews"}
-            tabOneContent={goalPlan}
-            tabTwoContent={"test2"}
+            tabOneContent={goalPlan2}
+            tabTwoContent={"howdy"}
             tabThreeContent={listItems}
             />
       </div>
     );
-
 
     const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
     <div>
@@ -195,20 +190,18 @@ class MarketItem extends React.Component{
       </div>
     );
 
-
     const goalPlan3 = markettasks.map((markettask) =>
       <div style={styles.topMenu}>
         {markettask.task_name}
           </div>
     );
 
-
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
             <MuiThemeProvider>
               <div>
-              {marketplaceItems2}
+                  {marketplaceItems}
               </div>
             </MuiThemeProvider>
           </div>

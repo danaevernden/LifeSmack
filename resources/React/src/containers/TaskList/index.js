@@ -8,7 +8,7 @@ import ListCardNew from '../../components/ListCardNew';
 import AddTask from '../../components/AddTask';
 import {groupBy,values,sortBy} from 'lodash';
 import Layout from '../Layout';
-import { includes } from 'lodash';
+import { includes ,find } from 'lodash';
 import Calendar from '../Calendar';
 import TaskCard from '../../components/TaskCard';
 import ListCardParent from '../../components/ListCardParent';
@@ -62,7 +62,6 @@ type Props = {
   goals: Goal[],
   comments: Comment[],
   categories: Category[],
-  categories2: Category2[]
 }
 
 
@@ -72,7 +71,6 @@ class TaskList extends React.Component{
     tasks: Task[],
     comments: Comment[],
     categories: Category[],
-    categories2: Category2[],
     goals: Goal[]
   };
 
@@ -170,7 +168,9 @@ class TaskList extends React.Component{
     </div>
     );
 
-    const taskList = tasks.filter((item) => {
+//  const categoryByID = find(values(goals), ['id', 1]);
+//  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
+  const taskList = tasks.filter((item) => {
           return item.parent_id === this.state.parentTask && item.is_child === 1;
   }).map((task) =>
     <div>

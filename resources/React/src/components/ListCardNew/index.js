@@ -15,13 +15,15 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import Dialog from 'material-ui/Dialog';
 import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
+import PollIcon from 'material-ui/svg-icons/social/poll';
+import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card,CardText,CardActions} from 'material-ui/Card';
 import incomTask from '../../../../../public/images/incomplete task icon.png';
 import ComTask from '../../../../../public/images/completed task icon.png';
 import TaskCard from '../TaskCard';
 import difficultyIcon from '../../../../../public/images/difficulty icon.png';
-import placeIcon from '../../../../../public/images/place.png';
+import locationIcon from '../../../../../public/images/place.png';
 import dueDateIcon from '../../../../../public/images/due date icon.png';
 
 //test
@@ -106,7 +108,6 @@ class ListCardNew extends React.Component {
             this.setState({taskCard: task_id})
         }
 
-
     render() {
       const {
         taskName,
@@ -124,47 +125,49 @@ class ListCardNew extends React.Component {
       <div>
       <BottomNavigation>
           <BottomNavigationItem
-          label={'hard'}
-          icon={<difficultyIcon />}
+          label={categoryID1}
+          icon={<PollIcon />}
           />
           <BottomNavigationItem
-          label={'less than 1 hour'}
-          icon={<timerIcon/>}
+          label={categoryID2}
+          icon={<ActionSchedule/>}
           />
           <BottomNavigationItem
-          label={'at home'}
-          icon={<placeIcon/>}
+          label={categoryID3}
+          icon={<PlaceIcon/>}
           />
       </BottomNavigation>
       </div>;
+
+      const today = new Date().toJSON();
 
       const taskCard =
       <div style={styles.wrapper}>
               <Card style={styles.taskCardStyle}>
                   <CardText
-                  onClick={() => this.openTaskCard(taskID)}>
+                      onClick={() => this.openTaskCard(taskID)}>
                       {imageSrc}
                       <div style={styles.inlineBlock2}>
                           {taskName}
                       </div>
-                    </CardText>
-                    <CardActions>
-                        {bottomNav}
-                    </CardActions>
+                  </CardText>
+                  <CardActions>
+                      {bottomNav}
+                  </CardActions>
                 </Card>
                 {this.state.taskCard === taskID ?
                   <TaskCard
                   open={this.state.taskCard}
                   taskName={taskName}
                   categoryID1={categoryID1}
-                  categoryID2={categoryID1}
-                  categoryID3={categoryID1}
-                  taskScheduled={'Thursday December 1'}
+                  categoryID2={categoryID2}
+                  categoryID3={categoryID3}
+                  taskScheduled={null}
                   />
                     :
-                null
+                  null
                 }
-          </div>
+        </div>
           ;
 
         return (

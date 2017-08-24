@@ -8,6 +8,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import TaskCard from '../TaskCard';
+
 
 
 
@@ -17,8 +19,6 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 type Props = {
   name: String,
   scheduled: Date,
-  catValue1: Number,
-  catValue2: Number
 }
 
 const styles = {
@@ -30,7 +30,8 @@ const styles = {
       marginRight: 20,
       position: 'fixed',
       bottom: '5%',
-      right: '5%'
+      right: '5%',
+      zIndex: '1500',
     },
     floatingLabel: {
       color: 'black'
@@ -47,14 +48,23 @@ const styles = {
 
 class AddTask extends React.Component {
   props : Props
-  state = {
-    addTaskOpen: false,
-    category1_value: 1,
-    category2_value: 6,
-    name: "",
-    scheduled: null
-  };
 
+  constructor(props){
+    super(props)
+    this.state= {
+      addTaskOpen: false,
+      category1_value: 1,
+      category2_value: 6,
+      name: "",
+      scheduled: null,
+      taskCard: false
+    }
+  this.openTaskCard = this.openTaskCard.bind(this);
+  }
+
+openTaskCard() {
+    this.setState({taskCard: true})
+    }
 
 //figure out how to pass task, schedule, category back to main index page
   taskChange = (event, name) => this.setState({name});
@@ -80,90 +90,36 @@ class AddTask extends React.Component {
 
   render() {
 
-    const items = [
-      <MenuItem key={1} value={11} primaryText="Never" />
-    ];
-
-    const addTaskActions =[
-      <div>
-      <TextField
-      style={styles.textStyle}
-      hintText="Task*"
-      onChange={this.taskChange}
-      multiLine={true}
-      rowsMax={4}
-      /> <br/>
-
-      <DatePicker
-      hintText="Due Date"
-      onChange={this.scheduleChange}
-      textFieldStyle={styles.textStyle}/>
-
-      <div style={styles.labelStyle}>
-          Effort Level
-      </div>
-
-      <SelectField
-      style={styles.textStyle}
-      value={this.state.category2_value}
-      onChange={this.handleChange2}
-      >
-        <MenuItem value={6} primaryText="low" />
-        <MenuItem value={7} primaryText="medium" />
-        <MenuItem value={8} primaryText="high" />
-      </SelectField> <br /><br/>
-
-      <div style={styles.labelStyle}>
-          Task Type
-      </div>
-
-      <SelectField
-      style={styles.textStyle}
-      value={this.state.category1_value}
-        onChange={this.handleChange}
-    >
-        <MenuItem value={1} primaryText="UI" />
-        <MenuItem value={2} primaryText="Back End" />
-        <MenuItem value={3} primaryText="User Testing" />
-      </SelectField> <br/>
-        <RaisedButton
-        label="Add task"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-      <RaisedButton
-        label="Cancel"
-        primary={false}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-      </div>
-    ];
-
     const AddTaskButton =
     <div>
       <FloatingActionButton
       style={styles.floatingActionButton}
-      onTouchTap={this.addTaskOpen}
+      onTouchTap={this.openTaskCard}
+      backgroundColor={'rgb(1,230,118)'}
       >
           <ContentAdd />
       </FloatingActionButton>
     </div>
     ;
+
+    const taskCard =
+    <div>
+        {this.state.taskCard === true ?
+          <TaskCard
+          open={this.state.taskCard}
+          />
+            :
+          null
+        }
+    </div>
+    ;
+
     return(
       <MuiThemeProvider>
       <div>
         {AddTaskButton}
-        <Dialog
-            title="Add a task"
-            actions={addTaskActions}
-            modal={false}
-            contentStyle={styles.addTask}
-            open={this.state.addTaskOpen}
-            onRequestClose={this.addTaskClose}>
-        </Dialog>
-      </div>
+        {taskCard}
+        </div>
       </MuiThemeProvider>
     );
   }

@@ -3,6 +3,8 @@ import Chip from 'material-ui/Chip';
 import { green500 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
+import logo from '../../../../../public/images/running.jpg';
 
 type Props = {
   goalID: Number,
@@ -47,20 +49,41 @@ class MarketplaceComponent extends React.Component {
         },
         overlayStyle: {
           color: 'rgb(0,0,1)'
-        }
+        },
+        titleStyle: {
+            fontSize: '1.5vw',
+          },
+        titlebackground: {
+            marginLeft: '4px'
+          },
+          tileStyle: {
+            marginTop: '0px'
+          }
       };
 
       const marketplace =
-      <div>
-        <a href={'/marketplace/' + goalID}>
+      <div    style={styles.tileStyle}
+      >
+      <GridList
+        cols={2}
+        cellHeight={180}
+    
+        titleBackground={styles.titleBackground}
+      >
+        <a href={'/marketplace/' + goalID} >
+
+            <GridTile
+                titleStyle={styles.titleStyle}
+                 key={goalID}
+                 title={goalName}
+               >
+               <img src={logo} />
+         </GridTile>
           <CardMedia
           mediaStyle={styles.mediaStyle}>
           </CardMedia>
           </a>
-          <a href={'/marketplace/' + goalID}>
-            <CardTitle title={goalName} subtitle={marketItemName} />
-          </a>
-        <CardText>Description: {planDescription}
+            <CardText><b>Description:</b> {planDescription}
         {marketplaceFlag ?
           <Chip style={styles.chipStyle} backgroundColor={green500}>{category}</Chip>
         : null}
@@ -68,7 +91,7 @@ class MarketplaceComponent extends React.Component {
         <br/>
         by: {marketItemName}
         </CardText>
-
+        </GridList>
         <Divider />
       </div>;
 

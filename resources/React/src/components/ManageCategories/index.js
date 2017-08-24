@@ -143,7 +143,7 @@ class ManageCategories extends React.Component {
     return(
       <MuiThemeProvider>
           <div>
-              {catMap}
+              {catMap2}
           </div>
       </MuiThemeProvider>
     );

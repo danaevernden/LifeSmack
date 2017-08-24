@@ -5,10 +5,12 @@ import ManageCategories from '../../components/ManageCategories';
 import {groupBy,values} from 'lodash';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import { connect } from 'react-redux';
-
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 type Props = {
   categories: Category[],
+  parentcategories: parentCategory[],
   fetchCategoriesFromActions: () => void,
   fetchGoalsFromActions: () => void,
   goals: Goal[]
@@ -28,7 +30,8 @@ class Settings extends React.Component {
 
   static defaultProps: {
     categories: Category[],
-    goals: Goal[]
+    goals: Goal[],
+    parentcategories: parentCategory[]
   };
 
   componentDidMount() {
@@ -42,42 +45,31 @@ class Settings extends React.Component {
 
     const {
       categories,
+      parentcategories,
       goals
     } = this.props;
 
-    const categoriesByCategory = groupBy(values(categories), (category2) => category2.parent_cat);
+    const categoriesByCategory = groupBy(values(categories), (category) => category.parent_cat);
 
 
-          const manageCategories = categories.filter((item)=>
+          const manageCategories = parentcategories.filter((item)=>
           {return item.parent_cat == null})
-          .map((category) =>
+          .map((parentcategory) =>
           <div>
-          {(categoriesByCategory[category.category_id] || [])
-          .map((category2) =>
-          <div>
-                <ManageCategories
-                category_id={category.category_id}
-                text={category.text}
-                parent_cat={category.parent_cat}
-                child_cat_id={category2.category_id}
-                child_cat_text={category2.text}
-                />
-                {category.text}
-                {category2.text}
-            </div>
-          )}
+              {parentcategory.text}
+              {(categoriesByCategory[parentcategory.id] || [])
+              .map((category) =>
+              <ListItem
+              primaryText={category.text}/>
+              )}
+
           </div>
         );
 
-      const manageCategories2 = categories.map((category) =>
-          {
-            (category.parent_cat !== null) ?
-          <div>{category.text}</div>
-          :
-          <div>{category.text} no</div>
-
-          }
-      );
+      const test =
+      <List>
+      {manageCategories}
+      </List>;
 
     return(
       <div className='App-page'>
@@ -85,7 +77,6 @@ class Settings extends React.Component {
               <MuiThemeProvider>
                 <div style={styles.topMenu}>
                     test Settings
-                    {manageCategories2}
                     {manageCategories}
                 </div>
               </MuiThemeProvider>
@@ -96,7 +87,8 @@ class Settings extends React.Component {
 }
 Settings.defaultProps ={
   categories: [],
-  goals: []
+  goals: [],
+  parentcategories: []
  };
 
  export default connect(

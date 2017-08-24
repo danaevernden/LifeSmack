@@ -16,6 +16,9 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import Dialog from 'material-ui/Dialog';
 import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
+import ActionDueDate from 'material-ui/svg-icons/action/date-range';
+import PollIcon from 'material-ui/svg-icons/social/poll';
+import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardText, CardMedia, CardTitle} from 'material-ui/Card';
 import logo from '../../../../../public/images/running.jpg';
@@ -25,9 +28,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import timerIcon from '../../../../../public/images/timer-sand-empty.png';
 import difficultyIcon from '../../../../../public/images/difficulty icon.png';
-import placeIcon from '../../../../../public/images/place.png';
+import locationIcon from '../../../../../public/images/place.png';
 import dueDateIcon from '../../../../../public/images/due date icon.png';
-
 import SelectField from 'material-ui/SelectField';
 //test
 //todo:
@@ -46,25 +48,58 @@ type Props = {
 }
 
 const styles={
-  taskCard: {
-  },
   cardMedia: {
-    minWidth: '60%',
-    maxWidth: '60%',
+    minWidth: '100%',
+    maxWidth: '100%',
+    width: '100%',
     display: 'inline-block',
     background: 'rgba(0, 0, 0, .6)' //not showing up
   },
   overlayContainerStyle: {
-    height: '150px',
-    minWidth: '60%',
-    maxWidth: '60%',
+    height: '100%',
+    minWidth: '100%',
+    maxWidth: '100%',
     display: 'inline-block',
   },
   iconButton: {
-    position: 'relative'
+    position: 'absolute',
+    display: 'flex'
   },
   selectStyle: {
     width: '150px'
+  },
+  contentStyle: {
+    maxHeight: 'none',
+    transform: 'none',
+    width: '60%',
+  },
+  contentStyle2: {
+    padding: '0px'
+  },
+  dropdownWidth: {
+    width: '250px',
+    textAlign: 'center'
+  },
+  iconStyle: {
+    position: 'relative',
+    marginBottom: '-40px'
+  },
+  dropdownPos: {
+    marginRight: '0%'
+  },
+  iconStylePoll: {
+    position: 'relative',
+    marginBottom: '15px'
+  },
+  iconStyleSched: {
+    marginRight: '260px',
+    marginBottom: '-40px'
+  },
+  textStyle: {
+    color: 'white',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 }
 
@@ -72,16 +107,23 @@ const styles={
 class TaskCard extends React.Component {
     props: Props
 
-
     constructor(props){
       super(props)
       this.state= {
         open: this.props.open,
-        duplicateID: null
+        duplicateID: null,
+        dateSelected: this.props.taskScheduled,
+        valueDiff: this.props.categoryID1,
+        valueTime: this.props.categoryID2,
+        valueLoc: this.props.categoryID3
       }
       this.Duplicate = this.Duplicate.bind(this);
       this.Delete = this.Delete.bind(this);
       this.handleClose = this.handleClose.bind(this);
+      this.dateSelect = this.dateSelect.bind(this);
+      this.handleChangeDiff = this.handleChangeDiff.bind(this);
+      this.handeChangeTime = this.handleChangeTime.bind(this);
+      this.handleChangeLoc = this.handleChangeLoc.bind(this);
     }
 
     handleClose() {
@@ -101,6 +143,26 @@ class TaskCard extends React.Component {
             this.setState({deleteID: task_id})
     }
 
+    handleChangeDiff = (event, index, value) =>
+      this.setState({
+        valueDiff: value
+      });
+
+    handleChangeTime = (event, index, value) =>
+      this.setState({
+        valueTime: value
+      });
+
+    handleChangeLoc = (event, index, value) =>
+      this.setState({
+        valueLoc: value
+      });
+
+    dateSelect = (event, date) => {
+      this.setState({
+        dateSelected: date,
+      });
+    };
     render() {
       const {
         taskName,
@@ -116,33 +178,48 @@ class TaskCard extends React.Component {
 
       const menuOptions =
       <div>
-      <img src={dueDateIcon}/>
-      {this.props.taskScheduled}
+      <ActionDueDate style={styles.iconStyleSched}/>
+      <DatePicker
+          onChange={this.dateSelect}
+          textFieldStyle={styles.dropdownWidth}
+          />
       <br/>
-      <img src={difficultyIcon}/>
+      <PollIcon style={styles.iconStylePoll}/>
       <SelectField
-        value={this.props.categoryID1}
+        value={this.state.valueDiff}
         style={styles.selectStyle}
+        onChange={this.handleChangeDiff}
+        underlineStyle={styles.dropdownWidth}
+        menuStyle={styles.dropdownWidth}
+        style={styles.dropdownPos}
       >
         <MenuItem value={1} primaryText="Easy" />
         <MenuItem value={2} primaryText="Medium" />
         <MenuItem value={3} primaryText="Hard" />
       </SelectField>
       <br/>
-      <img src={timerIcon}/>
+      <ActionSchedule style={styles.iconStyle}/>
       <SelectField
-        value={this.props.categoryID2}
+        value={this.state.valueTime}
         style={styles.selectStyle}
+        onChange={this.handleChangeTime}
+        underlineStyle={styles.dropdownWidth}
+        menuStyle={styles.dropdownWidth}
+        style={styles.dropdownPos}
       >
         <MenuItem value={1} primaryText="Less than 15 min" />
         <MenuItem value={2} primaryText="Less than 1 hour" />
         <MenuItem value={3} primaryText="1 - 4 hours" />
       </SelectField>
       <br/>
-      <img src={placeIcon}/>
+        <PlaceIcon style={styles.iconStyle}/>
       <SelectField
-        value={this.props.categoryID2}
+        value={this.state.valueLoc}
         style={styles.selectStyle}
+        onChange={this.handleChangeLoc}
+        underlineStyle={styles.dropdownWidth}
+        menuStyle={styles.dropdownWidth}
+        style={styles.dropdownPos}
       >
         <MenuItem value={1} primaryText="At Home" />
         <MenuItem value={2} primaryText="While Commuting" />
@@ -157,29 +234,36 @@ class TaskCard extends React.Component {
           open={this.state.open}
           autoScrollBodyContent={true}
           onRequestClose={this.handleClose}
+          contentStyle={styles.contentStyle}
+          bodyStyle={styles.contentStyle2}
         >
-          <IconMenu
-     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-   >
-     <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
-     <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.delete()}/>
-   </IconMenu>
-          <Card style={styles.taskCard}>
+          <IconMenu style={styles.iconButton}
+             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+             targetOrigin={{horizontal: 'left', vertical: 'top'}}
+           >
+             <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
+             <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.delete()}/>
+           </IconMenu>
               <CardMedia
                overlay={
-                 <CardTitle
-                    title={this.props.taskName}
+                 <TextField
+                    defaultValue={this.props.taskName}
+                    inputStyle={styles.textStyle}
+                    fullWidth={true}
                 />}
                 overlayStyle={styles.overlayContainerStyle}
-               >
+                 >
                   <img src={logo} style={styles.cardMedia}/>
               </CardMedia>
               <CardText>
                 {menuOptions}
               </CardText>
-          </Card>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+
           </Dialog>
       </div>;
 

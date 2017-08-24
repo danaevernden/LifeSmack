@@ -14,6 +14,7 @@ import ComedyPic from '../../../../../../public/images/comedy.jpg';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {blue50} from 'material-ui/styles/colors';
 import MarketTypes from '../MarketTypes';
+import Paper from 'material-ui/Paper'
 //to do
 //--figure out how to put this back in:
 //<NoResultsMessage
@@ -67,7 +68,12 @@ const styles = {
   },
   contentContainerStyle: {
     height: '1000px'
-  }
+  },
+  paperStyle: {
+    maxHeight: '300px',
+    minHeight: '300px',
+    overflow: 'auto'
+  },
 };
 
 
@@ -121,7 +127,7 @@ render () {
 );
 
     const listItems = marketplacegoals.map((marketplacegoal) =>
-      <div style={styles.topMenu}>
+      <div >
         <MarketplaceComponent
         goalID={marketplacegoal.id}
         goalName={marketplacegoal.goal_name}
@@ -149,7 +155,9 @@ render () {
             <CardActions>
             <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={{background: 'blue'}} style={styles.tabsStyle}>
               <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
-                {listItems}
+                <Paper style={styles.paperStyle}>
+                  {listItems}
+                </Paper>
               </Tab>
               <Tab label="Favorites" buttonStyle={styles.buttonStyle}>
                 {favorites}
