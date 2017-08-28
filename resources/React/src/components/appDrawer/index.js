@@ -7,10 +7,6 @@ import '../old/app/style.css';
 import TextField from 'material-ui/TextField';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import AppDrawerMenu from '../appDrawerMenu';
-//to do
-
-//add notifications back in if part of MVP
-//    <MenuItem leftIcon={<Flag />} onTouchTap={this.drawerOpen} containerElement={<Link to="/notifications" />} primaryText="Notifications" />
 
 type Props = {
   main: any,
@@ -61,7 +57,6 @@ const styles = {
   }
 };
 
-
 class AppDrawer extends React.Component {
   props: Props
 
@@ -72,10 +67,10 @@ class AppDrawer extends React.Component {
     }
 
   this.openSearchBar = this.openSearchBar.bind(this);
-}
-    openSearchBar() {
+  }
+  openSearchBar() {
       this.setState({searchBarVisible: !this.state.searchBarVisible})
-    }
+  }
 
   render() {
     const {
@@ -84,24 +79,24 @@ class AppDrawer extends React.Component {
       username
     } = this.props;
 
-
     const searchBar = (
       <TextField hintText="Search" />
     );
 
     const rightButton = (
       <div>
-      <SearchIcon style={styles.searchIconStyle}
-      onTouchTap={this.openSearchBar}/>
-      {this.state.searchBarVisible === true ?
-      <TextField hintText="Search"
-      hintStyle={styles.whiteText}
-      inputStyle={styles.whiteText}
-      underlineFocusStyle={styles.whiteText} //not working
-       /> : null }
+        <SearchIcon style={styles.searchIconStyle}
+          onTouchTap={this.openSearchBar}
+        />
+        {this.state.searchBarVisible === true ?
+          <TextField hintText="Search"
+            hintStyle={styles.whiteText}
+            inputStyle={styles.whiteText}
+            underlineFocusStyle={styles.whiteText} //not working
+          /> :
+        null }
       </div>
     );
-
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -126,6 +121,5 @@ class AppDrawer extends React.Component {
     )
   }
 }
-
 
 export default AppDrawer;

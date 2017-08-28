@@ -11,7 +11,6 @@ import {List, ListItem, makeSelectable} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';import dueDateIcon from '../../../../../public/images/due date icon.png';
 import logo from '../../../../../public/images/running.jpg';
 
-//map in component or container to list categories? could ask ryan
 const styles = {
   chipStyle: {
   margin: 4},
@@ -27,7 +26,6 @@ type Props = {
   child_cat_id: Number,
   child_cat_text: String
 }
-
 
 class ManageCategories extends React.Component {
   props: Props
@@ -67,7 +65,6 @@ class ManageCategories extends React.Component {
       child_cat_text
     } = this.props;
 
-
     const manageCatEditActions = [
       <div>
       <TextField defaultValue={child_cat_text}/>
@@ -87,21 +84,20 @@ class ManageCategories extends React.Component {
       </div>
     ];
 
-
-        const catMap2 =
-            <div>
-              <List>
+    const catMap2 =
+        <div>
+            <List>
                 <ListItem
-                value={1}
-                primaryText="Brendan Lim"
-                leftAvatar={<Avatar src={logo} />}
-                nestedItems={[
-                  <ListItem
-                      value={2}
-                      primaryText="Grace Ng"
-                      leftAvatar={<Avatar src={logo} />}
-                    />,
-                  ]}
+                    value={1}
+                    primaryText="Brendan Lim"
+                    leftAvatar={<Avatar src={logo} />}
+                    nestedItems={[
+                      <ListItem
+                            value={2}
+                            primaryText="Grace Ng"
+                            leftAvatar={<Avatar src={logo} />}
+                      />,
+                    ]}
                 />
               </List>
             </div>
@@ -109,36 +105,34 @@ class ManageCategories extends React.Component {
 
 
     const catMap =
-
         <div style={styles.wrapper}>
           <Chip
             style={styles.chipStyle}
             onTouchTap={this.catListOpen}
             key={category_id}
           >
-            {text}
+              {text}
           </Chip>
           <Popover open={this.state.catListOpen}
             animation={PopoverAnimationVertical}
             onRequestClose={this.catListClose}
             anchorEl={this.state.anchorEl}
           >
-            <Menu>
-              <MenuItem primaryText={child_cat_text}/>
-              <MenuItem primaryText="edit" onTouchTap={this.editOpen}/>
-              <Dialog
-              title="Manage Category"
-              actions={manageCatEditActions}
-              modal={false}
-              open={this.state.editOpen}
-              onRequestClose={this.editClose}>
-              </Dialog>
-            </Menu>
+              <Menu>
+                  <MenuItem primaryText={child_cat_text}/>
+                  <MenuItem primaryText="edit" onTouchTap={this.editOpen}/>
+                  <Dialog
+                      title="Manage Category"
+                      actions={manageCatEditActions}
+                      modal={false}
+                      open={this.state.editOpen}
+                      onRequestClose={this.editClose}>
+                  </Dialog>
+              </Menu>
           </Popover>
           <br/>
         </div>
-  ;
-
+    ;
 
     return(
       <MuiThemeProvider>

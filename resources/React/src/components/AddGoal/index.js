@@ -7,9 +7,6 @@ import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-//add logic if there are no categories
-//pull in category table
-
 type Props = {
   name: String,
   scheduled: Date,
@@ -56,8 +53,6 @@ class AddGoal extends React.Component {
     scheduled: null
   };
 
-
-//figure out how to pass task, schedule, category back to main index page
   taskChange = (event, name) =>
   {this.setState({name})};
   scheduleChange = (event, scheduled) => this.setState({scheduled});

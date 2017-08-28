@@ -23,7 +23,6 @@ type Props = {
   tabThreeContent: String
 };
 
-
 const styles = {
   cardStyle: {
     width: '400px',
@@ -98,7 +97,7 @@ class Layout extends React.Component{
       }
     }
 
-    handleChange = (event, index, sortOption) => this.setState({sortOption});
+  handleChange = (event, index, sortOption) => this.setState({sortOption});
 
   render() {
 
@@ -115,7 +114,6 @@ class Layout extends React.Component{
       tabThreeContent
     } = this.props;
 
-
     const marketitem = (
       <div style={styles.leftContentStyle}>
       <FlatButton style={styles.buttonBackgroundTyle}>Add Goal</FlatButton>
@@ -130,7 +128,6 @@ class Layout extends React.Component{
     );
 
     const taskListDropdown = (
-
       <div>
       <DropDownMenu style={styles.leftContentStyle} value={this.state.sortOption} onChange={this.handleChange}>
           <MenuItem value={1} onClick={()=>this.sortOptionSelection(1)} primaryText="Sort By" />
@@ -142,7 +139,6 @@ class Layout extends React.Component{
   );
 
     const tabsExample = (
-
       <Tabs
       tabItemContainerStyle={styles.tabItemContainerStyle}
       contentContainerStyle={styles.tabStyle}>
@@ -151,9 +147,9 @@ class Layout extends React.Component{
           buttonStyle={styles.buttonStyle}
           >
             <div>
-            <Paper style={styles.paperStyle}>
-              {tabOneContent}
-            </Paper>
+              <Paper style={styles.paperStyle}>
+                {tabOneContent}
+              </Paper>
             </div>
           </Tab>
           <Tab
@@ -161,9 +157,9 @@ class Layout extends React.Component{
           buttonStyle={styles.buttonStyle}
           >
             <div>
-            <Paper style={styles.paperStyle}>
-              {tabTwoContent}
-            </Paper>
+              <Paper style={styles.paperStyle}>
+                {tabTwoContent}
+              </Paper>
             </div>
           </Tab>
           <Tab
@@ -171,50 +167,55 @@ class Layout extends React.Component{
           buttonStyle={styles.buttonStyle}
           >
             <div>
-            <Paper style={styles.paperStyle}>
-                {tabThreeContent}
-            </Paper>
+              <Paper style={styles.paperStyle}>
+                  {tabThreeContent}
+              </Paper>
             </div>
           </Tab>
       </Tabs>
     );
 
-
     const layoutTop = (
     <div >
       <Card style={styles.cardStyle}>
         <CardTitle
-        title={title}
-        subtitle={subtitle}
-        style={styles.titleStyle}
-        titleStyle={styles.titleStyleText}
-        subtitleStyle={styles.subtitleStyle}
+          title={title}
+          subtitle={subtitle}
+          style={styles.titleStyle}
+          titleStyle={styles.titleStyleText}
+          subtitleStyle={styles.subtitleStyle}
         />
-        <CardMedia
-        mediaStyle={styles.mediaStyle}
-        >
-        <img src={ProfilePic}/>
-        </CardMedia>
-        <CardActions>
-        {this.state.leftContent === "taskListDropdown" ?
-        <div>{taskListDropdown}</div>
-        :
-        <div>
-          {this.state.leftContent === "marketitem" ?
-            <div>{marketitem}</div>
-        : null }
-        {this.state.leftContent === "account" ?
-          <div>{account}</div>
-      : null }
-        </div>
-        }
-          <FlatButton
-          label={buttonTitle}
-          containerElement={<Link to={buttonAction} />}
-          style={styles.buttonStyle}
-          backgroundColor={styles.buttonBackgroundTyle}
-          />
-          {tabsExample}
+          <CardMedia
+            mediaStyle={styles.mediaStyle}
+          >
+          <img src={ProfilePic}/>
+          </CardMedia>
+          <CardActions>
+            {this.state.leftContent === "taskListDropdown" ?
+              <div>
+                {taskListDropdown}
+              </div>
+              :
+              <div>
+                {this.state.leftContent === "marketitem" ?
+                  <div>
+                    {marketitem}
+                  </div>
+                : null }
+                {this.state.leftContent === "account" ?
+                  <div>
+                    {account}
+                  </div>
+                : null }
+              </div>
+            }
+            <FlatButton
+              label={buttonTitle}
+              containerElement={<Link to={buttonAction} />}
+              style={styles.buttonStyle}
+              backgroundColor={styles.buttonBackgroundTyle}
+            />
+              {tabsExample}
         </CardActions>
       </Card>
     </div>);

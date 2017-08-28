@@ -31,10 +31,7 @@ import difficultyIcon from '../../../../../public/images/difficulty icon.png';
 import locationIcon from '../../../../../public/images/place.png';
 import dueDateIcon from '../../../../../public/images/due date icon.png';
 import SelectField from 'material-ui/SelectField';
-//test
-//todo:
-//textfield isn't updating when filter is changed, but H2 is
-//same with comments etc
+
 type Props = {
   taskName: String,
   taskID: Number,
@@ -102,7 +99,6 @@ const styles={
     textAlign: 'center'
   }
 }
-
 
 class TaskCard extends React.Component {
     props: Props
@@ -263,7 +259,6 @@ class TaskCard extends React.Component {
               <br/>
               <br/>
               <br/>
-
           </Dialog>
       </div>;
 
@@ -274,6 +269,5 @@ class TaskCard extends React.Component {
         )
     }
 }
-
 
 export default TaskCard;

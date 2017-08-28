@@ -11,6 +11,7 @@ export const mapStateToProps = (state) => ({
   comments: state.comments.comments,
 });
 
+
 export const mapDispatchToProps = (dispatch) => ({
   fetchMarketplacegoalsFromActions: () => dispatch(fetchMarketplacegoals()),
   fetchReviewsFromActions: () => dispatch(fetchReviews()),

@@ -13,12 +13,6 @@ import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import Divider from 'material-ui/Divider';
 import {Card, CardHeader} from 'material-ui/Card';
 import ProfilePic from '../../../../../public/images/comedy.jpg';
-import '../old/app/style.css';
-
-//to do
-// get goalsForBar to work
-//add notifications back in if part of MVP
-//    <MenuItem leftIcon={<Flag />} onTouchTap={this.drawerOpen} containerElement={<Link to="/notifications" />} primaryText="Notifications" />
 
 type Props = {
   goalsForBar: String,
@@ -66,7 +60,6 @@ const styles = {
   }
 };
 
-
 class AppDrawerMenu extends React.Component {
   props: Props
 
@@ -75,8 +68,7 @@ class AppDrawerMenu extends React.Component {
     this.state= {
       test: this.props.test
     }
-
-}
+  }
 
   render() {
     const {
@@ -84,30 +76,50 @@ class AppDrawerMenu extends React.Component {
       username
     } = this.props;
 
-
     const leftButton = (
       <div>
 
-    <Drawer
-        open={true}
-        width={300}
-        containerStyle={styles.drawer}
-    >
-      <Card style={styles.card}>
-      <CardHeader
-        title={username}
-        avatar={ProfilePic}
-        titleStyle={styles.card} />
-      </Card>
-      <MenuItem leftIcon={<CheckBox />} onTouchTap={this.drawerOpen} containerElement={<Link to="/" />} primaryText="Goals" />
-      {goalsForBar}
-      <MenuItem leftIcon={<ShoppingCart />} onTouchTap={this.drawerOpen} containerElement={<Link to="/marketplace" />} primaryText="Marketplace" />
-        <Divider style={styles.divider}/>
-      <MenuItem leftIcon={<AccountIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/account" />} primaryText="Account" />
-      <MenuItem  leftIcon={<SettingsIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/settings" />} primaryText="Settings" />
-      <MenuItem  leftIcon={<InfoIcon />} style={styles.secondMenu} onTouchTap={this.drawerOpen} containerElement={<Link to="/about" />} primaryText="About" />
-    </Drawer>
-    </div>
+        <Drawer
+            open={true}
+            width={300}
+            containerStyle={styles.drawer}
+        >
+          <Card style={styles.card}>
+          <CardHeader
+              title={username}
+              avatar={ProfilePic}
+              titleStyle={styles.card}
+          />
+          </Card>
+          <MenuItem leftIcon={<CheckBox />}
+            onTouchTap={this.drawerOpen}
+            containerElement={<Link to="/" />}
+            primaryText="Goals"
+          />
+          {goalsForBar}
+          <MenuItem
+            leftIcon={<ShoppingCart />}
+            onTouchTap={this.drawerOpen}
+            containerElement={<Link to="/marketplace" />}
+            primaryText="Marketplace"
+          />
+          <Divider style={styles.divider}/>
+          <MenuItem
+            leftIcon={<SettingsIcon />}
+            style={styles.secondMenu}
+            onTouchTap={this.drawerOpen}
+            containerElement={<Link to="/settings" />}
+            primaryText="Settings"
+          />
+          <MenuItem
+            leftIcon={<InfoIcon />}
+            style={styles.secondMenu}
+            onTouchTap={this.drawerOpen}
+            containerElement={<Link to="/about" />}
+            primaryText="About"
+          />
+        </Drawer>
+      </div>
     );
 
     return (
@@ -119,6 +131,5 @@ class AppDrawerMenu extends React.Component {
     )
   }
 }
-
 
 export default AppDrawerMenu;

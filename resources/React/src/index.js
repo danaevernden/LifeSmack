@@ -17,7 +17,6 @@ import Marketplace from './containers/Marketplace/Marketplace';
 import Specialist from './containers/Marketplace/Specialists';
 import NewsfeedOld from './containers/Test/NewsfeedOld';
 import TaskList from './containers/TaskList';
-import AddGoal from './containers/Goals/AddGoal';
 import sortByExample from './containers/Test/sortByExample';
 import TestApi from './containers/Test/TestAPI';
 import reducers from './reducers';
@@ -69,7 +68,6 @@ ReactDOM.render((
           <Route>
               {goalPages}
           </Route>
-          <Route path='/goals/add' component={{main : AddGoal}} />
           <Route path='/marketplace/social' marketCat='social' component={{main : MarketCat}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
           <Route>
@@ -79,7 +77,6 @@ ReactDOM.render((
           <Route path='/about' component={{main: Tour}}/>
           <Route path='/login' component={{main : Login}} />
           <Route path='/settings' component={{main: Settings}}/>
-          <Route path='/account' component={{main : Profile}} />
 
           ///test routes/////////
           <Route path='/test000' component={{main : GroupingComments}} />

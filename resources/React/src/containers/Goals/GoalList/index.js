@@ -8,15 +8,10 @@ import Divider from 'material-ui/Divider';
 import logo from '../../../../../../public/images/running.jpg';
 import Calendar from '../../Calendar';
 import Layout from '../../Layout';
-import ListCardNew from '../../../components/ListCardNew';
+import ListCard from '../../../components/ListCard';
 import Avatar from 'material-ui/Avatar';
 import {GridList, GridTile} from 'material-ui/GridList';
 
-//to do
-//make it look pretty
-
-//features
-//logic is there for >3 goals to not have 'add goal' button appear
 const styles = {
     background: {
         backgroundColor: 'rgb(233,235,238)'
@@ -100,34 +95,33 @@ class GoalList extends React.Component{
     })
     .map((task) =>
     <div>
-    <ListCardNew
-    taskID={task.id}
-    taskName={task.task_name}
-    taskStatus={task.complete}
-    taskScheduled={task.scheduled}
-    imageSrc={avatarLogo}
-    categoryID1={task.category_id_1}
-    categoryID2={task.category_id_2}
-    categoryID3={task.category_id_3}
-    />
+      <ListCard
+        taskID={task.id}
+        taskName={task.task_name}
+        taskStatus={task.complete}
+        taskScheduled={task.scheduled}
+        imageSrc={avatarLogo}
+        categoryID1={task.category_id_1}
+        categoryID2={task.category_id_2}
+        categoryID3={task.category_id_3}
+      />
     </div>
   );
 
     const listItems = goals.map((goal) =>
-
     <div>
-    <Divider />
-    <Card style={styles.cardStyle}>
-    <a href={'/goal/' + goal.id}>
-      <CardMedia style={styles.logo}>
-          <img src={logo} role='presentation'/>
-          <CardTitle
-              titleStyle={styles.goalList}
-              title={goal.goal_name}
-        />
-      </CardMedia>
-        </a>
-    </Card>
+      <Divider />
+      <Card style={styles.cardStyle}>
+      <a href={'/goal/' + goal.id}>
+        <CardMedia style={styles.logo}>
+            <img src={logo} role='presentation'/>
+            <CardTitle
+                titleStyle={styles.goalList}
+                title={goal.goal_name}
+            />
+        </CardMedia>
+          </a>
+      </Card>
     </div>
     );
 
@@ -157,15 +151,13 @@ class GoalList extends React.Component{
     const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
-   //commented out for testing
-//   let goalsCount = 3;
     let button = null;
     if(goalsCount <=2) {
       button =
       <div>
         <Divider />
         <br/>
-        <FlatButton label={"Add Goal"} href={'/goals/add'} primary={true} />
+          <FlatButton label={"Add Goal"} href={'/goals/add'} primary={true} />
         <br/>
         <br/>
       </div>;
@@ -174,17 +166,17 @@ class GoalList extends React.Component{
     const layout = (
       profile.map((profile) =>
       <div>
-      <Layout
-      title={profile.first_name}
-      subtitle={profile.city+','+profile.region}
-      leftContent={"dashboard"}
-      tabOne={"Goals"}
-      tabTwo={"Calendar"}
-      tabThree={"All Tasks"}
-      tabOneContent={listItems2}
-      tabTwoContent={"coming soon!"}
-      tabThreeContent={allTasks}
-      />
+        <Layout
+          title={profile.first_name}
+          subtitle={profile.city+','+profile.region}
+          leftContent={"dashboard"}
+          tabOne={"Goals"}
+          tabTwo={"Calendar"}
+          tabThree={"All Tasks"}
+          tabOneContent={listItems2}
+          tabTwoContent={"coming soon!"}
+          tabThreeContent={allTasks}
+        />
       </div>
     ));
 

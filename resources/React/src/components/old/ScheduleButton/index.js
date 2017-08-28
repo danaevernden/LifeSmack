@@ -56,11 +56,12 @@ class ScheduleButton extends React.Component {
         <ActionSchedule/>
       </IconButton>
       <Dialog title="Schedule this task"
-      actions={scheduleActions}
-      modal={false}
-      open={this.state.dialogOpen}
-      onRequestClose={this.dialogClose}>
-      <DatePicker/>
+        actions={scheduleActions}
+        modal={false}
+        open={this.state.dialogOpen}
+        onRequestClose={this.dialogClose}
+      >
+        <DatePicker/>
       </Dialog>
       </div>
     );

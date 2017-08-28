@@ -1,5 +1,4 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 
@@ -47,16 +46,15 @@ class TourComponent extends React.Component{
 
     return (
       <body style={styles}>
-                  <div style={styles.main}>
-                    <img src={logo} style={styles.logo} />
-
-                    <div style={styles.title}>
-                        {title}
-                    </div>
-                    <div style={styles.text}>
-                        {text}
-                    </div>
+          <div style={styles.main}>
+              <img src={logo} style={styles.logo} />
+                  <div style={styles.title}>
+                      {title}
                   </div>
+                  <div style={styles.text}>
+                      {text}
+                  </div>
+          </div>
       </body>
     );
   }

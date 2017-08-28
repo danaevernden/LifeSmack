@@ -9,12 +9,6 @@ import Toggle from 'material-ui/Toggle';
 import Chip from 'material-ui/Chip';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-//to do
-//--figure out how to put this back in:
-//<NoResultsMessage
-//itemsCount={listItems.length}
-//message={"No results match your search :("}
-///>
 
 const styles = {
   topMenu: {
@@ -29,7 +23,6 @@ const styles = {
   }
 }
 
-
 class Login extends React.Component{
 
   constructor(props){
@@ -38,9 +31,7 @@ class Login extends React.Component{
     }
   }
 
-
 render () {
-
 
     return (
       <div className = 'App-page'>
@@ -67,7 +58,4 @@ render () {
   }
 }
 
-
-
 export default Login;
-//connect merges objects into one and passes it into newsfeed as props

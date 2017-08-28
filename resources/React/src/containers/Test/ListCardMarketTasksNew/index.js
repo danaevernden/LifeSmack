@@ -1,35 +1,14 @@
 import React from 'react';
-import Checkbox from 'material-ui/Checkbox';
-import ActionCommentOutline from 'material-ui/svg-icons/communication/chat-bubble-outline';
-import ActionComment from 'material-ui/svg-icons/communication/chat-bubble';
-import Assignment from 'material-ui/svg-icons/action/assignment';
-import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import ActionWarning from 'material-ui/svg-icons/alert/warning';
-import TextField from 'material-ui/TextField';
-import Snackbar from 'material-ui/Snackbar';
 import CategoryItems from '../../components/CategoryItems';
 import CommentItems from '../../components/CommentItems';
 import Divider from 'material-ui/Divider';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Dialog from 'material-ui/Dialog';
-import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import PollIcon from 'material-ui/svg-icons/social/poll';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
-import RaisedButton from 'material-ui/RaisedButton';
 import {Card,CardText,CardActions} from 'material-ui/Card';
-import incomTask from '../../../../../public/images/incomplete task icon.png';
-import ComTask from '../../../../../public/images/completed task icon.png';
 import TaskCard from '../TaskCard';
-import difficultyIcon from '../../../../../public/images/difficulty icon.png';
-import locationIcon from '../../../../../public/images/place.png';
-import dueDateIcon from '../../../../../public/images/due date icon.png';
 
-//test
-//todo:
-//textfield isn't updating when filter is changed, but H2 is
-//same with comments etc
 type Props = {
   taskName: String,
   taskID: Number,
@@ -87,7 +66,7 @@ const styles={
 }
 
 
-class ListCardNew extends React.Component {
+class ListCardMarketTasksNew extends React.Component {
     props: Props
 
 
@@ -178,8 +157,4 @@ class ListCardNew extends React.Component {
     }
 }
 
-
-export default ListCardNew;
-
-//old code
-//        <Divider style={styles.divider}/>
+export default ListCardMarketTasksNew;

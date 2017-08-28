@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import Chip from 'material-ui/Chip';
 import { green500, grey500 } from 'material-ui/styles/colors';
-import ListCard from '../../../components/ListCard';
+import ListCard from '../../../components/ListCardMarketTasks';
 import {groupBy,values,sortBy} from 'lodash';
 import Layout from '../../Layout';
 
@@ -136,7 +136,7 @@ render () {
                 <div>
                       {listItemsFromComponent}
                 </div>
-      
+
     );
   }
 }

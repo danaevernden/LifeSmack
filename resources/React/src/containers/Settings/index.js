@@ -1,4 +1,3 @@
-import ManageCategoriesMenu from '../../components/ManageCategoriesMenu';
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ManageCategories from '../../components/ManageCategories';
@@ -7,6 +6,7 @@ import { mapStateToProps, mapDispatchToProps } from './connect';
 import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import Profile from '../Profile';
 
 type Props = {
   categories: Category[],
@@ -21,10 +21,9 @@ const styles = {
     width: '100%',
     flexWrap: 'wrap',
     display: 'inline-block',
-    marginTop: '100px'
+    marginTop: '40px'
   },
 }
-
 
 class Settings extends React.Component {
 
@@ -40,7 +39,6 @@ class Settings extends React.Component {
   }
   props:Props
 
-
   render () {
 
     const {
@@ -51,24 +49,22 @@ class Settings extends React.Component {
 
     const categoriesByCategory = groupBy(values(categories), (category) => category.parent_cat);
 
+    const manageCategories = parentcategories.filter((item)=>
+      {return item.parent_cat == null})
+      .map((parentcategory) =>
+      <div>
+          {parentcategory.text}
+          {(categoriesByCategory[parentcategory.id] || [])
+          .map((category) =>
+            <ListItem
+            primaryText={category.text}/>
+          )}
+      </div>
+    );
 
-          const manageCategories = parentcategories.filter((item)=>
-          {return item.parent_cat == null})
-          .map((parentcategory) =>
-          <div>
-              {parentcategory.text}
-              {(categoriesByCategory[parentcategory.id] || [])
-              .map((category) =>
-              <ListItem
-              primaryText={category.text}/>
-              )}
-
-          </div>
-        );
-
-      const test =
+    const test =
       <List>
-      {manageCategories}
+        {manageCategories}
       </List>;
 
     return(
@@ -76,8 +72,7 @@ class Settings extends React.Component {
           <div className='App-content'>
               <MuiThemeProvider>
                 <div style={styles.topMenu}>
-                    test Settings
-                    {manageCategories}
+                  <Profile/>
                 </div>
               </MuiThemeProvider>
           </div>
@@ -85,6 +80,7 @@ class Settings extends React.Component {
     )
   }
 }
+
 Settings.defaultProps ={
   categories: [],
   goals: [],

@@ -14,7 +14,7 @@ import { green500, grey500 } from 'material-ui/styles/colors';
 import { Field, reduxForm } from 'redux-form';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
-import TaskMenu from '../../components/TaskMenu';
+import TaskBottomNav from '../../components/TaskBottomNav';
 import TaskListSortOptions from '../../components/TaskListSortOptions';
 import ScheduleButton from '../../components/ScheduleButton';
 import CheckboxButton from '../../components/CheckboxButton';
@@ -226,7 +226,7 @@ class TaskList extends React.Component{
                   label="comment"
                   onClick={this.expandComments}/>
             }
-          <TaskMenu />
+          <TaskBottomNav/>
           <FlatButton icon={<Assignment />} label="categories" onClick={this.expandCategories}/>
           {today > tasks.scheduled ? <ActionWarning /> : <ScheduleButton />}
 

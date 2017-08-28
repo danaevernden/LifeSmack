@@ -6,14 +6,8 @@ import {Card} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/Toggle';
 import StarRatingComponent from 'react-star-rating-component';
-import MarketplaceComponent from '../../../components/Marketplace';
-import AddGoalPopUp from '../../../components/AddGoal';
-//to do
-//--populate stars with ratings or use emojis or something
-//--search section seaches hashtags (not startWith, but something else in a string of hashtags)
-//--make reviews page?
-//--toggle logic isn't working, debug it with ryan
-//--separate out marketplace into a component, want to update a constant that filters the list differently for the marketplace page vs the add goals page
+import MarketplaceComponent from '../../../components/MarketplaceComponent';
+
 type Props = {
   fetchMarketplaceFromActions: () => void,
   marketplace: Marketplace[],
@@ -37,8 +31,8 @@ class AddGoal extends React.Component{
       plans:true,
       packages:true
     }
-        this.togglePlans = this.togglePlans.bind(this);
-        this.togglePackages = this.togglePackages.bind(this);
+    this.togglePlans = this.togglePlans.bind(this);
+    this.togglePackages = this.togglePackages.bind(this);
   }
 
   updateFilter(e) {
@@ -96,7 +90,6 @@ render () {
                       {listItems}
                   </Card>
                   <br/>
-                  ///add AddGoal container here
                 </div>
               </MuiThemeProvider>
           </div>
@@ -104,10 +97,10 @@ render () {
     );
   }
 }
+
 AddGoal.defaultProps ={
   marketplace: []
  };
-
 
 export default connect(
   mapStateToProps, mapDispatchToProps

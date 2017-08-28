@@ -11,7 +11,7 @@ type Props = {
   taskID: Number
 }
 
-class TaskMenu extends React.Component {
+class TaskBottomNav extends React.Component {
   props: Props
 
   constructor(props){
@@ -34,7 +34,7 @@ class TaskMenu extends React.Component {
           {this.state.commentOpen === taskID ?
               <BottomNavigationItem label="comments" icon={<ActionCommentOutline />} onClick={() => this.openComment()} />
           :
-          <BottomNavigationItem label="comments" icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
+              <BottomNavigationItem label="comments" icon={<ActionComment />} onClick={() => this.openComment(taskID)} />
           }
           {this.state.categoryOpen === taskID ?
               <BottomNavigationItem icon={<Assignment />} label="categories" onClick={() => this.openCategory()}/>
@@ -45,14 +45,13 @@ class TaskMenu extends React.Component {
                iconButtonElement={<BottomNavigationItem label="options" icon={<MoreMenu />}></BottomNavigationItem>}
                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-             >
-               <MenuItem primaryText="Delete Task" />
-               <MenuItem primaryText="Schedule" />
+          >
+             <MenuItem primaryText="Delete Task" />
+             <MenuItem primaryText="Schedule" />
           </IconMenu>
       </BottomNavigation>
-
     );
   }
 }
 
-export default TaskMenu;
+export default TaskBottomNav;

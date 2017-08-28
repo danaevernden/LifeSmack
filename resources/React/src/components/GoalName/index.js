@@ -22,10 +22,10 @@ class GoalName extends React.Component{
 
 
         const goalItems =
-        <div>
-            <div>{name}</div>
-            <div><img src={image} /></div>
-        </div>
+          <div>
+              <div>{name}</div>
+              <div><img src={image} /></div>
+          </div>
         ;
     return (
       <h2 style={styles.goalItem}>{goalItems} </h2>

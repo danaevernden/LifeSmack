@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import AppDrawer from '../../components/appDrawer';
 import { mapStateToProps, mapDispatchToProps } from './connect';
-//to do
-//--get props to work and populate goals
-//--get hyperlinks to work
-
-
 
 type Props = {
   main: any,
@@ -49,7 +44,6 @@ class App extends React.Component {
       profile
     } = this.props;
 
-
     const goals2 = goals.map((goal) =>
     <div>
         <MenuItem
@@ -84,11 +78,11 @@ class App extends React.Component {
     )
   }
 }
+
 App.defaultProps ={
   goals: [],
   profile: []
  };
-
 
 export default connect(
   mapStateToProps, mapDispatchToProps

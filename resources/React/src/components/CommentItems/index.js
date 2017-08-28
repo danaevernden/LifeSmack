@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 
-
 type Props = {
   commentText: String
 }
@@ -22,7 +21,7 @@ class CommentItems extends React.Component {
     const commentItem =
       <div>
         <TextField style={styles.inlineBlock2} defaultValue={commentText} />
-        <TextField style={styles.inlineBlock2} />        
+        <TextField style={styles.inlineBlock2} />
       </div>
     ;
 

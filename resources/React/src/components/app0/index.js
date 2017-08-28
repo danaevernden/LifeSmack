@@ -1,17 +1,10 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-//to do
-//--get props to work and populate goals
-//--get hyperlinks to work
-//--get title from route via props and populate appBar title
-
-
 type Props = {
   goal_name: String,
   goal_id: Number
 };
-
 
 class App2 extends React.Component {
   props: Props
@@ -39,6 +32,5 @@ class App2 extends React.Component {
     )
   }
 }
-
 
 export default App2;

@@ -10,15 +10,9 @@ import StarRatingComponent from 'react-star-rating-component';
 import Layout from '../../Layout';
 import { includes } from 'lodash';
 import {groupBy,values,sortBy} from 'lodash';
-import MarketplaceListCard from '../../../components/MarketplaceListCard';
 import TextField from 'material-ui/TextField';
-import ListCardNew from '../../../components/ListCardNew';
+import ListCard from '../../../components/ListCard';
 import redComTask from '../../../../../../public/images/marketplace task icon.png';
-
-//to do
-//--subtitle href to click on specialist name, already have page for them
-//--helpful button increments 'likes' on a review - started working on but haven't figured it out
-//--if reviewcount = 0, message 'no reviews'
 
 const styles = {
   topMenu: {
@@ -111,9 +105,8 @@ class MarketItem extends React.Component{
       </div>;
     }
 
-//includes(this.state.include, '/marketplace/1/reviews') == true
-          const listItems = reviews.map((review) =>
-          <div>
+    const listItems = reviews.map((review) =>
+      <div>
           <Card>
               <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
               <br/>
@@ -122,71 +115,71 @@ class MarketItem extends React.Component{
               </CardText>
           </Card>
           <Divider />
-          </div>
-          );
+      </div>
+      );
 
-          const marketplaceDesc = marketplacegoals.filter((marketplacegoal) => {
-          return true;
-          })
-          .map((marketplacegoal) =>
-          <div>
+    const marketplaceDesc = marketplacegoals.filter((marketplacegoal) => {
+        return true;
+        })
+        .map((marketplacegoal) =>
+        <div>
           {marketplacegoal.plan_description}
           {marketplacegoal.rating}
-          </div>
-          );
+        </div>
+        );
 
-          const goalPlan2 = markettasks.map((markettask) =>
-            <div>
-              <ListCardNew
+    const goalPlan2 = markettasks.map((markettask) =>
+        <div>
+            <ListCard
                 taskID={markettask.task_id}
                 taskStatus={true}
                 taskName={markettask.task_name}
                 categoryID1={markettask.category_id_1}
                 imageSrc={<img src={redComTask}/>}
               />
-            </div>
-          );
+        </div>
+    );
 
-          const listItem = markettasks.filter((markettask) => {
-            return markettask.marketplace_id == this.props.route.marketItem;
-          })
-          .map((markettask) =>
-          <div>
-            {markettask.task_name}
-          </div>)
-          ;
+    const listItem = markettasks.filter((markettask) => {
+        return markettask.marketplace_id == this.props.route.marketItem;
+    })
+        .map((markettask) =>
+            <div>
+                {markettask.task_name}
+            </div>
+        );
 
     const marketplaceItems = marketplacegoals.filter((marketplacegoal) => {
-    return marketplacegoal.id == this.props.route.marketItem;
-    })
-    .map((marketplacegoal) =>
+        return marketplacegoal.id == this.props.route.marketItem;
+        })
+        .map((marketplacegoal) =>
+            <div>
+                <Layout
+                    title={marketplacegoal.goal_name}
+                    subtitle={marketplacegoal.name}
+                    leftContent={"marketitem"}
+                    tabOne={"Tasks"}
+                    tabTwo={"Categories"}
+                    tabThree={"Reviews"}
+                    tabOneContent={goalPlan2}
+                    tabTwoContent={"howdy"}
+                    tabThreeContent={listItems}
+                />
+            </div>
+      );
+
+    const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
       <div>
           <Layout
             title={marketplacegoal.goal_name}
             subtitle={marketplacegoal.name}
-            leftContent={"marketitem"}
             tabOne={"Tasks"}
             tabTwo={"Categories"}
             tabThree={"Reviews"}
             tabOneContent={goalPlan2}
             tabTwoContent={"howdy"}
             tabThreeContent={listItems}
-            />
-      </div>
-    );
-
-    const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
-    <div>
-          <Layout
-            title={marketplacegoal.goal_name}
-            subtitle={marketplacegoal.name}
-            tabOne={"Tasks"}
-            tabTwo={"Categories"}
-            tabThree={"Reviews"}
-            tabOneContent={goalPlan2}
-            tabTwoContent={"howdy"}
-            tabThreeContent={listItems}
-            />
+        />
       </div>
     );
 
@@ -209,6 +202,7 @@ class MarketItem extends React.Component{
     );
   }
 }
+
 MarketItem.defaultProps ={
   marketplacegoals: [],
   reviews: [],
@@ -216,8 +210,6 @@ MarketItem.defaultProps ={
   comments: []
  };
 
-
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(MarketItem);
-//connect merges objects into one and passes it into newsfeed as props

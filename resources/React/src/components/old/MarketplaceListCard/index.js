@@ -1,24 +1,23 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import {Card,CardText,CardActions} from 'material-ui/Card';
+import {Card, CardActions} from 'material-ui/Card';
 
 type Props = {
   taskName: String,
   taskID: Number,
-  goalID: Number,
-  imageSrc: String
+  categoryID1: Number,
 }
 
 const styles={
   wrapper: {
     flexWrap: 'wrap',
+    marginLeft: '20%',
+    marginRight: '20%',
     maxWidth: '350px',
     display: 'inline-block',
     textAlign: 'left'
-  },
-  taskCardStyle: {
-    width: '400px'
   },
   parentStyle: {
     display: 'inline-block',
@@ -53,54 +52,50 @@ const styles={
   }
 }
 
-
-class ListCardParent extends React.Component {
+class MarketplaceListCard extends React.Component {
     props: Props
+
 
     constructor(props){
       super(props)
       this.state= {
-        taskName: this.props.taskName,
-        taskStatusState: this.props.taskStatus,
-        }
+            }
       }
 
     render() {
       const {
         taskName,
         taskID,
-        goalID,
-        imageSrc
+        categoryID1,
       } = this.props;
 
-      const taskCard =
-        <div style={styles.wrapper}>
+    const taskCard =
+      <div style={styles.wrapper}>
           <div style={styles.parentStyle}>
-              <a href={'/goal/' + goalID + '/' + taskID}>
-                <Card
-                  style={styles.taskCardStyle}
-                >
-                    <CardText>
-                        <img src={imageSrc} />
-                        <div style={styles.inlineBlock2}>
-                            {taskName}
-                        </div>
-                      </CardText>
+              <div style={styles.inlineBlock2}>
+                  <Card>
+                      <TextField
+                          style={styles.textboxStyle}
+                          inputStyle={styles.textboxFontStyle}
+                          defaultValue={taskName}
+                          multiLine={true}
+                          rowsMax={4}
+                          disabled={true}
+                          id="text-field-disabled"
+                      />
                   </Card>
-                  </a>
+                </div>
             </div>
-          </div>
-          ;
+        </div>
+  ;
 
-        return (
-          <div>
-              {taskCard}
-          </div>
-        )
-    }
+  return (
+      <div>
+          <Divider style={styles.divider}/>
+          {taskCard}
+      </div>
+    )
+  }
 }
 
-export default ListCardParent;
-
-//old code
-//        <Divider style={styles.divider}/>
+export default MarketplaceListCard;

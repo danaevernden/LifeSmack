@@ -74,10 +74,6 @@ const tilesData = [
   },
 ];
 
-
-/**
- * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
- */
 const MarketTypes2 = () => (
   <div style={styles.root}>
     <GridList
@@ -118,6 +114,5 @@ const MarketTypes = () => (
     </GridList>
   </div>
 );
-
 
 export default MarketTypes;

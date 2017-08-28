@@ -16,8 +16,6 @@ type Props = {
   marketplaceFlag: Boolean
 }
 
-
-
 class MarketplaceComponent extends React.Component {
     props: Props
 
@@ -62,37 +60,36 @@ class MarketplaceComponent extends React.Component {
       };
 
       const marketplace =
-      <div    style={styles.tileStyle}
-      >
-      <GridList
-        cols={2}
-        cellHeight={180}
-    
-        titleBackground={styles.titleBackground}
-      >
-        <a href={'/marketplace/' + goalID} >
+      <div style={styles.tileStyle}>
+        <GridList
+          cols={2}
+          cellHeight={180}
 
-            <GridTile
-                titleStyle={styles.titleStyle}
-                 key={goalID}
-                 title={goalName}
-               >
-               <img src={logo} />
-         </GridTile>
-          <CardMedia
-          mediaStyle={styles.mediaStyle}>
-          </CardMedia>
-          </a>
-            <CardText><b>Description:</b> {planDescription}
-        {marketplaceFlag ?
-          <Chip style={styles.chipStyle} backgroundColor={green500}>{category}</Chip>
-        : null}
-        Rating: {rating}
-        <br/>
-        by: {marketItemName}
-        </CardText>
-        </GridList>
-        <Divider />
+          titleBackground={styles.titleBackground}
+        >
+          <a href={'/marketplace/' + goalID} >
+
+          <GridTile
+            titleStyle={styles.titleStyle}
+            key={goalID}
+            title={goalName}
+           >
+              <img src={logo} />
+           </GridTile>
+            <CardMedia
+              mediaStyle={styles.mediaStyle}>
+            </CardMedia>
+            </a>
+              <CardText><b>Description:</b> {planDescription}
+                  {marketplaceFlag ?
+                    <Chip style={styles.chipStyle} backgroundColor={green500}>{category}</Chip>
+                  : null}
+                  Rating: {rating}
+                  <br/>
+                  by: {marketItemName}
+              </CardText>
+          </GridList>
+          <Divider />
       </div>;
 
       return (
@@ -102,7 +99,6 @@ class MarketplaceComponent extends React.Component {
           onMouseOut={this.onMouseOut}
           zDepth={this.state.shadow}
         >
-
             {marketplace}
         </Card>
         </div>

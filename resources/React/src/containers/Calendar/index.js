@@ -7,11 +7,6 @@ function disableRandomDates() {
   return Math.random() > 0.7;
 }
 
-const styles = {
-  buttonStyle: {
-
-  }
-};
 class Calendar extends React.Component{
   props: Props
 
@@ -21,21 +16,18 @@ class Calendar extends React.Component{
       }
     }
 
-
   render() {
-
 
     return (
       <div className='App-page'>
           <div className='App-content'>
               <MuiThemeProvider>
                 <div>
-                <CalendarMUI
-                firstDayOfWeek={1} //to get calendar to work
-                shouldDisableDate={disableRandomDates}
-                />
-                <FloatingActionButton
-                style={styles.buttonstyle} />
+                  <CalendarMUI
+                    firstDayOfWeek={1} //to get calendar to work
+                    shouldDisableDate={disableRandomDates}
+                  />
+                  <FloatingActionButton/>
                 </div>
               </MuiThemeProvider>
             </div>

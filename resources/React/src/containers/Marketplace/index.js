@@ -9,12 +9,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 
-
-//to do
-//--populate stars with ratings or use emojis or something
-//--make reviews page?
-//--toggle logic isn't working, debug it with ryan
-//--separate out marketplace into a component, want to update a constant that filters the list differently for the marketplace page vs the add goals page
 class Marketplace extends React.Component{
 
   constructor(props){
@@ -48,9 +42,6 @@ class Marketplace extends React.Component{
 
 render () {
 
-  const style ={
-
-  };
   const listItems = this.props.marketplace.filter((item) => {
     if (this.state.filter) {
       return item.marketplace.startsWith(this.state.filter);
@@ -100,6 +91,4 @@ render () {
   }
 }
 
-
 export default connect(mapStateToProps)(Marketplace);
-//connect merges objects into one and passes it into newsfeed as props

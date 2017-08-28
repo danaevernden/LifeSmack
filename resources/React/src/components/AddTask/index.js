@@ -10,12 +10,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TaskCard from '../TaskCard';
 
-
-
-
-//add logic if there are no categories
-//pull in category table
-
 type Props = {
   name: String,
   scheduled: Date,
@@ -62,11 +56,10 @@ class AddTask extends React.Component {
   this.openTaskCard = this.openTaskCard.bind(this);
   }
 
-openTaskCard() {
+  openTaskCard() {
     this.setState({taskCard: true})
-    }
+  }
 
-//figure out how to pass task, schedule, category back to main index page
   taskChange = (event, name) => this.setState({name});
   scheduleChange = (event, scheduled) => this.setState({scheduled});
   handleChange = (event, index, category1_value) => this.setState({category1_value})
@@ -93,34 +86,32 @@ openTaskCard() {
     const AddTaskButton =
     <div>
       <FloatingActionButton
-      style={styles.floatingActionButton}
-      onTouchTap={this.openTaskCard}
-      backgroundColor={'rgb(1,230,118)'}
+        style={styles.floatingActionButton}
+        onTouchTap={this.openTaskCard}
+        backgroundColor={'rgb(1,230,118)'}
       >
-          <ContentAdd />
+      <ContentAdd />
       </FloatingActionButton>
     </div>
     ;
 
-    const taskCard =
+  const taskCard =
     <div>
         {this.state.taskCard === true ?
           <TaskCard
-          open={this.state.taskCard}
+            open={this.state.taskCard}
           />
-            :
-          null
-        }
+          : null}
     </div>
-    ;
+  ;
 
-    return(
-      <MuiThemeProvider>
+  return(
+    <MuiThemeProvider>
       <div>
         {AddTaskButton}
         {taskCard}
-        </div>
-      </MuiThemeProvider>
+      </div>
+    </MuiThemeProvider>
     );
   }
 }

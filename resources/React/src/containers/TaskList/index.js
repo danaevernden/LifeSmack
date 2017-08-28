@@ -4,7 +4,7 @@ import { mapDispatchToProps, mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Checkbox from 'material-ui/Checkbox';
 import {Card, CardText} from 'material-ui/Card';
-import ListCardNew from '../../components/ListCardNew';
+import ListCard from '../../components/ListCard';
 import AddTask from '../../components/AddTask';
 import {groupBy,values,sortBy} from 'lodash';
 import Layout from '../Layout';
@@ -17,16 +17,8 @@ import incomTask from '../../../../../public/images/incomplete task icon.png';
 import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
 
 //to do
-//figure out what to do about parent task
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
 //add if statement to change sortOption based on what button is clicked
-//other icons to use:
-//--actions/schedule
-//--actions/update
-//--actions/watch-later
-//--actions/add alert
-//--actions/warning
-//--actions/settings
 
 const styles = {
   background: {
@@ -63,7 +55,6 @@ type Props = {
   comments: Comment[],
   categories: Category[],
 }
-
 
 class TaskList extends React.Component{
 
@@ -174,7 +165,7 @@ class TaskList extends React.Component{
           return item.parent_id === this.state.parentTask && item.is_child === 1;
   }).map((task) =>
     <div>
-      <ListCardNew
+      <ListCard
         taskID={task.id}
         taskName={task.task_name}
         taskStatus={task.complete}
@@ -194,7 +185,7 @@ class TaskList extends React.Component{
           return item.parent_id === null && item.is_child === 1;
   }).map((task) =>
     <div>
-      <ListCardNew
+      <ListCard
         taskID={task.id}
         taskName={task.task_name}
         taskStatus={task.complete}
@@ -222,9 +213,7 @@ class TaskList extends React.Component{
           {taskList}
         </div>
       }
-    </div>
-    ;
-
+    </div>;
 
     const goalNameFromComponent = goals
     .filter((item) => {
@@ -250,8 +239,6 @@ class TaskList extends React.Component{
     </div>)
     ;
 
-//checkbox:
-//https://facebook.github.io/jest/docs/tutorial-react.html
     return (
       <div className='App-page' >
         <div className='App-content'>
