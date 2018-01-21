@@ -24,20 +24,22 @@ export default function fetchTasks() {
     };
 }
 
+
 export function deleteTask(taskId) {
+  console.log("calling delete", taskId)
   return {
     [CALL_API]: {
-      endpoint: `/api/task/${taskId}`,
+      endpoint: `/api/task/delete/${taskId}`,
       method: 'DELETE',
       types: [DELETE_TASK_REQUEST, DELETE_TASK_SUCCESS, DELETE_TASK_FAILURE]
     },
   };
 }
 //taskName, dueDate
-export function postTask(taskName) {
+export function addTaskToGoal(taskName) {
   return {
     [CALL_API]: {
-      endpoint: `/api/task`,
+      endpoint: `/api/task/post`,
       method: 'POST',
       types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
       body: JSON.stringify({

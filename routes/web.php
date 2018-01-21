@@ -24,19 +24,21 @@ Route::get('/test', function() {
 });
 
 
+Route::get('/twilio', 'TwilioController@getTwilio');
+
 Route::group(['prefix' => 'api'], function() {
 	/*Route::get('/tasks/{goal_id}', 'TasksController@getTasksPerGoalWithComments');*/
 /*	Route::get('/tasks/{goal_id}', 'TasksController@getTasksPerGoal');*/
 
 	Route::get('/tasks', 'TasksController@getAllTasks');
-	Route::post('/tasks', 'TasksController@postTask');
+	Route::post('/task/post', 'TasksController@postTask');
 	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTask');
 
 	Route::get('/goals', 'GoalsController@getAllGoals');
 /*	Route::get('/goals/{goal_id}', 'GoalsController@getOneGoal');
 	Route::get('/taskswithcomments/{goal_id}', 'TasksController@getTasksPerGoalWithComments'); */
 	Route::post('/goals', 'GoalsController@postGoal');
-	Route::delete('/task/delete/{goal_id}', 'GoalsController@deleteGoal');
+	Route::delete('/goal/delete/{goal_id}', 'GoalsController@deleteGoal');
 
 	Route::get('/marketplacegoals', 'MarketplacegoalsController@getAllMarketgoals');
 

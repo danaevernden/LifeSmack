@@ -19,7 +19,7 @@ import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import ActionDueDate from 'material-ui/svg-icons/action/date-range';
 import PollIcon from 'material-ui/svg-icons/social/poll';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import {Card, CardText, CardMedia, CardTitle} from 'material-ui/Card';
 import logo from '../../../../../public/images/running.jpg';
 import IconMenu from 'material-ui/IconMenu';
@@ -31,6 +31,9 @@ import difficultyIcon from '../../../../../public/images/difficulty icon.png';
 import locationIcon from '../../../../../public/images/place.png';
 import dueDateIcon from '../../../../../public/images/due date icon.png';
 import SelectField from 'material-ui/SelectField';
+import AddToCalendar from 'react-add-to-calendar';
+
+import RaisedButton from 'material-ui/RaisedButton';
 
 type Props = {
   taskName: String,
@@ -42,6 +45,7 @@ type Props = {
   categoryID2: Number,
   categoryID3: Number,
   open: Boolean,
+  handleDeleteTask: () => Promise<any>,
 }
 
 const styles={
@@ -68,7 +72,7 @@ const styles={
   contentStyle: {
     maxHeight: 'none',
     transform: 'none',
-    width: '60%',
+    width: '40%',
   },
   contentStyle2: {
     padding: '0px'
@@ -97,7 +101,7 @@ const styles={
     fontSize: '24px',
     fontWeight: 'bold',
     textAlign: 'center'
-  }
+  },
 }
 
 class TaskCard extends React.Component {
@@ -108,23 +112,26 @@ class TaskCard extends React.Component {
       this.state= {
         open: this.props.open,
         duplicateID: null,
+        deleteID: null,
         dateSelected: this.props.taskScheduled,
         valueDiff: this.props.categoryID1,
         valueTime: this.props.categoryID2,
-        valueLoc: this.props.categoryID3
+        valueLoc: this.props.categoryID3,
+        event: {
+          title: this.props.taskName,
+          startTime: '2016-09-16T00:00:00-04:00',
+          endTime: '2016-09-16T23:59:00-04:00',
+          location: this.props.categoryID3
+        }
       }
       this.Duplicate = this.Duplicate.bind(this);
       this.Delete = this.Delete.bind(this);
-      this.handleClose = this.handleClose.bind(this);
       this.dateSelect = this.dateSelect.bind(this);
       this.handleChangeDiff = this.handleChangeDiff.bind(this);
       this.handeChangeTime = this.handleChangeTime.bind(this);
       this.handleChangeLoc = this.handleChangeLoc.bind(this);
     }
 
-    handleClose() {
-      this.setState({open:false})
-    }
     Duplicate(task_id) {
         if(null == task_id) {
             this.setState({duplicateID: null})
@@ -132,12 +139,16 @@ class TaskCard extends React.Component {
             this.setState({duplicateID: task_id})
     }
 
-    Delete(task_id) {
-        if(null == task_id) {
-            this.setState({deleteID: null})
-        }
-            this.setState({deleteID: task_id})
-    }
+      Delete() {
+        const taskId = this.props.taskID;
+        this.props.handleDeleteTask(taskId)
+        .then(() => {
+          this.setState({
+            deleteID: taskId
+          });
+      });
+      }
+
 
     handleChangeDiff = (event, index, value) =>
       this.setState({
@@ -169,17 +180,18 @@ class TaskCard extends React.Component {
         categoryID1,
         categoryID2,
         categoryID3,
+        onClose,
         open
       } = this.props;
 
       const menuOptions =
-      <div>
+      <div style={{marginTop:'-30px'}}>
       <ActionDueDate style={styles.iconStyleSched}/>
       <DatePicker
           onChange={this.dateSelect}
           textFieldStyle={styles.dropdownWidth}
           />
-      <br/>
+      <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
       <SelectField
         value={this.state.valueDiff}
@@ -193,7 +205,7 @@ class TaskCard extends React.Component {
         <MenuItem value={2} primaryText="Medium" />
         <MenuItem value={3} primaryText="Hard" />
       </SelectField>
-      <br/>
+      <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
         value={this.state.valueTime}
@@ -207,7 +219,7 @@ class TaskCard extends React.Component {
         <MenuItem value={2} primaryText="Less than 1 hour" />
         <MenuItem value={3} primaryText="1 - 4 hours" />
       </SelectField>
-      <br/>
+      <br style={{display:'block', marginTop:'-15px'}}/>
         <PlaceIcon style={styles.iconStyle}/>
       <SelectField
         value={this.state.valueLoc}
@@ -227,11 +239,12 @@ class TaskCard extends React.Component {
       const taskCard2 =
       <div>
         <Dialog
-          open={this.state.open}
+          open={open}
           autoScrollBodyContent={true}
-          onRequestClose={this.handleClose}
+          onRequestClose={this.onClose}
           contentStyle={styles.contentStyle}
           bodyStyle={styles.contentStyle2}
+          onRequestClose={onClose}
         >
           <IconMenu style={styles.iconButton}
              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -239,7 +252,7 @@ class TaskCard extends React.Component {
              targetOrigin={{horizontal: 'left', vertical: 'top'}}
            >
              <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
-             <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.delete()}/>
+             <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={this.Delete}/>
            </IconMenu>
               <CardMedia
                overlay={
@@ -256,8 +269,18 @@ class TaskCard extends React.Component {
                 {menuOptions}
               </CardText>
               <br/>
-              <br/>
-              <br/>
+              <RaisedButton
+                label="OK"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={() => this.Delete}
+                onClick={this.Delete}
+              />
+              <AddToCalendar
+                  event={this.state.event}
+                  buttonLabel="Add to my Google Calendar"
+                  buttonTemplate={{'calendar-plus-o':'left'}}
+                />
               <br/>
           </Dialog>
       </div>;
@@ -271,3 +294,5 @@ class TaskCard extends React.Component {
 }
 
 export default TaskCard;
+
+/*https://jasonsalzman.github.io/react-add-to-calendar/*/

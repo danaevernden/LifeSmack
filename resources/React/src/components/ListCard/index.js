@@ -87,8 +87,13 @@ class ListCard extends React.Component {
             this.setState({taskCard: task_id})
         }
 
+    onClose = () => {
+          this.setState({taskCard: null})
+    }
+
     render() {
       const {
+        handleDeleteTask,
         taskName,
         taskID,
         taskStatus,
@@ -127,7 +132,9 @@ class ListCard extends React.Component {
                       onClick={() => this.openTaskCard(taskID)}>
                       {imageSrc}
                       <div style={styles.inlineBlock2}>
-                          {taskName}
+                          {taskName} &
+                          {this.state.taskCard} &
+                          {this.props.taskID}
                       </div>
                   </CardText>
                   <CardActions>
@@ -136,17 +143,20 @@ class ListCard extends React.Component {
                 </Card>
                 {this.state.taskCard === taskID ?
                   <TaskCard
+                  taskID={taskID}
                   open={this.state.taskCard}
+                  onClose={this.onClose}
                   taskName={taskName}
                   categoryID1={categoryID1}
                   categoryID2={categoryID2}
                   categoryID3={categoryID3}
                   taskScheduled={null}
+                  handleDeleteTask={handleDeleteTask}
                   />
                     :
                   null
                 }
-        </div>
+              </div>
           ;
 
         return (

@@ -6,6 +6,7 @@ import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import check from '../../../../../public/images/marketplace task icon.png';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+import Welcome from '../../components/Welcome';
 
 const styles = {
   arrows: {
@@ -127,7 +128,6 @@ class Tour extends React.Component{
     }
     </div>;
 
-
     return (
       <div className='App-page'>
           <div className='App-content'>
@@ -153,7 +153,7 @@ class Tour extends React.Component{
                         <br/><br/>
                         <a href="mailto:contactus@lifesmack.com" style={styles.contactUs}>Contact Us</a>
                     </div>
-
+                      {show}
                     </div>
                 </MuiThemeProvider>
             </div>

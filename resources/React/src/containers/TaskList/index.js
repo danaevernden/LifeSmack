@@ -49,7 +49,7 @@ type Props = {
   fetchGoalsFromActions: () => void,
   fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
-  handleDeleteTask: () => void,
+  handleDeleteTask: (taskId) => void,
   tasks: Task[],
   goals: Goal[],
   comments: Comment[],
@@ -175,7 +175,7 @@ class TaskList extends React.Component{
         categoryID3={task.category_id_3}
         imageSrc={<img src={redIncomTask}/>}
         duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={this.handleDelete}
+        handleDeleteTask={handleDeleteTask}
         openDuplicate={this.openDuplicate}
       />
     </div>
@@ -195,7 +195,7 @@ class TaskList extends React.Component{
         categoryID3={task.category_id_3}
         imageSrc={<img src={redIncomTask}/>}
         duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={this.handleDelete}
+        handleDeleteTask={handleDeleteTask}
         openDuplicate={this.openDuplicate}
       />
     </div>
