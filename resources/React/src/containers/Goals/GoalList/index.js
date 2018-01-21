@@ -171,11 +171,9 @@ class GoalList extends React.Component{
           subtitle={profile.city+','+profile.region}
           leftContent={"dashboard"}
           tabOne={"Goals"}
-          tabTwo={"Calendar"}
-          tabThree={"All Tasks"}
+          tabTwo={"All Tasks"}
           tabOneContent={listItems2}
-          tabTwoContent={"coming soon!"}
-          tabThreeContent={allTasks}
+          tabTwoContent={allTasks}
         />
       </div>
     ));

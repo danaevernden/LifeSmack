@@ -153,7 +153,6 @@ class Tour extends React.Component{
                         <br/><br/>
                         <a href="mailto:contactus@lifesmack.com" style={styles.contactUs}>Contact Us</a>
                     </div>
-                      {show}
                     </div>
                 </MuiThemeProvider>
             </div>

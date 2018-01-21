@@ -168,10 +168,10 @@ class Layout extends React.Component{
           >
             <div>
               <Paper style={styles.paperStyle}>
-                  {tabThreeContent}
+                {tabThreeContent}
               </Paper>
             </div>
-          </Tab>
+        </Tab>
       </Tabs>
     );
 
