@@ -83,7 +83,7 @@ const styles={
   },
   iconStyle: {
     position: 'relative',
-    marginBottom: '-40px'
+    marginBottom: '15px'
   },
   dropdownPos: {
     marginRight: '0%'
@@ -93,7 +93,8 @@ const styles={
     marginBottom: '15px'
   },
   iconStyleSched: {
-    marginRight: '260px',
+    marginRight: '250px',
+    position: 'relative',
     marginBottom: '-40px'
   },
   textStyle: {
@@ -106,6 +107,8 @@ const styles={
 
 class TaskCard extends React.Component {
     props: Props
+
+
 
     constructor(props){
       super(props)
@@ -184,12 +187,17 @@ class TaskCard extends React.Component {
         open
       } = this.props;
 
+      const newDate =  new Date();
+      newDate.setFullYear(newDate.getFullYear() - 1);
+      newDate.setHours(0, 0, 0, 0);
+
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
       <ActionDueDate style={styles.iconStyleSched}/>
       <DatePicker
           onChange={this.dateSelect}
           textFieldStyle={styles.dropdownWidth}
+            defaultDate={newDate}
           />
       <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
@@ -201,6 +209,7 @@ class TaskCard extends React.Component {
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
       >
+        <MenuItem value={0} primaryText="." />
         <MenuItem value={1} primaryText="Easy" />
         <MenuItem value={2} primaryText="Medium" />
         <MenuItem value={3} primaryText="Hard" />
@@ -215,9 +224,10 @@ class TaskCard extends React.Component {
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
       >
-        <MenuItem value={1} primaryText="Less than 15 min" />
-        <MenuItem value={2} primaryText="Less than 1 hour" />
-        <MenuItem value={3} primaryText="1 - 4 hours" />
+        <MenuItem value={0} primaryText="." />
+        <MenuItem value={6} primaryText="Less than 15 min" />
+        <MenuItem value={7} primaryText="Less than 1 hour" />
+        <MenuItem value={8} primaryText="1 - 4 hours" />
       </SelectField>
       <br style={{display:'block', marginTop:'-15px'}}/>
         <PlaceIcon style={styles.iconStyle}/>
@@ -229,9 +239,10 @@ class TaskCard extends React.Component {
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
       >
-        <MenuItem value={1} primaryText="At Home" />
-        <MenuItem value={2} primaryText="While Commuting" />
-        <MenuItem value={3} primaryText="While Doing Goal Activity" />
+        <MenuItem value={0} primaryText="." />
+        <MenuItem value={9} primaryText="At Home" />
+        <MenuItem value={10} primaryText="While Commuting" />
+        <MenuItem value={11} primaryText="While Doing Goal Activity" />
       </SelectField>
       </div>
       ;
@@ -276,11 +287,6 @@ class TaskCard extends React.Component {
                 onTouchTap={() => this.Delete}
                 onClick={this.Delete}
               />
-              <AddToCalendar
-                  event={this.state.event}
-                  buttonLabel="Add to my Google Calendar"
-                  buttonTemplate={{'calendar-plus-o':'left'}}
-                />
               <br/>
           </Dialog>
       </div>;

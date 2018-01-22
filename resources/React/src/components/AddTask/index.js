@@ -100,6 +100,9 @@ class AddTask extends React.Component {
         {this.state.taskCard === true ?
           <TaskCard
             open={this.state.taskCard}
+            categoryID1={0}
+            categoryID2={0}
+            categoryID3={0}
           />
           : null}
     </div>

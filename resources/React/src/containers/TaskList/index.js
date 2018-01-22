@@ -159,6 +159,26 @@ class TaskList extends React.Component{
     </div>
     );
 
+    const allTasks = tasks.filter((item) => {
+          return item.parent_id !== null;
+  }).map((task) =>
+    <div>
+        <ListCard
+          taskID={task.id}
+          taskName={task.task_name}
+          taskStatus={task.complete}
+          taskScheduled={task.scheduled}
+          categoryID1={task.category_id_1}
+          categoryID2={task.category_id_2}
+          categoryID3={task.category_id_3}
+          imageSrc={<img src={redIncomTask}/>}
+          duplicateDialog={this.state.duplicateDialog}
+          handleDeleteTask={handleDeleteTask}
+          openDuplicate={this.openDuplicate}
+        />
+    </div>
+    );
+
 //  const categoryByID = find(values(goals), ['id', 1]);
 //  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
   const taskList = tasks.filter((item) => {
@@ -225,15 +245,15 @@ class TaskList extends React.Component{
     </div>
     );
 
+
     const layout =(<div>
         <Layout
         title={goalNameFromComponent}
-        subtitle={"2 scheduled tasks"}
         leftContent={"taskListDropdown"}
-        tabOne={"Tasks"}
-        tabTwo={"Calendar"}
+        tabOne={"Grouped Tasks"}
+        tabTwo={"All Tasks"}
         tabOneContent={tasksFlip}
-        tabTwoContent={"coming soon!"}
+        tabTwoContent={allTasks}
         />
     }
     </div>)

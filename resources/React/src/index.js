@@ -68,7 +68,7 @@ ReactDOM.render((
           <Route>
               {goalPages}
           </Route>
-          <Route path='/marketplace/social' marketCat='social' component={{main : MarketCat}} />
+          <Route path='/marketplace/social' marketCat='Social' component={{main : MarketCat}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
           <Route>
               {marketitemPages}

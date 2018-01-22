@@ -159,11 +159,9 @@ class MarketItem extends React.Component{
                     subtitle={marketplacegoal.name}
                     leftContent={"marketitem"}
                     tabOne={"Tasks"}
-                    tabTwo={"Categories"}
-                    tabThree={"Reviews"}
+                    tabTwo={"Reviews"}
                     tabOneContent={goalPlan2}
-                    tabTwoContent={"howdy"}
-                    tabThreeContent={listItems}
+                    tabTwoContent={listItems}
                 />
             </div>
       );

@@ -6,8 +6,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper'
 
 type Props = {
-  favoritesItems: String,
-  marketplaceItems: String
+  marketplaceItems: String,
+  listTitle: String
 }
 
 const styles = {
@@ -56,7 +56,7 @@ class MarketplaceLayout extends React.Component{
 
     const {
       marketplaceItems,
-      favoritesItems
+      listTitle
     } = this.props;
 
 
@@ -64,8 +64,8 @@ class MarketplaceLayout extends React.Component{
       <div >
           <Card style={styles.cardStyle}>
             <CardTitle
-                title="Welcome to the Marketplace"
-                subtitle="Social"
+                title={listTitle}
+                subtitle="Expert tips at your fingertips"
                 style={styles.titleStyle}
                 titleStyle={styles.titleStyleText}
             />
@@ -76,9 +76,6 @@ class MarketplaceLayout extends React.Component{
                             {marketplaceItems}
                         </Paper>
                     </Tab>
-                      <Tab label="Favorites" buttonStyle={styles.buttonStyle}>
-                          {favoritesItems}
-                      </Tab>
                 </Tabs>
             </CardActions>
           </Card>

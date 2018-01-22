@@ -105,19 +105,46 @@ class ListCard extends React.Component {
         imageSrc
       } = this.props;
 
+      const CatID1 =
+      <div>
+      {this.props.categoryID1 == 2?
+        <div>medium</div>:
+        [this.props.categoryID1 == 1?
+          <div>low</div>:<div>high</div>]
+      }
+      </div>;
+
+      const CatID2 =
+      <div>
+      {this.props.categoryID2 == 6?
+        <div>>15 min</div>:
+        [this.props.categoryID2 == 7?
+          <div>1 hour</div>:<div>1-4 hours</div>]
+      }
+      </div>;
+
+      const CatID3 =
+      <div>
+      {this.props.categoryID3 == 9?
+        <div>at home</div>:
+        [this.props.categoryID3 == 10?
+          <div>while out</div>:<div>doing the thing</div>]
+      }
+      </div>;
+
       const bottomNav =
       <div>
       <BottomNavigation>
           <BottomNavigationItem
-          label={categoryID1}
+          label={CatID1}
           icon={<PollIcon />}
           />
           <BottomNavigationItem
-          label={categoryID2}
+          label={CatID2}
           icon={<ActionSchedule/>}
           />
           <BottomNavigationItem
-          label={categoryID3}
+          label={CatID3}
           icon={<PlaceIcon/>}
           />
       </BottomNavigation>
@@ -132,9 +159,7 @@ class ListCard extends React.Component {
                       onClick={() => this.openTaskCard(taskID)}>
                       {imageSrc}
                       <div style={styles.inlineBlock2}>
-                          {taskName} &
-                          {this.state.taskCard} &
-                          {this.props.taskID}
+                          {taskName}
                       </div>
                   </CardText>
                   <CardActions>

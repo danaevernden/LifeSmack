@@ -116,8 +116,6 @@ class Layout extends React.Component{
 
     const marketitem = (
       <div style={styles.leftContentStyle}>
-      <FlatButton style={styles.buttonBackgroundTyle}>Add Goal</FlatButton>
-      <Favorite />
       </div>
     );
 
@@ -138,7 +136,7 @@ class Layout extends React.Component{
       </div>
   );
 
-    const tabsExample = (
+    const tabMenu = (
       <Tabs
       tabItemContainerStyle={styles.tabItemContainerStyle}
       contentContainerStyle={styles.tabStyle}>
@@ -162,16 +160,7 @@ class Layout extends React.Component{
               </Paper>
             </div>
           </Tab>
-          <Tab
-          label={tabThree}
-          buttonStyle={styles.buttonStyle}
-          >
-            <div>
-              <Paper style={styles.paperStyle}>
-                {tabThreeContent}
-              </Paper>
-            </div>
-        </Tab>
+
       </Tabs>
     );
 
@@ -191,31 +180,13 @@ class Layout extends React.Component{
           <img src={ProfilePic}/>
           </CardMedia>
           <CardActions>
-            {this.state.leftContent === "taskListDropdown" ?
-              <div>
-                {taskListDropdown}
-              </div>
-              :
-              <div>
-                {this.state.leftContent === "marketitem" ?
-                  <div>
-                    {marketitem}
-                  </div>
-                : null }
-                {this.state.leftContent === "account" ?
-                  <div>
-                    {account}
-                  </div>
-                : null }
-              </div>
-            }
             <FlatButton
               label={buttonTitle}
               containerElement={<Link to={buttonAction} />}
               style={styles.buttonStyle}
               backgroundColor={styles.buttonBackgroundTyle}
             />
-              {tabsExample}
+              {tabMenu}
         </CardActions>
       </Card>
     </div>);

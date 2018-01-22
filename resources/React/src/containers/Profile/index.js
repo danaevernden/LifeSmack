@@ -50,7 +50,7 @@ class Profile extends React.Component{
     }
 
       this.editName = this.editName.bind(this);
-      this.saveName = this.saveName.bind(this);
+      this.editLoc = this.editLoc.bind(this);
   }
 
   onClick(e){
@@ -70,6 +70,18 @@ class Profile extends React.Component{
     })
   }
 
+  editLoc(){
+    this.setState({
+        editLoc: !this.state.editLoc
+    })
+  }
+  saveLoc(event){
+    this.setState({
+      city: event.target.value,
+      editLoc: !this.state.editLoc
+    })
+  }
+
   render() {
 
     const {
@@ -79,17 +91,11 @@ class Profile extends React.Component{
     const listItems =
     profile.map((profile) =>
     <div>
-      test:{this.state.first_name}
+      {this.state.first_name}
         <div>
           {this.state.editProfPic === null ?
             <div>
               <Avatar src={profilePic} size={150} />
-              <FlatButton
-              style={styles.labelStyle}
-              onClick={this.editProfPic}
-              >
-                edit
-              </FlatButton>
             </div>
           :
             <div>
@@ -106,7 +112,7 @@ class Profile extends React.Component{
         <div>
           {this.state.editName === false ?
             <div>
-              {this.state.first_name}
+              {profile.first_name}
               <FlatButton
               style={styles.labelStyle}
               onClick={this.editName}
@@ -116,10 +122,10 @@ class Profile extends React.Component{
             </div>
           :
             <div>
-                <TextField
-                  defaultValue={this.state.first_name}
-                  value={this.state.first_name}
-                />
+            <TextField
+              defaultValue={profile.first_name}
+              value={this.state.first_name}
+            />
                 <FlatButton
                 style={styles.labelStyle}
                 onClick={this.saveName}
@@ -133,9 +139,10 @@ class Profile extends React.Component{
         <div>
             {this.state.editLoc === null ?
               <div>
-                {profile.city}, {profile.region}
+                {profile.city}
                 <FlatButton
                 style={styles.labelStyle}
+                onClick={this.editLoc}
                 >
                   edit
                 </FlatButton>
@@ -143,7 +150,7 @@ class Profile extends React.Component{
             :
               <div>
                   <TextField
-                    defaultValue={this.state.city}
+                    defaultValue={profile.city}
                     value={this.state.city}
                   />
                   <FlatButton
@@ -161,13 +168,10 @@ class Profile extends React.Component{
     return (
       <div className = 'App-page'>
           <div className = 'App-content'>
-              <div>
                 <div style={styles.listItems}>
-                <h3>Personal Information</h3>
+                  <h3>Personal Information</h3>
                   {listItems}
-                <h3>Login Information</h3>
                 </div>
-              </div>
           </div>
       </div>
     );

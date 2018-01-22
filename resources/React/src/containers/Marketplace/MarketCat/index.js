@@ -82,7 +82,7 @@ class MarketCat extends React.Component{
     const topMenu = (
         <MarketplaceLayout
           marketplaceItems={listItems}
-          favoritesItems={favorites}
+          listTitle={this.props.route.marketCat}
         />
       )
 

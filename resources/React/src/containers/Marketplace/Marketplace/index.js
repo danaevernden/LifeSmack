@@ -40,7 +40,7 @@ class Marketplace extends React.Component{
       filter: "",
       shadow: 1
     }
-    }
+  }
 
   onMouseOver = () => this.setState({ shadow: 3 });
   onMouseOut = () => this.setState({ shadow: 1 });
@@ -75,7 +75,7 @@ render () {
   const topMenu = (
       <MarketplaceLayout
         marketplaceItems={<MarketTypes/>}
-        favoritesItems={favorites}
+        listTitle="Welcome to the Marketplace"
       />
   )
 
