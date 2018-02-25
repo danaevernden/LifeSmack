@@ -136,6 +136,7 @@ class MarketItem extends React.Component{
                 taskName={markettask.task_name}
                 categoryID1={markettask.category_id_1}
                 imageSrc={<img src={redComTask}/>}
+                taskType={"marketplaceTask"}
               />
         </div>
     );

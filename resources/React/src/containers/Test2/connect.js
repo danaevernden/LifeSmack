@@ -1,5 +1,5 @@
-
-import fetchTasks, {deleteTask, addTaskToGoal} from '../../actions/tasks';
+import {addTaskToGoal} from '../../actions/tasks';
+import fetchTasks, {deleteTask} from '../../actions/tasks';
 import fetchComments from '../../actions/comments';
 import fetchCategories from '../../actions/categories';
 import fetchGoals from '../../actions/goals';
@@ -19,5 +19,5 @@ export const mapDispatchToProps = (dispatch) => ({
   fetchCategoriesFromActions: () => dispatch(fetchCategories()),
   fetchGoalsFromActions: () => dispatch(fetchGoals()),
   handleDeleteTask: (task_id) => dispatch(deleteTask(task_id)),
-  addTaskToGoal: (taskname, catid1) => dispatch(addTaskToGoal(taskname, catid1))
+  addTaskToGoal: (task_name, complete) => dispatch(addTaskToGoal(task_name, complete))
 });

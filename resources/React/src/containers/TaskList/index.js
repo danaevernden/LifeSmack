@@ -15,6 +15,7 @@ import ListCardParent from '../../components/ListCardParent';
 import Paper from 'material-ui/Paper';
 import incomTask from '../../../../../public/images/incomplete task icon.png';
 import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //to do
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -41,6 +42,10 @@ const styles = {
   cardStyle: {
     width: '400px',
     display: 'inline-block'
+  },
+  taskLabelStyle: {
+    display: 'ruby-text-container'
+
   }
 };
 
@@ -90,12 +95,33 @@ class TaskList extends React.Component{
     this.openDuplicate = this.openDuplicate.bind(this);
     this.openTaskCard = this.openTaskCard.bind(this);
     this.openTaskChildren = this.openTaskChildren.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.addTaskToGoal = this.addTaskToGoal.bind(this);
     }
 //get this to work, test it first?
   sortBy(field) {
       this.setState({
         tasks: sortBy(this.state.tasks, field)
       })
+  }
+
+  handleDeleteTask(task_Id) {
+    const taskId = this.props.taskID;
+    this.props.handleDeleteTask(task_Id)
+    .then(() => {
+      this.setState({
+        deleteID: task_Id
+      });
+  });
+  }
+
+  addTaskToGoal(taskname, catid1) {
+    this.props.addTaskToGoal(taskname, catid1)
+    .then(() => {
+        this.setState({
+            test: "newName"
+        });
+    });
   }
 
   openDuplicate() {
@@ -150,8 +176,8 @@ class TaskList extends React.Component{
         onClick={() => this.openTaskChildren(task.id)}
         style={styles.taskCardStyle}>
             <CardText>
-                <img src={incomTask} />
-                <div style={styles.inlineBlock2}>
+                <img src={incomTask} style={{paddingRight:'20px'}} />
+                <div style={styles.taskLabelStyle}>
                     {task.task_name}
                 </div>
             </CardText>
@@ -171,13 +197,13 @@ class TaskList extends React.Component{
           categoryID1={task.category_id_1}
           categoryID2={task.category_id_2}
           categoryID3={task.category_id_3}
-          imageSrc={<img src={redIncomTask}/>}
           duplicateDialog={this.state.duplicateDialog}
-          handleDeleteTask={handleDeleteTask}
+          handleDeleteTask={this.handleDeleteTask}
           openDuplicate={this.openDuplicate}
         />
     </div>
     );
+
 
 //  const categoryByID = find(values(goals), ['id', 1]);
 //  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
@@ -193,9 +219,8 @@ class TaskList extends React.Component{
         categoryID1={task.category_id_1}
         categoryID2={task.category_id_2}
         categoryID3={task.category_id_3}
-        imageSrc={<img src={redIncomTask}/>}
         duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={handleDeleteTask}
+        handleDeleteTask={this.handleDeleteTask}
         openDuplicate={this.openDuplicate}
       />
     </div>
@@ -213,9 +238,8 @@ class TaskList extends React.Component{
         categoryID1={task.category_id_1}
         categoryID2={task.category_id_2}
         categoryID3={task.category_id_3}
-        imageSrc={<img src={redIncomTask}/>}
         duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={handleDeleteTask}
+        handleDeleteTask={() =>this.handleDeleteTask()}
         openDuplicate={this.openDuplicate}
       />
     </div>
@@ -259,11 +283,17 @@ class TaskList extends React.Component{
     </div>)
     ;
 
+    const addTaskButton =
+    <AddTask
+    addTaskToGoal={this.addTaskToGoal}
+    />
+    ;
+
     return (
       <div className='App-page' >
         <div className='App-content'>
             {layout}
-            <AddTask/>
+            {addTaskButton}
         </div>
       </div>
     );

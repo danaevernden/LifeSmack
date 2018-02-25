@@ -64,7 +64,7 @@ const styles = {
     marginRight: '230px',
     marginTop: '10px',
   },
-  buttonBackgroundTyle: {
+  buttonBackgroundStyle: {
     color: 'rgb(127,242,185)'
   },
   tabStyle: {
@@ -83,7 +83,10 @@ const styles = {
     maxHeight: '300px',
     minHeight: '300px',
     overflow: 'auto'
-  }
+  },
+  inkBarStyle: {
+    background: 'rgb(127,242,185)'
+  },
 };
 
 class Layout extends React.Component{
@@ -121,7 +124,7 @@ class Layout extends React.Component{
 
     const account = (
       <div style={styles.leftContentStyle}>
-      <FlatButton style={styles.buttonBackgroundTyle}>Log off</FlatButton>
+      <FlatButton style={styles.buttonBackgroundStyle}>Log off</FlatButton>
       </div>
     );
 
@@ -139,7 +142,9 @@ class Layout extends React.Component{
     const tabMenu = (
       <Tabs
       tabItemContainerStyle={styles.tabItemContainerStyle}
-      contentContainerStyle={styles.tabStyle}>
+      contentContainerStyle={styles.tabStyle}
+      inkBarStyle={styles.inkBarStyle}
+      >
           <Tab
           label={tabOne}
           buttonStyle={styles.buttonStyle}
@@ -180,12 +185,7 @@ class Layout extends React.Component{
           <img src={ProfilePic}/>
           </CardMedia>
           <CardActions>
-            <FlatButton
-              label={buttonTitle}
-              containerElement={<Link to={buttonAction} />}
-              style={styles.buttonStyle}
-              backgroundColor={styles.buttonBackgroundTyle}
-            />
+
               {tabMenu}
         </CardActions>
       </Card>

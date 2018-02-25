@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
-import { createStore, applyMiddleware, compose} from 'redux';
+import { reducer, createStore, applyMiddleware, compose} from 'redux';
 import GroupingComments from './containers/Test/groupingComments';
 import GroupingComments0 from './containers/Test/groupingComments0';
 import GroupingComments00 from './containers/Test/groupingComments00';
@@ -35,12 +35,14 @@ import Test2 from './containers/Test2';
 import Tour from './containers/Tour';
 
 /*    <Route components={AppContainer}> */
-
 /* eslint-disable no-underscore-dangle */
 injectTapEventPlugin();
 
 const store = createStore(
-  reducers, {}, compose(applyMiddleware(apiSettingsInjector, apiMiddleware))
+  reducers, {}, compose(applyMiddleware(apiSettingsInjector, apiMiddleware)),
+  reducer, /* preloadedState, */
++  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
 )
 const goalPageData = [
   {id: 1, property: {TaskList}, link: '/goal/1'},
@@ -79,8 +81,8 @@ ReactDOM.render((
           <Route path='/settings' component={{main: Settings}}/>
 
           ///test routes/////////
+          <Route path='/test' component={{main : Test2}} />
           <Route path='/test000' component={{main : GroupingComments}} />
-          <Route path='/test0' component={{main : GroupingComments0}} />
           <Route path='/test00' component={{main : GroupingComments00}} />
           <Route path='/testAPI' component={{main : TestApi}} />
           <Route path='/calendar' component={{main : Calendar}} />

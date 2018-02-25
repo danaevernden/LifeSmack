@@ -46,6 +46,7 @@ type Props = {
   categoryID3: Number,
   open: Boolean,
   handleDeleteTask: () => Promise<any>,
+  addTaskToGoal: () => Promise<any>
 }
 
 const styles={
@@ -67,12 +68,12 @@ const styles={
     display: 'flex'
   },
   selectStyle: {
-    width: '150px'
+    width: '130px'
   },
   contentStyle: {
     maxHeight: 'none',
     transform: 'none',
-    width: '40%',
+    width: '50%',
   },
   contentStyle2: {
     padding: '0px'
@@ -80,6 +81,9 @@ const styles={
   dropdownWidth: {
     width: '250px',
     textAlign: 'center'
+  },
+  dateTextStyle: {
+    width: '380px'
   },
   iconStyle: {
     position: 'relative',
@@ -108,18 +112,18 @@ const styles={
 class TaskCard extends React.Component {
     props: Props
 
-
-
     constructor(props){
       super(props)
       this.state= {
         open: this.props.open,
         duplicateID: null,
         deleteID: null,
+        test: "testname2",
         dateSelected: this.props.taskScheduled,
         valueDiff: this.props.categoryID1,
         valueTime: this.props.categoryID2,
         valueLoc: this.props.categoryID3,
+        valueName: null,
         event: {
           title: this.props.taskName,
           startTime: '2016-09-16T00:00:00-04:00',
@@ -127,12 +131,14 @@ class TaskCard extends React.Component {
           location: this.props.categoryID3
         }
       }
+      this.addTaskToGoal = this.addTaskToGoal.bind(this);
       this.Duplicate = this.Duplicate.bind(this);
-      this.Delete = this.Delete.bind(this);
+      this.handleDeleteTask = this.handleDeleteTask.bind(this);
       this.dateSelect = this.dateSelect.bind(this);
       this.handleChangeDiff = this.handleChangeDiff.bind(this);
       this.handeChangeTime = this.handleChangeTime.bind(this);
       this.handleChangeLoc = this.handleChangeLoc.bind(this);
+      this.handleChangeName = this.handleChangeName.bind(this);
     }
 
     Duplicate(task_id) {
@@ -142,15 +148,15 @@ class TaskCard extends React.Component {
             this.setState({duplicateID: task_id})
     }
 
-      Delete() {
-        const taskId = this.props.taskID;
-        this.props.handleDeleteTask(taskId)
-        .then(() => {
-          this.setState({
-            deleteID: taskId
-          });
-      });
-      }
+    handleDeleteTask(task_Id) {
+      const taskId = this.props.taskID;
+      this.props.handleDeleteTask(task_Id)
+      .then(() => {
+        this.setState({
+          deleteID: task_Id
+        });
+    });
+    }
 
 
     handleChangeDiff = (event, index, value) =>
@@ -168,11 +174,24 @@ class TaskCard extends React.Component {
         valueLoc: value
       });
 
+  handleChangeName = (event, title) =>
+    this.setState({
+      valueName: title
+    });
+
     dateSelect = (event, date) => {
       this.setState({
         dateSelected: date,
       });
     };
+
+    addTaskToGoal() {
+      this.props.addTaskToGoal(
+        this.state.valueName,
+        this.state.valueDiff
+      )
+    }
+
     render() {
       const {
         taskName,
@@ -191,23 +210,26 @@ class TaskCard extends React.Component {
       newDate.setFullYear(newDate.getFullYear() - 1);
       newDate.setHours(0, 0, 0, 0);
 
+
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
       <ActionDueDate style={styles.iconStyleSched}/>
       <DatePicker
           onChange={this.dateSelect}
-          textFieldStyle={styles.dropdownWidth}
+          style={styles.dateTextStyle}
             defaultDate={newDate}
+            textFieldStyle={{paddingLeft:'30px'}}
           />
       <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
       <SelectField
-        value={this.state.valueDiff}
+        value={this.state.valueDiff == null ? 0 : this.state.valueDiff}
         style={styles.selectStyle}
         onChange={this.handleChangeDiff}
         underlineStyle={styles.dropdownWidth}
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
+        hintText="Difficulty"
       >
         <MenuItem value={0} primaryText="." />
         <MenuItem value={1} primaryText="Easy" />
@@ -217,12 +239,13 @@ class TaskCard extends React.Component {
       <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
-        value={this.state.valueTime}
+        value={this.state.valueTime == null ? 0 : this.state.valueTime}
         style={styles.selectStyle}
         onChange={this.handleChangeTime}
         underlineStyle={styles.dropdownWidth}
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
+        hintText="Time Required"
       >
         <MenuItem value={0} primaryText="." />
         <MenuItem value={6} primaryText="Less than 15 min" />
@@ -232,12 +255,13 @@ class TaskCard extends React.Component {
       <br style={{display:'block', marginTop:'-15px'}}/>
         <PlaceIcon style={styles.iconStyle}/>
       <SelectField
-        value={this.state.valueLoc}
+        value={this.state.valueLoc == null ? 0 : this.state.valueLoc}
         style={styles.selectStyle}
         onChange={this.handleChangeLoc}
         underlineStyle={styles.dropdownWidth}
         menuStyle={styles.dropdownWidth}
         style={styles.dropdownPos}
+        hintText="Location"
       >
         <MenuItem value={0} primaryText="." />
         <MenuItem value={9} primaryText="At Home" />
@@ -263,14 +287,17 @@ class TaskCard extends React.Component {
              targetOrigin={{horizontal: 'left', vertical: 'top'}}
            >
              <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
-             <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={this.Delete}/>
+             <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.handleDeleteTask(taskID)}/>
            </IconMenu>
               <CardMedia
                overlay={
+
                  <TextField
                     defaultValue={this.props.taskName}
                     inputStyle={styles.textStyle}
                     fullWidth={true}
+                    onChange={this.handleChangeName}
+
                 />}
                 overlayStyle={styles.overlayContainerStyle}
                  >
@@ -279,15 +306,14 @@ class TaskCard extends React.Component {
               <CardText>
                 {menuOptions}
               </CardText>
-              <br/>
               <RaisedButton
                 label="OK"
                 primary={true}
                 keyboardFocused={true}
-                onTouchTap={() => this.Delete}
-                onClick={this.Delete}
+                onClick={this.addTaskToGoal}
               />
-              <br/>
+              {this.state.test}
+              <div style={{paddingTop:'60px'}}/>
           </Dialog>
       </div>;
 

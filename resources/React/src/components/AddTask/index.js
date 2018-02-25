@@ -10,9 +10,11 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TaskCard from '../TaskCard';
 
+
 type Props = {
   name: String,
   scheduled: Date,
+  addTaskToGoal: () => Promise<any>
 }
 
 const styles = {
@@ -51,9 +53,12 @@ class AddTask extends React.Component {
       category2_value: 6,
       name: "",
       scheduled: null,
-      taskCard: false
+      taskCard: false,
+      test: "testName",
+      catID1:1
     }
   this.openTaskCard = this.openTaskCard.bind(this);
+  this.addTaskToGoal = this.addTaskToGoal.bind(this);
   }
 
   openTaskCard() {
@@ -73,12 +78,8 @@ class AddTask extends React.Component {
     this.setState({addTaskOpen: false});
   }
 
-  addTaskSubmit = () => {
-      this.props.addTaskSubmit(this.state.name, this.state.task);
-      this.setState({
-        name: "",
-        task: ""
-      })
+  addTaskToGoal(taskname, catid1) {
+    this.props.addTaskToGoal(taskname, catid1)
   }
 
   render() {
@@ -103,9 +104,19 @@ class AddTask extends React.Component {
             categoryID1={0}
             categoryID2={0}
             categoryID3={0}
+            addTaskToGoal={this.addTaskToGoal}
           />
           : null}
     </div>
+  ;
+
+  const testButton =
+  <RaisedButton
+    label={this.state.test}
+    primary={true}
+    keyboardFocused={true}
+    onClick={() => this.addTaskToGoal(this.state.test)}
+  />
   ;
 
   return(
@@ -113,6 +124,7 @@ class AddTask extends React.Component {
       <div>
         {AddTaskButton}
         {taskCard}
+        {testButton}
       </div>
     </MuiThemeProvider>
     );

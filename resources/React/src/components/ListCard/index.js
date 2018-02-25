@@ -8,6 +8,7 @@ import PollIcon from 'material-ui/svg-icons/social/poll';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import {Card,CardText,CardActions} from 'material-ui/Card';
 import TaskCard from '../TaskCard';
+import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
 
 type Props = {
   taskName: String,
@@ -18,7 +19,7 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
-  imageSrc: String,
+  taskType: String,
   handleDeleteTask: () => Promise<any>,
 }
 
@@ -43,8 +44,8 @@ const styles={
     paddingTop: '15px',
     marginLeft: '-20px'
   },
-  inlineBlock2: {
-    display:'inline-block'
+  taskLabelStyle: {
+    display:'ruby-text-container'
   },
   textboxStyle: {
     display: 'inline-block',
@@ -95,14 +96,14 @@ class ListCard extends React.Component {
       const {
         handleDeleteTask,
         taskName,
+        taskType,
         taskID,
         taskStatus,
         taskScheduled,
         commentText,
         categoryID1,
         categoryID2,
-        categoryID3,
-        imageSrc
+        categoryID3
       } = this.props;
 
       const CatID1 =
@@ -110,7 +111,10 @@ class ListCard extends React.Component {
       {this.props.categoryID1 == 2?
         <div>medium</div>:
         [this.props.categoryID1 == 1?
-          <div>low</div>:<div>high</div>]
+          <div>low</div>:
+          [this.props.categoryID1 == 3 ?
+          <div>high</div>:<div></div>]
+        ]
       }
       </div>;
 
@@ -119,7 +123,11 @@ class ListCard extends React.Component {
       {this.props.categoryID2 == 6?
         <div>>15 min</div>:
         [this.props.categoryID2 == 7?
-          <div>1 hour</div>:<div>1-4 hours</div>]
+          <div>1 hour</div>:
+          [this.props.categoryID2 == 8?
+          <div>1-4 hours</div>:<div></div>
+          ]
+        ]
       }
       </div>;
 
@@ -128,12 +136,19 @@ class ListCard extends React.Component {
       {this.props.categoryID3 == 9?
         <div>at home</div>:
         [this.props.categoryID3 == 10?
-          <div>while out</div>:<div>doing the thing</div>]
+          <div>while out</div>:
+          [this.props.categoryID3 == 11?
+            <div>doing the thing</div>:<div></div>
+          ]
+        ]
       }
+
       </div>;
 
       const bottomNav =
       <div>
+      {this.props.taskType === "marketplaceTask" ?
+      null :
       <BottomNavigation>
           <BottomNavigationItem
           label={CatID1}
@@ -148,19 +163,20 @@ class ListCard extends React.Component {
           icon={<PlaceIcon/>}
           />
       </BottomNavigation>
+    }
       </div>;
 
       const today = new Date().toJSON();
 
       const taskCard =
       <div style={styles.wrapper}>
-              <Card style={styles.taskCardStyle}>
-                  <CardText
-                      onClick={() => this.openTaskCard(taskID)}>
-                      {imageSrc}
-                      <div style={styles.inlineBlock2}>
-                          {taskName}
-                      </div>
+              <Card style={styles.taskCardStyle}
+              onClick={() => this.openTaskCard(taskID)}>
+                  <CardText>
+                    <img src={redIncomTask} style={{paddingRight:'20px'}} />
+                    <div style={styles.taskLabelStyle}>
+                        {taskName}
+                    </div>
                   </CardText>
                   <CardActions>
                       {bottomNav}
@@ -172,9 +188,9 @@ class ListCard extends React.Component {
                   open={this.state.taskCard}
                   onClose={this.onClose}
                   taskName={taskName}
-                  categoryID1={categoryID1}
-                  categoryID2={categoryID2}
-                  categoryID3={categoryID3}
+                  categoryID1={this.props.categoryID1}
+                  categoryID2={this.props.categoryID2}
+                  categoryID3={this.props.categoryID3}
                   taskScheduled={null}
                   handleDeleteTask={handleDeleteTask}
                   />

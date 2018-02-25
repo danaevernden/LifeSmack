@@ -35,16 +35,33 @@ export function deleteTask(taskId) {
     },
   };
 }
-//taskName, dueDate
-export function addTaskToGoal(taskName) {
+
+export function addTaskToGoal(taskname, catid1) {
+  console.log("calling add", taskname, catid1)
   return {
     [CALL_API]: {
       endpoint: `/api/task/post`,
       method: 'POST',
       types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
       body: JSON.stringify({
-        name: taskName
-        // dueDate: dueDate
+        task_name: taskname,
+        category_id_1: catid1
+      })
+    },
+  };
+}
+//taskName, dueDate
+export function addTaskToGoalOld(taskId) {
+console.log("why won't this work". taskId)
+  return {
+    [CALL_API]: {
+      endpoint: `/api/task/post`,
+      method: 'POST',
+      types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
+      body: JSON.stringify({
+        task_name: "testname",
+        category_id_1: 1
+                // dueDate: dueDate
       })
     },
   };

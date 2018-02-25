@@ -177,17 +177,16 @@ class GoalList extends React.Component{
         />
       </div>
     ));
-
+//removed layout, still shows margin at top
     return (
       <div className='App-page'>
-          <div className='App-content'>
-            <h2>Goals</h2>
-              <MuiThemeProvider>
-                <div>
-                {layout}
-                </div>
-              </MuiThemeProvider>
+        <div className='App-content'>
+          <MuiThemeProvider>
+            <div>
+              {layout}
             </div>
+          </MuiThemeProvider>
+        </div>
       </div>
     );
   }
