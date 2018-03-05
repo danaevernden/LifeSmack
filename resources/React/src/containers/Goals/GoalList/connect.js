@@ -4,7 +4,7 @@ import fetchProfile from '../../../actions/profile';
 export const mapStateToProps = (state) => ({
   goals: state.goals.goals,
   tasks: state.tasks.tasks,
-  profile: state.profile.profile
+  users: state.users.users
 });
 
 export const mapDispatchToProps = (dispatch) => ({

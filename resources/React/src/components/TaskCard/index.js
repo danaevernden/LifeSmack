@@ -44,9 +44,12 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  complete: Boolean,
+  type: String,
   open: Boolean,
   handleDeleteTask: () => Promise<any>,
-  addTaskToGoal: () => Promise<any>
+  addTaskToGoal: () => Promise<any>,
+  editTask: () => Promise<any>
 }
 
 const styles={
@@ -118,7 +121,7 @@ class TaskCard extends React.Component {
         open: this.props.open,
         duplicateID: null,
         deleteID: null,
-        test: "testname2",
+        complete: this.props.complete,
         dateSelected: this.props.taskScheduled,
         valueDiff: this.props.categoryID1,
         valueTime: this.props.categoryID2,
@@ -132,6 +135,7 @@ class TaskCard extends React.Component {
         }
       }
       this.addTaskToGoal = this.addTaskToGoal.bind(this);
+      this.completeTask = this.completeTask.bind(this);
       this.Duplicate = this.Duplicate.bind(this);
       this.handleDeleteTask = this.handleDeleteTask.bind(this);
       this.dateSelect = this.dateSelect.bind(this);
@@ -139,6 +143,13 @@ class TaskCard extends React.Component {
       this.handeChangeTime = this.handleChangeTime.bind(this);
       this.handleChangeLoc = this.handleChangeLoc.bind(this);
       this.handleChangeName = this.handleChangeName.bind(this);
+      this.editTask = this.editTask.bind(this);
+    }
+
+    completeTask(task_Id) {
+      this.setState({
+        complete: true
+      });
     }
 
     Duplicate(task_id) {
@@ -158,11 +169,23 @@ class TaskCard extends React.Component {
     });
     }
 
+    editTask(task_Id) {
+      this.props.editTask(task_Id,
+        this.state.valueDiff,
+        this.state.valueTime,
+        this.state.valueLoc,
+        this.state.complete)
+    }
 
-    handleChangeDiff = (event, index, value) =>
+    handleChangeDiff(event, index, value) {
       this.setState({
         valueDiff: value
-      });
+      })
+      this.props.editTask(
+        3,
+        this.state.valueDiff
+      )
+    }
 
     handleChangeTime = (event, index, value) =>
       this.setState({
@@ -188,7 +211,9 @@ class TaskCard extends React.Component {
     addTaskToGoal() {
       this.props.addTaskToGoal(
         this.state.valueName,
-        this.state.valueDiff
+        this.state.valueDiff,
+        this.state.valueTime,
+        this.state.valueLoc
       )
     }
 
@@ -202,6 +227,7 @@ class TaskCard extends React.Component {
         categoryID1,
         categoryID2,
         categoryID3,
+        complete,
         onClose,
         open
       } = this.props;
@@ -213,6 +239,14 @@ class TaskCard extends React.Component {
 
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
+      {this.props.type == "addTask" ? null :
+          <Checkbox
+            label="Complete?"
+            checked={this.state.complete}
+            style={styles.selectStyle}
+            onCheck={this.completeTask}
+          />
+      }
       <ActionDueDate style={styles.iconStyleSched}/>
       <DatePicker
           onChange={this.dateSelect}
@@ -268,6 +302,7 @@ class TaskCard extends React.Component {
         <MenuItem value={10} primaryText="While Commuting" />
         <MenuItem value={11} primaryText="While Doing Goal Activity" />
       </SelectField>
+
       </div>
       ;
 
@@ -281,14 +316,20 @@ class TaskCard extends React.Component {
           bodyStyle={styles.contentStyle2}
           onRequestClose={onClose}
         >
-          <IconMenu style={styles.iconButton}
-             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-           >
+        {this.props.type == "addTask" ? null :
+          <div>
+
+            <IconMenu style={styles.iconButton}
+               iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+               anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+               targetOrigin={{horizontal: 'left', vertical: 'top'}}
+             >
              <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
              <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.handleDeleteTask(taskID)}/>
            </IconMenu>
+         </div>
+
+         }
               <CardMedia
                overlay={
 
@@ -306,12 +347,21 @@ class TaskCard extends React.Component {
               <CardText>
                 {menuOptions}
               </CardText>
-              <RaisedButton
-                label="OK"
-                primary={true}
-                keyboardFocused={true}
-                onClick={this.addTaskToGoal}
-              />
+              {this.taskType = "addTask" ?
+                <RaisedButton
+                  label="SAVE"
+                  primary={true}
+                  keyboardFocused={true}
+                  onClick={this.addTaskToGoal}
+                />
+              :
+                <RaisedButton
+                  label="ADD TASK"
+                  primary={true}
+                  keyboardFocused={true}
+                  onClick={this.editTask}
+                />
+              }
               {this.state.test}
               <div style={{paddingTop:'60px'}}/>
           </Dialog>

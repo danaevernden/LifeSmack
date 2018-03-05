@@ -1,15 +1,11 @@
-import fetchCategories from '../../actions/categories';
-import fetchGoals from '../../actions/goals';
+import fetchProfile from '../../actions/profile';
 
 
 export const mapStateToProps = (state) => ({
-  goals: state.goals.goals,
-  categories: state.categories.categories,
-  parentcategories: state.categories.categories,
+  users: state.users.users
 });
 
 
 export const mapDispatchToProps = (dispatch) => ({
-    fetchCategoriesFromActions: () => dispatch(fetchCategories()),
-    fetchGoalsFromActions: () => dispatch(fetchGoals()),
+    fetchProfileFromActions: (user_id) => dispatch(fetchProfile(user_id)),
 });

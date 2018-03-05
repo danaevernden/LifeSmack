@@ -1,5 +1,5 @@
 
-import fetchTasks, {deleteTask, duplicateTask, editTask, addTaskToGoal} from '../../actions/tasks';
+import fetchTasks, {deleteTask, editTask, addTaskToGoal} from '../../actions/tasks';
 import fetchComments from '../../actions/comments';
 import fetchCategories from '../../actions/categories';
 import fetchGoals from '../../actions/goals';
@@ -19,7 +19,6 @@ export const mapDispatchToProps = (dispatch) => ({
   fetchCategoriesFromActions: () => dispatch(fetchCategories()),
   fetchGoalsFromActions: () => dispatch(fetchGoals()),
   handleDeleteTask: (task_id) => dispatch(deleteTask(task_id)),
-  addTaskToGoal: (taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) => dispatch(addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)),
-  editTask: (task_id, catid1, catid2, catid3, complete) => dispatch(editTask(task_id, catid1, catid2, catid3, complete)),
-  duplicateTask: (task_id, catid1, catid2, catid3, complete) => dispatch(editTask(task_id, catid1, catid2, catid3, complete))
+  addTaskToGoal: (taskname, catid1, catid2, catid3) => dispatch(addTaskToGoal(taskname, catid1, catid2, catid3)),
+  editTask: (task_id, catid1) => dispatch(editTask(task_id, catid1))
 });

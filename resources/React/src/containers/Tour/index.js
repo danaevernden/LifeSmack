@@ -23,6 +23,9 @@ const styles = {
   contactUs: {
     color: 'rgb(207,37,37)',
     fontWeight: 'bold'
+  },
+  disabledArrow: {
+    color: 'grey'
   }
 }
 
@@ -103,7 +106,7 @@ class Tour extends React.Component{
       logo={check}
       title={"Start From Success"}
       text={'No need to reinvent the wheel! Use goal plans designed by experts that have completed the same goals as you.'}
-      />
+    />
     </div>;
 
     const show =
@@ -119,7 +122,7 @@ class Tour extends React.Component{
                     (this.state.activeSlide === 5 ?
                       <div>{slide5}</div> :
                         (this.state.activeSlide === 6 ?
-                          <div>{slide6}</div> : <div>{slide1}</div>
+                          <div>{slide6}</div> : <div>{slide6}</div>
                         )
                     )
                 )
@@ -136,16 +139,26 @@ class Tour extends React.Component{
                       {show}
                       <br/>
                       <div style={styles.arrows}>
+                        {this.state.activeSlide === 1 ?
+                          <ArrowLeft style={styles.disabledArrow}/>
+                        :
                           <IconButton
                               onClick={this.changeSlideMinus}
                           >
                               <ArrowLeft/>
                           </IconButton>
+                        }
+                        {this.state.activeSlide === 6 ?
+                          <ArrowRight style={styles.disabledArrow}/>
+                        :
                           <IconButton
                               onClick={this.changeSlidePlus}
                           >
-                            <ArrowRight/>
-                        </IconButton>
+                            {this.state.activeSlide === 6 ? null :
+                              <ArrowRight/>
+                            }
+                          </IconButton>
+                        }
                     </div>
                     <br/><br/>
                     <div style={styles.contactStyle}>

@@ -11,7 +11,7 @@ type Props = {
   fetchGoalsFromActions: () => void,
   fetchProfileFromActions: () => void,
   goals: Goal[],
-  profile: Profile[]
+  users: User[]
 };
 
 const styles = {
@@ -41,7 +41,7 @@ class App extends React.Component {
     const {
       main,
       goals,
-      profile
+      users
     } = this.props;
 
     const goals2 = goals.map((goal) =>
@@ -54,9 +54,9 @@ class App extends React.Component {
     );
 
     const profGrab =
-    profile.map((profile) =>
+    users.map((user) =>
     <div>
-    {profile.first_name} {profile.last_name}
+    {user.first_name} {user.last_name}
     </div>
     );
 
@@ -81,7 +81,7 @@ class App extends React.Component {
 
 App.defaultProps ={
   goals: [],
-  profile: []
+  users: []
  };
 
 export default connect(

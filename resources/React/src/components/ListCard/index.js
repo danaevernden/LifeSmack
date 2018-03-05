@@ -19,6 +19,7 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  complete: Boolean,
   taskType: String,
   handleDeleteTask: () => Promise<any>,
 }
@@ -91,7 +92,6 @@ class ListCard extends React.Component {
     onClose = () => {
           this.setState({taskCard: null})
     }
-
     render() {
       const {
         handleDeleteTask,
@@ -103,7 +103,8 @@ class ListCard extends React.Component {
         commentText,
         categoryID1,
         categoryID2,
-        categoryID3
+        categoryID3,
+        complete
       } = this.props;
 
       const CatID1 =
@@ -188,9 +189,12 @@ class ListCard extends React.Component {
                   open={this.state.taskCard}
                   onClose={this.onClose}
                   taskName={taskName}
+
+                  complete={this.props.complete}
                   categoryID1={this.props.categoryID1}
                   categoryID2={this.props.categoryID2}
                   categoryID3={this.props.categoryID3}
+                  complete={this.props.complete}
                   taskScheduled={null}
                   handleDeleteTask={handleDeleteTask}
                   />

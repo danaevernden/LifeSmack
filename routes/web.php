@@ -32,7 +32,9 @@ Route::group(['prefix' => 'api'], function() {
 
 	Route::get('/tasks', 'TasksController@getAllTasks');
 	Route::post('/task/post', 'TasksController@postTask');
+	Route::post('/task/edit/{task_id}', 'TasksController@editTask');
 	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTask');
+	Route::post('/task/duplicate/{task_id}', 'TasksController@duplicateTask');
 
 	Route::get('/goals', 'GoalsController@getAllGoals');
 /*	Route::get('/goals/{goal_id}', 'GoalsController@getOneGoal');
@@ -60,8 +62,9 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/reviews', 'ReviewsController@postReview');
 	Route::delete('/reviews/{review_id}', 'ReviewsController@deleteReview');
 
-	Route::get('/profile', 'ProfileController@getIndex');
-
+	Route::get('/user/{user_id}', 'UsersController@getUser');
+	Route::get('/user', 'UsersController@getUsersAll');
+	Route::post('/user/edit/1', 'UsersController@editUser');
 });
 
 /*for refreshing the database*/

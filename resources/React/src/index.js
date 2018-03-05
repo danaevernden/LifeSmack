@@ -88,6 +88,7 @@ ReactDOM.render((
           <Route path='/calendar' component={{main : Calendar}} />
           <Route path='/sortby' component={{main : sortByExample}} />
           <Route path='/testOld' component={{main : NewsfeedOld}} />
+          <Route path='/profile' component={Profile} />
 
         </Route>
     </Router>
@@ -98,7 +99,6 @@ ReactDOM.render((
 
 //<Route path='/React' component={App} />
 //<Route path='/apitest' dataURL="http://walden.dev/wp-json/wp/v2/posts" component={Test} />
-//<Route path='/profile' component={Profile} />
 //<Route path='/marketplace' component={Marketplace} />
 //<Route path='/' component={GoalList} />
 

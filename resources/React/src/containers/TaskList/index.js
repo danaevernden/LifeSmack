@@ -61,6 +61,7 @@ type Props = {
   categories: Category[],
 }
 
+
 class TaskList extends React.Component{
 
   static defaultProps: {
@@ -97,6 +98,7 @@ class TaskList extends React.Component{
     this.openTaskChildren = this.openTaskChildren.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.addTaskToGoal = this.addTaskToGoal.bind(this);
+    this.editTask = this.editTask.bind(this);
     }
 //get this to work, test it first?
   sortBy(field) {
@@ -115,13 +117,12 @@ class TaskList extends React.Component{
   });
   }
 
-  addTaskToGoal(taskname, catid1) {
-    this.props.addTaskToGoal(taskname, catid1)
-    .then(() => {
-        this.setState({
-            test: "newName"
-        });
-    });
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
+  }
+
+  editTask(taskID, catid1, catid2, catid3, complete) {
+    this.props.editTask(taskID, catid1, catid2, catid3, complete)
   }
 
   openDuplicate() {
@@ -199,6 +200,7 @@ class TaskList extends React.Component{
           categoryID3={task.category_id_3}
           duplicateDialog={this.state.duplicateDialog}
           handleDeleteTask={this.handleDeleteTask}
+          editTask={this.editTask}
           openDuplicate={this.openDuplicate}
         />
     </div>
@@ -221,6 +223,7 @@ class TaskList extends React.Component{
         categoryID3={task.category_id_3}
         duplicateDialog={this.state.duplicateDialog}
         handleDeleteTask={this.handleDeleteTask}
+        editTask={this.editTask}
         openDuplicate={this.openDuplicate}
       />
     </div>
@@ -240,6 +243,7 @@ class TaskList extends React.Component{
         categoryID3={task.category_id_3}
         duplicateDialog={this.state.duplicateDialog}
         handleDeleteTask={() =>this.handleDeleteTask()}
+        editTask={this.editTask}
         openDuplicate={this.openDuplicate}
       />
     </div>

@@ -2,10 +2,10 @@ import {updateProfileInfo} from '../../actions/profile';
 import fetchProfile from '../../actions/profile';
 
 export const mapStateToProps = (state) => ({
-  profile: state.profile.profile
+  users: state.users.users
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  fetchProfileFromActions: () => dispatch(fetchProfile()),
-  updateProfileInfo: (first_name, last_name, city, state) => dispatch(updateProfileInfo(first_name, last_name, city, state))
+  fetchProfileFromActions: (user_id) => dispatch(fetchProfile(user_id)),
+  updateProfileInfo: (first_name, city, state, country) => dispatch(updateProfileInfo(first_name, city, state, country))
 });

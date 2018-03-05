@@ -9,11 +9,13 @@ import TextField from 'material-ui/TextField';
 
 type Props = {
   fetchProfileFromActions: () => void,
-  profile: Profile[],
+  updateProfileInfo: (first_name) => void,
+  users: User[],
+  id: Number,
   first_name: String,
-  last_name: String,
   city: String,
-  region: String
+  state: String,
+  country: String
 }
 
 const styles = {
@@ -32,6 +34,10 @@ const styles = {
 
 class Profile extends React.Component{
 
+  static defaultProps: {
+    users: User[]
+  };
+
   componentDidMount() {
     this.props.fetchProfileFromActions();
   }
@@ -40,34 +46,50 @@ class Profile extends React.Component{
   constructor(props){
     super(props)
     this.state= {
+      id: this.props.user_id,
       first_name: this.props.first_name,
-      last_name: this.props.last_name,
       city: this.props.city,
-      region: this.props.region,
+      state: this.props.state,
+      country: this.props.country,
       editName: false,
       editLoc: null,
       editProfPic: null
     }
-
+      this.save = this.save.bind(this);
       this.editName = this.editName.bind(this);
       this.editLoc = this.editLoc.bind(this);
-  }
-
-  onClick(e){
-    e.preventDefault();
-    this.setState({showReply: !this.state.showReply})
   }
 
   editName(){
     this.setState({
         editName: !this.state.editName
+  });
+  }
+
+  save(){
+    this.props.updateProfileInfo(
+      this.state.first_name,
+      this.state.city,
+      this.state.state,
+      this.state.country
+    )
+    .then(() => {
+      this.setState({
+        editName: false
+      });
     })
   }
-  saveName(event){
+
+  newFirstName = (event) => {
     this.setState({
-      first_name: event.target.value,
-      editName: !this.state.editName
-    })
+      first_name: event.target.value
+    });
+  }
+
+  newCity = (event) => {
+    this.setState({
+      city: event.target.value
+    });
   }
 
   editLoc(){
@@ -75,23 +97,17 @@ class Profile extends React.Component{
         editLoc: !this.state.editLoc
     })
   }
-  saveLoc(event){
-    this.setState({
-      city: event.target.value,
-      editLoc: !this.state.editLoc
-    })
-  }
+
 
   render() {
 
     const {
-      profile
+      users
     } = this.props;
 
     const listItems =
-    profile.map((profile) =>
+    users.map((user) =>
     <div>
-      {this.state.first_name}
         <div>
           {this.state.editProfPic === null ?
             <div>
@@ -112,7 +128,7 @@ class Profile extends React.Component{
         <div>
           {this.state.editName === false ?
             <div>
-              {profile.first_name}
+              {user.first_name}
               <FlatButton
               style={styles.labelStyle}
               onClick={this.editName}
@@ -123,12 +139,13 @@ class Profile extends React.Component{
           :
             <div>
             <TextField
-              defaultValue={profile.first_name}
+              defaultValue={user.first_name}
               value={this.state.first_name}
+              onChange={this.newFirstName}
             />
                 <FlatButton
                 style={styles.labelStyle}
-                onClick={this.saveName}
+                onClick={() =>this.save()}
                 >
                   save
                 </FlatButton>
@@ -139,7 +156,7 @@ class Profile extends React.Component{
         <div>
             {this.state.editLoc === null ?
               <div>
-                {profile.city}
+                {user.city} {user.state}, {user.country}
                 <FlatButton
                 style={styles.labelStyle}
                 onClick={this.editLoc}
@@ -150,12 +167,13 @@ class Profile extends React.Component{
             :
               <div>
                   <TextField
-                    defaultValue={profile.city}
+                    defaultValue={user.city}
                     value={this.state.city}
+                    onChange={this.newCity}
                   />
                   <FlatButton
                   style={styles.labelStyle}
-                  onClick={this.saveLoc}
+                  onClick={() =>this.save()}
                   >
                     save
                   </FlatButton>
@@ -179,7 +197,7 @@ class Profile extends React.Component{
 }
 
 Profile.defaultProps ={
-  profile: []
+  users: []
  };
 
 export default connect(

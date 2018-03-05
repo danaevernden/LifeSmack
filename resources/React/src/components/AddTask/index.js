@@ -70,16 +70,12 @@ class AddTask extends React.Component {
   handleChange = (event, index, category1_value) => this.setState({category1_value})
   handleChange2 = (event, index, category2_value) => this.setState({category2_value})
 
-  addTaskOpen = () => {
-    this.setState({addTaskOpen: true});
+  onClose = () => {
+        this.setState({taskCard: null})
   }
 
-  addTaskClose = () => {
-    this.setState({addTaskOpen: false});
-  }
-
-  addTaskToGoal(taskname, catid1) {
-    this.props.addTaskToGoal(taskname, catid1)
+  addTaskToGoal(taskname, catid1, catid2, catid3) {
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3)
   }
 
   render() {
@@ -101,30 +97,23 @@ class AddTask extends React.Component {
         {this.state.taskCard === true ?
           <TaskCard
             open={this.state.taskCard}
+            onClose={this.onClose}
             categoryID1={0}
             categoryID2={0}
             categoryID3={0}
+            type="addTask"
             addTaskToGoal={this.addTaskToGoal}
           />
           : null}
     </div>
   ;
 
-  const testButton =
-  <RaisedButton
-    label={this.state.test}
-    primary={true}
-    keyboardFocused={true}
-    onClick={() => this.addTaskToGoal(this.state.test)}
-  />
-  ;
 
   return(
     <MuiThemeProvider>
       <div>
         {AddTaskButton}
         {taskCard}
-        {testButton}
       </div>
     </MuiThemeProvider>
     );

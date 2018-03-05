@@ -11,6 +11,13 @@ export const POST_TASK_REQUEST = 'POST_TASK_REQUEST';
 export const POST_TASK_SUCCESS = 'POST_TASK_SUCCESS';
 export const POST_TASK_FAILURE = 'POST_TASK_FAILURE';
 
+export const POST_DUP_TASK_REQUEST = 'POST_DUP_TASK_REQUEST';
+export const POST_DUP_TASK_SUCCESS = 'POST_DUP_TASK_SUCCESS';
+export const POST_DUP_TASK_FAILURE = 'POST_DUP_TASK_FAILURE';
+
+export const POST_EDIT_TASK_REQUEST = 'POST_EDIT_TASK_REQUEST';
+export const POST_EDIT_TASK_SUCCESS = 'POST_EDIT_TASK_SUCCESS';
+export const POST_EDIT_TASK_FAILURE = 'POST_EDIT_TASK_FAILURE';
 //variable in an object in square braces, it executes and then puts the value inside
 //const foo = "FOO"
 // { [foo]: 1} is the same as 'FOO':1
@@ -36,8 +43,27 @@ export function deleteTask(taskId) {
   };
 }
 
-export function addTaskToGoal(taskname, catid1) {
-  console.log("calling add", taskname, catid1)
+export function editTask(taskId, task_name, catid1, catid2, catid3, complete) {
+  console.log("calling edit", taskId, catid1)
+  return {
+    [CALL_API]: {
+      endpoint: `/api/task/edit/${taskId}`,
+      method: 'POST',
+      types: [POST_EDIT_TASK_REQUEST, POST_EDIT_TASK_SUCCESS, POST_EDIT_TASK_FAILURE],
+      body: JSON.stringify({
+        task_name: task_name,
+        category_id_1: catid1,
+        category_id_2: catid2,
+        category_id_3: catid3,
+        complete: complete
+      })
+    },
+  };
+}
+
+
+export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
+  console.log("calling add", taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   return {
     [CALL_API]: {
       endpoint: `/api/task/post`,
@@ -45,23 +71,29 @@ export function addTaskToGoal(taskname, catid1) {
       types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
       body: JSON.stringify({
         task_name: taskname,
-        category_id_1: catid1
+        category_id_1: catid1,
+        category_id_2: catid2,
+        category_id_3: catid3,
+        goal_id: goal_id,
+        is_child: is_child,
+        parent_id: parent_id
       })
     },
   };
 }
-//taskName, dueDate
-export function addTaskToGoalOld(taskId) {
-console.log("why won't this work". taskId)
+
+export function duplicateTask(taskname, catid1, catid2, catid3) {
+  console.log("calling duplicate", taskname, catid1, catid2, catid3)
   return {
     [CALL_API]: {
-      endpoint: `/api/task/post`,
+      endpoint: `/api/task/duplicate`,
       method: 'POST',
-      types: [POST_TASK_REQUEST, POST_TASK_SUCCESS, POST_TASK_FAILURE],
+      types: [POST_DUP_TASK_REQUEST, POST_DUP_TASK_SUCCESS, POST_DUP_TASK_FAILURE],
       body: JSON.stringify({
-        task_name: "testname",
-        category_id_1: 1
-                // dueDate: dueDate
+        task_name: taskname,
+        category_id_1: catid1,
+        category_id_2: catid2,
+        category_id_3: catid3
       })
     },
   };

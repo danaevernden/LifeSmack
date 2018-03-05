@@ -9,12 +9,9 @@ import Subheader from 'material-ui/Subheader';
 import Profile from '../Profile';
 
 type Props = {
-  categories: Category[],
-  parentcategories: parentCategory[],
-  fetchCategoriesFromActions: () => void,
-  fetchGoalsFromActions: () => void,
-  goals: Goal[]
-}
+  users: User[],
+  fetchProfileFromActions: () => void,
+  }
 
 const styles = {
   topMenu: {
@@ -28,51 +25,39 @@ const styles = {
 class Settings extends React.Component {
 
   static defaultProps: {
-    categories: Category[],
-    goals: Goal[],
-    parentcategories: parentCategory[]
+    users: User[],
   };
 
   componentDidMount() {
-    this.props.fetchGoalsFromActions();
-    this.props.fetchCategoriesFromActions();
+    this.props.fetchProfileFromActions();
   }
   props:Props
 
   render () {
 
     const {
-      categories,
-      parentcategories,
-      goals
+      users
     } = this.props;
 
-    const categoriesByCategory = groupBy(values(categories), (category) => category.parent_cat);
+      const profile =
+      users.map((user) =>
+        <Profile
+          city={user.city}
+          first_name={user.first_name}
+          state={user.state}
+          country={user.country}
+          user_id={user.id}
+        />
+      )
+      ;
 
-    const manageCategories = parentcategories.filter((item)=>
-      {return item.parent_cat == null})
-      .map((parentcategory) =>
-      <div>
-          {parentcategory.text}
-          {(categoriesByCategory[parentcategory.id] || [])
-          .map((category) =>
-            <ListItem
-            primaryText={category.text}/>
-          )}
-      </div>
-    );
-
-    const test =
-      <List>
-        {manageCategories}
-      </List>;
 
     return(
       <div className='App-page'>
           <div className='App-content'>
               <MuiThemeProvider>
                 <div style={styles.topMenu}>
-                  <Profile/>
+                  {profile}
                 </div>
               </MuiThemeProvider>
           </div>
@@ -82,9 +67,7 @@ class Settings extends React.Component {
 }
 
 Settings.defaultProps ={
-  categories: [],
-  goals: [],
-  parentcategories: []
+  users: []
  };
 
  export default connect(

@@ -53,7 +53,7 @@ type Props = {
   fetchTasksFromActions: () => void,
   tasks: Task[],
   fetchProfileFromActions: () => void,
-  profile: Profile[]
+  users: User[]
 }
 
 class GoalList extends React.Component{
@@ -61,7 +61,7 @@ class GoalList extends React.Component{
   static defaultProps: {
     goals: Goal[],
     tasks: Task[],
-    profile: Profile[]
+    users: User[]
   };
 
   componentDidMount() {
@@ -82,7 +82,7 @@ class GoalList extends React.Component{
     const {
       goals,
       tasks,
-      profile
+      users
     } = this.props;
 
     const avatarLogo =
@@ -164,11 +164,11 @@ class GoalList extends React.Component{
     }
 
     const layout = (
-      profile.map((profile) =>
+      users.map((user) =>
       <div>
         <Layout
-          title={profile.first_name}
-          subtitle={profile.city+','+profile.region}
+          title={user.first_name}
+          subtitle={user.city+','+user.state}
           leftContent={"dashboard"}
           tabOne={"Goals"}
           tabTwo={"All Tasks"}
@@ -194,7 +194,7 @@ class GoalList extends React.Component{
 GoalList.defaultProps ={
   goals: [],
   tasks: [],
-  profile: []
+  users: []
  };
 
 export default connect(
