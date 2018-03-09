@@ -56,6 +56,42 @@ const marketItemData = [
   {id: 2, property: {MarketItem}, link: '/marketplace/2'},
   {id: 3, property: {MarketItem}, link: '/marketplace/3'},
 ];
+
+
+const marketItemData2 = [
+  {id: 23},
+  {id: 24},
+  {id: 25},
+  {id: 26},
+  {id: 27},
+  {id: 28},
+  {id: 29},
+  {id: 30},
+  {id: 31},
+  {id: 32},
+  {id: 33},
+  {id: 34},
+  {id: 35},
+  {id: 36},
+  {id: 37},
+  {id: 38},
+];
+
+const marketCatsData = [
+  {id: 1, property: {MarketCat}, link: '/marketplace/social'},
+  {id: 2, property: {MarketCat}, link: '/marketplace/sports'},
+  {id: 3, property: {MarketCat}, link: '/marketplace/recreation'},
+  {id: 4, property: {MarketCat}, link: '/marketplace/arts'},
+  {id: 5, property: {MarketCat}, link: '/marketplace/travel'},
+  {id: 6, property: {MarketCat}, link: '/marketplace/food'},
+];
+const marketCatPages =
+marketCatsData.map(page => <Route path={page.link} component={{main : MarketCat}} marketplacegoal_id={page.id} marketItem={page.id}/>);
+
+const marketitemPages2 =
+marketItemData2.map(page => <Route path={'/marketplace/' + page.id} component={{main : MarketItem}} marketItem={page.id}/>);
+
+
 const marketitemPages =
 marketItemData.map(page => <Route path={page.link} component={{main : MarketItem}} marketplacegoal_id={page.id} marketItem={page.id}/>);
 
@@ -73,7 +109,7 @@ ReactDOM.render((
           <Route path='/marketplace/social' marketCat='Social' component={{main : MarketCat}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
           <Route>
-              {marketitemPages}
+              {marketitemPages2}
           </Route>
           <Route path='/marketplace/specialist/1' name='Joan Rivers' component={{main : Specialist}}/>
           <Route path='/about' component={{main: Tour}}/>

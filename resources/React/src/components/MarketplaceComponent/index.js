@@ -4,7 +4,9 @@ import { green500 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
-import logo from '../../../../../public/images/running.jpg';
+import logo2 from '../../../../../public/images/runningMarket.jpg';
+import logo3 from '../../../../../public/images/battingMarket.jpg';
+import logo1 from '../../../../../public/images/comedyMarket.jpg';
 
 type Props = {
   goalID: Number,
@@ -13,20 +15,29 @@ type Props = {
   category: String,
   planDescription: String,
   rating: String,
+  imageID: String,
   marketplaceFlag: Boolean
 }
+
 
 class MarketplaceComponent extends React.Component {
     props: Props
 
    constructor(props) {
      super(props);
-     this.state = { shadow: 'rgb(0,0,1' }
+     this.state = {
+       shadow: 'rgb(0,0,1)',
+    }
    }
     onMouseOver = () => this.setState({ shadow: 3 });
     onMouseOut = () => this.setState({ shadow: 1 });
 
+
+
     render() {
+
+
+
       const {
         goalID,
         goalName,
@@ -34,6 +45,7 @@ class MarketplaceComponent extends React.Component {
         category,
         planDescription,
         rating,
+        imageID,
         marketplaceFlag
       } = this.props;
 
@@ -56,6 +68,8 @@ class MarketplaceComponent extends React.Component {
           },
           tileStyle: {
             marginTop: '0px'
+          },
+          imageStyle: {
           }
       };
 
@@ -74,13 +88,28 @@ class MarketplaceComponent extends React.Component {
             key={goalID}
             title={goalName}
            >
-              <img src={logo} />
+           <div>
+           {imageID === 'logo1' ?
+             <img style={styles.imageStyle}
+              src={logo1}/> :
+               [imageID === 'logo2' ?
+                <img style={styles.imageStyle}
+                src={logo2}/> :
+                (imageID === 'logo3' ?
+                  <img style={styles.imageStyle}
+                  src={logo3}/> :null
+                )
+             ]
+           }
+            </div>
            </GridTile>
             <CardMedia
               mediaStyle={styles.mediaStyle}>
             </CardMedia>
             </a>
-              <CardText><b>Description:</b> {planDescription}
+              <CardText>
+              <b>{goalName} </b> <br/> <br/>
+              <b>Description:</b> {imageID}{planDescription}
                   {marketplaceFlag ?
                     <Chip style={styles.chipStyle} backgroundColor={green500}>{category}</Chip>
                   : null}

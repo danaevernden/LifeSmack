@@ -59,6 +59,7 @@ class MarketCat extends React.Component{
     </div>
     );
 
+
     const listItems = marketplacegoals.map((marketplacegoal) =>
       <div >
         <MarketplaceComponent
@@ -68,6 +69,7 @@ class MarketCat extends React.Component{
           marketItemName={marketplacegoal.name}
           planDescription={marketplacegoal.plan_description}
           rating={marketplacegoal.rating}
+          imageID={'logo'+ marketplacegoal.id}
         />
       </div>
     );

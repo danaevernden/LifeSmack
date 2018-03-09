@@ -3,11 +3,16 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import comedy from '../../../../../../public/images/comedy.jpg';
-import running from '../../../../../../public/images/running.jpg';
-import batting from '../../../../../../public/images/batting.jpg';
+import sports from '../../../../../../public/images/running.jpg';
 import { Link } from 'react-router';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
+//new images
+import food from '../../../../../../public/images/food.jpg';
+import arts from '../../../../../../public/images/arts.jpeg';
+import recreation from '../../../../../../public/images/recreation.jpeg';
+import social from '../../../../../../public/images/social.jpeg';
+import travel from '../../../../../../public/images/travel.jpeg';
+
 
 const styles = {
   root: {
@@ -17,7 +22,7 @@ const styles = {
   },
   gridList: {
     width: 500,
-    height: 450,
+    height: 400,
     overflowY: 'auto',
   },
   cardStyle: {
@@ -27,49 +32,42 @@ const styles = {
   },
 };
 
-const battingImg = <img src={batting}/>;
 
 const tilesData = [
   {
     key: 1,
-    img: <img src={batting}/>,
+    img: <img src={social}/>,
     title: 'Social',
-    author: 'jill111',
     link: <Link to="/marketplace/social" />,
   },
   {
     key: 2,
-    img: <img src={comedy}/>,
+    img: <img src={sports}/>,
     title: 'Sports',
-    author: 'pashminu',
     link: <Link to="/marketplace/sports" />,
   },
   {
     key: 3,
-    img: <img src={running}/>,
+    img: <img src={recreation}/>,
     title: 'Recreation',
-    author: 'Danson67',
     link: <Link to="/marketplace/recreation" />,
   },
   {
     key: 4,
-    img: <img src={comedy}/>,
+    img: <img src={arts}/>,
     title: 'Arts',
-    author: 'fancycrave1',
     link: <Link to="/marketplace/arts" />,
   },
   {
     key: 5,
-    img: <img src={batting}/>,
+    img: <img src={travel}/>,
     title: 'Travel & Outdoors',
-    author: 'Hans',
     link: <Link to="/marketplace/batting" />,
   },
   {
     key: 6,
-    img: <img src={running}/>,
+    img: <img src={food}/>,
     title: 'Food & Drink',
-    author: 'fancycravel',
     link: <Link to="/marketplace/fooddrink" />,
   },
 ];

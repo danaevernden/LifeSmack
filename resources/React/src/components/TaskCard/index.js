@@ -92,6 +92,16 @@ const styles={
     position: 'relative',
     marginBottom: '15px'
   },
+  completeStyle: {
+    marginBottom: '-30px',
+    marginTop: '30px',
+    icon: {
+      marginLeft: '50px'
+    },
+    label: {
+      width: '225px'
+    }
+  },
   dropdownPos: {
     marginRight: '0%'
   },
@@ -243,7 +253,9 @@ class TaskCard extends React.Component {
           <Checkbox
             label="Complete?"
             checked={this.state.complete}
-            style={styles.selectStyle}
+            style={styles.completeStyle}
+            labelStyle={styles.completeStyle.label}
+            iconStyle={styles.completeStyle.icon}
             onCheck={this.completeTask}
           />
       }

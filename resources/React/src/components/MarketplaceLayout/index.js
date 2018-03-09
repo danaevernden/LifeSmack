@@ -72,9 +72,7 @@ class MarketplaceLayout extends React.Component{
             <CardActions>
                 <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={{background: 'blue'}} style={styles.tabsStyle}>
                     <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
-                        <Paper style={styles.paperStyle}>
                             {marketplaceItems}
-                        </Paper>
                     </Tab>
                 </Tabs>
             </CardActions>
