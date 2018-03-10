@@ -8,6 +8,14 @@ import logo2 from '../../../../../public/images/runningMarket.jpg';
 import logo3 from '../../../../../public/images/battingMarket.jpg';
 import logo1 from '../../../../../public/images/comedyMarket.jpg';
 
+
+const tilesData = [
+  {
+    key: 23,
+    img: <img src={logo3}/>,
+  }
+  ];
+
 type Props = {
   goalID: Number,
   goalName: String,
@@ -18,6 +26,8 @@ type Props = {
   imageID: String,
   marketplaceFlag: Boolean
 }
+
+
 
 
 class MarketplaceComponent extends React.Component {
@@ -35,8 +45,6 @@ class MarketplaceComponent extends React.Component {
 
 
     render() {
-
-
 
       const {
         goalID,
@@ -69,18 +77,19 @@ class MarketplaceComponent extends React.Component {
           tileStyle: {
             marginTop: '0px'
           },
+          root: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+          },
           imageStyle: {
-          }
+          },
+
       };
 
       const marketplace =
       <div style={styles.tileStyle}>
-        <GridList
-          cols={2}
-          cellHeight={180}
 
-          titleBackground={styles.titleBackground}
-        >
           <a href={'/marketplace/' + goalID} >
 
           <GridTile
@@ -89,7 +98,7 @@ class MarketplaceComponent extends React.Component {
             title={goalName}
            >
            <div>
-           {imageID === 'logo1' ?
+           {imageID === 'logo36' ?
              <img style={styles.imageStyle}
               src={logo1}/> :
                [imageID === 'logo2' ?
@@ -117,7 +126,6 @@ class MarketplaceComponent extends React.Component {
                   <br/>
                   by: {marketItemName}
               </CardText>
-          </GridList>
           <Divider />
       </div>;
 

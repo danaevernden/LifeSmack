@@ -9,14 +9,6 @@ import ComedyPic from '../../../../../../public/images/comedy.jpg';
 import MarketTypes from '../MarketTypes';
 import MarketplaceLayout from '../../../components/MarketplaceLayout';
 
-const styles = {
-  topMenu: {
-    width: '100%',
-    flexWrap: 'wrap',
-    display: 'inline-block',
-    marginTop: '50px'
-  },
-};
 
 type Props = {
   fetchMarketplacegoalsFromActions: () => void,

@@ -9,6 +9,22 @@ import NoResultsMessage from '../../../components/NoResults';
 import ComedyPic from '../../../../../../public/images/comedy.jpg';
 import MarketTypes from '../MarketTypes';
 import MarketplaceLayout from '../../../components/MarketplaceLayout';
+import {GridList, GridTile} from 'material-ui/GridList';
+
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+
+  gridList: {
+    width: 500,
+    height: 400,
+    overflowY: 'auto',
+  },
+}
 
 type Props = {
   fetchMarketplacegoalsFromActions: () => void,
@@ -59,9 +75,13 @@ class MarketCat extends React.Component{
     </div>
     );
 
+    const listItems = marketplacegoals
+    .filter((item) => { return item.category_id_1 === 3 })
+    .map((marketplacegoal) =>
+      <div>
 
-    const listItems = marketplacegoals.map((marketplacegoal) =>
-      <div >
+      //push to a variable, variable includes logo?
+      // or have table where lodash can be used to find the image for the ID
         <MarketplaceComponent
           goalID={marketplacegoal.id}
           goalName={marketplacegoal.goal_name}
@@ -74,6 +94,19 @@ class MarketCat extends React.Component{
       </div>
     );
 
+    const goalsList =
+    <div
+      style = {styles.root}>
+    <GridList
+      cellHeight={180}
+      cols={1}
+      titleBackground={styles.titleBackground}
+      style={styles.gridList}
+    >
+        {listItems}
+    </GridList>
+    </div>
+    ;
 
     const favorites =(
       <div>
@@ -83,7 +116,7 @@ class MarketCat extends React.Component{
 
     const topMenu = (
         <MarketplaceLayout
-          marketplaceItems={listItems}
+          marketplaceItems={goalsList}
           listTitle={this.props.route.marketCat}
         />
       )
