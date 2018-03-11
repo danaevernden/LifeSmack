@@ -21,6 +21,7 @@ class CreateMarketplacegoalsTable extends Migration
      # The rest of the fields...
      $table->string('name');
      $table->integer('specialist_id');
+     $table->integer('marketplacegoal_id');
      $table->string('goal_name');
      $table->integer('rating')->nullable();
      $table->integer('category_id_1')->nullable();

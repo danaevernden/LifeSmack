@@ -6,11 +6,25 @@ import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MarketplaceComponent from '../../../components/MarketplaceComponent';
 import NoResultsMessage from '../../../components/NoResults';
+import HobbyPic from '../../../../../../public/images/hobby.jpg';
+import ConfidencePic from '../../../../../../public/images/confidence.jpg';
+import BattingPic from '../../../../../../public/images/batting.jpg';
+import DancePic from '../../../../../../public/images/davidDance.jpeg';
+import FoodPic from '../../../../../../public/images/food.jpg';
+import FoisGrasPic from '../../../../../../public/images/foisGras.jpg';
+import IllustratorPic from '../../../../../../public/images/illustrator.jpeg';
+import PhotographyPic from '../../../../../../public/images/photography.jpeg';
+import VeganPic from '../../../../../../public/images/vegan.jpg';
+import VolunteerPic from '../../../../../../public/images/volunteer.jpg';
+import AbroadPic from '../../../../../../public/images/abroad.jpeg';
 import ComedyPic from '../../../../../../public/images/comedy.jpg';
+import RunningPic from '../../../../../../public/images/running.jpg';
+import WeddingPic from '../../../../../../public/images/wedding.jpeg';
+import WorkPic from '../../../../../../public/images/work.jpeg';
+import GamePic from '../../../../../../public/images/game.jpeg';
 import MarketTypes from '../MarketTypes';
 import MarketplaceLayout from '../../../components/MarketplaceLayout';
 import {GridList, GridTile} from 'material-ui/GridList';
-
 
 const styles = {
   root: {
@@ -30,6 +44,61 @@ type Props = {
   fetchMarketplacegoalsFromActions: () => void,
   marketplacegoals: Marketplacegoal[],
 }
+
+//old but could be useful someday
+var id = 100;
+var name = 'link';
+var arr = [];
+arr.push({id , name});
+
+const imgData = [
+
+  { id: 1,
+    img: <img src={ComedyPic}/>
+  },
+  { id: 2,
+    img: <img src={RunningPic}/>
+  },
+  { id: 3,
+    img: <img src={BattingPic}/>
+  },
+  { id: 4,
+    img: <img src={DancePic}/>
+  },
+  { id: 5,
+    img: <img src={VolunteerPic}/>
+  },
+  { id: 6,
+    img: <img src={PhotographyPic}/>
+  },
+  { id: 7,
+    img: <img src={ConfidencePic}/>
+  },
+  { id: 8,
+    img: <img src={WeddingPic}/>
+  },
+  { id: 9,
+    img: <img src={FoisGrasPic}/>
+  },
+  { id: 10,
+    img: <img src={VeganPic}/>
+  },
+  { id: 11,
+    img: <img src={AbroadPic}/>
+  },
+  { id: 12,
+    img: <img src={WorkPic}/>
+  },
+  { id: 13,
+    img: <img src={GamePic}/>
+  },
+  { id: 14,
+    img: <img src={HobbyPic}/>
+  },
+  { id: 15,
+    img: <img src={IllustratorPic}/>
+  },
+]
 
 class MarketCat extends React.Component{
 
@@ -60,7 +129,6 @@ class MarketCat extends React.Component{
     })
   }
 
-
   render () {
 
     const {
@@ -75,13 +143,32 @@ class MarketCat extends React.Component{
     </div>
     );
 
+    const listItems4 =  marketplacegoals
+    .filter((item) => { return item.category_id_1 === this.props.route.marketplacegoal_id })
+    .map((marketplacegoal) =>
+    <div>
+    {imgData.filter((item) => {return item.id === marketplacegoal.marketplacegoal_id})
+    .map((item) => (
+      <div>
+        <MarketplaceComponent
+          goalID={marketplacegoal.marketplacegoal_id}
+          goalName={marketplacegoal.goal_name}
+          specialistID={marketplacegoal.specialist_id}
+          marketItemName={marketplacegoal.name}
+          planDescription={marketplacegoal.plan_description}
+          rating={marketplacegoal.rating}
+          imageID={item.img}
+        />
+      </div>
+    ))}
+    </div>
+  );
+
+
     const listItems = marketplacegoals
     .filter((item) => { return item.category_id_1 === 3 })
     .map((marketplacegoal) =>
       <div>
-
-      //push to a variable, variable includes logo?
-      // or have table where lodash can be used to find the image for the ID
         <MarketplaceComponent
           goalID={marketplacegoal.id}
           goalName={marketplacegoal.goal_name}
@@ -95,15 +182,14 @@ class MarketCat extends React.Component{
     );
 
     const goalsList =
-    <div
-      style = {styles.root}>
+    <div style = {styles.root}>
     <GridList
       cellHeight={180}
       cols={1}
       titleBackground={styles.titleBackground}
       style={styles.gridList}
     >
-        {listItems}
+        {listItems4}
     </GridList>
     </div>
     ;

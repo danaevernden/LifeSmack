@@ -98,18 +98,7 @@ class MarketplaceComponent extends React.Component {
             title={goalName}
            >
            <div>
-           {imageID === 'logo36' ?
-             <img style={styles.imageStyle}
-              src={logo1}/> :
-               [imageID === 'logo2' ?
-                <img style={styles.imageStyle}
-                src={logo2}/> :
-                (imageID === 'logo3' ?
-                  <img style={styles.imageStyle}
-                  src={logo3}/> :null
-                )
-             ]
-           }
+            {imageID}
             </div>
            </GridTile>
             <CardMedia
@@ -118,7 +107,7 @@ class MarketplaceComponent extends React.Component {
             </a>
               <CardText>
               <b>{goalName} </b> <br/> <br/>
-              <b>Description:</b> {imageID}{planDescription}
+              <b>Description:</b> {planDescription}
                   {marketplaceFlag ?
                     <Chip style={styles.chipStyle} backgroundColor={green500}>{category}</Chip>
                   : null}

@@ -62,13 +62,13 @@ const tilesData = [
     key: 5,
     img: <img src={travel}/>,
     title: 'Travel & Outdoors',
-    link: <Link to="/marketplace/batting" />,
+    link: <Link to="/marketplace/travel" />,
   },
   {
     key: 6,
     img: <img src={food}/>,
     title: 'Food & Drink',
-    link: <Link to="/marketplace/fooddrink" />,
+    link: <Link to="/marketplace/food" />,
   },
 ];
 

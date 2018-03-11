@@ -18,6 +18,7 @@ class MarketplacegoalsTableSeeder extends Seeder
        DB::table('marketplacegoals')->insert([
       'created_at' => Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+      'marketplacegoal_id' => 1,
       'name'=> 'Joan Rivers',
       'specialist_id'=> 1,
       'goal_name' => 'get your first gig as a comedian',
@@ -29,6 +30,7 @@ class MarketplacegoalsTableSeeder extends Seeder
         DB::table('marketplacegoals')->insert([
        'created_at' => Carbon\Carbon::now()->toDateTimeString(),
        'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+       'marketplacegoal_id' => 2,
        'name'=> 'Meb',
        'specialist_id'=> 2,
        'goal_name' => 'PR on your next 10K race',
@@ -40,6 +42,7 @@ class MarketplacegoalsTableSeeder extends Seeder
          DB::table('marketplacegoals')->insert([
         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
         'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+        'marketplacegoal_id' => 3,
         'name'=> 'David Ortiz',
         'specialist_id'=> 3,
         'goal_name' => 'Tips on improving your batting average',
@@ -51,6 +54,7 @@ class MarketplacegoalsTableSeeder extends Seeder
           DB::table('marketplacegoals')->insert([
          'created_at' => Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+         'marketplacegoal_id' => 4,
          'name'=> 'David Ortiz',
          'specialist_id'=> 3,
          'goal_name' => 'Nailing the home run dance',
@@ -62,6 +66,7 @@ class MarketplacegoalsTableSeeder extends Seeder
            DB::table('marketplacegoals')->insert([
           'created_at' => Carbon\Carbon::now()->toDateTimeString(),
           'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+          'marketplacegoal_id' => 5,
           'name'=> 'Bill Gates',
           'specialist_id'=> 3,
           'goal_name' => 'Find a volunteer group to commit to',
@@ -74,6 +79,7 @@ class MarketplacegoalsTableSeeder extends Seeder
            'created_at' => Carbon\Carbon::now()->toDateTimeString(),
            'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
            'name'=> 'NatGeo',
+           'marketplacegoal_id' => 6,
            'specialist_id'=> 4,
            'goal_name' => 'Become a hired photographer',
            'rating' => 5,
@@ -84,6 +90,7 @@ class MarketplacegoalsTableSeeder extends Seeder
              DB::table('marketplacegoals')->insert([
             'created_at' => Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+            'marketplacegoal_id' => 7,
             'name'=> 'Oprah',
             'specialist_id'=> 5,
             'goal_name' => 'How to build confidence and feel beautiful',
@@ -95,6 +102,7 @@ class MarketplacegoalsTableSeeder extends Seeder
               DB::table('marketplacegoals')->insert([
              'created_at' => Carbon\Carbon::now()->toDateTimeString(),
              'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+             'marketplacegoal_id' => 8,
              'name'=> 'Judge Judy',
              'specialist_id'=> 6,
              'goal_name' => 'DIY Backyard Wedding',
@@ -106,6 +114,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                 DB::table('marketplacegoals')->insert([
                'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+               'marketplacegoal_id' => 9,
                'name'=> 'Bobby Flay',
                'specialist_id'=> 8,
                'goal_name' => 'Cook a superb fois grois',
@@ -117,6 +126,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                  DB::table('marketplacegoals')->insert([
                 'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                'marketplacegoal_id' => 10,
                 'name'=> 'Chloe',
                 'specialist_id'=> 9,
                 'goal_name' => 'Become a vegan',
@@ -128,6 +138,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                   DB::table('marketplacegoals')->insert([
                  'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                  'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                 'marketplacegoal_id' => 11,
                  'name'=> 'NatGeo',
                  'specialist_id'=> 7,
                  'goal_name' => 'Plan your first trip abroad',
@@ -139,6 +150,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                    DB::table('marketplacegoals')->insert([
                   'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                   'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                  'marketplacegoal_id' => 12,
                   'name'=> 'NatGeo',
                   'specialist_id'=> 7,
                   'goal_name' => 'Work and live abroad',
@@ -150,6 +162,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                     DB::table('marketplacegoals')->insert([
                    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                   'marketplacegoal_id' => 13,
                    'name'=> 'Sheldon',
                    'specialist_id'=> 10,
                    'goal_name' => 'Start a weekly game night',
@@ -161,6 +174,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                      DB::table('marketplacegoals')->insert([
                     'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                     'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                    'marketplacegoal_id' => 14,
                     'name'=> 'Steve',
                     'specialist_id'=> 11,
                     'goal_name' => 'Find a new hobby',
@@ -172,6 +186,7 @@ class MarketplacegoalsTableSeeder extends Seeder
                       DB::table('marketplacegoals')->insert([
                      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
                      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                     'marketplacegoal_id' => 15,
                      'name'=> 'James',
                      'specialist_id'=> 12,
                      'goal_name' => 'Become a professional illustrator',

@@ -128,7 +128,9 @@ class MarketItem extends React.Component{
         </div>
         );
 
-    const goalPlan2 = markettasks.map((markettask) =>
+    const goalPlan2 = markettasks
+    .filter((item) => {return item.marketplacegoal_id === this.props.route.marketItem})
+    .map((markettask) =>
         <div>
             <ListCard
                 taskID={markettask.task_id}
@@ -137,7 +139,7 @@ class MarketItem extends React.Component{
                 categoryID1={markettask.category_id_1}
                 imageSrc={<img src={redComTask}/>}
                 taskType={"marketplaceTask"}
-              />
+            />
         </div>
     );
 

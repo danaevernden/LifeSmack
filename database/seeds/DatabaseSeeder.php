@@ -11,14 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      $this->call(MarketplacegoalsTableSeeder::class);
+      $this->call(MarkettasksTableSeeder::class);
+
+      /*$this->call(MarketplacegoalsTableSeeder::class);
 
       /*  $this->call(UsersTableSeeder::class);
         $this->call(GoalsTableSeeder::class);
         $this->call(TasksTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        $this->call(MarkettasksTableSeeder::class);
         $this->call(ReviewsTableSeeder::class);
 */
     }
