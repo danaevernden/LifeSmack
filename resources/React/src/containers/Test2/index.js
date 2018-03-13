@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
 import RaisedButton from 'material-ui/RaisedButton';
+import ImgData2 from '../../arrays';
+import HobbyPic from '../../../../../public/images/hobby.jpg';
 
 //2.19.2018 this works!!!!
 class Test2 extends React.Component{
@@ -37,6 +39,7 @@ class Test2 extends React.Component{
                 <div>
                 <br/><br/><br/><br/><br/><br/><br/><br/>
                     <button onClick={() =>this.handleDeleteTask(5)}>Add</button>
+                    <ImgData2 marketplacegoal_id={1} />
                   </div>
           </div>
       </div>

@@ -105,7 +105,9 @@ class MarketItem extends React.Component{
       </div>;
     }
 
-    const listItems = reviews.map((review) =>
+    const listItems = reviews
+    .filter((item) => {return item.marketplacegoal_id === this.props.route.marketItem})
+    .map((review) =>
       <div>
           <Card>
               <CardText>Rating: <StarRatingComponent starCount={5} value={review.rating}/> <br/> {review.name}: {review.review}
@@ -144,7 +146,7 @@ class MarketItem extends React.Component{
     );
 
     const listItem = markettasks.filter((markettask) => {
-        return markettask.marketplace_id == this.props.route.marketItem;
+        return markettask.marketplacegoal_id == this.props.route.marketItem;
     })
         .map((markettask) =>
             <div>
@@ -153,7 +155,7 @@ class MarketItem extends React.Component{
         );
 
     const marketplaceItems = marketplacegoals.filter((marketplacegoal) => {
-        return marketplacegoal.id == this.props.route.marketItem;
+        return marketplacegoal.marketplacegoal_id == this.props.route.marketItem;
         })
         .map((marketplacegoal) =>
             <div>
@@ -169,20 +171,6 @@ class MarketItem extends React.Component{
             </div>
       );
 
-    const marketplaceItems2 =marketplacegoals.map((marketplacegoal) =>
-      <div>
-          <Layout
-            title={marketplacegoal.goal_name}
-            subtitle={marketplacegoal.name}
-            tabOne={"Tasks"}
-            tabTwo={"Categories"}
-            tabThree={"Reviews"}
-            tabOneContent={goalPlan2}
-            tabTwoContent={"howdy"}
-            tabThreeContent={listItems}
-        />
-      </div>
-    );
 
     const goalPlan3 = markettasks.map((markettask) =>
       <div style={styles.topMenu}>

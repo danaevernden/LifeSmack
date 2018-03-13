@@ -73,7 +73,8 @@ const marketItemData2 = [
   {id: 12},
   {id: 13},
   {id: 14},
-  {id: 15}
+  {id: 15},
+  {id: 23}
 ];
 
 const marketCatsData = [

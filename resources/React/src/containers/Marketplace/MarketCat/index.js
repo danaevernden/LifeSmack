@@ -25,6 +25,7 @@ import GamePic from '../../../../../../public/images/game.jpeg';
 import MarketTypes from '../MarketTypes';
 import MarketplaceLayout from '../../../components/MarketplaceLayout';
 import {GridList, GridTile} from 'material-ui/GridList';
+import ImgData2 from '../../../arrays';
 
 const styles = {
   root: {
@@ -143,6 +144,8 @@ class MarketCat extends React.Component{
     </div>
     );
 
+    const listItems10 = <ImgData2 marketplacegoal_id={1}/>;
+
     const listItems4 =  marketplacegoals
     .filter((item) => { return item.category_id_1 === this.props.route.marketplacegoal_id })
     .map((marketplacegoal) =>
@@ -157,7 +160,7 @@ class MarketCat extends React.Component{
           marketItemName={marketplacegoal.name}
           planDescription={marketplacegoal.plan_description}
           rating={marketplacegoal.rating}
-          imageID={item.img}
+          imageID={<ImgData2 marketplacegoal_id={1}/>)
         />
       </div>
     ))}
