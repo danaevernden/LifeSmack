@@ -74,8 +74,8 @@ class AddTask extends React.Component {
         this.setState({taskCard: null})
   }
 
-  addTaskToGoal(taskname, catid1, catid2, catid3) {
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3)
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id) {
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id)
   }
 
   render() {
@@ -101,6 +101,7 @@ class AddTask extends React.Component {
             categoryID1={0}
             categoryID2={0}
             categoryID3={0}
+            goalID={1}
             type="addTask"
             addTaskToGoal={this.addTaskToGoal}
           />

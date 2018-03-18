@@ -160,7 +160,7 @@ class MarketCat extends React.Component{
           marketItemName={marketplacegoal.name}
           planDescription={marketplacegoal.plan_description}
           rating={marketplacegoal.rating}
-          imageID={<ImgData2 marketplacegoal_id={1}/>)
+          imageID={item.img}
         />
       </div>
     ))}
@@ -188,7 +188,7 @@ class MarketCat extends React.Component{
     <div style = {styles.root}>
     <GridList
       cellHeight={180}
-      cols={1}
+      cols={2}
       titleBackground={styles.titleBackground}
       style={styles.gridList}
     >

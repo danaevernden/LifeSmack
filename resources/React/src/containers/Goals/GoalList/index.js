@@ -5,12 +5,25 @@ import FlatButton from 'material-ui/FlatButton';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-import logo from '../../../../../../public/images/running.jpg';
+import Running from '../../../../../../public/images/running.jpg';
 import Calendar from '../../Calendar';
 import Layout from '../../Layout';
 import ListCard from '../../../components/ListCard';
 import Avatar from 'material-ui/Avatar';
 import {GridList, GridTile} from 'material-ui/GridList';
+import ComedyPic from '../../../../../../public/images/comedy.jpg';
+import Programming from '../../../../../../public/images/programming.jpg';
+import logo from '../../../../../../public/images/running.jpg';
+
+const imgData = [
+
+  { id: 1,
+    img: Running
+  },
+  { id: 2,
+    img: Programming
+  },
+]
 
 const styles = {
     background: {
@@ -37,7 +50,7 @@ const styles = {
     },
     gridList: {
       width: 500,
-      height: 450,
+      height: 400,
       overflowY: 'auto',
     },
     cardStyle: {
@@ -85,9 +98,7 @@ class GoalList extends React.Component{
       users
     } = this.props;
 
-    const avatarLogo =
-      <Avatar src={logo}/>
-    ;
+
 //http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
     const allTasks = tasks.filter((item) => {
@@ -107,6 +118,11 @@ class GoalList extends React.Component{
       />
     </div>
   );
+
+
+  const avatarLogo =
+        <Avatar src={logo}/>
+  ;
 
     const listItems = goals.map((goal) =>
     <div>
@@ -134,12 +150,17 @@ class GoalList extends React.Component{
           style={styles.gridList}
         >
         {goals.map((goal) => (
+
           <a href={'/goal/' + goal.id}>
             <GridTile
               key={goal.id}
               title={goal.goal_name}
             >
-            <img src={logo} />
+            {goal.id === 1?
+              <img src={Programming} />
+              :
+              <img src={Running} />
+            }
           </GridTile>
         </a>
         ))}
@@ -174,6 +195,7 @@ class GoalList extends React.Component{
           tabTwo={"All Tasks"}
           tabOneContent={listItems2}
           tabTwoContent={allTasks}
+          imageID={<img src={ComedyPic}/>}
         />
       </div>
     ));

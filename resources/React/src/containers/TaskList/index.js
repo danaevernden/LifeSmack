@@ -16,6 +16,9 @@ import Paper from 'material-ui/Paper';
 import incomTask from '../../../../../public/images/incomplete task icon.png';
 import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
 import RaisedButton from 'material-ui/RaisedButton';
+import Running from '../../../../../public/images/running.jpg';
+import Programming from '../../../../../public/images/programming.jpg';
+
 
 //to do
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -88,7 +91,8 @@ class TaskList extends React.Component{
       duplicateDialog: false,
       include: window.location.href,
       taskCard: null,
-      parentTask: null
+      parentTask: null,
+      goalID: this.props.route.goalID
     }
     this.updateFilter = this.updateFilter.bind(this);
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
@@ -170,26 +174,49 @@ class TaskList extends React.Component{
 
 
     const listItemsFromComponent2 = tasks.filter((item) => {
-          return item.parent_id === null && item.is_child === 0;
-  }).map((task) =>
-    <div>
-        <Card
-        onClick={() => this.openTaskChildren(task.id)}
-        style={styles.taskCardStyle}>
-            <CardText>
-                <img src={incomTask} style={{paddingRight:'20px'}} />
-                <div style={styles.taskLabelStyle}>
-                    {task.task_name}
-                </div>
-            </CardText>
-        </Card>
-    </div>
-    );
+            return item.parent_id === null && item.is_child === 0;
+    }).map((task) =>
+      <div>
+          <Card
+          onClick={() => this.openTaskChildren(task.task_id)}
+          style={styles.taskCardStyle}>
+              <CardText>
+                  <img src={incomTask} style={{paddingRight:'20px'}} />
+                  <div style={styles.taskLabelStyle}>
+                      {task.task_name}
+                  </div>
+              </CardText>
+          </Card>
+      </div>
+      );
 
-    const allTasks = tasks.filter((item) => {
-          return item.parent_id !== null;
-  }).map((task) =>
-    <div>
+      const allTasks = tasks.filter((item) => {
+            return item.parent_id !== null;
+    }).map((task) =>
+      <div>
+          <ListCard
+            taskID={task.id}
+            taskName={task.task_name}
+            taskStatus={task.complete}
+            taskScheduled={task.scheduled}
+            categoryID1={task.category_id_1}
+            categoryID2={task.category_id_2}
+            categoryID3={task.category_id_3}
+            duplicateDialog={this.state.duplicateDialog}
+            handleDeleteTask={this.handleDeleteTask}
+            editTask={this.editTask}
+            openDuplicate={this.openDuplicate}
+          />
+      </div>
+      );
+
+
+  //  const categoryByID = find(values(goals), ['id', 1]);
+  //  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
+    const taskList = tasks.filter((item) => {
+            return item.parent_id === this.state.parentTask && item.is_child === 1;
+    }).map((task) =>
+      <div>
         <ListCard
           taskID={task.id}
           taskName={task.task_name}
@@ -203,75 +230,53 @@ class TaskList extends React.Component{
           editTask={this.editTask}
           openDuplicate={this.openDuplicate}
         />
-    </div>
-    );
+      </div>
+      );
 
+      const listItemsNoParents = tasks.filter((item) => {
+            return item.parent_id === null && item.is_child === 1;
+    }).map((task) =>
+      <div>
+        <ListCard
+          taskID={task.id}
+          taskName={task.task_name}
+          taskStatus={task.complete}
+          taskScheduled={task.scheduled}
+          categoryID1={task.category_id_1}
+          categoryID2={task.category_id_2}
+          categoryID3={task.category_id_3}
+          duplicateDialog={this.state.duplicateDialog}
+          handleDeleteTask={() =>this.handleDeleteTask()}
+          editTask={this.editTask}
+          openDuplicate={this.openDuplicate}
+        />
+      </div>
+      );
 
-//  const categoryByID = find(values(goals), ['id', 1]);
-//  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
-  const taskList = tasks.filter((item) => {
-          return item.parent_id === this.state.parentTask && item.is_child === 1;
-  }).map((task) =>
-    <div>
-      <ListCard
-        taskID={task.id}
-        taskName={task.task_name}
-        taskStatus={task.complete}
-        taskScheduled={task.scheduled}
-        categoryID1={task.category_id_1}
-        categoryID2={task.category_id_2}
-        categoryID3={task.category_id_3}
-        duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={this.handleDeleteTask}
-        editTask={this.editTask}
-        openDuplicate={this.openDuplicate}
-      />
-    </div>
-    );
-
-    const listItemsNoParents = tasks.filter((item) => {
-          return item.parent_id === null && item.is_child === 1;
-  }).map((task) =>
-    <div>
-      <ListCard
-        taskID={task.id}
-        taskName={task.task_name}
-        taskStatus={task.complete}
-        taskScheduled={task.scheduled}
-        categoryID1={task.category_id_1}
-        categoryID2={task.category_id_2}
-        categoryID3={task.category_id_3}
-        duplicateDialog={this.state.duplicateDialog}
-        handleDeleteTask={() =>this.handleDeleteTask()}
-        editTask={this.editTask}
-        openDuplicate={this.openDuplicate}
-      />
-    </div>
-    );
-
-    const tasksFlip =
-    <div>
-      {this.state.parentTask === null ?
-        <div>
-          {listItemsFromComponent2}
-          {listItemsNoParents}
+      const tasksFlip =
+      <div>
+        {this.state.parentTask === null ?
+          <div>
+            {listItemsFromComponent2}
+            {listItemsNoParents}
+            </div>
+        :
+          <div>
+            {taskList}
           </div>
-      :
-        <div>
-          {taskList}
-        </div>
-      }
-    </div>;
+        }
+      </div>;
 
-    const goalNameFromComponent = goals
-    .filter((item) => {
-      return item.id === this.props.route.goalID;
-    })
-    .map((goal) =>
-    <div>
-    {goal.goal_name}
-    </div>
-    );
+      const goalNameFromComponent = goals
+      .filter((item) => {
+        return item.id === this.props.route.goalID;
+      })
+      .map((goal) =>
+      <div>
+      {goal.goal_name}
+      </div>
+      );
+
 
 
     const layout =(<div>
@@ -282,6 +287,7 @@ class TaskList extends React.Component{
         tabTwo={"All Tasks"}
         tabOneContent={tasksFlip}
         tabTwoContent={allTasks}
+        imageID={this.state.goalID === 1 ? <img src={Programming}/> : <img src={Running} />}
         />
     }
     </div>)

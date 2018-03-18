@@ -34,7 +34,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::post('/task/post', 'TasksController@postTask');
 	Route::post('/task/edit/{task_id}', 'TasksController@editTask');
 	Route::delete('/task/delete/{task_id}', 'TasksController@deleteTask');
-	Route::post('/task/duplicate/{task_id}', 'TasksController@duplicateTask');
+	Route::post('/task/duplicate', 'TasksController@duplicateTask');
 
 	Route::get('/goals', 'GoalsController@getAllGoals');
 /*	Route::get('/goals/{goal_id}', 'GoalsController@getOneGoal');

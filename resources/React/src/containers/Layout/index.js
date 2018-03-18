@@ -20,7 +20,8 @@ type Props = {
   tabThree: String,
   tabOneContent: String,
   tabTwoContent: String,
-  tabThreeContent: String
+  tabThreeContent: String,
+  imageID: String
 };
 
 const styles = {
@@ -80,8 +81,7 @@ const styles = {
     color: 'black'
   },
   paperStyle: {
-    maxHeight: '300px',
-    minHeight: '300px',
+    height: '400px',
     overflow: 'auto'
   },
   inkBarStyle: {
@@ -114,7 +114,8 @@ class Layout extends React.Component{
       tabThree,
       tabOneContent,
       tabTwoContent,
-      tabThreeContent
+      tabThreeContent,
+      imageID
     } = this.props;
 
     const marketitem = (
@@ -182,7 +183,7 @@ class Layout extends React.Component{
           <CardMedia
             mediaStyle={styles.mediaStyle}
           >
-          <img src={ProfilePic}/>
+          {imageID}
           </CardMedia>
           <CardActions>
 

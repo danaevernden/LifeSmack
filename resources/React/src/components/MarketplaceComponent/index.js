@@ -7,14 +7,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import logo2 from '../../../../../public/images/runningMarket.jpg';
 import logo3 from '../../../../../public/images/battingMarket.jpg';
 import logo1 from '../../../../../public/images/comedyMarket.jpg';
-
-
-const tilesData = [
-  {
-    key: 23,
-    img: <img src={logo3}/>,
-  }
-  ];
+import ImgData2 from '../../arrays';
 
 type Props = {
   goalID: Number,
@@ -23,12 +16,9 @@ type Props = {
   category: String,
   planDescription: String,
   rating: String,
-  imageID: String,
-  marketplaceFlag: Boolean
+  marketplaceFlag: Boolean,
+  imageID: String
 }
-
-
-
 
 class MarketplaceComponent extends React.Component {
     props: Props
@@ -42,8 +32,6 @@ class MarketplaceComponent extends React.Component {
     onMouseOver = () => this.setState({ shadow: 3 });
     onMouseOut = () => this.setState({ shadow: 1 });
 
-
-
     render() {
 
       const {
@@ -53,8 +41,8 @@ class MarketplaceComponent extends React.Component {
         category,
         planDescription,
         rating,
-        imageID,
-        marketplaceFlag
+        marketplaceFlag,
+        imageID
       } = this.props;
 
       const styles = {
@@ -77,13 +65,20 @@ class MarketplaceComponent extends React.Component {
           tileStyle: {
             marginTop: '0px'
           },
+          tileStyle2: {
+            height: '180px'
+          },
           root: {
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-around',
           },
           imageStyle: {
+            height: '180px'
           },
+          mediaStyle: {
+            height: '180px'
+          }
 
       };
 
@@ -96,14 +91,13 @@ class MarketplaceComponent extends React.Component {
             titleStyle={styles.titleStyle}
             key={goalID}
             title={goalName}
+            style={styles.tileStyle2}
            >
-           <div>
-            {imageID}
-            </div>
+           <div style={styles.imageStyle}>
+           {imageID}
+           </div>
            </GridTile>
-            <CardMedia
-              mediaStyle={styles.mediaStyle}>
-            </CardMedia>
+
             </a>
               <CardText>
               <b>{goalName} </b> <br/> <br/>

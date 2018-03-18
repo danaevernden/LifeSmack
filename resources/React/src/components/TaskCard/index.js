@@ -44,6 +44,7 @@ type Props = {
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
+  goalID: Number,
   complete: Boolean,
   type: String,
   open: Boolean,
@@ -136,6 +137,7 @@ class TaskCard extends React.Component {
         valueDiff: this.props.categoryID1,
         valueTime: this.props.categoryID2,
         valueLoc: this.props.categoryID3,
+        valueGoalID: this.props.goalID,
         valueName: null,
         event: {
           title: this.props.taskName,
@@ -223,7 +225,8 @@ class TaskCard extends React.Component {
         this.state.valueName,
         this.state.valueDiff,
         this.state.valueTime,
-        this.state.valueLoc
+        this.state.valueLoc,
+        this.state.valueGoalID
       )
     }
 
@@ -237,6 +240,7 @@ class TaskCard extends React.Component {
         categoryID1,
         categoryID2,
         categoryID3,
+        goalID,
         complete,
         onClose,
         open

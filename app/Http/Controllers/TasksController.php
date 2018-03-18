@@ -33,6 +33,7 @@ class TasksController extends Controller
 
     public function deleteTask($taskId) {
     $task = \App\Task::find($taskId);
+  //  $task = \App\Task::where('task_id','=',$taskId)->get();
     $task->delete();
     return response('deleted task', 204);
     }
@@ -49,6 +50,7 @@ class TasksController extends Controller
     $task->goal_id=$data['goal_id'];
     $task->is_child='1';
     $task->parent_id='1';
+    $task->task_id='30';
     $task->save();
     return Response::json($task);
     }
@@ -57,13 +59,13 @@ class TasksController extends Controller
     public function duplicateTask(Request $request) {
     $data = $request->json()->all();
     $task = new \App\Task();
-    $task->task_name = $data['task_name'];
+    $task->task_name = $data['task_name2'];
     $task->category_id_1 = $data['category_id_1'];
-    $task->category_id_2 =  $data['category_id_2'];
+    $task->category_id_2 = $data['category_id_2'];
     $task->category_id_3 =  $data['category_id_3'];
     $task->scheduled = Carbon::now()->toDateTimeString();
     $task->complete='0';
-    $task->goal_id=$data['goal_id'];
+    $task->goal_id=1;
     $task->is_child='1';
     $task->parent_id='1';
     $task->save();

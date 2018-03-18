@@ -82,18 +82,19 @@ export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_chil
   };
 }
 
-export function duplicateTask(taskname, catid1, catid2, catid3) {
-  console.log("calling duplicate", taskname, catid1, catid2, catid3)
+
+export function duplicateTask() {
+  console.log("calling duplicate")
   return {
     [CALL_API]: {
       endpoint: `/api/task/duplicate`,
       method: 'POST',
       types: [POST_DUP_TASK_REQUEST, POST_DUP_TASK_SUCCESS, POST_DUP_TASK_FAILURE],
       body: JSON.stringify({
-        task_name: taskname,
-        category_id_1: catid1,
-        category_id_2: catid2,
-        category_id_3: catid3
+        task_name2: 'testtask2',
+        category_id_1: '1',
+        category_id_2: '5',
+        category_id_3: '9'
       })
     },
   };
