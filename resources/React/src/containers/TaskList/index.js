@@ -113,12 +113,7 @@ class TaskList extends React.Component{
 
   handleDeleteTask(task_Id) {
     const taskId = this.props.taskID;
-    this.props.handleDeleteTask(task_Id)
-    .then(() => {
-      this.setState({
-        deleteID: task_Id
-      });
-  });
+     return this.props.handleDeleteTask(task_Id)
   }
 
   addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
@@ -296,6 +291,7 @@ class TaskList extends React.Component{
     const addTaskButton =
     <AddTask
     addTaskToGoal={this.addTaskToGoal}
+    taskCard={this.state.taskCard}
     />
     ;
 

@@ -14,7 +14,8 @@ import TaskCard from '../TaskCard';
 type Props = {
   name: String,
   scheduled: Date,
-  addTaskToGoal: () => Promise<any>
+  addTaskToGoal: () => Promise<any>,
+  taskCard: Number
 }
 
 const styles = {
@@ -53,7 +54,7 @@ class AddTask extends React.Component {
       category2_value: 6,
       name: "",
       scheduled: null,
-      taskCard: false,
+      taskCard: this.props.taskCard,
       test: "testName",
       catID1:1
     }

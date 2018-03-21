@@ -146,6 +146,7 @@ class TaskCard extends React.Component {
           location: this.props.categoryID3
         }
       }
+      this.onClose = this.onClose.bind(this);
       this.addTaskToGoal = this.addTaskToGoal.bind(this);
       this.completeTask = this.completeTask.bind(this);
       this.Duplicate = this.Duplicate.bind(this);
@@ -173,12 +174,19 @@ class TaskCard extends React.Component {
 
     handleDeleteTask(task_Id) {
       const taskId = this.props.taskID;
-      this.props.handleDeleteTask(task_Id)
-      .then(() => {
-        this.setState({
-          deleteID: task_Id
-        });
-    });
+      return this.props.handleDeleteTask(task_Id)
+    }
+
+    addTaskToGoal() {
+      console.log("test");
+        this.props.onClose();
+      this.props.addTaskToGoal(
+        this.state.valueName,
+        this.state.valueDiff,
+        this.state.valueTime,
+        this.state.valueLoc,
+        this.state.valueGoalID
+      )
     }
 
     editTask(task_Id) {
@@ -220,14 +228,14 @@ class TaskCard extends React.Component {
       });
     };
 
-    addTaskToGoal() {
-      this.props.addTaskToGoal(
-        this.state.valueName,
-        this.state.valueDiff,
-        this.state.valueTime,
-        this.state.valueLoc,
-        this.state.valueGoalID
-      )
+
+
+
+
+    onClose() {
+      this.setState({
+        open: false
+      })
     }
 
     render() {
@@ -281,11 +289,16 @@ class TaskCard extends React.Component {
         style={styles.dropdownPos}
         hintText="Difficulty"
       >
+
         <MenuItem value={0} primaryText="." />
         <MenuItem value={1} primaryText="Easy" />
         <MenuItem value={2} primaryText="Medium" />
         <MenuItem value={3} primaryText="Hard" />
       </SelectField>
+      <div> hi
+      {this.props.open}
+      {this.state.open}
+      </div>
       <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
@@ -325,12 +338,11 @@ class TaskCard extends React.Component {
       const taskCard2 =
       <div>
         <Dialog
-          open={open}
+          open={this.state.open}
           autoScrollBodyContent={true}
           onRequestClose={this.onClose}
           contentStyle={styles.contentStyle}
           bodyStyle={styles.contentStyle2}
-          onRequestClose={onClose}
         >
         {this.props.type == "addTask" ? null :
           <div>
