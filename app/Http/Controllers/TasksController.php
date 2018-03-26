@@ -72,17 +72,15 @@ class TasksController extends Controller
     return Response::json($task);
     }
 
-    public function editTask(Request $request) {
-    $data = $request->json()->all();
+    public function editTask($taskId) {
     $task = \App\Task::find($taskId);
-    $task->task_name = $data['task_name'];
-    $task->category_id_1 = $data['category_id_1'];
-    $task->category_id_2 = $data['category_id_2'];
-    $task->category_id_3 = $data['category_id_3'];
-    $task->scheduled = Carbon::now()->toDateTimeString();
-    $task->complete=$data['complete'];
+    $task->task_name = 'newname';
+    $task->goal_id=1;
+    $task->is_child='1';
+    $task->parent_id='1';
+    $task->complete='0';
     $task->save();
-    return Response::json($task);
+    print $task->id;
     }
 }
 

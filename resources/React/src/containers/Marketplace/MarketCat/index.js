@@ -188,7 +188,7 @@ class MarketCat extends React.Component{
     <div style = {styles.root}>
     <GridList
       cellHeight={180}
-      cols={2}
+      cols={1}
       titleBackground={styles.titleBackground}
       style={styles.gridList}
     >

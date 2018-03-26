@@ -58,6 +58,7 @@ type Props = {
   fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
   handleDeleteTask: (taskId) => void,
+  editTask: (taskId) => void,
   tasks: Task[],
   goals: Goal[],
   comments: Comment[],
@@ -91,6 +92,7 @@ class TaskList extends React.Component{
       duplicateDialog: false,
       include: window.location.href,
       taskCard: null,
+      snackbar: false,
       parentTask: null,
       goalID: this.props.route.goalID
     }
@@ -101,6 +103,7 @@ class TaskList extends React.Component{
     this.openTaskCard = this.openTaskCard.bind(this);
     this.openTaskChildren = this.openTaskChildren.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.editTask = this.editTask.bind(this);
     this.addTaskToGoal = this.addTaskToGoal.bind(this);
     this.editTask = this.editTask.bind(this);
     }
@@ -292,6 +295,7 @@ class TaskList extends React.Component{
     <AddTask
     addTaskToGoal={this.addTaskToGoal}
     taskCard={this.state.taskCard}
+    snackbar={this.state.snackbar}
     />
     ;
 

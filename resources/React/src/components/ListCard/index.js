@@ -22,6 +22,7 @@ type Props = {
   complete: Boolean,
   taskType: String,
   handleDeleteTask: () => Promise<any>,
+  editTask: () => Promise<any>
 }
 
 const styles={
@@ -95,6 +96,7 @@ class ListCard extends React.Component {
     render() {
       const {
         handleDeleteTask,
+        editTask,
         taskName,
         taskType,
         taskID,
@@ -189,14 +191,15 @@ class ListCard extends React.Component {
                   open={this.state.taskCard}
                   onClose={this.onClose}
                   taskName={taskName}
-
                   complete={this.props.complete}
                   categoryID1={this.props.categoryID1}
                   categoryID2={this.props.categoryID2}
                   categoryID3={this.props.categoryID3}
                   complete={this.props.complete}
                   taskScheduled={null}
+                  taskType={"existingTask"}
                   handleDeleteTask={handleDeleteTask}
+                  editTask={editTask}
                   />
                     :
                   null

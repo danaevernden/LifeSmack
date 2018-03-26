@@ -8,6 +8,23 @@ import logo2 from '../../../../../public/images/runningMarket.jpg';
 import logo3 from '../../../../../public/images/battingMarket.jpg';
 import logo1 from '../../../../../public/images/comedyMarket.jpg';
 import ImgData2 from '../../arrays';
+import HobbyPic from '../../../../../public/images/hobby.jpg';
+import ConfidencePic from '../../../../../public/images/confidence.jpg';
+import BattingPic from '../../../../../public/images/batting.jpg';
+import DancePic from '../../../../../public/images/davidDance.jpeg';
+import FoodPic from '../../../../../public/images/food.jpg';
+import FoisGrasPic from '../../../../../public/images/foisGras.jpg';
+import IllustratorPic from '../../../../../public/images/illustrator.jpeg';
+import PhotographyPic from '../../../../../public/images/photography.jpeg';
+import VeganPic from '../../../../../public/images/vegan.jpg';
+import VolunteerPic from '../../../../../public/images/volunteer.jpg';
+import AbroadPic from '../../../../../public/images/abroad.jpeg';
+import ComedyPic from '../../../../../public/images/comedy.jpg';
+import RunningPic from '../../../../../public/images/running.jpg';
+import WeddingPic from '../../../../../public/images/wedding.jpeg';
+import WorkPic from '../../../../../public/images/work.jpeg';
+import GamePic from '../../../../../public/images/game.jpeg';
+
 
 type Props = {
   goalID: Number,
@@ -19,6 +36,57 @@ type Props = {
   marketplaceFlag: Boolean,
   imageID: String
 }
+
+
+const imgData = [
+
+  { id: 1,
+    img: <img src={ComedyPic}/>
+  },
+  { id: 2,
+    img: <img src={RunningPic}/>
+  },
+  { id: 3,
+    img: <img src={BattingPic}/>
+  },
+  { id: 4,
+    img: <img src={DancePic}/>
+  },
+  { id: 5,
+    img: <img src={VolunteerPic}/>
+  },
+  { id: 6,
+    img: <img src={PhotographyPic}/>
+  },
+  { id: 7,
+    img: <img src={ConfidencePic}/>
+  },
+  { id: 8,
+    img: <img src={WeddingPic}/>
+  },
+  { id: 9,
+    img: <img src={FoisGrasPic}/>
+  },
+  { id: 10,
+    img: <img src={VeganPic}/>
+  },
+  { id: 11,
+    img: <img src={AbroadPic}/>
+  },
+  { id: 12,
+    img: <img src={WorkPic}/>
+  },
+  { id: 13,
+    img: <img src={GamePic}/>
+  },
+  { id: 14,
+    img: <img src={HobbyPic}/>
+  },
+  { id: 15,
+    img: <img src={IllustratorPic}/>
+  },
+]
+
 
 class MarketplaceComponent extends React.Component {
     props: Props
@@ -81,6 +149,8 @@ class MarketplaceComponent extends React.Component {
           }
 
       };
+
+
 
       const marketplace =
       <div style={styles.tileStyle}>

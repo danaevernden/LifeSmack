@@ -92,6 +92,18 @@ class Profile extends React.Component{
     });
   }
 
+  newState = (event) => {
+    this.setState({
+      state: event.target.value
+    });
+  }
+
+  newCountry = (event) => {
+    this.setState({
+      country: event.target.value
+    });
+  }
+
   editLoc(){
     this.setState({
         editLoc: !this.state.editLoc
@@ -170,6 +182,28 @@ class Profile extends React.Component{
                     defaultValue={user.city}
                     value={this.state.city}
                     onChange={this.newCity}
+                  />
+                  <FlatButton
+                  style={styles.labelStyle}
+                  onClick={() =>this.save()}
+                  >
+                    save
+                  </FlatButton>
+                  <TextField
+                    defaultValue={user.state}
+                    value={this.state.state}
+                    onChange={this.newState}
+                  />
+                  <FlatButton
+                  style={styles.labelStyle}
+                  onClick={() =>this.save()}
+                  >
+                    save
+                  </FlatButton>
+                  <TextField
+                    defaultValue={user.country}
+                    value={this.state.country}
+                    onChange={this.newCountry}
                   />
                   <FlatButton
                   style={styles.labelStyle}

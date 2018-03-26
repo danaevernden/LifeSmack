@@ -48,6 +48,7 @@ type Props = {
   complete: Boolean,
   type: String,
   open: Boolean,
+  snackbar: Boolean,
   handleDeleteTask: () => Promise<any>,
   addTaskToGoal: () => Promise<any>,
   editTask: () => Promise<any>
@@ -130,6 +131,8 @@ class TaskCard extends React.Component {
       super(props)
       this.state= {
         open: this.props.open,
+        snackbar: this.props.snackbar,
+        snackbar2: false,
         duplicateID: null,
         deleteID: null,
         complete: this.props.complete,
@@ -146,6 +149,9 @@ class TaskCard extends React.Component {
           location: this.props.categoryID3
         }
       }
+      this.openSnackbar2 = this.openSnackbar2.bind(this);
+      this.openSnackbar = this.openSnackbar.bind(this);
+      this.closeSnackbar = this.closeSnackbar.bind(this);
       this.onClose = this.onClose.bind(this);
       this.addTaskToGoal = this.addTaskToGoal.bind(this);
       this.completeTask = this.completeTask.bind(this);
@@ -179,7 +185,8 @@ class TaskCard extends React.Component {
 
     addTaskToGoal() {
       console.log("test");
-        this.props.onClose();
+      console.log(this.state.snackbar);
+      this.props.onClose();
       this.props.addTaskToGoal(
         this.state.valueName,
         this.state.valueDiff,
@@ -187,7 +194,7 @@ class TaskCard extends React.Component {
         this.state.valueLoc,
         this.state.valueGoalID
       )
-    }
+      }
 
     editTask(task_Id) {
       this.props.editTask(task_Id,
@@ -229,8 +236,22 @@ class TaskCard extends React.Component {
     };
 
 
+    closeSnackbar() {
+      this.props.closeSnackbar();
+      this.setState({
+        snackbar: false,
+      });
+    };
 
 
+    openSnackbar() {
+      this.openSnackbar2();
+      this.addTaskToGoal();
+    };
+
+    openSnackbar2() {
+      this.setState({snackbar: true})
+    }
 
     onClose() {
       this.setState({
@@ -251,7 +272,9 @@ class TaskCard extends React.Component {
         goalID,
         complete,
         onClose,
-        open
+        openSnackbar,
+        open,
+        snackbar
       } = this.props;
 
       const newDate =  new Date();
@@ -375,29 +398,40 @@ class TaskCard extends React.Component {
               <CardText>
                 {menuOptions}
               </CardText>
-              {this.taskType = "addTask" ?
-                <RaisedButton
-                  label="SAVE"
-                  primary={true}
-                  keyboardFocused={true}
-                  onClick={this.addTaskToGoal}
-                />
-              :
+              {this.props.type == "addTask" ?
                 <RaisedButton
                   label="ADD TASK"
                   primary={true}
                   keyboardFocused={true}
-                  onClick={this.editTask}
+                  onClick={this.addTaskToGoal}
                 />
+
+              :
+              <RaisedButton
+                label="SAVE"
+                primary={true}
+                keyboardFocused={true}
+                onClick={this.editTask}
+              />
               }
               {this.state.test}
               <div style={{paddingTop:'60px'}}/>
           </Dialog>
       </div>;
 
+      const snackbarConst =
+      <Snackbar
+        open={this.state.snackbar}
+        message="Event added to your calendar"
+        autoHideDuration={4000}
+        onRequestClose={this.closeSnackbar}
+      />
+      ;
+
         return (
           <div>
               {taskCard2}
+              {snackbarConst}
           </div>
         )
     }

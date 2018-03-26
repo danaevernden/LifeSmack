@@ -26,8 +26,8 @@ class UsersController extends Controller
   $user = \App\User::find($user_id);
   $user->first_name = $data['first_name'];
   $user->city = $data['city'];
-  $user->city = $data['state'];
-  $user->city = $data['country'];
+  $user->state = $data['state'];
+  $user->country = $data['country'];
   $user->save();
   //return Response::json($user);
   }
