@@ -20,6 +20,6 @@ export const mapDispatchToProps = (dispatch) => ({
   fetchGoalsFromActions: () => dispatch(fetchGoals()),
   handleDeleteTask: (task_id) => dispatch(deleteTask(task_id)),
   addTaskToGoal: (taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) => dispatch(addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)),
-  editTask: (task_id, catid1, catid2, catid3, complete) => dispatch(editTask(task_id, catid1, catid2, catid3, complete)),
+  editTask: (task_id, catid1, catid2, catid3, goal_id) => dispatch(editTask(task_id, catid1, catid2, catid3, goal_id)),
   duplicateTask: (task_id, catid1, catid2, catid3, complete) => dispatch(editTask(task_id, catid1, catid2, catid3, complete))
 });

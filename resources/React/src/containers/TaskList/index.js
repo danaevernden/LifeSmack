@@ -123,8 +123,8 @@ class TaskList extends React.Component{
     this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   }
 
-  editTask(taskID, catid1, catid2, catid3, complete) {
-    this.props.editTask(taskID, catid1, catid2, catid3, complete)
+  editTask(taskID, taskname, catid1, catid2, catid3, goal_id) {
+    this.props.editTask(taskID, taskname, catid1, catid2, catid3, goal_id)
   }
 
   openDuplicate() {

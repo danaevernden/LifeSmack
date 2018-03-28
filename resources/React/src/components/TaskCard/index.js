@@ -135,13 +135,14 @@ class TaskCard extends React.Component {
         snackbar2: false,
         duplicateID: null,
         deleteID: null,
+        taskID: this.props.taskID,
         complete: this.props.complete,
         dateSelected: this.props.taskScheduled,
         valueDiff: this.props.categoryID1,
         valueTime: this.props.categoryID2,
         valueLoc: this.props.categoryID3,
         valueGoalID: this.props.goalID,
-        valueName: null,
+        valueName: this.props.taskName,
         event: {
           title: this.props.taskName,
           startTime: '2016-09-16T00:00:00-04:00',
@@ -167,8 +168,9 @@ class TaskCard extends React.Component {
 
     completeTask(task_Id) {
       this.setState({
-        complete: true
+        complete: !this.state.complete
       });
+      console.log(this.state.complete);
     }
 
     Duplicate(task_id) {
@@ -196,12 +198,16 @@ class TaskCard extends React.Component {
       )
       }
 
-    editTask(task_Id) {
-      this.props.editTask(task_Id,
+    editTask() {
+      console.log("test");
+      console.log(this.state.goal_id);
+      this.props.editTask(
+        this.state.taskID,
+        this.state.valueName,
         this.state.valueDiff,
         this.state.valueTime,
         this.state.valueLoc,
-        this.state.complete)
+        this.state.valueGoalID)
     }
 
     handleChangeDiff(event, index, value) {

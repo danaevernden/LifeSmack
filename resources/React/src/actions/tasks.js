@@ -43,15 +43,20 @@ export function deleteTask(taskId) {
   };
 }
 
-export function editTask(taskId, task_name) {
-  console.log("calling edit", taskId, task_name)
+export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id) {
+  console.log("calling edit", taskId, task_name, catid1, catid2, catid3, goal_id)
   return {
     [CALL_API]: {
       endpoint: `/api/task/edit/${taskId}`,
       method: 'POST',
       types: [POST_EDIT_TASK_REQUEST, POST_EDIT_TASK_SUCCESS, POST_EDIT_TASK_FAILURE],
       body: JSON.stringify({
-        task_name: "testName"
+        taskId: taskId,
+        task_name: task_name,
+        category_id_1: catid1,
+        category_id_2: catid2,
+        category_id_3: catid3,
+        goal_id2: goal_id
       })
     },
   };
