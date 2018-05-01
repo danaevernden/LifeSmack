@@ -15,6 +15,7 @@ type Props = {
   name: String,
   scheduled: Date,
   addTaskToGoal: () => Promise<any>,
+  openSnackbar: () => Promise<any>,
   taskCard: Number,
   snackbar: Boolean
 }
@@ -60,15 +61,14 @@ class AddTask extends React.Component {
       test: "testName",
       catID1:1
     }
-    this.openSnackbar = this.openSnackbar.bind(this);
+    this.onClose = this.onClose.bind(this);
   this.closeSnackbar = this.closeSnackbar.bind(this);
   this.openTaskCard = this.openTaskCard.bind(this);
   this.addTaskToGoal = this.addTaskToGoal.bind(this);
   }
 
   openTaskCard() {
-    console.log(this.state.snackbar);
-    this.setState({taskCard: true})
+    this.setState({taskCard: true});
   }
 
   taskChange = (event, name) => this.setState({name});
@@ -81,22 +81,24 @@ class AddTask extends React.Component {
         this.setState({taskCard: null,
       });
       console.log("test");
+      this.props.openSnackbar();
   }
 
-  openSnackbar = () => {
-    console.log("test2324")
-    this.setState({snackbar: true});
-    console.log(this.state.snackbar)
-  }
+
 
   closeSnackbar = () => {
       this.setState({snackbar: false})
   }
-  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id) {
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id)
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
+
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   }
 
   render() {
+
+    const {
+      openSnackbar,
+    } = this.props;
 
     const AddTaskButton =
     <div>

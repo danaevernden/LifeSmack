@@ -27,7 +27,7 @@ class GoalsController extends Controller
     $goal = new \App\Goal();
     $goal->goal_name = $data['name'];
     $goal->goal_due_date = Carbon::now()->toDateTimeString();
-    $goal->category_id_2 = '6';
+    $goal->category_id_1 = $data['category_id_1'];
     $goal->save();
     return Response::json($goal);
     }

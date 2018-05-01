@@ -43,8 +43,8 @@ export function deleteTask(taskId) {
   };
 }
 
-export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id) {
-  console.log("calling edit", taskId, task_name, catid1, catid2, catid3, goal_id)
+export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id, complete) {
+  console.log("calling edit", taskId, task_name, catid1, catid2, catid3, goal_id, complete)
   return {
     [CALL_API]: {
       endpoint: `/api/task/edit/${taskId}`,
@@ -56,7 +56,8 @@ export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id) {
         category_id_1: catid1,
         category_id_2: catid2,
         category_id_3: catid3,
-        goal_id2: goal_id
+        goal_id: goal_id,
+        complete: complete
       })
     },
   };
@@ -64,7 +65,7 @@ export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id) {
 
 
 export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-  console.log("calling add", taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
+  console.log("calling add", taskname, catid1, catid2, catid3, goal_id, parent_id, is_child)
   return {
     [CALL_API]: {
       endpoint: `/api/task/post`,

@@ -4,14 +4,20 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import GoalCard from '../GoalCard';
+
 
 type Props = {
   name: String,
   scheduled: Date,
-  catValue1: Number,
-  catValue2: Number
+  addTaskToGoal: () => Promise<any>,
+  openSnackbar: () => Promise<any>,
+  taskCard: Number,
+  snackbar: Boolean
 }
 
 const styles = {
@@ -23,7 +29,8 @@ const styles = {
       marginRight: 20,
       position: 'fixed',
       bottom: '5%',
-      right: '5%'
+      right: '5%',
+      zIndex: '1500',
     },
     floatingLabel: {
       color: 'black'
@@ -35,175 +42,102 @@ const styles = {
     },
     labelStyle: {
     marginRight: '10%'
-  },
-  scheduleStyle: {
-    float:'left'
-  }
+    }
 };
 
 class AddGoal extends React.Component {
   props : Props
-  state = {
-    addTaskOpen: false,
-    addCatOpen: false,
-    addSubCat: false,
-    category1_value: 1,
-    category2_value: 6,
-    name: "",
-    scheduled: null
-  };
 
-  taskChange = (event, name) =>
-  {this.setState({name})};
+  constructor(props){
+    super(props)
+    this.state= {
+      addTaskOpen: false,
+      snackbar: this.props.snackbar,
+      category1_value: 1,
+      category2_value: 6,
+      name: "",
+      scheduled: null,
+      taskCard: this.props.taskCard,
+      test: "testName",
+      catID1:1
+    }
+    this.onClose = this.onClose.bind(this);
+  this.closeSnackbar = this.closeSnackbar.bind(this);
+  this.openTaskCard = this.openTaskCard.bind(this);
+  this.addTaskToGoal = this.addTaskToGoal.bind(this);
+  }
+
+  openTaskCard() {
+    this.setState({taskCard: true});
+  }
+
+  taskChange = (event, name) => this.setState({name});
   scheduleChange = (event, scheduled) => this.setState({scheduled});
   handleChange = (event, index, category1_value) => this.setState({category1_value})
   handleChange2 = (event, index, category2_value) => this.setState({category2_value})
 
-  addSubCat = () => {
-    this.setState({addSubCat: true});
+  onClose = () => {
+    console.log(this.state.snackbar);
+        this.setState({taskCard: null,
+      });
+      console.log("test");
+      this.props.openSnackbar();
   }
 
-  addTaskOpen = () => {
-    this.setState({addTaskOpen: true});
-  }
 
-  addCatOpen = () => {
-    this.setState({addCatOpen: true});
-  }
 
-  dialogOpen = () => {
-      this.refs.dp.openDialog();
+  closeSnackbar = () => {
+      this.setState({snackbar: false})
   }
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
 
-  addTaskClose = () => {
-    this.setState({addTaskOpen: false});
-  }
-
-  addCatClose = () => {
-    this.setState({addCatOpen: false});
-  }
-
-  addTaskSubmit = () => {
-      this.props.addTaskSubmit(this.state.name, this.state.task);
-      this.setState({
-        name: "",
-        task: ""
-      })
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   }
 
   render() {
 
-    const addCategoryActions = [
-      <div>
-        <TextField
-        style={styles.textStyle}
-        hintText="Recommended Category: Location"
-        />
-        {this.state.addSubCat === true ?
-          <TextField
-          style={styles.textStyle}
-          hintText="add subcategory"
-          onChange={this.taskChange}
-          />
-          :<div></div>
-        }
-        <RaisedButton
-        label="Add subcategory"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.addSubCat}
-      />
-        <RaisedButton
-        label="Add categories"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-      <RaisedButton
-        label="Cancel"
-        primary={false}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-      </div>
-    ];
+    const {
+      openSnackbar,
+    } = this.props;
 
-    const addTaskActions =[
-      <div>
-      <RaisedButton
-      label="Add photo"
-      primary={true}
-      keyboardFocused={true}
-      onTouchTap={this.addTaskClose}
-    />
-
-      <TextField
-      style={styles.textStyle}
-      hintText="Goal Name*"
-      onChange={this.taskChange}
-      multiLine={true}
-      rowsMax={4}
-      /> <br/>
-      <br/>
-      <DatePicker
-      hintText="add due date"
-      textFieldStyle={styles.textStyle}/>
-
-      <RaisedButton
-        label="Add categories"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.addCatOpen}
-      />
-      <br/><br/>
-        <RaisedButton
-        label="Add goal"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-      <RaisedButton
-        label="Cancel"
-        primary={false}
-        keyboardFocused={true}
-        onTouchTap={this.addTaskClose}
-      />
-
-      </div>
-    ];
-
-    const AddTaskButton =
+    const AddGoalButton =
     <div>
       <FloatingActionButton
-      style={styles.floatingActionButton}
-      onTouchTap={this.addTaskOpen}
+        style={styles.floatingActionButton}
+        onTouchTap={this.openTaskCard}
+        backgroundColor={'rgb(1,230,118)'}
       >
-          <ContentAdd />
+      <ContentAdd />
       </FloatingActionButton>
     </div>
     ;
-    return(
-      <MuiThemeProvider>
+
+  const goalCard =
+    <div>
+        {this.state.taskCard === true ?
+          <GoalCard
+            open={this.state.taskCard}
+            onClose={this.onClose}
+            openSnackbar={this.openSnackbar}
+            closeSnackbar={this.closeSnackbar}
+            snackbar={this.state.snackbar}
+            categoryID1={0}
+            goalID={1}
+            type="addGoal"
+            addTaskToGoal={this.addTaskToGoal}
+          />
+          : null}
+    </div>
+  ;
+
+
+  return(
+    <MuiThemeProvider>
       <div>
-        {AddTaskButton}
-        <Dialog
-            title="Add a Goal"
-            actions={addTaskActions}
-            modal={false}
-            contentStyle={styles.addTask}
-            open={this.state.addTaskOpen}
-            onRequestClose={this.addTaskClose}>
-        </Dialog>
-        <Dialog
-          title="Add Categories"
-          actions={addCategoryActions}
-          modal={false}
-          contentStyle={styles.addTask}
-          open={this.state.addCatOpen}
-          onRequestClose={this.addCatClose}>
-        </Dialog>
+        {AddGoalButton}
+        {goalCard}
       </div>
-      </MuiThemeProvider>
+    </MuiThemeProvider>
     );
   }
 }

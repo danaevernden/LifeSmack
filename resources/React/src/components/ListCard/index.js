@@ -13,6 +13,7 @@ import redIncomTask from '../../../../../public/images/incomplete marketplace ta
 type Props = {
   taskName: String,
   taskID: Number,
+  goalID: Number,
   taskStatus: Boolean,
   taskScheduled: Date,
   commentText: String,
@@ -100,6 +101,7 @@ class ListCard extends React.Component {
         taskName,
         taskType,
         taskID,
+        goalID,
         taskStatus,
         taskScheduled,
         commentText,
@@ -188,6 +190,7 @@ class ListCard extends React.Component {
                 {this.state.taskCard === taskID ?
                   <TaskCard
                   taskID={taskID}
+                  goalID={this.props.goalID}
                   open={this.state.taskCard}
                   onClose={this.onClose}
                   taskName={taskName}

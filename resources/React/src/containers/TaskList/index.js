@@ -6,7 +6,7 @@ import Checkbox from 'material-ui/Checkbox';
 import {Card, CardText} from 'material-ui/Card';
 import ListCard from '../../components/ListCard';
 import AddTask from '../../components/AddTask';
-import {groupBy,values,sortBy} from 'lodash';
+import {groupBy,values,sortBy, size} from 'lodash';
 import Layout from '../Layout';
 import { includes ,find } from 'lodash';
 import Calendar from '../Calendar';
@@ -18,7 +18,7 @@ import redIncomTask from '../../../../../public/images/incomplete marketplace ta
 import RaisedButton from 'material-ui/RaisedButton';
 import Running from '../../../../../public/images/running.jpg';
 import Programming from '../../../../../public/images/programming.jpg';
-
+import Snackbar from 'material-ui/Snackbar';
 
 //to do
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -49,6 +49,15 @@ const styles = {
   taskLabelStyle: {
     display: 'ruby-text-container'
 
+  },
+  snackbar: {
+    marginLeft: '150px'
+  },
+  noTasks: {
+    marginLeft: '50px'
+  },
+  backButtonStyle: {
+    marginRight: '100px'
   }
 };
 
@@ -58,7 +67,6 @@ type Props = {
   fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
   handleDeleteTask: (taskId) => void,
-  editTask: (taskId) => void,
   tasks: Task[],
   goals: Goal[],
   comments: Comment[],
@@ -80,6 +88,7 @@ class TaskList extends React.Component{
     this.props.fetchCommentsFromActions();
     this.props.fetchCategoriesFromActions();
     this.props.fetchGoalsFromActions();
+    console.log(this.state.snackbar);
   }
   props:Props
 
@@ -92,10 +101,13 @@ class TaskList extends React.Component{
       duplicateDialog: false,
       include: window.location.href,
       taskCard: null,
-      snackbar: false,
+      snackbar: true,
+      is_child: 0,
       parentTask: null,
       goalID: this.props.route.goalID
     }
+
+    this.openSnackbar = this.openSnackbar.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
     this.showCompletedTasks = this.showCompletedTasks.bind(this);
     this.sortOptionSelection = this.sortOptionSelection.bind(this);
@@ -105,8 +117,16 @@ class TaskList extends React.Component{
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.editTask = this.editTask.bind(this);
     this.addTaskToGoal = this.addTaskToGoal.bind(this);
-    this.editTask = this.editTask.bind(this);
+    this.goBack = this.goBack.bind(this);
     }
+
+    goBack() {
+      console.log("test");
+        this.setState({
+          parentTask: null
+        })
+    }
+
 //get this to work, test it first?
   sortBy(field) {
       this.setState({
@@ -120,11 +140,13 @@ class TaskList extends React.Component{
   }
 
   addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
+    console.log(this.state.parentTask);
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, this.state.is_child, this.state.parentTask)
   }
 
-  editTask(taskID, taskname, catid1, catid2, catid3, goal_id) {
-    this.props.editTask(taskID, taskname, catid1, catid2, catid3, goal_id)
+  editTask(taskID, taskname, catid1, catid2, catid3, goal_id, complete) {
+    console.log(goal_id);
+    this.props.editTask(taskID, taskname, catid1, catid2, catid3, goal_id, complete)
   }
 
   openDuplicate() {
@@ -135,6 +157,15 @@ class TaskList extends React.Component{
     this.setState({showCompletedTasks: !this.state.showCompletedTasks})
   }
 
+
+  openSnackbar() {
+    console.log("test2324")
+    this.setState({snackbar: !this.state.snackbar})
+    console.log(this.state.snackbar)
+
+  }
+
+
   openTaskCard(task_id) {
       if(null == task_id) {
           this.setState({taskCard: null})
@@ -144,9 +175,11 @@ class TaskList extends React.Component{
 
   openTaskChildren(task_id) {
       if(null == task_id) {
-          this.setState({parentTask: null})
+          this.setState({parentTask: null});
+          this.setState({is_child: 0});
       }
-          this.setState({parentTask: task_id})
+          this.setState({parentTask: task_id});
+          this.setState({is_child: 1});
       }
 
   sortOptionSelection(pick) {
@@ -172,7 +205,7 @@ class TaskList extends React.Component{
 
 
     const listItemsFromComponent2 = tasks.filter((item) => {
-            return item.parent_id === null && item.is_child === 0;
+            return item.parent_id === null && item.is_child === 0 && item.goal_id === this.state.goalID;
     }).map((task) =>
       <div>
           <Card
@@ -194,6 +227,8 @@ class TaskList extends React.Component{
       <div>
           <ListCard
             taskID={task.id}
+            goalID={task.goal_id}
+            complete={task.complete}
             taskName={task.task_name}
             taskStatus={task.complete}
             taskScheduled={task.scheduled}
@@ -217,6 +252,8 @@ class TaskList extends React.Component{
       <div>
         <ListCard
           taskID={task.id}
+          goalID={task.goal_id}
+          complete={task.complete}
           taskName={task.task_name}
           taskStatus={task.complete}
           taskScheduled={task.scheduled}
@@ -232,11 +269,13 @@ class TaskList extends React.Component{
       );
 
       const listItemsNoParents = tasks.filter((item) => {
-            return item.parent_id === null && item.is_child === 1;
+            return item.parent_id === null && item.is_child === 1 && item.goal_id === this.state.goalID;
     }).map((task) =>
       <div>
         <ListCard
           taskID={task.id}
+          goalID={task.goal_id}
+          complete={task.complete}
           taskName={task.task_name}
           taskStatus={task.complete}
           taskScheduled={task.scheduled}
@@ -251,17 +290,47 @@ class TaskList extends React.Component{
       </div>
       );
 
+      const nosubtasks =
+      <div style={styles.noTasks}>
+        no subtasks for this parent task :(
+      </div>;
+
+      const noparenttasks =
+      <div style={styles.noTasks}>
+        no tasks for this goal yet :(
+      </div>;
+
+      const snackbartest =
+      <Snackbar
+         open={this.state.snackbar}
+         message="Event added to your calendar"
+         onRequestClose={this.openSnackbar}
+         style={styles.snackbar}
+       />
+       ;
       const tasksFlip =
       <div>
         {this.state.parentTask === null ?
           <div>
-            {listItemsFromComponent2}
-            {listItemsNoParents}
-            </div>
-        :
-          <div>
-            {taskList}
+                {listItemsFromComponent2}
+                {listItemsNoParents}
+
           </div>
+        :
+            <div>
+            {tasks.filter((item) => {
+                    return item.parent_id === this.state.parentTask && item.is_child === 1;
+            }).length > 0 ?
+              <div>
+              {taskList}
+              </div>
+              :
+              <div>
+              {nosubtasks}
+              </div>
+            }
+          </div>
+
         }
       </div>;
 
@@ -275,7 +344,17 @@ class TaskList extends React.Component{
       </div>
       );
 
-
+      const backButton =
+      <div>
+        {this.state.parentTask === null ?
+          null
+          :
+          <RaisedButton style={styles.backButtonStyle}
+            onClick={this.goBack}>
+            ◄ back
+          </RaisedButton>
+        }
+      </div>
 
     const layout =(<div>
         <Layout
@@ -296,6 +375,7 @@ class TaskList extends React.Component{
     addTaskToGoal={this.addTaskToGoal}
     taskCard={this.state.taskCard}
     snackbar={this.state.snackbar}
+    openSnackbar={this.openSnackbar}
     />
     ;
 
@@ -303,12 +383,14 @@ class TaskList extends React.Component{
       <div className='App-page' >
         <div className='App-content'>
             {layout}
+            {backButton}
             {addTaskButton}
         </div>
       </div>
     );
   }
 }
+
 
 TaskList.defaultProps ={
   tasks: [],

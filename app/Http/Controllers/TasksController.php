@@ -48,8 +48,8 @@ class TasksController extends Controller
     $task->scheduled = Carbon::now()->toDateTimeString();
     $task->complete='0';
     $task->goal_id=$data['goal_id'];
-    $task->is_child='1';
-    $task->parent_id='1';
+    $task->is_child= $data['is_child'];
+    $task->parent_id= $data['parent_id'];
     $task->task_id='30';
     $task->save();
     return Response::json($task);

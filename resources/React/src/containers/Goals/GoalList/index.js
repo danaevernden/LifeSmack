@@ -14,6 +14,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import ComedyPic from '../../../../../../public/images/comedy.jpg';
 import Programming from '../../../../../../public/images/programming.jpg';
 import logo from '../../../../../../public/images/running.jpg';
+import AddGoal from '../../../components/AddGoal';
 
 const imgData = [
 
@@ -58,6 +59,9 @@ const styles = {
       padding: '2px',
       height: '184px'
     },
+    addGoalButton: {
+
+    }
 };
 
 type Props = {
@@ -169,7 +173,6 @@ class GoalList extends React.Component{
     );
     const length = <div>{this.props.goals.length}</div>;
 
-    const addGoal =  <FlatButton style={styles.goalList} label={"Add Goal"} href={'/goals/add'} primary={true} />;
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
     let button = null;
@@ -184,6 +187,11 @@ class GoalList extends React.Component{
       </div>;
     }
 
+const addGoal =
+<AddGoal
+type="addGoal"
+/>
+;
     const layout = (
       users.map((user) =>
       <div>
@@ -206,6 +214,7 @@ class GoalList extends React.Component{
           <MuiThemeProvider>
             <div>
               {layout}
+              {addGoal}
             </div>
           </MuiThemeProvider>
         </div>

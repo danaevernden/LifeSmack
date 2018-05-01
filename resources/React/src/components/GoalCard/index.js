@@ -21,7 +21,7 @@ import PollIcon from 'material-ui/svg-icons/social/poll';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardText, CardMedia, CardTitle} from 'material-ui/Card';
-import logo from '../../../../../public/images/running.jpg';
+import logo from '../../../../../public/images/nice_background.jpeg';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -124,7 +124,7 @@ const styles={
   },
 }
 
-class TaskCard extends React.Component {
+class GoalCard extends React.Component {
     props: Props
 
     constructor(props){
@@ -309,26 +309,7 @@ class TaskCard extends React.Component {
             textFieldStyle={{paddingLeft:'30px'}}
           />
       <br style={{display: 'block', margin: '-5px 0'}}/>
-      <PollIcon style={styles.iconStylePoll}/>
-      <SelectField
-        value={this.state.valueDiff == null ? 0 : this.state.valueDiff}
-        style={styles.selectStyle}
-        onChange={this.handleChangeDiff}
-        underlineStyle={styles.dropdownWidth}
-        menuStyle={styles.dropdownWidth}
-        style={styles.dropdownPos}
-        hintText="Difficulty"
-      >
 
-        <MenuItem value={0} primaryText="." />
-        <MenuItem value={1} primaryText="Easy" />
-        <MenuItem value={2} primaryText="Medium" />
-        <MenuItem value={3} primaryText="Hard" />
-      </SelectField>
-      <div> hi
-      {this.props.open}
-      {this.state.open}
-      </div>
       <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
@@ -341,27 +322,11 @@ class TaskCard extends React.Component {
         hintText="Time Required"
       >
         <MenuItem value={0} primaryText="." />
-        <MenuItem value={6} primaryText="Less than 15 min" />
-        <MenuItem value={7} primaryText="Less than 1 hour" />
-        <MenuItem value={8} primaryText="1 - 4 hours" />
+        <MenuItem value={6} primaryText="Less than 6 months" />
+        <MenuItem value={7} primaryText="Less than a year" />
+        <MenuItem value={8} primaryText="Ongling" />
       </SelectField>
       <br style={{display:'block', marginTop:'-15px'}}/>
-        <PlaceIcon style={styles.iconStyle}/>
-      <SelectField
-        value={this.state.valueLoc == null ? 0 : this.state.valueLoc}
-        style={styles.selectStyle}
-        onChange={this.handleChangeLoc}
-        underlineStyle={styles.dropdownWidth}
-        menuStyle={styles.dropdownWidth}
-        style={styles.dropdownPos}
-        hintText="Location"
-      >
-        <MenuItem value={0} primaryText="." />
-        <MenuItem value={9} primaryText="At Home" />
-        <MenuItem value={10} primaryText="While Commuting" />
-        <MenuItem value={11} primaryText="While Doing Goal Activity" />
-      </SelectField>
-
       </div>
       ;
 
@@ -407,7 +372,7 @@ class TaskCard extends React.Component {
               </CardText>
               {this.props.type == "addTask" ?
                 <RaisedButton
-                  label="ADD TASK"
+                  label="ADD GOAL"
                   primary={true}
                   keyboardFocused={true}
                   onClick={this.addTaskToGoal}
@@ -444,6 +409,6 @@ class TaskCard extends React.Component {
     }
 }
 
-export default TaskCard;
+export default GoalCard;
 
 /*https://jasonsalzman.github.io/react-add-to-calendar/*/
