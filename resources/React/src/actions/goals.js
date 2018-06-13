@@ -24,7 +24,7 @@ export function addGoal(goalname, catid1) {
   console.log("calling add", goalname, catid1)
   return {
     [CALL_API]: {
-      endpoint: `/api/goal/post`,
+      endpoint: `/api/goals/post`,
       method: 'POST',
       types: [POST_GOAL_REQUEST, POST_GOAL_SUCCESS, POST_GOAL_FAILURE],
       body: JSON.stringify({
@@ -34,5 +34,6 @@ export function addGoal(goalname, catid1) {
     },
   };
 }
+
 //https://codereviewvideos.com/course/symfony-3-with-reactjs-and-angular/video/react-create-post
 //https://html5hive.org/reactjs-form-validation-tutorial/

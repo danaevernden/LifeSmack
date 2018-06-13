@@ -19,6 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Running from '../../../../../public/images/running.jpg';
 import Programming from '../../../../../public/images/programming.jpg';
 import Snackbar from 'material-ui/Snackbar';
+import NiceBackground from '../../../../../public/images/nice_background.jpeg';
 
 //to do
 //figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
@@ -57,8 +58,15 @@ const styles = {
     marginLeft: '50px'
   },
   backButtonStyle: {
-    marginRight: '100px'
-  }
+    marginRight: '100px',
+    position: 'absolute',
+    zIndex: '3',
+    marginTop: '140px'
+  },
+  paperStyle: {
+    height: '400px',
+    overflow: 'auto'
+  },
 };
 
 type Props = {
@@ -140,9 +148,9 @@ class TaskList extends React.Component{
   }
 
   addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-    console.log(this.state.parentTask);
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, this.state.is_child, this.state.parentTask)
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, this.state.is_child, this.state.parentTask);
   }
+
 
   editTask(taskID, taskname, catid1, catid2, catid3, goal_id, complete) {
     console.log(goal_id);
@@ -222,7 +230,7 @@ class TaskList extends React.Component{
       );
 
       const allTasks = tasks.filter((item) => {
-            return item.parent_id !== null;
+            return item.parent_id !== null  && item.goal_id === 0;
     }).map((task) =>
       <div>
           <ListCard
@@ -247,7 +255,7 @@ class TaskList extends React.Component{
   //  const categoryByID = find(values(goals), ['id', 1]);
   //  const test = <div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>hey<br/>{categoryByID}</div>;
     const taskList = tasks.filter((item) => {
-            return item.parent_id === this.state.parentTask && item.is_child === 1;
+            return item.parent_id === this.state.parentTask && item.is_child === 1 && item.goal_id === this.state.goalID  && item.complete === 0;
     }).map((task) =>
       <div>
         <ListCard
@@ -312,9 +320,11 @@ class TaskList extends React.Component{
       <div>
         {this.state.parentTask === null ?
           <div>
+          <Paper style={styles.paperStyle}>
+
                 {listItemsFromComponent2}
                 {listItemsNoParents}
-
+              </Paper>
           </div>
         :
             <div>
@@ -364,7 +374,16 @@ class TaskList extends React.Component{
         tabTwo={"All Tasks"}
         tabOneContent={tasksFlip}
         tabTwoContent={allTasks}
-        imageID={this.state.goalID === 1 ? <img src={Programming}/> : <img src={Running} />}
+        imageID={
+                  this.state.goalID === 1
+                  ? <img src={Programming}/>
+                  :
+                  [ this.state.goalID === 2 ?
+                    <img src={Running} />
+                    :
+                    <img src={NiceBackground} />
+                  ]
+                }
         />
     }
     </div>)
@@ -376,14 +395,16 @@ class TaskList extends React.Component{
     taskCard={this.state.taskCard}
     snackbar={this.state.snackbar}
     openSnackbar={this.openSnackbar}
+    goalID={this.state.goalID}
     />
     ;
 
     return (
       <div className='App-page' >
         <div className='App-content'>
-            {layout}
             {backButton}
+            {layout}
+
             {addTaskButton}
         </div>
       </div>

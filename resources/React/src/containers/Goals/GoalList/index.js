@@ -5,14 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-import Running from '../../../../../../public/images/running.jpg';
 import Calendar from '../../Calendar';
 import Layout from '../../Layout';
 import ListCard from '../../../components/ListCard';
 import Avatar from 'material-ui/Avatar';
 import {GridList, GridTile} from 'material-ui/GridList';
 import ComedyPic from '../../../../../../public/images/comedy.jpg';
+import Running from '../../../../../../public/images/running.jpg';
 import Programming from '../../../../../../public/images/programming.jpg';
+import NiceBackground from '../../../../../../public/images/nice_background.jpeg';
 import logo from '../../../../../../public/images/running.jpg';
 import AddGoal from '../../../components/AddGoal';
 
@@ -24,7 +25,11 @@ const imgData = [
   { id: 2,
     img: Programming
   },
+  { id: 3,
+    img: NiceBackground
+  }
 ]
+
 
 const styles = {
     background: {
@@ -92,8 +97,13 @@ class GoalList extends React.Component{
     super(props)
     this.state= {
     }
-
+    this.addGoal = this.addGoal.bind(this);
     }
+
+    addGoal(goalname, catid1) {
+      this.props.addGoal(goalname, catid1)
+    }
+
   render() {
 
     const {
@@ -162,8 +172,10 @@ class GoalList extends React.Component{
             >
             {goal.id === 1?
               <img src={Programming} />
-              :
-              <img src={Running} />
+              : [goal.id === 2 ?
+                <img src={Running} />
+                : <img src={NiceBackground} />
+                ]
             }
           </GridTile>
         </a>
@@ -190,6 +202,7 @@ class GoalList extends React.Component{
 const addGoal =
 <AddGoal
 type="addGoal"
+addGoal={this.addGoal}
 />
 ;
     const layout = (

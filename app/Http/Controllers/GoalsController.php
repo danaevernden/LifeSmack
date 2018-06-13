@@ -25,7 +25,7 @@ class GoalsController extends Controller
     public function postGoal(Request $request) {
     $data = $request->json()->all();
     $goal = new \App\Goal();
-    $goal->goal_name = $data['name'];
+    $goal->goal_name = $data['goal_name'];
     $goal->goal_due_date = Carbon::now()->toDateTimeString();
     $goal->category_id_1 = $data['category_id_1'];
     $goal->save();

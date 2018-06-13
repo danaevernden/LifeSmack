@@ -80,9 +80,8 @@ class TasksController extends Controller
     $task->category_id_1 = $data['category_id_1'];
     $task->category_id_2 = $data['category_id_2'];
     $task->category_id_3 =  $data['category_id_3'];
-    $task->goal_id= $data['goal_id2'];
+    $task->goal_id= $data['goal_id'];
     $task->is_child='1';
-    $task->parent_id='1';
     $task->save();
     print $task->id;
     }

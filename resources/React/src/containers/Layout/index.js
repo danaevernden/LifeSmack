@@ -151,9 +151,7 @@ class Layout extends React.Component{
           buttonStyle={styles.buttonStyle}
           >
             <div>
-              <Paper style={styles.paperStyle}>
                 {tabOneContent}
-              </Paper>
             </div>
           </Tab>
           <Tab

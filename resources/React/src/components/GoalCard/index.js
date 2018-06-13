@@ -50,7 +50,7 @@ type Props = {
   open: Boolean,
   snackbar: Boolean,
   handleDeleteTask: () => Promise<any>,
-  addTaskToGoal: () => Promise<any>,
+  addGoal: () => Promise<any>,
   editTask: () => Promise<any>
 }
 
@@ -85,14 +85,15 @@ const styles={
   },
   dropdownWidth: {
     width: '250px',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '20px'
   },
   dateTextStyle: {
     width: '380px'
   },
   iconStyle: {
     position: 'relative',
-    marginBottom: '15px'
+    marginBottom: '35px'
   },
   completeStyle: {
     marginBottom: '-30px',
@@ -154,7 +155,7 @@ class GoalCard extends React.Component {
       this.openSnackbar = this.openSnackbar.bind(this);
       this.closeSnackbar = this.closeSnackbar.bind(this);
       this.onClose = this.onClose.bind(this);
-      this.addTaskToGoal = this.addTaskToGoal.bind(this);
+      this.addGoal = this.addGoal.bind(this);
       this.completeTask = this.completeTask.bind(this);
       this.Duplicate = this.Duplicate.bind(this);
       this.handleDeleteTask = this.handleDeleteTask.bind(this);
@@ -185,14 +186,11 @@ class GoalCard extends React.Component {
       return this.props.handleDeleteTask(task_Id)
     }
 
-    addTaskToGoal() {
-      this.props.addTaskToGoal(
+    addGoal() {
+      console.log(this.state.valueName);
+      this.props.addGoal(
         this.state.valueName,
-        this.state.valueDiff,
-        this.state.valueTime,
-        this.state.valueLoc,
-        this.state.valueGoalID,
-        this.state.complete
+        this.state.valueTime
       );
         this.setState({snackbar: true});
       console.log("test2");
@@ -291,16 +289,7 @@ class GoalCard extends React.Component {
 
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
-      {this.props.type == "addTask" ? null :
-          <Checkbox
-            label="Complete?"
-            checked={this.state.complete}
-            style={styles.completeStyle}
-            labelStyle={styles.completeStyle.label}
-            iconStyle={styles.completeStyle.icon}
-            onCheck={this.completeTask}
-          />
-      }
+
       <ActionDueDate style={styles.iconStyleSched}/>
       <DatePicker
           onChange={this.dateSelect}
@@ -310,7 +299,7 @@ class GoalCard extends React.Component {
           />
       <br style={{display: 'block', margin: '-5px 0'}}/>
 
-      <br style={{display:'block', marginTop:'-30px'}}/>
+      <br style={{display:'block', marginTop:'-15px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
         value={this.state.valueTime == null ? 0 : this.state.valueTime}
@@ -339,7 +328,7 @@ class GoalCard extends React.Component {
           contentStyle={styles.contentStyle}
           bodyStyle={styles.contentStyle2}
         >
-        {this.props.type == "addTask" ? null :
+        {this.props.type == "addGoal" ? null :
           <div>
 
             <IconMenu style={styles.iconButton}
@@ -370,12 +359,12 @@ class GoalCard extends React.Component {
               <CardText>
                 {menuOptions}
               </CardText>
-              {this.props.type == "addTask" ?
+              {this.props.type == "addGoal" ?
                 <RaisedButton
                   label="ADD GOAL"
                   primary={true}
                   keyboardFocused={true}
-                  onClick={this.addTaskToGoal}
+                  onClick={this.addGoal}
                 />
 
               :

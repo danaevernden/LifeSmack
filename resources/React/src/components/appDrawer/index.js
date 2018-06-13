@@ -28,7 +28,8 @@ const styles = {
   drawer: {
     textAlign: 'left',
     fontSize: '200%',
-    backgroundColor: 'rgb(250,250,250)'
+    backgroundColor: 'rgb(250,250,250)',
+    zIndex:'1'
   },
   divider: {
     marginTop: '15px',

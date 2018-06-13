@@ -46,6 +46,9 @@ const styles = {
     minHeight: '300px',
     overflow: 'auto'
   },
+  inkBarStyle: {
+    background: 'rgb(127,242,185)'
+  },
 };
 
 class MarketplaceLayout extends React.Component{
@@ -60,6 +63,7 @@ class MarketplaceLayout extends React.Component{
     } = this.props;
 
 
+
     const topMenu = (
       <div >
           <Card style={styles.cardStyle}>
@@ -70,7 +74,10 @@ class MarketplaceLayout extends React.Component{
                 titleStyle={styles.titleStyleText}
             />
             <CardActions>
-                <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={{background: 'blue'}} style={styles.tabsStyle}>
+                <Tabs
+                tabItemContainerStyle={styles.tabItemContainerStyle}
+                inkBarStyle={styles.inkBarStyle}
+                style={styles.tabsStyle}>
                     <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
                             {marketplaceItems}
                     </Tab>

@@ -39,7 +39,7 @@ Route::group(['prefix' => 'api'], function() {
 	Route::get('/goals', 'GoalsController@getAllGoals');
 /*	Route::get('/goals/{goal_id}', 'GoalsController@getOneGoal');
 	Route::get('/taskswithcomments/{goal_id}', 'TasksController@getTasksPerGoalWithComments'); */
-	Route::post('/goals', 'GoalsController@postGoal');
+	Route::post('/goals/post', 'GoalsController@postGoal');
 	Route::delete('/goal/delete/{goal_id}', 'GoalsController@deleteGoal');
 
 	Route::get('/marketplacegoals', 'MarketplacegoalsController@getAllMarketgoals');

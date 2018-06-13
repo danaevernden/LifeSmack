@@ -17,7 +17,8 @@ type Props = {
   addTaskToGoal: () => Promise<any>,
   openSnackbar: () => Promise<any>,
   taskCard: Number,
-  snackbar: Boolean
+  snackbar: Boolean,
+  goalID: Number
 }
 
 const styles = {
@@ -47,6 +48,8 @@ const styles = {
 
 class AddTask extends React.Component {
   props : Props
+  componentDidMount() {
+  }
 
   constructor(props){
     super(props)
@@ -68,7 +71,8 @@ class AddTask extends React.Component {
   }
 
   openTaskCard() {
-    this.setState({taskCard: true});
+    this.setState({taskCard: !this.state.taskCard});
+    console.log(this.state.taskCard)
   }
 
   taskChange = (event, name) => this.setState({name});
@@ -80,17 +84,16 @@ class AddTask extends React.Component {
     console.log(this.state.snackbar);
         this.setState({taskCard: null,
       });
-      console.log("test");
+      console.log(this.state.taskCard);
       this.props.openSnackbar();
   }
-
-
 
   closeSnackbar = () => {
       this.setState({snackbar: false})
   }
-  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
 
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
+    console.log(this.props.taskCard)
     this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   }
 
@@ -124,7 +127,7 @@ class AddTask extends React.Component {
             categoryID1={0}
             categoryID2={0}
             categoryID3={0}
-            goalID={1}
+            goalID={this.props.goalID}
             type="addTask"
             addTaskToGoal={this.addTaskToGoal}
           />

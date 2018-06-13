@@ -14,7 +14,7 @@ import GoalCard from '../GoalCard';
 type Props = {
   name: String,
   scheduled: Date,
-  addTaskToGoal: () => Promise<any>,
+  addGoal: () => Promise<any>,
   openSnackbar: () => Promise<any>,
   taskCard: Number,
   snackbar: Boolean
@@ -61,10 +61,10 @@ class AddGoal extends React.Component {
       test: "testName",
       catID1:1
     }
-    this.onClose = this.onClose.bind(this);
+  this.onClose = this.onClose.bind(this);
   this.closeSnackbar = this.closeSnackbar.bind(this);
   this.openTaskCard = this.openTaskCard.bind(this);
-  this.addTaskToGoal = this.addTaskToGoal.bind(this);
+  this.addGoal = this.addGoal.bind(this);
   }
 
   openTaskCard() {
@@ -84,14 +84,11 @@ class AddGoal extends React.Component {
       this.props.openSnackbar();
   }
 
-
-
   closeSnackbar = () => {
       this.setState({snackbar: false})
   }
-  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
+  addGoal(goalname, catid1) {
+    this.props.addGoal(goalname, catid1)
   }
 
   render() {
@@ -124,11 +121,10 @@ class AddGoal extends React.Component {
             categoryID1={0}
             goalID={1}
             type="addGoal"
-            addTaskToGoal={this.addTaskToGoal}
+            addGoal={this.addGoal}
           />
           : null}
-    </div>
-  ;
+    </div>;
 
 
   return(

@@ -43,8 +43,8 @@ export function deleteTask(taskId) {
   };
 }
 
-export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id, complete) {
-  console.log("calling edit", taskId, task_name, catid1, catid2, catid3, goal_id, complete)
+export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id, complete, parent_id) {
+  console.log("calling edit", taskId, task_name, catid1, catid2, catid3, goal_id, complete, parent_id)
   return {
     [CALL_API]: {
       endpoint: `/api/task/edit/${taskId}`,
@@ -57,7 +57,8 @@ export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id, com
         category_id_2: catid2,
         category_id_3: catid3,
         goal_id: goal_id,
-        complete: complete
+        complete: complete,
+        parent_id: parent_id
       })
     },
   };

@@ -32,6 +32,9 @@ import locationIcon from '../../../../../public/images/place.png';
 import dueDateIcon from '../../../../../public/images/due date icon.png';
 import SelectField from 'material-ui/SelectField';
 import AddToCalendar from 'react-add-to-calendar';
+import Running from '../../../../../public/images/running.jpg';
+import Programming from '../../../../../public/images/programming.jpg';
+import NiceBackground from '../../../../../public/images/nice_background.jpeg';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -200,7 +203,7 @@ class TaskCard extends React.Component {
     }
 
     editTask() {
-      console.log("test");
+      console.log("testing");
       console.log(this.state.valueGoalID);
       this.props.editTask(
         this.state.taskID,
@@ -208,7 +211,8 @@ class TaskCard extends React.Component {
         this.state.valueDiff,
         this.state.valueTime,
         this.state.valueLoc,
-        this.state.valueGoalID)
+        this.state.valueGoalID,
+        this.state.complete)
     }
 
     handleChangeDiff(event, index, value) {
@@ -325,10 +329,6 @@ class TaskCard extends React.Component {
         <MenuItem value={2} primaryText="Medium" />
         <MenuItem value={3} primaryText="Hard" />
       </SelectField>
-      <div> hi
-      {this.props.open}
-      {this.state.open}
-      </div>
       <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
@@ -365,6 +365,21 @@ class TaskCard extends React.Component {
       </div>
       ;
 
+
+const imgPick =
+  <div>
+    {
+    this.props.goalID === 2 ?
+    <img src={Running} style={styles.cardMedia}/>
+    :
+      [this.props.goalID === 1 ?
+        <img src={Programming} style={styles.cardMedia}/>
+        :
+        <img src={NiceBackground} style={styles.cardMedia}/>
+      ]
+    }
+  </div>;
+
       const taskCard2 =
       <div>
         <Dialog
@@ -400,8 +415,8 @@ class TaskCard extends React.Component {
                 />}
                 overlayStyle={styles.overlayContainerStyle}
                  >
-                  <img src={logo} style={styles.cardMedia}/>
-              </CardMedia>
+                {imgPick}
+                </CardMedia>
               <CardText>
                 {menuOptions}
               </CardText>

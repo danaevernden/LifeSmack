@@ -47,6 +47,16 @@ const store = createStore(
 const goalPageData = [
   {id: 1, property: {TaskList}, link: '/goal/1'},
   {id: 2, property: {Landing}, link: '/goal/2'},
+  {id: 3, property: {TaskList}, link: '/goal/3'},
+  {id: 4, property: {Landing}, link: '/goal/4'},
+  {id: 5, property: {Landing}, link: '/goal/5'},
+  {id: 6, property: {Landing}, link: '/goal/6'},
+  {id: 7, property: {Landing}, link: '/goal/7'},
+  {id: 8, property: {Landing}, link: '/goal/8'},
+  {id: 9, property: {Landing}, link: '/goal/9'},
+  {id: 10, property: {Landing}, link: '/goal/10'},
+
+
 ];
 const goalPages =
 goalPageData.map(page => <Route path={page.link} component={{main : TaskList}} goalID={page.id}/>);
