@@ -26,6 +26,7 @@ import { readAppState, storeAppState } from './lib/localStorage';
 import AppContainer from './containers/app';
 import Landing from './containers/Landing';
 import Settings from './containers/Settings';
+import Signup from './containers/Signup';
 import About from './containers/Test/About';
 import Calendar from './containers/Calendar';
 import Login from './containers/Login';
@@ -128,7 +129,7 @@ ReactDOM.render((
           <Route path='/about' component={{main: Tour}}/>
           <Route path='/login' component={{main : Login}} />
           <Route path='/settings' component={{main: Settings}}/>
-
+          <Route path='/signup' component={{main: Signup}}/>
           ///test routes/////////
           <Route path='/test' component={{main : Test2}} />
           <Route path='/test000' component={{main : GroupingComments}} />
