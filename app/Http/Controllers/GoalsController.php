@@ -12,8 +12,8 @@ class GoalsController extends Controller
       # Put anything here that should happen before any of the other actions
   }
 
-    public function getAllGoals() {
-    $goals = \App\Goal::all();
+    public function getAllGoals($user_id) {
+    $goals = \App\Goal::where('user_id','=',$user_id)->get();
     return $goals;
     }
 

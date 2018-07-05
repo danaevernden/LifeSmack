@@ -13,7 +13,7 @@ export const POST_GOAL_FAILURE = 'POST_GOAL_FAILURE';
 export default function fetchGoals() {
     return {
       [CALL_API]: {
-          endpoint: '/api/goals',
+          endpoint: '/api/goals/1',
           method: 'GET',
           types: [FETCH_GOALS_REQUEST, FETCH_GOALS_SUCCESS, FETCH_GOALS_FAILURE]
       },

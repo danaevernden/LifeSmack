@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-import Calendar from '../../Calendar';
 import Layout from '../../Layout';
 import ListCard from '../../../components/ListCard';
 import Avatar from 'material-ui/Avatar';
@@ -16,19 +14,6 @@ import Programming from '../../../../../../public/images/programming.jpg';
 import NiceBackground from '../../../../../../public/images/nice_background.jpeg';
 import logo from '../../../../../../public/images/running.jpg';
 import AddGoal from '../../../components/AddGoal';
-
-const imgData = [
-
-  { id: 1,
-    img: Running
-  },
-  { id: 2,
-    img: Programming
-  },
-  { id: 3,
-    img: NiceBackground
-  }
-]
 
 
 const styles = {
@@ -59,7 +44,7 @@ const styles = {
       height: 400,
       overflowY: 'auto',
     },
-    cardStyle: {
+    cardStyle2: {
       boxSizing: 'border-box',
       padding: '2px',
       height: '184px'
@@ -112,6 +97,9 @@ class GoalList extends React.Component{
       users
     } = this.props;
 
+    const avatarLogo =
+          <Avatar src={logo}/>
+    ;
 
 //http://andrewhfarmer.com/react-image-gallery/
     //errors if filtering on tasks
@@ -134,26 +122,7 @@ class GoalList extends React.Component{
   );
 
 
-  const avatarLogo =
-        <Avatar src={logo}/>
-  ;
 
-    const listItems = goals.map((goal) =>
-    <div>
-      <Divider />
-      <Card style={styles.cardStyle}>
-      <a href={'/goal/' + goal.id}>
-        <CardMedia style={styles.logo}>
-            <img src={logo} role='presentation'/>
-            <CardTitle
-                titleStyle={styles.goalList}
-                title={goal.goal_name}
-            />
-        </CardMedia>
-          </a>
-      </Card>
-    </div>
-    );
 
 
     const listItems2 = (
@@ -171,10 +140,10 @@ class GoalList extends React.Component{
               title={goal.goal_name}
             >
             {goal.id === 1?
-              <img src={Programming} />
+              <img role="presentation" src={Programming} />
               : [goal.id === 2 ?
-                <img src={Running} />
-                : <img src={NiceBackground} />
+                <img role="presentation" src={Running} />
+                : <img role="presentation" src={NiceBackground} />
                 ]
             }
           </GridTile>
@@ -216,7 +185,7 @@ addGoal={this.addGoal}
           tabTwo={"All Tasks"}
           tabOneContent={listItems2}
           tabTwoContent={allTasks}
-          imageID={<img src={ComedyPic}/>}
+          imageID={<img role="presentation" src={ComedyPic}/>}
         />
       </div>
     ));

@@ -1,15 +1,10 @@
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
-import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
-import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import { reducer, createStore, applyMiddleware, compose} from 'redux';
-import GroupingComments from './containers/Test/groupingComments';
-import GroupingComments0 from './containers/Test/groupingComments0';
-import GroupingComments00 from './containers/Test/groupingComments00';
 import GoalList from './containers/Goals/GoalList';
 import MarketItem from './containers/Marketplace/MarketItem';
 import Profile from './containers/Profile';
@@ -22,15 +17,12 @@ import TestApi from './containers/Test/TestAPI';
 import reducers from './reducers';
 import './index.css';
 import apiSettingsInjector from './lib/apiSettingsInjector';
-import { readAppState, storeAppState } from './lib/localStorage';
 import AppContainer from './containers/app';
 import Landing from './containers/Landing';
 import Settings from './containers/Settings';
 import Signup from './containers/Signup';
-import About from './containers/Test/About';
 import Calendar from './containers/Calendar';
 import Login from './containers/Login';
-import MarketTypes from './containers/Marketplace/MarketTypes';
 import MarketCat from './containers/Marketplace/MarketCat';
 import Test2 from './containers/Test2';
 import Tour from './containers/Tour';
@@ -61,12 +53,6 @@ const goalPageData = [
 ];
 const goalPages =
 goalPageData.map(page => <Route path={page.link} component={{main : TaskList}} goalID={page.id}/>);
-
-const marketItemData = [
-  {id: 1, property: {MarketItem}, link: '/marketplace/1'},
-  {id: 2, property: {MarketItem}, link: '/marketplace/2'},
-  {id: 3, property: {MarketItem}, link: '/marketplace/3'},
-];
 
 
 const marketItemData2 = [
@@ -103,12 +89,11 @@ const marketitemPages2 =
 marketItemData2.map(page => <Route path={'/marketplace/' + page.id} component={{main : MarketItem}} marketItem={page.id}/>);
 
 
-const marketitemPages =
-marketItemData.map(page => <Route path={page.link} component={{main : MarketItem}} marketplacegoal_id={page.id} marketItem={page.id}/>);
-
 ReactDOM.render((
   <Provider store={store}>
     <Router history={browserHistory}>
+      <Route path='/login' component={Login} />
+      <Route path='/signup' component={Signup}/>
 
       <Route path='/landing' component={Landing} />
         <Route components={AppContainer}>
@@ -117,6 +102,7 @@ ReactDOM.render((
           <Route>
               {goalPages}
           </Route>
+
           <Route path='/marketplace/social2' marketCat='Social' component={{main : MarketCat}} />
           <Route path='/marketplace' component={{main : Marketplace}} />
           <Route>
@@ -127,13 +113,9 @@ ReactDOM.render((
           </Route>
           <Route path='/marketplace/specialist/1' name='Joan Rivers' component={{main : Specialist}}/>
           <Route path='/about' component={{main: Tour}}/>
-          <Route path='/login' component={{main : Login}} />
           <Route path='/settings' component={{main: Settings}}/>
-          <Route path='/signup' component={{main: Signup}}/>
           ///test routes/////////
           <Route path='/test' component={{main : Test2}} />
-          <Route path='/test000' component={{main : GroupingComments}} />
-          <Route path='/test00' component={{main : GroupingComments00}} />
           <Route path='/testAPI' component={{main : TestApi}} />
           <Route path='/calendar' component={{main : Calendar}} />
           <Route path='/sortby' component={{main : sortByExample}} />

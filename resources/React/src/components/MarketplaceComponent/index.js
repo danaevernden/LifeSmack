@@ -2,17 +2,12 @@ import React from 'react';
 import Chip from 'material-ui/Chip';
 import { green500 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
-import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
-import logo2 from '../../../../../public/images/runningMarket.jpg';
-import logo3 from '../../../../../public/images/battingMarket.jpg';
-import logo1 from '../../../../../public/images/comedyMarket.jpg';
-import ImgData2 from '../../arrays';
+import {Card, CardText} from 'material-ui/Card';
+import {GridTile} from 'material-ui/GridList';
 import HobbyPic from '../../../../../public/images/hobby.jpg';
 import ConfidencePic from '../../../../../public/images/confidence.jpg';
 import BattingPic from '../../../../../public/images/batting.jpg';
 import DancePic from '../../../../../public/images/davidDance.jpeg';
-import FoodPic from '../../../../../public/images/food.jpg';
 import FoisGrasPic from '../../../../../public/images/foisGras.jpg';
 import IllustratorPic from '../../../../../public/images/illustrator.jpeg';
 import PhotographyPic from '../../../../../public/images/photography.jpeg';
@@ -36,57 +31,6 @@ type Props = {
   marketplaceFlag: Boolean,
   imageID: String
 }
-
-
-const imgData = [
-
-  { id: 1,
-    img: <img src={ComedyPic}/>
-  },
-  { id: 2,
-    img: <img src={RunningPic}/>
-  },
-  { id: 3,
-    img: <img src={BattingPic}/>
-  },
-  { id: 4,
-    img: <img src={DancePic}/>
-  },
-  { id: 5,
-    img: <img src={VolunteerPic}/>
-  },
-  { id: 6,
-    img: <img src={PhotographyPic}/>
-  },
-  { id: 7,
-    img: <img src={ConfidencePic}/>
-  },
-  { id: 8,
-    img: <img src={WeddingPic}/>
-  },
-  { id: 9,
-    img: <img src={FoisGrasPic}/>
-  },
-  { id: 10,
-    img: <img src={VeganPic}/>
-  },
-  { id: 11,
-    img: <img src={AbroadPic}/>
-  },
-  { id: 12,
-    img: <img src={WorkPic}/>
-  },
-  { id: 13,
-    img: <img src={GamePic}/>
-  },
-  { id: 14,
-    img: <img src={HobbyPic}/>
-  },
-  { id: 15,
-    img: <img src={IllustratorPic}/>
-  },
-]
-
 
 class MarketplaceComponent extends React.Component {
     props: Props

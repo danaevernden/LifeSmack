@@ -7,6 +7,10 @@ export const EDIT_PROFILE_REQUEST = 'EDIT_PROFILE_REQUEST';
 export const EDIT_PROFILE_SUCCESS = 'EDIT_PROFILE_SUCCESS';
 export const EDIT_PROFILE_FAILURE = 'EDIT_PROFILE_FAILURE';
 
+export const POST_PROFILE_REQUEST = 'POST_PROFILE_REQUEST';
+export const POST_PROFILE_SUCCESS = 'POST_PROFILE_SUCCESS';
+export const POST_PROFILE_FAILURE = 'POST_PROFILE_FAILURE';
+
 export const UPDATE_PROFILE_INFO = 'UPDATE_PROFILE_INFO';
 
 export default function fetchProfile(userId) {
@@ -20,8 +24,24 @@ export default function fetchProfile(userId) {
     };
 }
 
-export function updateProfileInfo(first_name, city, state, country) {
-    console.log("edit user", first_name, city, state, country)
+
+export function createProfile(first_name, email) {
+    console.log("create user", first_name, email)
+    return {
+      [CALL_API]: {
+          endpoint: '/api/user/post',
+          method: 'POST',
+          types: [POST_PROFILE_REQUEST, POST_PROFILE_SUCCESS, POST_PROFILE_FAILURE],
+          body: JSON.stringify({
+            first_name: first_name,
+            email: email
+          })
+      },
+    };
+}
+
+export function updateProfileInfo(first_name, email) {
+    console.log("edit user", first_name, email)
     return {
       [CALL_API]: {
           endpoint: '/api/user/edit/1',
@@ -29,14 +49,12 @@ export function updateProfileInfo(first_name, city, state, country) {
           types: [EDIT_PROFILE_REQUEST, EDIT_PROFILE_SUCCESS, EDIT_PROFILE_FAILURE],
           body: JSON.stringify({
             first_name: first_name,
-            city: city,
-            state: state,
-            country: country
+            email: email
           })
       },
     };
-
 }
+
 
 export const editProfile = (first_name, last_name, city, region) => {
   //returns type and item, action creator always dispatches an object

@@ -1,37 +1,21 @@
 import React from 'react';
-import CardActions from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
-import ActionCommentOutline from 'material-ui/svg-icons/communication/chat-bubble-outline';
-import ActionComment from 'material-ui/svg-icons/communication/chat-bubble';
-import Assignment from 'material-ui/svg-icons/action/assignment';
 import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import ActionWarning from 'material-ui/svg-icons/alert/warning';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
-import CategoryItems from '../../components/CategoryItems';
-import CommentItems from '../../components/CommentItems';
-import Divider from 'material-ui/Divider';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Dialog from 'material-ui/Dialog';
 import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import ActionDueDate from 'material-ui/svg-icons/action/date-range';
 import PollIcon from 'material-ui/svg-icons/social/poll';
 import PlaceIcon from 'material-ui/svg-icons/maps/place';
-import FlatButton from 'material-ui/FlatButton';
-import {Card, CardText, CardMedia, CardTitle} from 'material-ui/Card';
-import logo from '../../../../../public/images/running.jpg';
+import {CardText, CardMedia} from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import timerIcon from '../../../../../public/images/timer-sand-empty.png';
-import difficultyIcon from '../../../../../public/images/difficulty icon.png';
-import locationIcon from '../../../../../public/images/place.png';
-import dueDateIcon from '../../../../../public/images/due date icon.png';
 import SelectField from 'material-ui/SelectField';
-import AddToCalendar from 'react-add-to-calendar';
 import Running from '../../../../../public/images/running.jpg';
 import Programming from '../../../../../public/images/programming.jpg';
 import NiceBackground from '../../../../../public/images/nice_background.jpeg';
@@ -177,7 +161,7 @@ class TaskCard extends React.Component {
     }
 
     Duplicate(task_id) {
-        if(null == task_id) {
+        if(null === task_id) {
             this.setState({duplicateID: null})
         }
             this.setState({duplicateID: task_id})
@@ -295,7 +279,7 @@ class TaskCard extends React.Component {
 
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
-      {this.props.type == "addTask" ? null :
+      {this.props.type === "addTask" ? null :
           <Checkbox
             label="Complete?"
             checked={this.state.complete}
@@ -315,7 +299,7 @@ class TaskCard extends React.Component {
       <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
       <SelectField
-        value={this.state.valueDiff == null ? 0 : this.state.valueDiff}
+        value={this.state.valueDiff === null ? 0 : this.state.valueDiff}
         style={styles.selectStyle}
         onChange={this.handleChangeDiff}
         underlineStyle={styles.dropdownWidth}
@@ -332,7 +316,7 @@ class TaskCard extends React.Component {
       <br style={{display:'block', marginTop:'-30px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
-        value={this.state.valueTime == null ? 0 : this.state.valueTime}
+        value={this.state.valueTime === null ? 0 : this.state.valueTime}
         style={styles.selectStyle}
         onChange={this.handleChangeTime}
         underlineStyle={styles.dropdownWidth}
@@ -348,7 +332,7 @@ class TaskCard extends React.Component {
       <br style={{display:'block', marginTop:'-15px'}}/>
         <PlaceIcon style={styles.iconStyle}/>
       <SelectField
-        value={this.state.valueLoc == null ? 0 : this.state.valueLoc}
+        value={this.state.valueLoc === null ? 0 : this.state.valueLoc}
         style={styles.selectStyle}
         onChange={this.handleChangeLoc}
         underlineStyle={styles.dropdownWidth}
@@ -370,12 +354,12 @@ const imgPick =
   <div>
     {
     this.props.goalID === 2 ?
-    <img src={Running} style={styles.cardMedia}/>
+    <img role="presentation" src={Running} style={styles.cardMedia}/>
     :
       [this.props.goalID === 1 ?
-        <img src={Programming} style={styles.cardMedia}/>
+        <img role="presentation" src={Programming} style={styles.cardMedia}/>
         :
-        <img src={NiceBackground} style={styles.cardMedia}/>
+        <img role="presentation" src={NiceBackground} style={styles.cardMedia}/>
       ]
     }
   </div>;
@@ -389,7 +373,7 @@ const imgPick =
           contentStyle={styles.contentStyle}
           bodyStyle={styles.contentStyle2}
         >
-        {this.props.type == "addTask" ? null :
+        {this.props.type === "addTask" ? null :
           <div>
 
             <IconMenu style={styles.iconButton}
@@ -420,7 +404,7 @@ const imgPick =
               <CardText>
                 {menuOptions}
               </CardText>
-              {this.props.type == "addTask" ?
+              {this.props.type === "addTask" ?
                 <RaisedButton
                   label="ADD TASK"
                   primary={true}

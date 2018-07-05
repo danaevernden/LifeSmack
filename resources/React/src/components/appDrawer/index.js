@@ -7,6 +7,8 @@ import '../old/app/style.css';
 import TextField from 'material-ui/TextField';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import AppDrawerMenu from '../appDrawerMenu';
+import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
 
 type Props = {
   main: any,
@@ -99,6 +101,15 @@ class AppDrawer extends React.Component {
       </div>
     );
 
+    const rightButton2 =
+    <div>
+      <Link to="/login">
+      <FlatButton style={styles.whiteText}>
+        Logout
+      </FlatButton>
+      </Link>
+    </div>
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>
@@ -111,7 +122,7 @@ class AppDrawer extends React.Component {
           title={'LifeSmack'}
           titleStyle={styles.appBarTitle}
           style={styles.appBarStyle}
-          iconElementRight={rightButton}
+          iconElementRight={rightButton2}
         />
 
           <div style={styles.main}>

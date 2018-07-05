@@ -19,6 +19,7 @@ class GoalsTableSeeder extends Seeder
      'goal_name'=> 'build Lifesmack',
      'category_id_1'=>6,
      'category_id_2'=>2,
+     'user_id'=>1,
      'goal_due_date' => Carbon\Carbon::createFromDate(2017,12,31)->toDateTimeString()
   /*   'user_id' => $user_id */
          ]);
@@ -31,6 +32,7 @@ class GoalsTableSeeder extends Seeder
       'goal_name'=> 'run 2017 NYC marathon',
       'category_id_1'=>6,
       'category_id_2'=>2,
+      'user_id'=>1,
       'goal_due_date' => Carbon\Carbon::createFromDate(2017,10,31)->toDateTimeString(),
     /*  'user_id' => $user_id*/
       ]);

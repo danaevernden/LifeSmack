@@ -24,6 +24,7 @@ class CreateGoalsTable extends Migration
      $table->integer('category_id_1')->nullable();
      $table->integer('category_id_2')->nullable();
      $table->integer('category_id_3')->nullable();
+     $table->integer('user_id')->nullable();
    });
     }
 

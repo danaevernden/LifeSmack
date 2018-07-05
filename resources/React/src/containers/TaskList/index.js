@@ -2,19 +2,13 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Checkbox from 'material-ui/Checkbox';
 import {Card, CardText} from 'material-ui/Card';
 import ListCard from '../../components/ListCard';
 import AddTask from '../../components/AddTask';
-import {groupBy,values,sortBy, size} from 'lodash';
+import {sortBy} from 'lodash';
 import Layout from '../Layout';
-import { includes ,find } from 'lodash';
-import Calendar from '../Calendar';
-import TaskCard from '../../components/TaskCard';
-import ListCardParent from '../../components/ListCardParent';
 import Paper from 'material-ui/Paper';
 import incomTask from '../../../../../public/images/incomplete task icon.png';
-import redIncomTask from '../../../../../public/images/incomplete marketplace task icon.png';
 import RaisedButton from 'material-ui/RaisedButton';
 import Running from '../../../../../public/images/running.jpg';
 import Programming from '../../../../../public/images/programming.jpg';
@@ -143,7 +137,6 @@ class TaskList extends React.Component{
   }
 
   handleDeleteTask(task_Id) {
-    const taskId = this.props.taskID;
      return this.props.handleDeleteTask(task_Id)
   }
 

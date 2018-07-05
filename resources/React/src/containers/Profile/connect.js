@@ -7,5 +7,5 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   fetchProfileFromActions: (user_id) => dispatch(fetchProfile(user_id)),
-  updateProfileInfo: (first_name, city, state, country) => dispatch(updateProfileInfo(first_name, city, state, country))
+  updateProfileInfo: (first_name, email) => dispatch(updateProfileInfo(first_name, email))
 });

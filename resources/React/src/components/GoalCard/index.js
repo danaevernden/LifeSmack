@@ -1,38 +1,19 @@
 import React from 'react';
-import CardActions from 'material-ui/Card';
-import Checkbox from 'material-ui/Checkbox';
-import ActionCommentOutline from 'material-ui/svg-icons/communication/chat-bubble-outline';
-import ActionComment from 'material-ui/svg-icons/communication/chat-bubble';
-import Assignment from 'material-ui/svg-icons/action/assignment';
 import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import ActionWarning from 'material-ui/svg-icons/alert/warning';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
-import CategoryItems from '../../components/CategoryItems';
-import CommentItems from '../../components/CommentItems';
-import Divider from 'material-ui/Divider';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Dialog from 'material-ui/Dialog';
 import DatePicker from 'material-ui/DatePicker';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import ActionDueDate from 'material-ui/svg-icons/action/date-range';
-import PollIcon from 'material-ui/svg-icons/social/poll';
-import PlaceIcon from 'material-ui/svg-icons/maps/place';
-import FlatButton from 'material-ui/FlatButton';
-import {Card, CardText, CardMedia, CardTitle} from 'material-ui/Card';
+import {CardText, CardMedia} from 'material-ui/Card';
 import logo from '../../../../../public/images/nice_background.jpeg';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import timerIcon from '../../../../../public/images/timer-sand-empty.png';
-import difficultyIcon from '../../../../../public/images/difficulty icon.png';
-import locationIcon from '../../../../../public/images/place.png';
-import dueDateIcon from '../../../../../public/images/due date icon.png';
 import SelectField from 'material-ui/SelectField';
-import AddToCalendar from 'react-add-to-calendar';
-
 import RaisedButton from 'material-ui/RaisedButton';
 
 type Props = {
@@ -175,7 +156,7 @@ class GoalCard extends React.Component {
     }
 
     Duplicate(task_id) {
-        if(null == task_id) {
+        if(null === task_id) {
             this.setState({duplicateID: null})
         }
             this.setState({duplicateID: task_id})
@@ -302,7 +283,7 @@ class GoalCard extends React.Component {
       <br style={{display:'block', marginTop:'-15px'}}/>
       <ActionSchedule style={styles.iconStyle}/>
       <SelectField
-        value={this.state.valueTime == null ? 0 : this.state.valueTime}
+        value={this.state.valueTime === null ? 0 : this.state.valueTime}
         style={styles.selectStyle}
         onChange={this.handleChangeTime}
         underlineStyle={styles.dropdownWidth}
@@ -328,7 +309,7 @@ class GoalCard extends React.Component {
           contentStyle={styles.contentStyle}
           bodyStyle={styles.contentStyle2}
         >
-        {this.props.type == "addGoal" ? null :
+        {this.props.type === "addGoal" ? null :
           <div>
 
             <IconMenu style={styles.iconButton}
@@ -359,7 +340,7 @@ class GoalCard extends React.Component {
               <CardText>
                 {menuOptions}
               </CardText>
-              {this.props.type == "addGoal" ?
+              {this.props.type === "addGoal" ?
                 <RaisedButton
                   label="ADD GOAL"
                   primary={true}

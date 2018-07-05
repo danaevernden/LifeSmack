@@ -42,11 +42,9 @@ class Settings extends React.Component {
       const profile =
       users.map((user) =>
         <Profile
-          city={user.city}
           first_name={user.first_name}
-          state={user.state}
-          country={user.country}
           user_id={user.id}
+          email={user.email}
         />
       )
       ;

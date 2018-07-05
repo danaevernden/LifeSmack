@@ -27,6 +27,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.fetchGoalsFromActions();
+    this.props.fetchProfileFromActions();
   }
   props:Props
 

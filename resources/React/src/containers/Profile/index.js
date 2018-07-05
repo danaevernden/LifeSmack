@@ -13,9 +13,7 @@ type Props = {
   users: User[],
   id: Number,
   first_name: String,
-  city: String,
-  state: String,
-  country: String
+  email: String
 }
 
 const styles = {
@@ -41,6 +39,7 @@ class Profile extends React.Component{
   componentDidMount() {
     this.props.fetchProfileFromActions();
   }
+
   props:Props
 
   constructor(props){
@@ -48,9 +47,7 @@ class Profile extends React.Component{
     this.state= {
       id: this.props.user_id,
       first_name: this.props.first_name,
-      city: this.props.city,
-      state: this.props.state,
-      country: this.props.country,
+      email: this.props.email,
       editName: false,
       editLoc: null,
       editProfPic: null
@@ -67,18 +64,17 @@ class Profile extends React.Component{
   }
 
   save(){
+    console.log('name' & this.state.editLoc);
     this.props.updateProfileInfo(
       this.state.first_name,
-      this.state.city,
-      this.state.state,
-      this.state.country
+      this.state.email
     )
     .then(() => {
       this.setState({
         editName: false
       });
-    })
-  }
+  })
+}
 
   newFirstName = (event) => {
     this.setState({
@@ -89,6 +85,12 @@ class Profile extends React.Component{
   newCity = (event) => {
     this.setState({
       city: event.target.value
+    });
+  }
+
+  newEmail = (event) => {
+    this.setState({
+      email: event.target.value
     });
   }
 
@@ -141,6 +143,8 @@ class Profile extends React.Component{
           {this.state.editName === false ?
             <div>
               {user.first_name}
+              <br/>
+              {user.email}
               <FlatButton
               style={styles.labelStyle}
               onClick={this.editName}
@@ -151,9 +155,16 @@ class Profile extends React.Component{
           :
             <div>
             <TextField
+              floatingLabelText="Name"
               defaultValue={user.first_name}
               value={this.state.first_name}
               onChange={this.newFirstName}
+            />
+            <TextField
+              floatingLabelText="Email"
+              defaultValue={user.email}
+              value={this.state.email}
+              onChange={this.newEmail}
             />
                 <FlatButton
                 style={styles.labelStyle}
@@ -165,55 +176,7 @@ class Profile extends React.Component{
           }
         </div>
         <br/>
-        <div>
-            {this.state.editLoc === null ?
-              <div>
-                {user.city} {user.state}, {user.country}
-                <FlatButton
-                style={styles.labelStyle}
-                onClick={this.editLoc}
-                >
-                  edit
-                </FlatButton>
-              </div>
-            :
-              <div>
-                  <TextField
-                    defaultValue={user.city}
-                    value={this.state.city}
-                    onChange={this.newCity}
-                  />
-                  <FlatButton
-                  style={styles.labelStyle}
-                  onClick={() =>this.save()}
-                  >
-                    save
-                  </FlatButton>
-                  <TextField
-                    defaultValue={user.state}
-                    value={this.state.state}
-                    onChange={this.newState}
-                  />
-                  <FlatButton
-                  style={styles.labelStyle}
-                  onClick={() =>this.save()}
-                  >
-                    save
-                  </FlatButton>
-                  <TextField
-                    defaultValue={user.country}
-                    value={this.state.country}
-                    onChange={this.newCountry}
-                  />
-                  <FlatButton
-                  style={styles.labelStyle}
-                  onClick={() =>this.save()}
-                  >
-                    save
-                  </FlatButton>
-              </div>
-            }
-        </div>
+
     </div>
     );
 
