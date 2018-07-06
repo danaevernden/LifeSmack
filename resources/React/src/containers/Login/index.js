@@ -1,12 +1,6 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import {Card} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
-import Toggle from 'material-ui/Toggle';
-import Chip from 'material-ui/Chip';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FacebookLogin from 'react-facebook-login';
@@ -62,7 +56,7 @@ console.log(this.state.first_name)
               <div style={styles.topMenu}>
               <h3>Log In</h3>
               <br/>
-              <img src={logo}/>
+              <img role="presentation" src={logo}/>
               <br/><br/>
               <TextField hintText="Email"/>
               <br/>

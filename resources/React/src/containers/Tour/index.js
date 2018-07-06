@@ -5,27 +5,27 @@ import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import check from '../../../../../public/images/marketplace task icon.png';
 import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import Welcome from '../../components/Welcome';
 
 const styles = {
   arrows: {
     display: 'inline-block',
-    marginLeft: '300px',
+  /*  marginLeft: '300px',*/
     marginTop: '-80px',
     height: 100,
-    width: 100
+    width: 150
   },
   contactStyle: {
     display: 'inline-block',
-    marginLeft: '300px'
+  /*  marginLeft: '300px'*/
   },
   contactUs: {
     color: 'rgb(207,37,37)',
     fontWeight: 'bold'
   },
   disabledArrow: {
-    color: 'grey'
+    color: 'grey',
+    paddingRight: '12px',
+    paddingLeft: '12px'
   }
 }
 

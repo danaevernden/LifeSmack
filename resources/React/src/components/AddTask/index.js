@@ -87,7 +87,6 @@ class AddTask extends React.Component {
   }
 
   addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-    console.log(this.props.taskCard)
     this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id)
   }
 

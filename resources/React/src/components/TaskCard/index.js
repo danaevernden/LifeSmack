@@ -1,6 +1,5 @@
 import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
-import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
@@ -122,6 +121,7 @@ class TaskCard extends React.Component {
         snackbar2: false,
         duplicateID: null,
         deleteID: null,
+        parentTask: false,
         taskID: this.props.taskID,
         complete: this.props.complete,
         dateSelected: this.props.taskScheduled,
@@ -151,6 +151,7 @@ class TaskCard extends React.Component {
       this.handleChangeLoc = this.handleChangeLoc.bind(this);
       this.handleChangeName = this.handleChangeName.bind(this);
       this.editTask = this.editTask.bind(this);
+      this.parentTask = this.parentTask.bind(this);
     }
 
     completeTask(task_Id) {
@@ -158,6 +159,13 @@ class TaskCard extends React.Component {
         complete: !this.state.complete
       });
       console.log(this.state.complete);
+    }
+
+    parentTask() {
+      this.setState({
+        parentTask: !this.state.parentTask
+      });
+      console.log(this.state.parentTask);
     }
 
     Duplicate(task_id) {
@@ -173,14 +181,17 @@ class TaskCard extends React.Component {
     }
 
     addTaskToGoal() {
+      console.log(this.state.parentTask);
       this.props.addTaskToGoal(
         this.state.valueName,
         this.state.valueDiff,
         this.state.valueTime,
         this.state.valueLoc,
         this.state.valueGoalID,
-        this.state.complete
+        !this.state.parentTask
       );
+
+
         this.setState({snackbar: true});
       console.log("test2");
       console.log(this.state.snackbar);
@@ -279,7 +290,16 @@ class TaskCard extends React.Component {
 
       const menuOptions =
       <div style={{marginTop:'-30px'}}>
-      {this.props.type === "addTask" ? null :
+      {this.props.type === "addTask" ?
+          <Checkbox
+            label="Parent Task?"
+            checked={this.state.parentTask}
+            style={styles.completeStyle}
+            labelStyle={styles.completeStyle.label}
+            iconStyle={styles.completeStyle.icon}
+            onCheck={this.parentTask}
+          />
+       :
           <Checkbox
             label="Complete?"
             checked={this.state.complete}
@@ -289,13 +309,13 @@ class TaskCard extends React.Component {
             onCheck={this.completeTask}
           />
       }
+      {this.state.parentTask === true ? null :
+        <div>
       <ActionDueDate style={styles.iconStyleSched}/>
-      <DatePicker
-          onChange={this.dateSelect}
+      <DatePicker onChange={this.dateSelect}
           style={styles.dateTextStyle}
             defaultDate={newDate}
-            textFieldStyle={{paddingLeft:'30px'}}
-          />
+            textFieldStyle={{paddingLeft:'30px'}} />
       <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
       <SelectField
@@ -345,7 +365,8 @@ class TaskCard extends React.Component {
         <MenuItem value={10} primaryText="While Commuting" />
         <MenuItem value={11} primaryText="While Doing Goal Activity" />
       </SelectField>
-
+      </div>
+    }
       </div>
       ;
 
@@ -381,7 +402,6 @@ const imgPick =
                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                targetOrigin={{horizontal: 'left', vertical: 'top'}}
              >
-             <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
              <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.handleDeleteTask(taskID)}/>
            </IconMenu>
          </div>
@@ -444,5 +464,5 @@ const imgPick =
 }
 
 export default TaskCard;
-
+/*     <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>*/
 /*https://jasonsalzman.github.io/react-add-to-calendar/*/

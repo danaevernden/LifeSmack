@@ -2,7 +2,6 @@ import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import AppDrawer from '../../components/appDrawer';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 
@@ -14,9 +13,13 @@ type Props = {
   users: User[]
 };
 
+
 const styles = {
   goals: {
     marginLeft: '65px',
+  },
+  mainStyle: {
+    marginLeft: '300px',
   }
 }
 
@@ -48,6 +51,7 @@ class App extends React.Component {
     const goals2 = goals.map((goal) =>
     <div>
         <MenuItem
+        key={goal.id}
         style={styles.goals}
         href={'/goal/' + goal.id}
         primaryText={goal.goal_name} />
@@ -73,7 +77,9 @@ class App extends React.Component {
       <MuiThemeProvider>
         <div className='App'>
           {AppComponent2}
+          <div style={styles.mainStyle}>
           {main}
+          </div>
         </div>
       </MuiThemeProvider>
     )

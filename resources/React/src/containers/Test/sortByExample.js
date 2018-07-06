@@ -11,9 +11,7 @@ import {ListItem} from 'material-ui/List';
 //http://stackoverflow.com/questions/33542532/sort-mapped-list-with-lodash-on-reactjs
 
 class sortByExample extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
 
 
   sortBy(field) {

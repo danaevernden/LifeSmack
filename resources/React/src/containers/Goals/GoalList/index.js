@@ -107,7 +107,7 @@ class GoalList extends React.Component{
       return item.parent_id !== null;
     })
     .map((task) =>
-    <div>
+    <div key={task.id} >
       <ListCard
         taskID={task.id}
         taskName={task.task_name}
@@ -121,10 +121,6 @@ class GoalList extends React.Component{
     </div>
   );
 
-
-
-
-
     const listItems2 = (
       <div style={styles.root}>
         <GridList
@@ -132,18 +128,21 @@ class GoalList extends React.Component{
           cellHeight={180}
           style={styles.gridList}
         >
-        {goals.map((goal) => (
+        {goals.filter((item) => {
+          return item.user_id === 1;
+        })
+          .map((goal) => (
 
-          <a href={'/goal/' + goal.id}>
+          <a key={goal.id} href={'/goal/' + goal.id}>
             <GridTile
               key={goal.id}
               title={goal.goal_name}
             >
             {goal.id === 1?
-              <img role="presentation" src={Programming} />
+              <img key={goal.id} role="presentation" src={Programming} />
               : [goal.id === 2 ?
-                <img role="presentation" src={Running} />
-                : <img role="presentation" src={NiceBackground} />
+                <img key={goal.id} role="presentation" src={Running} />
+                : <img key={goal.id} role="presentation" src={NiceBackground} />
                 ]
             }
           </GridTile>
@@ -152,7 +151,6 @@ class GoalList extends React.Component{
         </GridList>
       </div>
     );
-    const length = <div>{this.props.goals.length}</div>;
 
     var goalsToCount = this.props.goals;
     var goalsCount = goalsToCount.length;
@@ -176,8 +174,9 @@ addGoal={this.addGoal}
 ;
     const layout = (
       users.map((user) =>
-      <div>
+      <div key={user.id} >
         <Layout
+          key={user.id}
           title={user.first_name}
           subtitle={user.city+','+user.state}
           leftContent={"dashboard"}

@@ -1,5 +1,4 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import Slider from 'material-ui/Slider';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,12 +8,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Toggle from 'material-ui/Toggle';
 
-import SelectField from 'material-ui/SelectField';
-//to do
-//figure out how to pass categories table down to categoryItems, and then map through categoryparents and children to create dropdowns
-//add if statement to change sortOption based on what button is clicked
 
-const styles = {
+const styles = f
   slider: {
     width: '300px',
   },

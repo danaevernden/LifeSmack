@@ -1,7 +1,4 @@
 import React from 'react';
-import CategoryItems from '../../components/CategoryItems';
-import CommentItems from '../../components/CommentItems';
-import Divider from 'material-ui/Divider';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import PollIcon from 'material-ui/svg-icons/social/poll';
@@ -14,9 +11,6 @@ type Props = {
   taskName: String,
   taskID: Number,
   goalID: Number,
-  taskStatus: Boolean,
-  taskScheduled: Date,
-  commentText: String,
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
@@ -34,7 +28,7 @@ const styles={
     textAlign: 'left'
   },
   taskCardStyle: {
-    width: '375px'
+    width: '399px'
   },
   parentStyle: {
     display: 'inline-block',
@@ -48,11 +42,14 @@ const styles={
     marginLeft: '-20px'
   },
   taskLabelStyle: {
-    display:'ruby-text-container'
+    display:'ruby-text-container',
+    width: '325px'
   },
-  textboxStyle: {
-    display: 'inline-block',
-    marginLeft: '20px'
+  cardTextStyle: {
+    width: '325px',
+    display: 'flex',
+    float: 'right',
+    padding: '30px 0px 0px 0px'
   },
   textboxFontStyle: {
     fontSize: '14px'
@@ -66,6 +63,14 @@ const styles={
   },
   divider: {
     color: 'rgb(0,0,0)'
+  },
+
+  redIncomStyle: {
+    paddingRight: '20px',
+    paddingTop: '20px',
+    display: 'inline-block',
+    float: 'left',
+    paddingLeft: '10px'
   }
 }
 
@@ -78,14 +83,13 @@ class ListCard extends React.Component {
       super(props)
       this.state= {
         taskName: this.props.taskName,
-        taskStatusState: this.props.taskStatus,
         taskCard: null
       }
       this.openTaskCard = this.openTaskCard.bind(this);
       }
 
     openTaskCard(task_id) {
-        if(null == task_id) {
+        if(null === task_id) {
             this.setState({taskCard: null})
         }
             this.setState({taskCard: task_id})
@@ -102,9 +106,6 @@ class ListCard extends React.Component {
         taskType,
         taskID,
         goalID,
-        taskStatus,
-        taskScheduled,
-        commentText,
         categoryID1,
         categoryID2,
         categoryID3,
@@ -113,11 +114,11 @@ class ListCard extends React.Component {
 
       const CatID1 =
       <div>
-      {this.props.categoryID1 == 2?
+      {this.props.categoryID1 === 2?
         <div>medium</div>:
-        [this.props.categoryID1 == 1?
+        [this.props.categoryID1 === 1?
           <div>low</div>:
-          [this.props.categoryID1 == 3 ?
+          [this.props.categoryID1 === 3 ?
           <div>high</div>:<div></div>]
         ]
       }
@@ -125,11 +126,11 @@ class ListCard extends React.Component {
 
       const CatID2 =
       <div>
-      {this.props.categoryID2 == 6?
+      {this.props.categoryID2 === 6?
         <div>>15 min</div>:
-        [this.props.categoryID2 == 7?
+        [this.props.categoryID2 === 7?
           <div>1 hour</div>:
-          [this.props.categoryID2 == 8?
+          [this.props.categoryID2 === 8?
           <div>1-4 hours</div>:<div></div>
           ]
         ]
@@ -138,11 +139,11 @@ class ListCard extends React.Component {
 
       const CatID3 =
       <div>
-      {this.props.categoryID3 == 9?
+      {this.props.categoryID3 === 9?
         <div>at home</div>:
-        [this.props.categoryID3 == 10?
+        [this.props.categoryID3 === 10?
           <div>while out</div>:
-          [this.props.categoryID3 == 11?
+          [this.props.categoryID3 === 11?
             <div>doing the thing</div>:<div></div>
           ]
         ]
@@ -171,14 +172,14 @@ class ListCard extends React.Component {
     }
       </div>;
 
-      const today = new Date().toJSON();
 
       const taskCard =
       <div style={styles.wrapper}>
               <Card style={styles.taskCardStyle}
               onClick={() => this.openTaskCard(taskID)}>
-                  <CardText>
-                    <img src={redIncomTask} style={{paddingRight:'20px'}} />
+              <img role="presentation" src={redIncomTask} style={styles.redIncomStyle} />
+
+                  <CardText style={styles.cardTextStyle}>
                     <div style={styles.taskLabelStyle}>
                         {taskName}
                     </div>
@@ -194,12 +195,10 @@ class ListCard extends React.Component {
                   open={this.state.taskCard}
                   onClose={this.onClose}
                   taskName={taskName}
-                  complete={this.props.complete}
                   categoryID1={this.props.categoryID1}
                   categoryID2={this.props.categoryID2}
                   categoryID3={this.props.categoryID3}
                   complete={this.props.complete}
-                  taskScheduled={null}
                   taskType={"existingTask"}
                   handleDeleteTask={handleDeleteTask}
                   editTask={editTask}

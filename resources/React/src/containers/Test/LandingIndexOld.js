@@ -1,16 +1,21 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import logo from '../../../../../public/images/welcome.png';
+import logo from '../../../../../public/images/LandingScreen.png';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 
 const styles = {
+ backgroundColor: 'rgb(213,0,0)',
  logo: {
    height: '400px',
+ },
+ body: {
+   height: '100%',
+   backgroundColor: 'rgb(213,0,0)',
  }
 };
 
-class Landing extends React.Component{
+class LandingOld extends React.Component{
 
   render() {
 
@@ -18,14 +23,14 @@ class Landing extends React.Component{
       <div className='App-page'>
           <div className='App-content'>
               <MuiThemeProvider>
-              <div>
-                <img role="presentation" src={logo} style={styles.logo} />
+              <div style={styles.body}>
+                <img src={logo} style={styles.logo} />
                 <br/>
                 <Link to="/login">
-                  <FlatButton>Log In</FlatButton>
+                  <FlatButton>Login</FlatButton>
                 </Link>
                 <Link to="/signup">
-                  <FlatButton>Sign Up</FlatButton>
+                  <FlatButton>SIGNUP</FlatButton>
                 </Link>
               </div>
               </MuiThemeProvider>
@@ -35,4 +40,4 @@ class Landing extends React.Component{
   }
 }
 
-export default Landing;
+export default LandingOld;

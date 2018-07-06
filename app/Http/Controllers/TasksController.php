@@ -56,21 +56,8 @@ class TasksController extends Controller
     }
 
 
-    public function duplicateTask(Request $request) {
-    $data = $request->json()->all();
-    $task = new \App\Task();
-    $task->task_name = $data['task_name2'];
-    $task->category_id_1 = $data['category_id_1'];
-    $task->category_id_2 = $data['category_id_2'];
-    $task->category_id_3 =  $data['category_id_3'];
-    $task->scheduled = Carbon::now()->toDateTimeString();
-    $task->complete='0';
-    $task->goal_id=1;
-    $task->is_child='1';
-    $task->parent_id='1';
-    $task->save();
-    return Response::json($task);
-    }
+
+
 
     public function editTask(Request $request) {
     $data = $request->json()->all();
@@ -86,6 +73,24 @@ class TasksController extends Controller
     print $task->id;
     }
 }
+
+/*    public function duplicateTask(Request $request) {
+    $data = $request->json()->all();
+    $taskId = $data['taskId'];
+    $task_to_copy = \App\Task::find($taskId);
+    $task = new \App\Task();
+    $task->task_name ='test';
+    $task->category_id_1 = '1';
+    $task->category_id_2 = '2';
+    $task->category_id_3 =  '3';
+    $task->scheduled = Carbon::now()->toDateTimeString();
+    $task->complete='0';
+    $task->goal_id=1;
+    $task->is_child='1';
+    $task->parent_id='1';
+    $task->save();
+    return Response::json($task);
+    }
 
 /*        public function deleteTask($taskId) {
             $filterFunction =  function($task) use ($taskId) {

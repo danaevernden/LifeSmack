@@ -1,6 +1,4 @@
 import React from 'react';
-import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 
 const styles = {
   main: {
@@ -8,7 +6,7 @@ const styles = {
     display: 'inline-block',
     height: '250px',
     position: 'relative',
-    marginLeft: '300px',
+  /*  marginLeft: '300px',*/
     marginTop: '100px',
     zIndex: '1'
   },
@@ -47,7 +45,7 @@ class TourComponent extends React.Component{
     return (
       <body style={styles}>
           <div style={styles.main}>
-              <img src={logo} style={styles.logo} />
+              <img role="presentation" src={logo} style={styles.logo} />
                   <div style={styles.title}>
                       {title}
                   </div>

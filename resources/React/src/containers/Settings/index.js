@@ -1,11 +1,7 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ManageCategories from '../../components/ManageCategories';
-import {groupBy,values} from 'lodash';
 import { mapStateToProps, mapDispatchToProps } from './connect';
 import { connect } from 'react-redux';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import Profile from '../Profile';
 
 type Props = {

@@ -17,7 +17,7 @@ const styles = {
     height: '120px',
     position: 'relative',
     backgroundColor: 'rgb(255,255,255)',
-    marginLeft: '300px',
+/*    marginLeft: '300px',*/
     marginTop: '40px'
   },
   titleStyle: {

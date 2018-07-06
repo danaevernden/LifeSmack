@@ -24,7 +24,7 @@ import Signup from './containers/Signup';
 import Calendar from './containers/Calendar';
 import Login from './containers/Login';
 import MarketCat from './containers/Marketplace/MarketCat';
-import Test2 from './containers/Test2';
+
 import Tour from './containers/Tour';
 
 /*    <Route components={AppContainer}> */
@@ -52,7 +52,7 @@ const goalPageData = [
 
 ];
 const goalPages =
-goalPageData.map(page => <Route path={page.link} component={{main : TaskList}} goalID={page.id}/>);
+goalPageData.map(page => <Route key={page.id} path={page.link} component={{main : TaskList}} goalID={page.id}/>);
 
 
 const marketItemData2 = [
@@ -83,10 +83,10 @@ const marketCatsData = [
   {id: 6, property: {MarketCat}, link: '/marketplace/food'},
 ];
 const marketCatPages =
-marketCatsData.map(page => <Route path={page.link} component={{main : MarketCat}} marketplacegoal_id={page.id} marketItem={page.id}/>);
+marketCatsData.map(page => <Route key={page.id} path={page.link} component={{main : MarketCat}} marketplacegoal_id={page.id} marketItem={page.id}/>);
 
 const marketitemPages2 =
-marketItemData2.map(page => <Route path={'/marketplace/' + page.id} component={{main : MarketItem}} marketItem={page.id}/>);
+marketItemData2.map(page => <Route key={page.id} path={'/marketplace/' + page.id} component={{main : MarketItem}} marketItem={page.id}/>);
 
 
 ReactDOM.render((
@@ -115,7 +115,7 @@ ReactDOM.render((
           <Route path='/about' component={{main: Tour}}/>
           <Route path='/settings' component={{main: Settings}}/>
           ///test routes/////////
-          <Route path='/test' component={{main : Test2}} />
+
           <Route path='/testAPI' component={{main : TestApi}} />
           <Route path='/calendar' component={{main : Calendar}} />
           <Route path='/sortby' component={{main : sortByExample}} />

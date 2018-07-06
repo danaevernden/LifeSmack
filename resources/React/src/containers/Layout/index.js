@@ -1,26 +1,16 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ProfilePic from '../../../../../public/images/comedy.jpg';
 import {Card, CardMedia, CardActions, CardTitle} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Favorite from 'material-ui/svg-icons/action/favorite';
-import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 
 type Props = {
   title: String,
   subtitle: String,
-  buttonTitle: String,
-  buttonAction: String,
   tabOne: String,
   tabTwo: String,
-  tabThree: String,
   tabOneContent: String,
   tabTwoContent: String,
-  tabThreeContent: String,
   imageID: String
 };
 
@@ -28,10 +18,10 @@ const styles = {
   cardStyle: {
     width: '400px',
     display: 'inline-block',
-    height: '250px',
+    height: '400px',
     position: 'relative',
     backgroundColor: 'rgb(255,255,255)',
-    marginLeft: '300px',
+/*    marginLeft: '300px',*/
     marginTop: '40px'
   },
   titleStyle: {
@@ -40,17 +30,22 @@ const styles = {
     position: 'fixed',
   },
   titleStyleText: {
-    fontSize: '1.5vw',
+    fontSize: '15px',
     marginLeft: '20px',
-    marginRight: '100px',
+    marginRight: '-70px',
+    lineHeight: '20px',
+    marginTop: '20px',
+    marginBottom: '10px'
   },
   subtitleStyle: {
+    marginBottom: '40px'
   },
   mediaStyle: {
     float:'right',
     width:'160px',
     marginRight: '20px',
-    marginTop: '20px'
+    marginTop: '20px',
+    marginBottom: '40px'
   },
   buttonStyle: {
     float:'right',
@@ -58,6 +53,7 @@ const styles = {
     marginRight: '10px',
     marginLeft: '160px',
     marginTop: '-35px',
+    color: 'black'
   },
   leftContentStyle: {
     float:'left',
@@ -76,9 +72,6 @@ const styles = {
   },
   tabItemContainerStyle : {
     backgroundColor: 'white'
-  },
-  buttonStyle : {
-    color: 'black'
   },
   paperStyle: {
     height: '400px',
@@ -107,38 +100,12 @@ class Layout extends React.Component{
     const {
       title,
       subtitle,
-      buttonTitle,
-      buttonAction,
       tabOne,
       tabTwo,
-      tabThree,
       tabOneContent,
       tabTwoContent,
-      tabThreeContent,
       imageID
     } = this.props;
-
-    const marketitem = (
-      <div style={styles.leftContentStyle}>
-      </div>
-    );
-
-    const account = (
-      <div style={styles.leftContentStyle}>
-      <FlatButton style={styles.buttonBackgroundStyle}>Log off</FlatButton>
-      </div>
-    );
-
-    const taskListDropdown = (
-      <div>
-      <DropDownMenu style={styles.leftContentStyle} value={this.state.sortOption} onChange={this.handleChange}>
-          <MenuItem value={1} onClick={()=>this.sortOptionSelection(1)} primaryText="Sort By" />
-           <MenuItem value={2} onClick={()=>this.sortOptionSelection(2)} primaryText="Date" />
-           <MenuItem value={3} onClick={()=>this.sortOptionSelection(3)} primaryText="Task Type" />
-           <MenuItem value={4} onClick={()=>this.sortOpetionSelection(4)} primaryText="Effort Level" />
-      </DropDownMenu>
-      </div>
-  );
 
     const tabMenu = (
       <Tabs
@@ -164,8 +131,7 @@ class Layout extends React.Component{
               </Paper>
             </div>
           </Tab>
-
-      </Tabs>
+    </Tabs>
     );
 
     const layoutTop = (

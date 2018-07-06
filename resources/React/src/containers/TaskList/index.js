@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { mapDispatchToProps, mapStateToProps } from './connect';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardText} from 'material-ui/Card';
 import ListCard from '../../components/ListCard';
 import AddTask from '../../components/AddTask';
@@ -66,12 +65,10 @@ const styles = {
 type Props = {
   fetchTasksFromActions: () => void,
   fetchGoalsFromActions: () => void,
-  fetchCommentsFromActions: () => void,
   fetchCategoriesFromActions: () => void,
   handleDeleteTask: (taskId) => void,
   tasks: Task[],
-  goals: Goal[],
-  comments: Comment[],
+  goals: Goal,
   categories: Category[],
 }
 
@@ -80,14 +77,12 @@ class TaskList extends React.Component{
 
   static defaultProps: {
     tasks: Task[],
-    comments: Comment[],
     categories: Category[],
     goals: Goal[]
   };
 
   componentDidMount() {
     this.props.fetchTasksFromActions();
-    this.props.fetchCommentsFromActions();
     this.props.fetchCategoriesFromActions();
     this.props.fetchGoalsFromActions();
     console.log(this.state.snackbar);
@@ -137,11 +132,12 @@ class TaskList extends React.Component{
   }
 
   handleDeleteTask(task_Id) {
+
      return this.props.handleDeleteTask(task_Id)
   }
 
-  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, this.state.is_child, this.state.parentTask);
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id, parentTasky) {
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, this.state.parentTask)
   }
 
 
@@ -198,7 +194,6 @@ class TaskList extends React.Component{
     const {
       handleDeleteTask,
       tasks,
-      comments,
       categories,
       categories2,
       goals
@@ -213,7 +208,7 @@ class TaskList extends React.Component{
           onClick={() => this.openTaskChildren(task.task_id)}
           style={styles.taskCardStyle}>
               <CardText>
-                  <img src={incomTask} style={{paddingRight:'20px'}} />
+                  <img role="presentation" src={incomTask} style={{paddingRight:'20px'}} />
                   <div style={styles.taskLabelStyle}>
                       {task.task_name}
                   </div>
@@ -223,7 +218,7 @@ class TaskList extends React.Component{
       );
 
       const allTasks = tasks.filter((item) => {
-            return item.parent_id !== null  && item.goal_id === 0;
+            return item.is_child ===1  && item.goal_id === this.state.goalID;
     }).map((task) =>
       <div>
           <ListCard
@@ -296,19 +291,6 @@ class TaskList extends React.Component{
         no subtasks for this parent task :(
       </div>;
 
-      const noparenttasks =
-      <div style={styles.noTasks}>
-        no tasks for this goal yet :(
-      </div>;
-
-      const snackbartest =
-      <Snackbar
-         open={this.state.snackbar}
-         message="Event added to your calendar"
-         onRequestClose={this.openSnackbar}
-         style={styles.snackbar}
-       />
-       ;
       const tasksFlip =
       <div>
         {this.state.parentTask === null ?
@@ -325,7 +307,9 @@ class TaskList extends React.Component{
                     return item.parent_id === this.state.parentTask && item.is_child === 1;
             }).length > 0 ?
               <div>
-              {taskList}
+                <Paper style={styles.paperStyle}>
+                  {taskList}
+                </Paper>
               </div>
               :
               <div>
@@ -333,7 +317,6 @@ class TaskList extends React.Component{
               </div>
             }
           </div>
-
         }
       </div>;
 
@@ -369,16 +352,16 @@ class TaskList extends React.Component{
         tabTwoContent={allTasks}
         imageID={
                   this.state.goalID === 1
-                  ? <img src={Programming}/>
+                  ? <img role="presentation" src={Programming}/>
                   :
                   [ this.state.goalID === 2 ?
-                    <img src={Running} />
+                    <img role="presentation" src={Running} />
                     :
-                    <img src={NiceBackground} />
+                    <img role="presentation" src={NiceBackground} />
                   ]
                 }
         />
-    }
+
     </div>)
     ;
 
@@ -408,7 +391,6 @@ class TaskList extends React.Component{
 
 TaskList.defaultProps ={
   tasks: [],
-  comments: [],
   categories: [],
   goals: []
  };

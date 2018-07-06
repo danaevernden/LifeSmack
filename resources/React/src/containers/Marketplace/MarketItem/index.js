@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import StarRatingComponent from 'react-star-rating-component';
 import Layout from '../../Layout';
+import Paper from 'material-ui/Paper';
 import { includes } from 'lodash';
 import {groupBy,values,sortBy} from 'lodash';
 import TextField from 'material-ui/TextField';
@@ -30,7 +31,6 @@ import RunningPic from '../../../../../../public/images/running.jpg';
 import WeddingPic from '../../../../../../public/images/wedding.jpeg';
 import WorkPic from '../../../../../../public/images/work.jpeg';
 import GamePic from '../../../../../../public/images/game.jpeg';
-
 
 const imgData = [
 
@@ -91,6 +91,19 @@ const styles = {
   cardStyle: {
     width: '400px',
     display: 'inline-block'
+  },
+  paperStyle: {
+    height: '400px',
+    overflow: 'auto'
+  },
+  backButtonStyle: {
+    marginRight: '100px',
+    position: 'absolute',
+    zIndex: '3',
+    marginTop: '150px'
+  },
+  descStyle: {
+    marginLeft: '12px'
   }
 };
 
@@ -187,15 +200,29 @@ class MarketItem extends React.Component{
       </div>
       );
 
-    const marketplaceDesc = marketplacegoals.filter((marketplacegoal) => {
-        return true;
-        })
+      const backButton =
+      <div>
+        <a href="/marketplace">
+        <FlatButton style={styles.backButtonStyle}
+          >
+          ◄ back
+        </FlatButton>
+        </a>
+      </div>
+
+    const marketplaceDesc = marketplacegoals
+    .filter((item) => {return item.marketplacegoal_id === this.props.route.marketItem})
         .map((marketplacegoal) =>
-        <div>
+        <div style={styles.descStyle}>
+        <br/><br/>
+        <b>
           {marketplacegoal.plan_description}
-          {marketplacegoal.rating}
+        </b>
+        <br/><br/>
         </div>
         );
+
+
 
     const goalPlan2 = markettasks
     .filter((item) => {return item.marketplacegoal_id === this.props.route.marketItem})
@@ -211,6 +238,15 @@ class MarketItem extends React.Component{
             />
         </div>
     );
+
+    const descAndTasks =
+    <div>
+      {marketplaceDesc}
+      <Paper style={styles.paperStyle}>
+        {goalPlan2}
+      </Paper>
+    </div>
+    ;
 
     const listItem = markettasks.filter((markettask) => {
         return markettask.marketplacegoal_id == this.props.route.marketItem;
@@ -235,7 +271,7 @@ class MarketItem extends React.Component{
                     leftContent={"marketitem"}
                     tabOne={"Tasks"}
                     tabTwo={"Reviews"}
-                    tabOneContent={goalPlan2}
+                    tabOneContent={descAndTasks}
                     tabTwoContent={listItems}
                     imageID={item.img}
                 />
@@ -256,6 +292,7 @@ class MarketItem extends React.Component{
           <div className = 'App-content'>
             <MuiThemeProvider>
               <div>
+              {backButton}
                   {marketplaceItems}
               </div>
             </MuiThemeProvider>

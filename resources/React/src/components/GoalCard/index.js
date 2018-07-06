@@ -19,9 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 type Props = {
   taskName: String,
   taskID: Number,
-  taskStatus: Boolean,
   taskScheduled: Date,
-  commentText: String,
   categoryID1: Number,
   categoryID2: Number,
   categoryID3: Number,
@@ -249,9 +247,7 @@ class GoalCard extends React.Component {
       const {
         taskName,
         taskID,
-        taskStatus,
         taskScheduled,
-        commentText,
         categoryID1,
         categoryID2,
         categoryID3,
@@ -335,7 +331,7 @@ class GoalCard extends React.Component {
                 />}
                 overlayStyle={styles.overlayContainerStyle}
                  >
-                  <img src={logo} style={styles.cardMedia}/>
+                  <img role="presentation" src={logo} style={styles.cardMedia}/>
               </CardMedia>
               <CardText>
                 {menuOptions}

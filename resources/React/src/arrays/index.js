@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import sports from '../../../../public/images/running.jpg';
 import food from '../../../../public/images/food.jpg';
@@ -10,45 +9,41 @@ import travel from '../../../../public/images/travel.jpeg';
 import Link from 'react-router';
 
 
-type Props = {
-  key: Number
-}
-
 
 const tilesData = [
   {
     key: 1,
-    img: <img src={social}/>,
+    img: <img role="presentation" src={social}/>,
     title: 'Social',
     link: <Link to="/marketplace/social" />,
   },
   {
     key: 2,
-    img: <img src={sports}/>,
+    img: <img role="presentation" src={sports}/>,
     title: 'Sports',
     link: <Link to="/marketplace/sports" />,
   },
   {
     key: 3,
-    img: <img src={recreation}/>,
+    img: <img role="presentation" src={recreation}/>,
     title: 'Recreation',
     link: <Link to="/marketplace/recreation" />,
   },
   {
     key: 4,
-    img: <img src={arts}/>,
+    img: <img role="presentation" src={arts}/>,
     title: 'Arts',
     link: <Link to="/marketplace/arts" />,
   },
   {
     key: 5,
-    img: <img src={travel}/>,
+    img: <img role="presentation" src={travel}/>,
     title: 'Travel & Outdoors',
     link: <Link to="/marketplace/travel" />,
   },
   {
     key: 6,
-    img: <img src={food}/>,
+    img: <img role="presentation" src={food}/>,
     title: 'Food & Drink',
     link: <Link to="/marketplace/food" />,
   },
@@ -64,10 +59,6 @@ class MarketTypesData extends React.Component {
   props:Props
 
   render () {
-
-    const {
-      key
-    } = this.props;
 
     const listItems4 =
     <div>

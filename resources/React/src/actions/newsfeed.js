@@ -1,5 +1,3 @@
-import { CALL_API } from 'redux-api-middleware';
-
 export const ADD_NEWS_ITEM = 'ADD_NEWS_ITEM';
 
 //variable in an object in square braces, it executes and then puts the value inside
@@ -17,5 +15,3 @@ export const addNewsItem = (name, task) => {
     }
   };
 }
-
-addNewsItem

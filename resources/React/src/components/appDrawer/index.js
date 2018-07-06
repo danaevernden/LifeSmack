@@ -4,8 +4,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { red700 } from 'material-ui/styles/colors';
 import '../old/app/style.css';
-import TextField from 'material-ui/TextField';
-import SearchIcon from 'material-ui/svg-icons/action/search';
 import AppDrawerMenu from '../appDrawerMenu';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
@@ -82,28 +80,10 @@ class AppDrawer extends React.Component {
       username
     } = this.props;
 
-    const searchBar = (
-      <TextField hintText="Search" />
-    );
 
-    const rightButton = (
-      <div>
-        <SearchIcon style={styles.searchIconStyle}
-          onTouchTap={this.openSearchBar}
-        />
-        {this.state.searchBarVisible === true ?
-          <TextField hintText="Search"
-            hintStyle={styles.whiteText}
-            inputStyle={styles.whiteText}
-            underlineFocusStyle={styles.whiteText} //not working
-          /> :
-        null }
-      </div>
-    );
-
-    const rightButton2 =
+    const rightButton =
     <div>
-      <Link to="/login">
+      <Link to="/landing">
       <FlatButton style={styles.whiteText}>
         Logout
       </FlatButton>
@@ -122,7 +102,7 @@ class AppDrawer extends React.Component {
           title={'LifeSmack'}
           titleStyle={styles.appBarTitle}
           style={styles.appBarStyle}
-          iconElementRight={rightButton2}
+          iconElementRight={rightButton}
         />
 
           <div style={styles.main}>

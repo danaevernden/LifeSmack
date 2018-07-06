@@ -21,7 +21,7 @@ const styles = {
     marginTop: '40px',
     display: 'inline-block',
     position: 'fixed',
-    marginLeft: '80px'
+/*    marginLeft: '80px'*/
   },
   labelStyle: {
     fontSize: '12px',

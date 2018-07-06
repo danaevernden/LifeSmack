@@ -9,7 +9,6 @@ import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import InfoIcon from 'material-ui/svg-icons/action/info-outline';
-import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import Divider from 'material-ui/Divider';
 import {Card, CardHeader} from 'material-ui/Card';
 import ProfilePic from '../../../../../public/images/comedy.jpg';
