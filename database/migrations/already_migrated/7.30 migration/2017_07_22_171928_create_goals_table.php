@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoalsTable extends Migration
+class CreateGoalsTable3 extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateGoalsTable extends Migration
     {
       Schema::create('goals', function (Blueprint $table) {
 
-     $table->increments('id');
+     $table->increments('id')->unsigned();
      $table->timestamps();
 
      # The rest of the fields...

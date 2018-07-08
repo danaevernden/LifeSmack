@@ -73,21 +73,19 @@ const styles={
     width: '250px',
     textAlign: 'center'
   },
-  dateTextStyle: {
-    width: '380px'
-  },
   iconStyle: {
     position: 'relative',
     marginBottom: '15px'
   },
-  completeStyle: {
-    marginBottom: '-30px',
+  checkboxStyle: {
+    marginBottom: '-20px',
     marginTop: '30px',
-    icon: {
-      marginLeft: '50px'
-    },
+    marginLeft: '7px',
+    position: 'relative',
+    display: 'inline-block',
+
     label: {
-      width: '225px'
+      width: '85px'
     }
   },
   dropdownPos: {
@@ -108,6 +106,11 @@ const styles={
     fontWeight: 'bold',
     textAlign: 'center'
   },
+  textFieldStyle: {
+    paddingLeft:'10px',
+    display: 'inline-block',
+    width: '230px'
+  }
 }
 
 class TaskCard extends React.Component {
@@ -117,7 +120,7 @@ class TaskCard extends React.Component {
       super(props)
       this.state= {
         open: this.props.open,
-        snackbar: true,
+        snackbar: false,
         snackbar2: false,
         duplicateID: null,
         deleteID: null,
@@ -188,13 +191,15 @@ class TaskCard extends React.Component {
         this.state.valueTime,
         this.state.valueLoc,
         this.state.valueGoalID,
-        !this.state.parentTask
+        !this.state.parentTask,
+        this.state.dateSelected
       );
 
-
+        this.setState({open: false});
         this.setState({snackbar: true});
       console.log("test2");
       console.log(this.state.snackbar);
+      console.log(this.state.dateSelected);
     }
 
     editTask() {
@@ -239,6 +244,8 @@ class TaskCard extends React.Component {
       this.setState({
         dateSelected: date,
       });
+      console.log(this.state.dateSelected);
+      console.log(date);
     };
 
 
@@ -294,18 +301,16 @@ class TaskCard extends React.Component {
           <Checkbox
             label="Parent Task?"
             checked={this.state.parentTask}
-            style={styles.completeStyle}
-            labelStyle={styles.completeStyle.label}
-            iconStyle={styles.completeStyle.icon}
+            labelStyle={styles.checkboxStyle.label}
+            style={styles.checkboxStyle}
             onCheck={this.parentTask}
           />
        :
           <Checkbox
             label="Complete?"
             checked={this.state.complete}
-            style={styles.completeStyle}
-            labelStyle={styles.completeStyle.label}
-            iconStyle={styles.completeStyle.icon}
+            style={styles.checkboxStyle}
+            labelStyle={styles.checkboxStyle.label}
             onCheck={this.completeTask}
           />
       }
@@ -315,7 +320,7 @@ class TaskCard extends React.Component {
       <DatePicker onChange={this.dateSelect}
           style={styles.dateTextStyle}
             defaultDate={newDate}
-            textFieldStyle={{paddingLeft:'30px'}} />
+            textFieldStyle={styles.textFieldStyle} />
       <br style={{display: 'block', margin: '-5px 0'}}/>
       <PollIcon style={styles.iconStylePoll}/>
       <SelectField

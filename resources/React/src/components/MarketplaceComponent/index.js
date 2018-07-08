@@ -42,7 +42,7 @@ class MarketplaceComponent extends React.Component {
           color: 'rgb(0,0,1)'
         },
         titleStyle: {
-            fontSize: '1.5vw',
+            fontSize: '16px',
           },
         titlebackground: {
             marginLeft: '4px'

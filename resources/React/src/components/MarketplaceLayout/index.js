@@ -24,10 +24,16 @@ const styles = {
     position: 'fixed'
   },
   titleStyleText: {
-    fontSize: '24px',
+    fontSize: '18px',
     textAlign: 'center',
-    marginLeft: '30px'
+    marginLeft: '30px',
+    marginBottom: '-30px'
   },
+  subtitleStyleText: {
+    textAlign: 'left',
+    marginTop: '30px'
+  }
+  ,
   tabsStyle : {
     width: '400px',
     display: 'inline-block',
@@ -68,17 +74,18 @@ class MarketplaceLayout extends React.Component{
       <div >
           <Card style={styles.cardStyle}>
             <CardTitle
-                title={listTitle}
-                subtitle="Expert tips at your fingertips"
+                title="Welcome to the Marketplace"
+                subtitle="Expert tips at your fingertips, in a future release you will be able to copy goals from the marketplace into the list of your personal goals"
                 style={styles.titleStyle}
                 titleStyle={styles.titleStyleText}
+                subtitleStyle={styles.subtitleStyleText}
             />
             <CardActions>
                 <Tabs
                 tabItemContainerStyle={styles.tabItemContainerStyle}
                 inkBarStyle={styles.inkBarStyle}
                 style={styles.tabsStyle}>
-                    <Tab label="Marketplace" buttonStyle={styles.buttonStyle}>
+                    <Tab label={listTitle} buttonStyle={styles.buttonStyle}>
                             {marketplaceItems}
                     </Tab>
                 </Tabs>

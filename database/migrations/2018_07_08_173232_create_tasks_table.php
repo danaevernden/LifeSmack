@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable3 extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReviewsTable3 extends Migration
      */
     public function up()
     {
-      Schema::create('reviews', function (Blueprint $table) {
+      Schema::create('tasks', function (Blueprint $table) {
 
      # Increments method will make a Primary, Auto-Incrementing field.
      # Most tables start off this way
@@ -24,16 +24,23 @@ class CreateReviewsTable3 extends Migration
      $table->timestamps();
 
      # The rest of the fields...
-     $table->string('name');
-     $table->string('review');
-     $table->integer('helpful');
-     $table->integer('rating');
-     $table->integer('marketplacegoal_id')->unsigned();
-
-
+     $table->string('task_name');
+     $table->integer('task_id')->nullable();
+     $table->integer('parent_id')->nullable();
+     $table->integer('is_child');
+     $table->integer('category_id_1')->nullable();
+     $table->integer('category_id_2')->nullable();
+     $table->integer('category_id_3')->nullable();
+     $table->integer('complete');
+     $table->date('scheduled')->nullable();
+     $table->integer('goal_id')->unsigned();
    });
 
+   Schema::table('tasks', function($table) {
+    $table->foreign('goal_id')->references('id')->on('goals');
+  });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -41,12 +48,13 @@ class CreateReviewsTable3 extends Migration
      */
     public function down()
     {
-      Schema::table('reviews', function (Blueprint $table) {
+      Schema::table('tasks', function (Blueprint $table) {
           # ref: http://laravel.com/docs/5.1/migrations#dropping-indexes
           # combine tablename + fk field name + the word "foreign"
-          $table->dropForeign('reviews_marketplace_id_foreign');
-          $table->dropColumn('marketplace_id');
+          $table->dropForeign('tasks_goal_id_foreign');
+          $table->dropColumn('goal_id');
           });
-        Schema::drop('reviews');
+        Schema::drop('tasks');
+
     }
 }

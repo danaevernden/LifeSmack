@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable07092017 extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateCommentsTable07092017 extends Migration
 
      # Increments method will make a Primary, Auto-Incrementing field.
      # Most tables start off this way
-     $table->increments('id');
+     $table->increments('id')->unsigned();
 
      # This generates two columns: `created_at` and `updated_at` to
      # keep track of changes to a row
@@ -25,8 +25,8 @@ class CreateCommentsTable07092017 extends Migration
 
      # The rest of the fields...
 
-     $table->string('comment_text');
-     $table->integer('goal_id')->unsigned();
+     $table->string('text');
+     $table->integer('task_id')->unsigned();
    });
      Schema::table('comments', function($table) {
       $table->foreign('task_id')->references('id')->on('tasks'); #fix this

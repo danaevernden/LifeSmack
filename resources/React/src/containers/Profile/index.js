@@ -20,7 +20,7 @@ const styles = {
   listItems: {
     marginTop: '40px',
     display: 'inline-block',
-    position: 'fixed',
+    position: 'relative',
 /*    marginLeft: '80px'*/
   },
   labelStyle: {

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 
-class CreateCategoriesTable extends Migration
+class CreateCategoriesTable3 extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
 
      # Increments method will make a Primary, Auto-Incrementing field.
      # Most tables start off this way
-     $table->increments('id');
+     $table->increments('id')->unsigned();
 
      # This generates two columns: `created_at` and `updated_at` to
      # keep track of changes to a row

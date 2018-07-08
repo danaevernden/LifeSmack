@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardMedia, CardActions, CardTitle} from 'material-ui/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
 
 type Props = {
   title: String,
@@ -144,10 +145,8 @@ class Layout extends React.Component{
           titleStyle={styles.titleStyleText}
           subtitleStyle={styles.subtitleStyle}
         />
-          <CardMedia
-            mediaStyle={styles.mediaStyle}
-          >
-          {imageID}
+          <CardMedia mediaStyle={styles.mediaStyle}>
+            {imageID}
           </CardMedia>
           <CardActions>
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarketplacegoalsTable3 extends Migration
+class CreateGoalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,20 @@ class CreateMarketplacegoalsTable3 extends Migration
      */
     public function up()
     {
-      Schema::create('marketplacegoals', function (Blueprint $table) {
+      Schema::create('goals', function (Blueprint $table) {
 
      $table->increments('id')->unsigned();
      $table->timestamps();
 
      # The rest of the fields...
-     $table->string('name');
-     $table->integer('specialist_id');
-     $table->integer('marketplacegoal_id');
      $table->string('goal_name');
-     $table->integer('rating')->nullable();
+     $table->date('goal_due_date')->nullable();
      $table->integer('category_id_1')->nullable();
-     $table->string('plan_description');
-     $table->boolean('favorite')->nullable();
+     $table->integer('category_id_2')->nullable();
+     $table->integer('category_id_3')->nullable();
+     $table->integer('user_id')->nullable();
    });
-  }
+    }
 
     /**
      * Reverse the migrations.
@@ -37,6 +35,6 @@ class CreateMarketplacegoalsTable3 extends Migration
      */
     public function down()
     {
-      Schema::drop('marketplacegoals');
+      Schema::drop('goals');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable1142017 extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateTasksTable1142017 extends Migration
 
      # Increments method will make a Primary, Auto-Incrementing field.
      # Most tables start off this way
-     $table->increments('id');
+     $table->increments('id')->unsigned();
 
      # This generates two columns: `created_at` and `updated_at` to
      # keep track of changes to a row
@@ -25,8 +25,9 @@ class CreateTasksTable1142017 extends Migration
 
      # The rest of the fields...
      $table->string('task_name');
+     $table->integer('task_id')->nullable();
      $table->integer('parent_id')->nullable();
-     $table->boolean('is_child');
+     $table->integer('is_child');
      $table->integer('category_id_1')->nullable();
      $table->integer('category_id_2')->nullable();
      $table->integer('category_id_3')->nullable();
@@ -34,9 +35,7 @@ class CreateTasksTable1142017 extends Migration
      $table->date('scheduled')->nullable();
      $table->integer('goal_id')->unsigned();
    });
-     Schema::table('tasks', function($table) {
-      $table->foreign('goal_id')->references('id')->on('goals');
-    });
+  
 
   }
     /**

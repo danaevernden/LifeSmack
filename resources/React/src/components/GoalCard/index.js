@@ -1,5 +1,4 @@
 import React from 'react';
-import DuplicateIcon from 'material-ui/svg-icons/content/content-copy';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
@@ -64,24 +63,21 @@ const styles={
   },
   dropdownWidth: {
     width: '250px',
-    textAlign: 'center',
-    marginTop: '20px'
-  },
-  dateTextStyle: {
-    width: '380px'
+    textAlign: 'center'
   },
   iconStyle: {
     position: 'relative',
-    marginBottom: '35px'
+    marginBottom: '-37px'
   },
-  completeStyle: {
-    marginBottom: '-30px',
+  checkboxStyle: {
+    marginBottom: '-20px',
     marginTop: '30px',
-    icon: {
-      marginLeft: '50px'
-    },
+    marginLeft: '7px',
+    position: 'relative',
+    display: 'inline-block',
+
     label: {
-      width: '225px'
+      width: '85px'
     }
   },
   dropdownPos: {
@@ -102,6 +98,11 @@ const styles={
     fontWeight: 'bold',
     textAlign: 'center'
   },
+  textFieldStyle: {
+    paddingLeft:'10px',
+    display: 'inline-block',
+    width: '230px'
+  }
 }
 
 class GoalCard extends React.Component {
@@ -111,16 +112,13 @@ class GoalCard extends React.Component {
       super(props)
       this.state= {
         open: this.props.open,
-        snackbar: true,
-        snackbar2: false,
+        snackbar: false,
         duplicateID: null,
         deleteID: null,
         taskID: this.props.taskID,
         complete: this.props.complete,
         dateSelected: this.props.taskScheduled,
-        valueDiff: this.props.categoryID1,
-        valueTime: this.props.categoryID2,
-        valueLoc: this.props.categoryID3,
+        valueTime: 0,
         valueGoalID: this.props.goalID,
         valueName: this.props.taskName,
         event: {
@@ -136,12 +134,9 @@ class GoalCard extends React.Component {
       this.onClose = this.onClose.bind(this);
       this.addGoal = this.addGoal.bind(this);
       this.completeTask = this.completeTask.bind(this);
-      this.Duplicate = this.Duplicate.bind(this);
       this.handleDeleteTask = this.handleDeleteTask.bind(this);
       this.dateSelect = this.dateSelect.bind(this);
-      this.handleChangeDiff = this.handleChangeDiff.bind(this);
       this.handeChangeTime = this.handleChangeTime.bind(this);
-      this.handleChangeLoc = this.handleChangeLoc.bind(this);
       this.handleChangeName = this.handleChangeName.bind(this);
       this.editTask = this.editTask.bind(this);
     }
@@ -151,13 +146,6 @@ class GoalCard extends React.Component {
         complete: !this.state.complete
       });
       console.log(this.state.complete);
-    }
-
-    Duplicate(task_id) {
-        if(null === task_id) {
-            this.setState({duplicateID: null})
-        }
-            this.setState({duplicateID: task_id})
     }
 
     handleDeleteTask(task_Id) {
@@ -172,8 +160,10 @@ class GoalCard extends React.Component {
         this.state.valueTime
       );
         this.setState({snackbar: true});
+        this.setState({open: false});
       console.log("test2");
       console.log(this.state.snackbar);
+      console.log(this.state.valueTime);
     }
 
     editTask() {
@@ -182,30 +172,13 @@ class GoalCard extends React.Component {
       this.props.editTask(
         this.state.taskID,
         this.state.valueName,
-        this.state.valueDiff,
         this.state.valueTime,
-        this.state.valueLoc,
         this.state.valueGoalID)
-    }
-
-    handleChangeDiff(event, index, value) {
-      this.setState({
-        valueDiff: value
-      })
-      this.props.editTask(
-        3,
-        this.state.valueDiff
-      )
     }
 
     handleChangeTime = (event, index, value) =>
       this.setState({
         valueTime: value
-      });
-
-    handleChangeLoc = (event, index, value) =>
-      this.setState({
-        valueLoc: value
       });
 
   handleChangeName = (event, title) =>
@@ -219,14 +192,12 @@ class GoalCard extends React.Component {
       });
     };
 
-
     closeSnackbar() {
       this.props.closeSnackbar();
       this.setState({
         snackbar: false,
       });
     };
-
 
     openSnackbar() {
       this.openSnackbar2();
@@ -287,6 +258,7 @@ class GoalCard extends React.Component {
         style={styles.dropdownPos}
         hintText="Time Required"
       >
+
         <MenuItem value={0} primaryText="." />
         <MenuItem value={6} primaryText="Less than 6 months" />
         <MenuItem value={7} primaryText="Less than a year" />
@@ -313,7 +285,6 @@ class GoalCard extends React.Component {
                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                targetOrigin={{horizontal: 'left', vertical: 'top'}}
              >
-             <MenuItem primaryText="Duplicate" leftIcon={<DuplicateIcon />} onClick={() => this.duplicate()}/>
              <MenuItem primaryText="Delete" leftIcon={<DeleteIcon />} onClick={() => this.handleDeleteTask(taskID)}/>
            </IconMenu>
          </div>
@@ -361,7 +332,7 @@ class GoalCard extends React.Component {
       <Snackbar
         open={this.state.snackbar}
         autoHideDuration={400000}
-        message="Task added!"
+        message="Goal added!"
         onRequestClose={this.closeSnackbar}
       />
       ;

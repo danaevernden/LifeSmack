@@ -157,12 +157,5 @@ class MarkettasksTableSeeder extends Seeder
           'category_id_1'=>12
              ]);
 
-         DB::table('markettasks')->insert([
-         'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-         'marketplacegoal_id'=> 16,
-         'task_name'=>'task 1 for goal 16',
-         'category_id_1'=>12
-             ]);
     }
 }

@@ -11,6 +11,7 @@ class ReviewsTableSeeder extends Seeder
      */
     public function run()
     {
+
       DB::table('reviews')->insert([
      'created_at' => Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
@@ -171,26 +172,6 @@ class ReviewsTableSeeder extends Seeder
                    'helpful'=>3,
                    'rating'=>3
                  ]);
-
-                     DB::table('reviews')->insert([
-                    'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-                    'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-                    'marketplacegoal_id' => 16,
-                    'name' => 'Stacey Gray',
-                    'review' => 'Review 1 for goal 16',
-                    'helpful'=>3,
-                    'rating'=>3
-                  ]);
-
-                      DB::table('reviews')->insert([
-                     'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-                     'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
-                     'marketplacegoal_id' => 17,
-                     'name' => 'Stacey Gray',
-                     'review' => 'Review 1 for goal 17',
-                     'helpful'=>3,
-                     'rating'=>3
-                   ]);
 
   }
 }

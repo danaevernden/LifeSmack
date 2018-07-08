@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class ConnectCharitiesAndWishes extends Migration
+class ConnectMarketplaceAndMarkettasks extends Migration
 {
    public function up()
     {
@@ -17,7 +17,7 @@ class ConnectCharitiesAndWishes extends Migration
 #        Schema::table('wishes', function (Blueprint $table) {
             # ref: http://laravel.com/docs/5.1/migrations#dropping-indexes
             # combine tablename + fk field name + the word "foreign"
-            $table->dropForeign('reviews_marketplace_id_foreign');
+            $table->dropForeign('markettasks_marketplace_id_foreign');
             $table->dropColumn('marketplace_id');
 #        });
     }

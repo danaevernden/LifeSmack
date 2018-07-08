@@ -24,7 +24,7 @@ import Signup from './containers/Signup';
 import Calendar from './containers/Calendar';
 import Login from './containers/Login';
 import MarketCat from './containers/Marketplace/MarketCat';
-
+import Logout from './containers/Logout';
 import Tour from './containers/Tour';
 
 /*    <Route components={AppContainer}> */
@@ -75,15 +75,15 @@ const marketItemData2 = [
 ];
 
 const marketCatsData = [
-  {id: 1, property: {MarketCat}, link: '/marketplace/social'},
-  {id: 2, property: {MarketCat}, link: '/marketplace/sports'},
-  {id: 3, property: {MarketCat}, link: '/marketplace/recreation'},
-  {id: 4, property: {MarketCat}, link: '/marketplace/arts'},
-  {id: 5, property: {MarketCat}, link: '/marketplace/travel'},
-  {id: 6, property: {MarketCat}, link: '/marketplace/food'},
+  {id: 1, property: {MarketCat}, marketCat: 'Social Goals', link: '/marketplace/social'},
+  {id: 2, property: {MarketCat}, marketCat: 'Sports Goals', link: '/marketplace/sports'},
+  {id: 3, property: {MarketCat}, marketCat: 'Recreation Goals', link: '/marketplace/recreation'},
+  {id: 4, property: {MarketCat}, marketCat: 'Arts Goals', link: '/marketplace/arts'},
+  {id: 5, property: {MarketCat}, marketCat: 'Travel Goals', link: '/marketplace/travel'},
+  {id: 6, property: {MarketCat}, marketCat: 'Food Goals', link: '/marketplace/food'},
 ];
 const marketCatPages =
-marketCatsData.map(page => <Route key={page.id} path={page.link} component={{main : MarketCat}} marketplacegoal_id={page.id} marketItem={page.id}/>);
+marketCatsData.map(page => <Route key={page.id} marketCat={page.marketCat} path={page.link} component={{main : MarketCat}} marketplacegoal_id={page.id} marketItem={page.id}/>);
 
 const marketitemPages2 =
 marketItemData2.map(page => <Route key={page.id} path={'/marketplace/' + page.id} component={{main : MarketItem}} marketItem={page.id}/>);
@@ -94,7 +94,7 @@ ReactDOM.render((
     <Router history={browserHistory}>
       <Route path='/login' component={Login} />
       <Route path='/signup' component={Signup}/>
-
+      <Route path='/logout' component={Logout}/>
       <Route path='/landing' component={Landing} />
         <Route components={AppContainer}>
           <Route path='/app' components={{main : AppContainer}} />

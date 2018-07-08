@@ -12,9 +12,6 @@ class ProfileController extends Controller
   public function getIndex() {
     return array(
       array("first_name"=> "Jane",
-            "last_name"=> "Doe",
-            "city"=>"New York",
-            "region"=> "New York",
-            "country"=> "USA")
+            "email"=> "jane@harvard.edu")
           );}
 }

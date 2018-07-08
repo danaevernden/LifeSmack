@@ -10,6 +10,7 @@ import MarketTypes from '../MarketTypes';
 import MarketplaceLayout from '../../../components/MarketplaceLayout';
 
 
+
 type Props = {
   fetchMarketplacegoalsFromActions: () => void,
   marketplacegoals: Marketplacegoal[],

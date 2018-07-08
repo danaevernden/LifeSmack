@@ -65,8 +65,8 @@ export function editTask(taskId, task_name, catid1, catid2, catid3, goal_id, com
 }
 
 
-export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id) {
-  console.log("calling add", taskname, catid1, catid2, catid3, goal_id, parent_id, is_child)
+export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id, dateSelected) {
+  console.log("calling add", taskname, catid1, catid2, catid3, goal_id, parent_id, is_child, dateSelected)
   return {
     [CALL_API]: {
       endpoint: `/api/task/post`,
@@ -79,7 +79,8 @@ export function addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_chil
         category_id_3: catid3,
         goal_id: goal_id,
         is_child: is_child,
-        parent_id: parent_id
+        parent_id: parent_id,
+        dateSelected: dateSelected
       })
     },
   };

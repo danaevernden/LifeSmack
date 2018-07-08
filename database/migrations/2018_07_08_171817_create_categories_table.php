@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable3 extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReviewsTable3 extends Migration
      */
     public function up()
     {
-      Schema::create('reviews', function (Blueprint $table) {
+      Schema::create('categories', function (Blueprint $table) {
 
      # Increments method will make a Primary, Auto-Incrementing field.
      # Most tables start off this way
@@ -24,16 +24,12 @@ class CreateReviewsTable3 extends Migration
      $table->timestamps();
 
      # The rest of the fields...
-     $table->string('name');
-     $table->string('review');
-     $table->integer('helpful');
-     $table->integer('rating');
-     $table->integer('marketplacegoal_id')->unsigned();
 
-
-   });
-
+     $table->integer('parent_cat')->nullable();
+     $table->string('text');
+      });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -41,12 +37,7 @@ class CreateReviewsTable3 extends Migration
      */
     public function down()
     {
-      Schema::table('reviews', function (Blueprint $table) {
-          # ref: http://laravel.com/docs/5.1/migrations#dropping-indexes
-          # combine tablename + fk field name + the word "foreign"
-          $table->dropForeign('reviews_marketplace_id_foreign');
-          $table->dropColumn('marketplace_id');
-          });
-        Schema::drop('reviews');
+      Schema::drop('categories');
+
     }
 }

@@ -90,8 +90,5 @@ DB::table('categories')->insert([
          'text'=>'getting gigs'
             ]);
 
-
-
-
     }
 }

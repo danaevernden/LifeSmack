@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarketplacegoalsTable3 extends Migration
+class CreateMarketplacegoalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,7 +28,7 @@ class CreateMarketplacegoalsTable3 extends Migration
      $table->string('plan_description');
      $table->boolean('favorite')->nullable();
    });
-  }
+    }
 
     /**
      * Reverse the migrations.
@@ -38,5 +38,6 @@ class CreateMarketplacegoalsTable3 extends Migration
     public function down()
     {
       Schema::drop('marketplacegoals');
+
     }
 }

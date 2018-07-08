@@ -25,16 +25,12 @@ class UsersTableSeeder extends Seeder
 
          ]);
 */
-       $user = \App\User::firstOrCreate(['email' => 'jrivers@harvard.edu']);
+       $user = \App\User::firstOrCreate(['email' => 'jane@harvard.edu']);
        $user->created_at = Carbon\Carbon::now()->toDateTimeString();
        $user->updated_at = Carbon\Carbon::now()->toDateTimeString();
        $user->id = '1';
-       $user->first_name = 'Jamal';
-       $user->last_name = 'Smith';
-       $user->city = 'New York';
-       $user->state = 'NY';
-       $user->country = 'USA';
-       $user->email = 'jamal@harvard.edu';
+       $user->email = 'jane@harvard.edu';
+       $user->first_name = 'Jane Doe';
        $user->password = \Hash::make('helloworld');
        $user->save();
 

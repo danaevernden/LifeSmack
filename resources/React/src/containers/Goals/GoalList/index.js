@@ -178,7 +178,7 @@ addGoal={this.addGoal}
         <Layout
           key={user.id}
           title={user.first_name}
-          subtitle={user.city+','+user.state}
+          subtitle={user.email}
           leftContent={"dashboard"}
           tabOne={"Goals"}
           tabTwo={"All Tasks"}

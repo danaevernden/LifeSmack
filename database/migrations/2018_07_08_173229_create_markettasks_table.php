@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarketTasksTable07092017 extends Migration
+class CreateMarketTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,22 +15,20 @@ class CreateMarketTasksTable07092017 extends Migration
     {
       Schema::create('markettasks', function (Blueprint $table) {
 
-     $table->increments('id');
+     $table->increments('id')->unsigned();
      $table->timestamps();
 
      # The rest of the fields...
      $table->string('task_name');
-     $table->integer('parent_task');
-     $table->integer('complete');
-     $table->date('scheduled');
-     $table->integer('marketplace_id')->unsigned();
+     $table->integer('category_id_1');
+     $table->integer('marketplacegoal_id')->unsigned();
 
 #connect this to marketplace table and remove it
 
    });
 
    Schema::table('markettasks', function($table) {
-    $table->foreign('marketplace_id')->references('id')->on('marketplace');
+    $table->foreign('marketplacegoal_id')->references('id')->on('marketplacegoals');
   });
  }
 

@@ -48,7 +48,8 @@ const styles = {
     marginLeft: '150px'
   },
   noTasks: {
-    marginLeft: '50px'
+    marginLeft: '50px',
+    marginTop: '30px'
   },
   backButtonStyle: {
     marginRight: '100px',
@@ -136,8 +137,8 @@ class TaskList extends React.Component{
      return this.props.handleDeleteTask(task_Id)
   }
 
-  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id, parentTasky) {
-    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, this.state.parentTask)
+  addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, parent_id, parentTask, dateSelected) {
+    this.props.addTaskToGoal(taskname, catid1, catid2, catid3, goal_id, is_child, this.state.parentTask, dateSelected)
   }
 
 
@@ -200,22 +201,32 @@ class TaskList extends React.Component{
     } = this.props;
 
 
-    const listItemsFromComponent2 = tasks.filter((item) => {
-            return item.parent_id === null && item.is_child === 0 && item.goal_id === this.state.goalID;
-    }).map((task) =>
-      <div>
-          <Card
-          onClick={() => this.openTaskChildren(task.task_id)}
-          style={styles.taskCardStyle}>
-              <CardText>
-                  <img role="presentation" src={incomTask} style={{paddingRight:'20px'}} />
-                  <div style={styles.taskLabelStyle}>
-                      {task.task_name}
-                  </div>
-              </CardText>
-          </Card>
-      </div>
-      );
+    const listItemsFromComponent2 =
+    <div>{
+      tasks.filter((item) => {
+          return item.parent_id === null && item.is_child === 0 && item.goal_id === this.state.goalID;
+    }).length > 0 ?
+      tasks.filter((item) => {
+          return item.parent_id === null && item.is_child === 0 && item.goal_id === this.state.goalID;
+        }).map((task) =>
+        <div>
+            <Card
+            onClick={() => this.openTaskChildren(task.task_id)}
+            style={styles.taskCardStyle}>
+                <CardText>
+                    <img role="presentation" src={incomTask} style={{paddingRight:'20px'}} />
+                    <div style={styles.taskLabelStyle}>
+                        {task.task_name}
+                    </div>
+                </CardText>
+            </Card>
+        </div>
+        )
+    :
+        <div style={styles.noTasks}>
+          No tasks for this goal yet - click the + sign below to add your first task!
+        </div>
+    }</div>;
 
       const allTasks = tasks.filter((item) => {
             return item.is_child ===1  && item.goal_id === this.state.goalID;
@@ -288,7 +299,7 @@ class TaskList extends React.Component{
 
       const nosubtasks =
       <div style={styles.noTasks}>
-        no subtasks for this parent task :(
+        No subtasks for this parent task :(
       </div>;
 
       const tasksFlip =
